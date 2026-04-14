@@ -1,0 +1,86 @@
+services:
+  cassandra-seed:
+    image: cassandra:4.1
+    container_name: cassandra-seed
+    hostname: cassandra-seed
+    environment:
+      CASSANDRA_CLUSTER_NAME: DemoCluster
+      CASSANDRA_SEEDS: cassandra-seed
+      CASSANDRA_DC: DC1
+      CASSANDRA_RACK: RACK1
+      CASSANDRA_ENDPOINT_SNITCH: GossipingPropertyFileSnitch
+      MAX_HEAP_SIZE: 512M
+      HEAP_NEWSIZE: 128M
+    ports:
+      - "9042:9042"
+    volumes:
+      - cassandra-seed-data:/var/lib/cassandra
+    networks:
+      - cassandra-net
+
+  cassandra-node2:
+    image: cassandra:4.1
+    container_name: cassandra-node2
+    hostname: cassandra-node2
+    depends_on:
+      - cassandra-seed
+    environment:
+      CASSANDRA_CLUSTER_NAME: DemoCluster
+      CASSANDRA_SEEDS: cassandra-seed
+      CASSANDRA_DC: DC1
+      CASSANDRA_RACK: RACK1
+      CASSANDRA_ENDPOINT_SNITCH: GossipingPropertyFileSnitch
+      MAX_HEAP_SIZE: 512M
+      HEAP_NEWSIZE: 128M
+    volumes:
+      - cassandra-node2-data:/var/lib/cassandra
+    networks:
+      - cassandra-net
+
+  cassandra-node3:
+    image: cassandra:4.1
+    container_name: cassandra-node3
+    hostname: cassandra-node3
+    depends_on:
+      - cassandra-seed
+    environment:
+      CASSANDRA_CLUSTER_NAME: DemoCluster
+      CASSANDRA_SEEDS: cassandra-seed
+      CASSANDRA_DC: DC1
+      CASSANDRA_RACK: RACK1
+      CASSANDRA_ENDPOINT_SNITCH: GossipingPropertyFileSnitch
+      MAX_HEAP_SIZE: 512M
+      HEAP_NEWSIZE: 128M
+    volumes:
+      - cassandra-node3-data:/var/lib/cassandra
+    networks:
+      - cassandra-net
+
+  simulator:
+    build:
+      context: ../simulator
+    container_name: cassandra-simulator
+    depends_on:
+      - cassandra-seed
+      - cassandra-node2
+      - cassandra-node3
+    environment:
+      CONTACT_POINTS: cassandra-seed,cassandra-node2,cassandra-node3
+      CASSANDRA_PORT: 9042
+      KEYSPACE: loadtest
+      TABLE_NAME: events
+      DURATION_SEC: 3600
+      CONSISTENCY: LOCAL_QUORUM
+    ports:
+      - "8080:8080"
+    networks:
+      - cassandra-net
+
+volumes:
+  cassandra-seed-data:
+  cassandra-node2-data:
+  cassandra-node3-data:
+
+networks:
+  cassandra-net:
+    driver: bridge

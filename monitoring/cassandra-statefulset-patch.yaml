@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: cassandra
+  namespace: cassandra-lab
+spec:
+  template:
+    spec:
+      initContainers:
+        - name: download-jmx-exporter
+          image: curlimages/curl:8.7.1
+          command:
+            - sh
+            - -c
+            - >
+              curl -L -o /jmx/jmx_prometheus_javaagent.jar
+              https://repo1.maven.org/maven2/io/prometheus/jmx/jmx_prometheus_javaagent/1.1.0/jmx_prometheus_javaagent-1.1.0.jar
+          volumeMounts:
+            - name: jmx-exporter-jar
+              mountPath: /jmx
+      containers:
+        - name: cassandra
+          env:
+            - name: JVM_OPTS
+              value: >-
+                -javaagent:/opt/jmx-exporter/jmx_prometheus_javaagent.jar=9404:/etc/jmx-exporter/config.yaml
+          ports:
+            - containerPort: 9404
+              name: jmx-metrics
+          volumeMounts:
+            - name: jmx-exporter-config
+              mountPath: /etc/jmx-exporter
+              readOnly: true
+            - name: jmx-exporter-jar
+              mountPath: /opt/jmx-exporter
+      volumes:
+        - name: jmx-exporter-config
+          configMap:
+            name: cassandra-jmx-exporter-config
+        - name: jmx-exporter-jar
+          emptyDir: {}

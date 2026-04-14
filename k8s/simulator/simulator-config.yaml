@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: simulator-config
+  namespace: cassandra-lab
+data:
+  CONTACT_POINTS: "cassandra-0.cassandra.cassandra-lab.svc.cluster.local,cassandra-1.cassandra.cassandra-lab.svc.cluster.local,cassandra-2.cassandra.cassandra-lab.svc.cluster.local"
+  CASSANDRA_PORT: "9042"
+  KEYSPACE: "loadtest"
+  TABLE_NAME: "events"
+  DURATION_SEC: "3600"
+  CONSISTENCY: "LOCAL_QUORUM"

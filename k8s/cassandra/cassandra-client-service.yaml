@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: cassandra-client
+  namespace: cassandra-lab
+  labels:
+    app: cassandra
+spec:
+  type: ClusterIP
+  selector:
+    app: cassandra
+  ports:
+    - name: cql
+      port: 9042
+      targetPort: 9042

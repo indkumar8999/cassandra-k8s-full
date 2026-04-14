@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cassandra-config
+  namespace: cassandra-lab
+data:
+  CASSANDRA_CLUSTER_NAME: "DemoCluster"
+  CASSANDRA_DC: "DC1"
+  CASSANDRA_RACK: "RACK1"
+  CASSANDRA_ENDPOINT_SNITCH: "GossipingPropertyFileSnitch"
+  MAX_HEAP_SIZE: "512M"
+  HEAP_NEWSIZE: "128M"

@@ -1,0 +1,115 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: cassandra
+  namespace: cassandra-lab
+spec:
+  serviceName: cassandra
+  replicas: 3
+  selector:
+    matchLabels:
+      app: cassandra
+  template:
+    metadata:
+      labels:
+        app: cassandra
+    spec:
+      terminationGracePeriodSeconds: 180
+      containers:
+        - name: cassandra
+          image: cassandra:4.1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 7000
+              name: intra-node
+            - containerPort: 7001
+              name: tls-intra-node
+            - containerPort: 7199
+              name: jmx
+            - containerPort: 9042
+              name: cql
+          env:
+            - name: CASSANDRA_CLUSTER_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: cassandra-config
+                  key: CASSANDRA_CLUSTER_NAME
+            - name: CASSANDRA_DC
+              valueFrom:
+                configMapKeyRef:
+                  name: cassandra-config
+                  key: CASSANDRA_DC
+            - name: CASSANDRA_RACK
+              valueFrom:
+                configMapKeyRef:
+                  name: cassandra-config
+                  key: CASSANDRA_RACK
+            - name: CASSANDRA_ENDPOINT_SNITCH
+              valueFrom:
+                configMapKeyRef:
+                  name: cassandra-config
+                  key: CASSANDRA_ENDPOINT_SNITCH
+            - name: MAX_HEAP_SIZE
+              valueFrom:
+                configMapKeyRef:
+                  name: cassandra-config
+                  key: MAX_HEAP_SIZE
+            - name: HEAP_NEWSIZE
+              valueFrom:
+                configMapKeyRef:
+                  name: cassandra-config
+                  key: HEAP_NEWSIZE
+            - name: CASSANDRA_SEEDS
+              value: "cassandra-0.cassandra.cassandra-lab.svc.cluster.local"
+            - name: CASSANDRA_LISTEN_ADDRESS
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: CASSANDRA_BROADCAST_ADDRESS
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: CASSANDRA_RPC_ADDRESS
+              value: "0.0.0.0"
+            - name: CASSANDRA_BROADCAST_RPC_ADDRESS
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+          readinessProbe:
+            exec:
+              command:
+                - /bin/sh
+                - -c
+                - "cqlsh 127.0.0.1 9042 -e 'DESCRIBE KEYSPACES'"
+            initialDelaySeconds: 60
+            periodSeconds: 20
+            timeoutSeconds: 10
+            failureThreshold: 10
+          livenessProbe:
+            exec:
+              command:
+                - /bin/sh
+                - -c
+                - "nodetool status | grep UN"
+            initialDelaySeconds: 120
+            periodSeconds: 30
+            timeoutSeconds: 10
+            failureThreshold: 10
+          volumeMounts:
+            - name: cassandra-data
+              mountPath: /var/lib/cassandra
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "1Gi"
+            limits:
+              cpu: "1"
+              memory: "2Gi"
+  volumeClaimTemplates:
+    - metadata:
+        name: cassandra-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 10Gi

@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cassandra-simulator
+  namespace: cassandra-lab
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cassandra-simulator
+  template:
+    metadata:
+      labels:
+        app: cassandra-simulator
+    spec:
+      containers:
+        - name: simulator
+          image: cassandra-simulator:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+              name: http
+          env:
+            - name: CONTACT_POINTS
+              valueFrom:
+                configMapKeyRef:
+                  name: simulator-config
+                  key: CONTACT_POINTS
+            - name: CASSANDRA_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: simulator-config
+                  key: CASSANDRA_PORT
+            - name: KEYSPACE
+              valueFrom:
+                configMapKeyRef:
+                  name: simulator-config
+                  key: KEYSPACE
+            - name: TABLE_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: simulator-config
+                  key: TABLE_NAME
+            - name: DURATION_SEC
+              valueFrom:
+                configMapKeyRef:
+                  name: simulator-config
+                  key: DURATION_SEC
+            - name: CONSISTENCY
+              valueFrom:
+                configMapKeyRef:
+                  name: simulator-config
+                  key: CONSISTENCY
