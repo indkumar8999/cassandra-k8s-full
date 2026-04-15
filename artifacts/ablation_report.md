@@ -11,7 +11,10 @@
 - Median training sec: `0.099`
 - Median score latency ms: `5.173`
 - Median BMU coverage: `12.5`
+- Median chaos scored samples: `5.5`
 - Runs with TP / FP: `0` / `1`
+- Runs passing quality gate: `0`
+- Runs passing acceptance: `0`
 - Run IDs: `scenario-1776206425, scenario-ubl-a-1776208744, scenario-ubl-b-1776209929, scenario-ubl-c-1776210608`
 
 ## Group 2
@@ -22,7 +25,10 @@
 - Median training sec: `0.071`
 - Median score latency ms: `3.066`
 - Median BMU coverage: `1.0`
+- Median chaos scored samples: `45.0`
 - Runs with TP / FP: `0` / `0`
+- Runs passing quality gate: `0`
+- Runs passing acceptance: `0`
 - Run IDs: `scenario-1776202265`
 
 ## Group 3
@@ -33,5 +39,8 @@
 - Median training sec: `0.07`
 - Median score latency ms: `2.419`
 - Median BMU coverage: `12.0`
+- Median chaos scored samples: `118.0`
 - Runs with TP / FP: `0` / `1`
+- Runs passing quality gate: `1`
+- Runs passing acceptance: `0`
 - Run IDs: `scenario-long-cpuhog-1776203008`

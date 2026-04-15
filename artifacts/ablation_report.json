@@ -24,11 +24,14 @@
         "first_detection_delay_sec": null,
         "training_duration_sec": 0.099,
         "avg_score_latency_ms": 5.173,
-        "bmu_coverage_count": 12.5
+        "bmu_coverage_count": 12.5,
+        "chaos_scored_samples": 5.5
       },
       "run_level_outcomes": {
         "runs_with_tp": 0,
-        "runs_with_fp": 1
+        "runs_with_fp": 1,
+        "runs_passing_quality_gate": 0,
+        "runs_passing_acceptance": 0
       }
     },
     {
@@ -50,11 +53,14 @@
         "first_detection_delay_sec": null,
         "training_duration_sec": 0.071,
         "avg_score_latency_ms": 3.066,
-        "bmu_coverage_count": 1.0
+        "bmu_coverage_count": 1.0,
+        "chaos_scored_samples": 45.0
       },
       "run_level_outcomes": {
         "runs_with_tp": 0,
-        "runs_with_fp": 0
+        "runs_with_fp": 0,
+        "runs_passing_quality_gate": 0,
+        "runs_passing_acceptance": 0
       }
     },
     {
@@ -76,11 +82,14 @@
         "first_detection_delay_sec": null,
         "training_duration_sec": 0.07,
         "avg_score_latency_ms": 2.419,
-        "bmu_coverage_count": 12.0
+        "bmu_coverage_count": 12.0,
+        "chaos_scored_samples": 118.0
       },
       "run_level_outcomes": {
         "runs_with_tp": 0,
-        "runs_with_fp": 1
+        "runs_with_fp": 1,
+        "runs_passing_quality_gate": 1,
+        "runs_passing_acceptance": 0
       }
     }
   ]

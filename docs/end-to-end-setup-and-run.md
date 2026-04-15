@@ -269,6 +269,95 @@ make push-images DOCKERHUB_USER=aumpandya IMAGE_TAG=v0.2.0
 
 Use the `while true` loops shown above so they auto-recover.
 
+### Port-forward loop looks "stuck" with no logs
+
+This is often normal: `kubectl port-forward` stays in foreground and can be quiet until traffic arrives.
+
+Verify endpoint from another terminal:
+
+```bash
+curl -sS http://localhost:8080/health
+curl -sS http://localhost:8100/health
+curl -sS http://localhost:8200/health
+```
+
+If one service fails while others pass, inspect service endpoints:
+
+```bash
+kubectl -n cassandra-lab get svc
+kubectl -n cassandra-lab get endpoints
+kubectl -n cassandra-lab get pods -o wide
+```
+
+### Preflight says fewer than 3 Ready workers
+
+A worker may have dropped to `NotReady` (common after VM hiccups). Recover worker VM first:
+
+```bash
+multipass list
+multipass stop --force w1
+multipass start w1
+kubectl wait --for=condition=Ready node/w1 --timeout=180s
+kubectl get nodes -o wide
+```
+
+Then rerun:
+
+```bash
+make demo-preflight
+```
+
+### `ModuleNotFoundError: No module named 'requests'` in orchestrator
+
+The local Python venv is missing dependencies for local run scripts.
+
+```bash
+python3 -m pip install -r orchestrator/requirements.txt
+```
+
+Minimum quick fix:
+
+```bash
+python3 -m pip install requests
+```
+
+### `error: externally-managed-environment` when using `pip` (macOS/Homebrew Python)
+
+You are using system Python. Install dependencies in the project virtualenv instead:
+
+```bash
+cd /Users/aumpandya/Documents/Projects/ads_project/cassandra
+python3 -m venv .venv
+source .venv/bin/activate
+python3 -m pip install --upgrade pip
+python3 -m pip install -r orchestrator/requirements.txt
+```
+
+Do not install with system pip unless you intentionally use `--break-system-packages`.
+
+### `No such file or directory` for `orchestrator/requirements.txt` or `./scripts/run_ubl_tuning_batch.sh`
+
+This is usually a current-directory issue.
+
+From repo root, paths are:
+
+```bash
+python3 -m pip install -r cassandra/orchestrator/requirements.txt
+bash cassandra/scripts/run_ubl_tuning_batch.sh
+```
+
+From `cassandra/`, paths are:
+
+```bash
+python3 -m pip install -r orchestrator/requirements.txt
+bash ./scripts/run_ubl_tuning_batch.sh
+```
+
+### Command accidentally concatenated in shell
+
+If a command like `...restart k3s-agentexport KUBECONFIG=...` appears, shell parsed two commands as one line.
+Always run one command per line.
+
 ## 10) Recommended shell persistence
 
 To avoid stale context in new terminals, add to `~/.zshrc`:
