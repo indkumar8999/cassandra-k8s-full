@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chaos-injector
+  namespace: cassandra-lab
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: chaos-injector
+  template:
+    metadata:
+      labels:
+        app: chaos-injector
+    spec:
+      serviceAccountName: chaos-injector
+      containers:
+        - name: chaos-injector
+          image: docker.io/aumpandya/cassandra-chaos-injector:v0.1.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8200
+              name: http
+          env:
+            - name: TARGET_NAMESPACE
+              value: cassandra-lab
+            - name: CASSANDRA_LABEL_SELECTOR
+              value: app=cassandra
+            - name: SIMULATOR_LABEL_SELECTOR
+              value: app=cassandra-simulator
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"

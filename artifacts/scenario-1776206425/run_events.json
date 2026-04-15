@@ -1,0 +1,187 @@
+{
+  "events": [
+    {
+      "ts": 1776206425.240156,
+      "ts_iso": "2026-04-14T22:40:25Z",
+      "event": "run_start",
+      "payload": {
+        "run_id": "scenario-1776206425",
+        "profile": "high",
+        "fault_profile": "bottleneck-like"
+      }
+    },
+    {
+      "ts": 1776206425.258995,
+      "ts_iso": "2026-04-14T22:40:25Z",
+      "event": "health_check",
+      "payload": {
+        "simulator": {
+          "profile": "medium",
+          "running": true,
+          "status": "up"
+        },
+        "learner": {
+          "status": "up"
+        },
+        "chaos": {
+          "active_fault_count": 0,
+          "status": "up"
+        }
+      }
+    },
+    {
+      "ts": 1776206425.285255,
+      "ts_iso": "2026-04-14T22:40:25Z",
+      "event": "bootstrap_wait_start",
+      "payload": {
+        "timeout_sec": 900
+      }
+    },
+    {
+      "ts": 1776206675.8245351,
+      "ts_iso": "2026-04-14T22:44:35Z",
+      "event": "learner_ready",
+      "payload": {
+        "bootstrap_collected_samples": 120,
+        "bootstrap_target_samples": 120,
+        "bootstrap_valid_samples": 120,
+        "last_error": null,
+        "phase": "normal",
+        "ready": true,
+        "threshold": 112.72406973387568,
+        "threshold_percentile": 85.0,
+        "trained": true,
+        "training_duration_sec": 0.101
+      }
+    },
+    {
+      "ts": 1776206675.824609,
+      "ts_iso": "2026-04-14T22:44:35Z",
+      "event": "bootstrap_wait_end",
+      "payload": {}
+    },
+    {
+      "ts": 1776206675.824645,
+      "ts_iso": "2026-04-14T22:44:35Z",
+      "event": "phase_start",
+      "payload": {
+        "phase": "normal",
+        "duration_sec": 60
+      }
+    },
+    {
+      "ts": 1776206735.825098,
+      "ts_iso": "2026-04-14T22:45:35Z",
+      "event": "phase_end",
+      "payload": {
+        "phase": "normal"
+      }
+    },
+    {
+      "ts": 1776206735.83683,
+      "ts_iso": "2026-04-14T22:45:35Z",
+      "event": "phase_start",
+      "payload": {
+        "phase": "load",
+        "duration_sec": 60
+      }
+    },
+    {
+      "ts": 1776206795.839979,
+      "ts_iso": "2026-04-14T22:46:35Z",
+      "event": "phase_end",
+      "payload": {
+        "phase": "load"
+      }
+    },
+    {
+      "ts": 1776206795.870132,
+      "ts_iso": "2026-04-14T22:46:35Z",
+      "event": "fault_start",
+      "payload": {
+        "fault": {
+          "command_start_ts": 1776206795.879668,
+          "command_stop_ts": null,
+          "extra": null,
+          "params": {
+            "new_replicas": 2,
+            "original_replicas": 3
+          },
+          "profile": "bottleneck-like",
+          "started_at": 1776206795.8796675,
+          "status": "running",
+          "target": "statefulset/cassandra",
+          "verified_start_ts": 1776206795.8796682,
+          "verified_stop_ts": null
+        },
+        "message": "fault started"
+      }
+    },
+    {
+      "ts": 1776206795.870181,
+      "ts_iso": "2026-04-14T22:46:35Z",
+      "event": "phase_start",
+      "payload": {
+        "phase": "chaos",
+        "duration_sec": 240
+      }
+    },
+    {
+      "ts": 1776207035.874673,
+      "ts_iso": "2026-04-14T22:50:35Z",
+      "event": "phase_end",
+      "payload": {
+        "phase": "chaos"
+      }
+    },
+    {
+      "ts": 1776207035.888314,
+      "ts_iso": "2026-04-14T22:50:35Z",
+      "event": "fault_stop",
+      "payload": {
+        "fault": {
+          "command_start_ts": 1776206795.879668,
+          "command_stop_ts": 1776207035.9575615,
+          "extra": null,
+          "params": {
+            "new_replicas": 2,
+            "original_replicas": 3
+          },
+          "profile": "bottleneck-like",
+          "started_at": 1776206795.8796675,
+          "status": "stopped",
+          "target": "statefulset/cassandra",
+          "verified_start_ts": 1776206795.8796682,
+          "verified_stop_ts": 1776207035.9575624
+        },
+        "message": "fault stopped"
+      }
+    },
+    {
+      "ts": 1776207035.905254,
+      "ts_iso": "2026-04-14T22:50:35Z",
+      "event": "phase_start",
+      "payload": {
+        "phase": "cooldown",
+        "duration_sec": 90
+      }
+    },
+    {
+      "ts": 1776207125.906901,
+      "ts_iso": "2026-04-14T22:52:05Z",
+      "event": "phase_end",
+      "payload": {
+        "phase": "cooldown"
+      }
+    },
+    {
+      "ts": 1776207126.040134,
+      "ts_iso": "2026-04-14T22:52:06Z",
+      "event": "run_complete",
+      "payload": {
+        "run_dir": "artifacts/scenario-1776206425",
+        "alarm_count": 20
+      }
+    }
+  ]
+}

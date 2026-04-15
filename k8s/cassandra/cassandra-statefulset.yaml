@@ -15,6 +15,26 @@ spec:
         app: cassandra
     spec:
       terminationGracePeriodSeconds: 180
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchLabels:
+                  app: cassandra
+              topologyKey: kubernetes.io/hostname
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: DoNotSchedule
+          labelSelector:
+            matchLabels:
+              app: cassandra
+        - maxSkew: 1
+          topologyKey: topology.kubernetes.io/zone
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels:
+              app: cassandra
       containers:
         - name: cassandra
           image: cassandra:4.1
@@ -90,7 +110,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - "nodetool status | grep UN"
+                - "env -u JVM_OPTS nodetool status | grep UN"
             initialDelaySeconds: 120
             periodSeconds: 30
             timeoutSeconds: 10

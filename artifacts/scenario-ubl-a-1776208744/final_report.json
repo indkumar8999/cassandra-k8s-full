@@ -1,0 +1,37 @@
+{
+  "run_id": "scenario-ubl-a-1776208744",
+  "fault_profile": "bottleneck-like",
+  "load_profile": "high",
+  "duration_sec": 1183.73,
+  "injection_profile": {
+    "fault_profile": "bottleneck-like",
+    "target_namespace": "cassandra-lab",
+    "cpu_workers": 2,
+    "mem_mb": 1024,
+    "bottleneck_replicas": 2
+  },
+  "chaos_window": {
+    "start_ts": 1776209598.438292,
+    "stop_ts": 1776209898.457354
+  },
+  "classification": {
+    "tp": 0,
+    "fp": 0,
+    "fn_proxy": 1,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0
+  },
+  "lead_time": {
+    "first_detection_delay_sec": null,
+    "mean_detection_delay_sec": null,
+    "median_detection_delay_sec": null
+  },
+  "som_metrics": {
+    "training_duration_sec": 0.101,
+    "bootstrap_collected_samples": 120,
+    "avg_score_latency_ms": 5.341,
+    "bmu_coverage_count": 8
+  },
+  "cause_ranking_top10": []
+}

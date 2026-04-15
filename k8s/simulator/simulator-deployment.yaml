@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: simulator
-          image: cassandra-simulator:latest
+          image: docker.io/aumpandya/cassandra-simulator:v0.1.0
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080

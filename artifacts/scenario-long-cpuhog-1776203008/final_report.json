@@ -1,0 +1,37 @@
+{
+  "run_id": "scenario-long-cpuhog-1776203008",
+  "fault_profile": "cpuhog-like",
+  "load_profile": "high",
+  "duration_sec": 691.79,
+  "injection_profile": {
+    "fault_profile": "cpuhog-like",
+    "target_namespace": "cassandra-lab",
+    "cpu_workers": 4,
+    "mem_mb": 1024,
+    "bottleneck_replicas": 2
+  },
+  "chaos_window": {
+    "start_ts": 1776203370.030485,
+    "stop_ts": 1776203610.0486221
+  },
+  "classification": {
+    "tp": 0,
+    "fp": 1,
+    "fn_proxy": 1,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0
+  },
+  "lead_time": {
+    "first_detection_delay_sec": null,
+    "mean_detection_delay_sec": null,
+    "median_detection_delay_sec": null
+  },
+  "som_metrics": {
+    "training_duration_sec": 0.07,
+    "bootstrap_collected_samples": 120,
+    "avg_score_latency_ms": 2.419,
+    "bmu_coverage_count": 12
+  },
+  "cause_ranking_top10": []
+}

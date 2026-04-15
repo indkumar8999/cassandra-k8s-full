@@ -8,6 +8,7 @@ from statistics import mean
 from typing import Optional
 
 from flask import Flask, request, jsonify
+from prometheus_client import CollectorRegistry, Gauge, generate_latest
 
 from cassandra.cluster import Cluster
 from cassandra.policies import DCAwareRoundRobinPolicy, TokenAwarePolicy
@@ -208,6 +209,59 @@ def metrics():
         data["stop_requested"] = stop_requested
 
     return jsonify(data)
+
+
+@app.get("/metrics/prometheus")
+def metrics_prometheus():
+    snapshot = snapshot_metrics()
+    registry = CollectorRegistry()
+
+    gauge_writes_success = Gauge("simulator_writes_success_total", "Successful write count", registry=registry)
+    gauge_writes_failures = Gauge("simulator_writes_failures_total", "Failed write count", registry=registry)
+    gauge_reads_success = Gauge("simulator_reads_success_total", "Successful read count", registry=registry)
+    gauge_reads_failures = Gauge("simulator_reads_failures_total", "Failed read count", registry=registry)
+    gauge_avg_write = Gauge("simulator_write_latency_avg_ms", "Average write latency in ms", registry=registry)
+    gauge_p95_write = Gauge("simulator_write_latency_p95_ms", "P95 write latency in ms", registry=registry)
+    gauge_avg_read = Gauge("simulator_read_latency_avg_ms", "Average read latency in ms", registry=registry)
+    gauge_p95_read = Gauge("simulator_read_latency_p95_ms", "P95 read latency in ms", registry=registry)
+    gauge_inserted_ids = Gauge("simulator_inserted_ids_count", "Tracked inserted IDs", registry=registry)
+    gauge_running = Gauge("simulator_running", "Simulator run state (1 running, 0 paused)", registry=registry)
+    gauge_stop_requested = Gauge("simulator_stop_requested", "Stop requested flag (1/0)", registry=registry)
+    gauge_workers = Gauge("simulator_config_workers", "Configured worker threads", registry=registry)
+    gauge_ops = Gauge("simulator_config_ops_per_sec", "Configured operations per second", registry=registry)
+    gauge_write_ratio = Gauge("simulator_config_write_ratio", "Configured write ratio", registry=registry)
+    gauge_profile = Gauge(
+        "simulator_profile_state",
+        "Current load profile as one-hot gauge",
+        labelnames=["profile"],
+        registry=registry
+    )
+
+    with control_lock:
+        profile = current_profile
+        config = current_config.copy()
+        is_running = running
+        stop_flag = stop_requested
+
+    gauge_writes_success.set(snapshot["write_success"])
+    gauge_writes_failures.set(snapshot["write_failures"])
+    gauge_reads_success.set(snapshot["read_success"])
+    gauge_reads_failures.set(snapshot["read_failures"])
+    gauge_avg_write.set(snapshot["avg_write_ms"])
+    gauge_p95_write.set(snapshot["p95_write_ms"])
+    gauge_avg_read.set(snapshot["avg_read_ms"])
+    gauge_p95_read.set(snapshot["p95_read_ms"])
+    gauge_inserted_ids.set(len(inserted_ids))
+    gauge_running.set(1 if is_running else 0)
+    gauge_stop_requested.set(1 if stop_flag else 0)
+    gauge_workers.set(config["workers"])
+    gauge_ops.set(config["ops_per_sec"])
+    gauge_write_ratio.set(config["write_ratio"])
+
+    for known_profile in PROFILE_CONFIG:
+        gauge_profile.labels(profile=known_profile).set(1 if profile == known_profile else 0)
+
+    return generate_latest(registry), 200, {"Content-Type": "text/plain; version=0.0.4; charset=utf-8"}
 
 
 def percentile(values, pct):

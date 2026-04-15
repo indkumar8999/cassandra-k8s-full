@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ubl-learner-config
+  namespace: cassandra-lab
+data:
+  PROMETHEUS_BASE: "http://kube-prom-stack-kube-prome-prometheus.monitoring.svc.cluster.local:9090"
+  TARGET_NAMESPACE: "cassandra-lab"
+  CASSANDRA_PODS: "cassandra-0,cassandra-1,cassandra-2"
+  POLL_SEC: "2.0"
+  BOOTSTRAP_SAMPLES: "120"
+  SOM_ROWS: "32"
+  SOM_COLS: "32"
+  SOM_LR: "0.7"
+  SOM_SIGMA: "4.0"
+  TRAIN_EPOCHS: "10"
+  THRESHOLD_PERCENTILE: "85"
+  ANOMALY_STREAK: "3"
+  SMOOTH_K: "5"
+  CAUSE_Q: "5"
+  ONLINE_UPDATE_ENABLED: "1"

@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: chaos-injector
+  namespace: cassandra-lab
+spec:
+  selector:
+    app: chaos-injector
+  ports:
+    - name: http
+      port: 8200
+      targetPort: 8200

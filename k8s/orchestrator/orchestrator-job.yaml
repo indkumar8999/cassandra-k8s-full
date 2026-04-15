@@ -1,0 +1,26 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: scenario-orchestrator
+  namespace: cassandra-lab
+spec:
+  backoffLimit: 0
+  template:
+    metadata:
+      labels:
+        app: scenario-orchestrator
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: orchestrator
+          image: docker.io/aumpandya/cassandra-orchestrator:v0.1.0
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: scenario-orchestrator-config
+          volumeMounts:
+            - name: artifacts
+              mountPath: /artifacts
+      volumes:
+        - name: artifacts
+          emptyDir: {}

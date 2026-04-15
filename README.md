@@ -1,79 +1,114 @@
-# Cassandra + Simulator Kubernetes Setup
+# Cassandra UBL MVP (Distributed + Online Detection Demo)
 
-This package includes:
-- Kubernetes manifests for Cassandra (StatefulSet) with customizable replica count
-- A separate simulator application you can build and deploy independently
-- Dockerfile and Python/Flask simulator source code
+This package contains an end-to-end MVP for online anomaly detection on Cassandra using paper-aligned UBL concepts.
 
-## Folder structure
+## Strict Infrastructure Requirement
 
-- `k8s/` Kubernetes manifests
-- `simulator/` simulator application source
-- `docker/` optional local Docker Compose setup for local testing
+Final experiments must run on a true multi-host Kubernetes cluster (minimum 3 worker nodes).  
+`docker-desktop` and `kind` are allowed for development only, not final result collection.
 
-## Build simulator image
+## Components
 
-From the `simulator` folder:
+- `k8s/cassandra/`: distributed Cassandra StatefulSet (multi-node).
+- `simulator/`: workload generator and control API.
+- `ubl-learner/`: clean-room SOM + UBL learner service.
+- `chaos-injector/`: Kubernetes-native fault injector API.
+- `orchestrator/`: phase runner (`normal -> load -> chaos -> cooldown`).
+- `reporting/`: report generation (`final_report.json` and `final_report.md`).
+- `monitoring/`: Cassandra JMX + simulator PodMonitor for Prometheus.
+- `docs/`: metric contract, protocol, runbook, and result templates.
 
-```bash
-docker build -t cassandra-simulator:latest .
-```
+## Quick Start
 
-### If using minikube
-
-```bash
-minikube image load cassandra-simulator:latest
-```
-
-### If using kind
+From `cassandra/`:
 
 ```bash
-kind load docker-image cassandra-simulator:latest --name <your-kind-cluster-name>
+# macOS only: destructive 2Gi VM rebuild + k3s bootstrap
+# make rebuild-multipass-2g
+# export KUBECONFIG="$(pwd)/artifacts/kubeconfig-multipass-k3s.yaml"
+
+make build-images
+make push-images DOCKERHUB_USER=<user> IMAGE_TAG=<tag>
+python3 ./scripts/set_dockerhub_images.py --user <user> --tag <tag> --root .
+bash ./scripts/deploy_strict_order.sh
+make demo-preflight
 ```
 
-### If using a remote cluster
-
-Tag and push to your registry:
+Run a strict validation scenario:
 
 ```bash
-docker tag cassandra-simulator:latest <your-registry>/cassandra-simulator:latest
-docker push <your-registry>/cassandra-simulator:latest
+bash ./scripts/run_strict_validation.sh bottleneck-like high
 ```
 
-Then update `k8s/simulator/simulator-deployment.yaml` with your image name.
-
-## Deploy
+Generate or refresh the latest report:
 
 ```bash
-kubectl apply -f k8s/namespace.yaml
-kubectl apply -f k8s/cassandra/
-kubectl apply -f k8s/simulator/
+bash ./scripts/collect_latest_report.sh
 ```
 
-## Scale Cassandra nodes
+Cleanup:
 
 ```bash
-kubectl scale statefulset cassandra -n cassandra-lab --replicas=5
+make cleanup-mvp
 ```
 
-## Access simulator API
+## APIs
 
-```bash
-kubectl port-forward svc/cassandra-simulator 8080:8080 -n cassandra-lab
-```
+### Simulator (`:8080`)
 
-Then:
-- `GET  http://localhost:8080/health`
-- `GET  http://localhost:8080/load`
-- `POST http://localhost:8080/load`
-- `POST http://localhost:8080/pause`
-- `POST http://localhost:8080/resume`
-- `GET  http://localhost:8080/metrics`
+- `GET /health`
+- `POST /load`
+- `POST /pause`
+- `POST /resume`
+- `POST /reset-metrics`
+- `GET /metrics` (JSON)
+- `GET /metrics/prometheus` (Prometheus text)
 
-Example:
+### UBL Learner (`:8100`)
 
-```bash
-curl -X POST http://localhost:8080/load \
-  -H "Content-Type: application/json" \
-  -d '{"profile":"high"}'
-```
+- `GET /health`
+- `GET /status`
+- `POST /phase`
+- `GET /score-stream`
+- `GET /alarms`
+- `GET /report`
+- `POST /reset`
+
+### Chaos Injector (`:8200`)
+
+- `GET /health`
+- `GET /faults`
+- `POST /start_fault`
+- `POST /stop_fault`
+- `POST /reset_all`
+
+## Fault Profiles
+
+- `memleak-like`
+- `cpuhog-like`
+- `network-congestion-like`
+- `bottleneck-like`
+
+## Metrics Model
+
+The learner uses two feature tiers:
+
+- Tier A (mandatory paper-like): CPU, memory, disk I/O, network I/O
+- Tier B (optional extension): Cassandra and simulator internals
+
+Full details and PromQL queries: `docs/metrics-contract.md`.
+
+## Experiment and Demo Docs
+
+- Strict cluster guide: `docs/strict-zero-cost-cluster.md`
+- Protocol: `docs/experiment-protocol.md`
+- Results template: `docs/results-template.md`
+- Presenter runbook: `docs/demo-runbook.md`
+
+The strict cluster guide includes macOS, Windows (PowerShell), and Linux setup paths, with `2Gi` VM memory recommendations.
+
+## Notes
+
+- The learner starts online scoring automatically after bootstrap training succeeds.
+- Missing Tier A metrics invalidate a sample; values are never silently replaced with zero.
+- Report terminology uses `network congestion` profile naming for paper/demo consistency.

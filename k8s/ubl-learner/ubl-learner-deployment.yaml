@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ubl-learner
+  namespace: cassandra-lab
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ubl-learner
+  template:
+    metadata:
+      labels:
+        app: ubl-learner
+    spec:
+      containers:
+        - name: learner
+          image: docker.io/aumpandya/cassandra-ubl-learner:v0.1.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8100
+              name: http
+          envFrom:
+            - configMapRef:
+                name: ubl-learner-config
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "256Mi"
+            limits:
+              cpu: "1"
+              memory: "1Gi"
