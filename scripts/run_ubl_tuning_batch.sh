@@ -17,6 +17,7 @@ CHAOS_SEC="${CHAOS_SEC:-300}"
 COOLDOWN_SEC="${COOLDOWN_SEC:-30}"
 CHAOS_MIN_SCORED="${CHAOS_MIN_SCORED:-50}"
 MAX_FP_ALLOWED="${MAX_FP_ALLOWED:-10}"
+BOOTSTRAP_TIMEOUT_SEC="${BOOTSTRAP_TIMEOUT_SEC:-1800}"
 
 require_health() {
   local name="$1"
@@ -49,6 +50,7 @@ run_config() {
   echo "[batch] run_id=${run_id}"
   python3 ./orchestrator/run_scenario.py \
     --run-id "${run_id}" \
+    --bootstrap-timeout-sec "${BOOTSTRAP_TIMEOUT_SEC}" \
     --normal-sec "${NORMAL_SEC}" \
     --load-sec "${LOAD_SEC}" \
     --chaos-sec "${CHAOS_SEC}" \

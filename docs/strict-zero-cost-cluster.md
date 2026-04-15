@@ -13,7 +13,7 @@ For full build/deploy/run commands and troubleshooting, use `docs/end-to-end-set
 
 - 1 control-plane VM
 - 3 worker VMs
-- Recommended memory: `2Gi` per Ubuntu VM (control-plane and workers)
+- Recommended memory: **`4Gi` per Ubuntu VM** (control-plane and workers) when running Cassandra + kube-prometheus on workers; `2Gi` is possible but often OOMs under load
 - Ubuntu 22.04+ on all nodes
 - Container runtime: `containerd`
 - Kubernetes: `kubeadm` + CNI (Calico/Cilium)
@@ -28,10 +28,10 @@ Use Multipass to create Ubuntu VMs:
 
 ```bash
 brew install --cask multipass
-multipass launch 22.04 --name cp1 --cpus 2 --memory 2G --disk 20G
-multipass launch 22.04 --name w1  --cpus 2 --memory 2G --disk 20G
-multipass launch 22.04 --name w2  --cpus 2 --memory 2G --disk 20G
-multipass launch 22.04 --name w3  --cpus 2 --memory 2G --disk 20G
+multipass launch 22.04 --name cp1 --cpus 2 --memory 4G --disk 20G
+multipass launch 22.04 --name w1  --cpus 2 --memory 4G --disk 20G
+multipass launch 22.04 --name w2  --cpus 2 --memory 4G --disk 20G
+multipass launch 22.04 --name w3  --cpus 2 --memory 4G --disk 20G
 ```
 
 Then bootstrap Kubernetes (k3s or kubeadm) inside those VMs.
@@ -48,7 +48,7 @@ kubectl get nodes -o wide
 This script:
 
 - deletes and recreates `cp1`, `w1`, `w2`, `w3`
-- uses `2G` memory for each Ubuntu VM
+- uses **`4G` RAM per Ubuntu VM** by default (`VM_MEMORY=2G` to override)
 - installs k3s and joins all worker nodes
 - writes kubeconfig to `artifacts/kubeconfig-multipass-k3s.yaml`
 
@@ -59,10 +59,10 @@ Use PowerShell with Hyper-V + Multipass:
 ```powershell
 winget install Canonical.Multipass
 
-multipass launch 22.04 --name cp1 --cpus 2 --memory 2G --disk 20G
-multipass launch 22.04 --name w1  --cpus 2 --memory 2G --disk 20G
-multipass launch 22.04 --name w2  --cpus 2 --memory 2G --disk 20G
-multipass launch 22.04 --name w3  --cpus 2 --memory 2G --disk 20G
+multipass launch 22.04 --name cp1 --cpus 2 --memory 4G --disk 20G
+multipass launch 22.04 --name w1  --cpus 2 --memory 4G --disk 20G
+multipass launch 22.04 --name w2  --cpus 2 --memory 4G --disk 20G
+multipass launch 22.04 --name w3  --cpus 2 --memory 4G --disk 20G
 ```
 
 Bootstrap k3s from PowerShell:
@@ -84,7 +84,7 @@ The requirement is the same: one control-plane + at least three worker hosts.
 Suggested minimum sizing for each Ubuntu host:
 
 - vCPU: 2
-- RAM: 2Gi
+- RAM: 4Gi (recommended for this stack)
 - Disk: 20Gi
 
 Export kubeconfig locally (PowerShell):
@@ -109,10 +109,10 @@ Use either:
 Ubuntu host creation example with Multipass:
 
 ```bash
-multipass launch 22.04 --name cp1 --cpus 2 --memory 2G --disk 20G
-multipass launch 22.04 --name w1  --cpus 2 --memory 2G --disk 20G
-multipass launch 22.04 --name w2  --cpus 2 --memory 2G --disk 20G
-multipass launch 22.04 --name w3  --cpus 2 --memory 2G --disk 20G
+multipass launch 22.04 --name cp1 --cpus 2 --memory 4G --disk 20G
+multipass launch 22.04 --name w1  --cpus 2 --memory 4G --disk 20G
+multipass launch 22.04 --name w2  --cpus 2 --memory 4G --disk 20G
+multipass launch 22.04 --name w3  --cpus 2 --memory 4G --disk 20G
 ```
 
 Bootstrap k3s from Linux:

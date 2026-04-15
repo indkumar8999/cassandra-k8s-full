@@ -67,5 +67,6 @@ collect-ablation:
 cleanup-mvp:
 	bash ./scripts/cleanup_mvp.sh
 
+# Destructive: deletes cp1+w1+w2+w3 and recreates k3s (default 4G RAM/VM; VM_MEMORY=2G for minimal hosts).
 rebuild-multipass-2g:
 	bash ./scripts/rebuild_multipass_k3s_2g.sh

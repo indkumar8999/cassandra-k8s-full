@@ -23,7 +23,7 @@ Final experiments must run on a true multi-host Kubernetes cluster (minimum 3 wo
 From `cassandra/`:
 
 ```bash
-# macOS only: destructive 2Gi VM rebuild + k3s bootstrap
+# macOS only: destructive Multipass rebuild + k3s bootstrap (4Gi RAM/VM default; VM_MEMORY=2G to shrink)
 # make rebuild-multipass-2g
 # export KUBECONFIG="$(pwd)/artifacts/kubeconfig-multipass-k3s.yaml"
 
@@ -108,7 +108,7 @@ Full details and PromQL queries: `docs/metrics-contract.md`.
 - Results template: `docs/results-template.md`
 - Presenter runbook: `docs/demo-runbook.md`
 
-The strict cluster guide includes macOS, Windows (PowerShell), and Linux setup paths, with `2Gi` VM memory recommendations.
+The strict cluster guide includes macOS, Windows (PowerShell), and Linux setup paths, with **`4Gi` per VM** as the default Multipass sizing for this stack.
 
 ## Notes
 

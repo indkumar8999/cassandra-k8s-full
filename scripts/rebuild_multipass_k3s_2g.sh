@@ -3,6 +3,7 @@ set -euo pipefail
 
 # Rebuild a strict 4-node k3s cluster on macOS using Multipass.
 # This is destructive for the named instances.
+# Default RAM is 4G per VM (override with VM_MEMORY=2G for tighter laptops).
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT_DIR="$(cd "${SCRIPT_DIR}/.." && pwd)"
@@ -11,7 +12,7 @@ CP_NAME="${CP_NAME:-cp1}"
 WORKER_NAMES="${WORKER_NAMES:-w1 w2 w3}"
 UBUNTU_IMAGE="${UBUNTU_IMAGE:-22.04}"
 VM_CPUS="${VM_CPUS:-2}"
-VM_MEMORY="${VM_MEMORY:-2G}"
+VM_MEMORY="${VM_MEMORY:-4G}"
 VM_DISK="${VM_DISK:-20G}"
 KUBECONFIG_OUT="${KUBECONFIG_OUT:-${ROOT_DIR}/artifacts/kubeconfig-multipass-k3s.yaml}"
 RECREATE="${RECREATE:-true}"

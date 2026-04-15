@@ -79,9 +79,11 @@ class ScenarioRunner:
     def _wait_learner_ready(self, timeout_sec: int):
         started = _now()
         last_error = None
+        last_status: Optional[Dict] = None
         while _now() - started < timeout_sec:
             try:
                 status = self._get(self.learner_base, "/status")
+                last_status = status
                 if status.get("ready"):
                     self._record("learner_ready", status)
                     return
@@ -90,9 +92,20 @@ class ScenarioRunner:
                 # Keep waiting within the bootstrap timeout instead of aborting run.
                 last_error = str(ex)
             time.sleep(2)
+        detail = ""
+        if last_status is not None:
+            detail = (
+                f" Last /status: trained={last_status.get('trained')} "
+                f"bootstrap_valid={last_status.get('bootstrap_valid_samples')}/"
+                f"{last_status.get('bootstrap_target_samples')} "
+                f"dropped_tier_a={last_status.get('total_samples_dropped_missing_tier_a')} "
+                f"last_error={last_status.get('last_error')!r}."
+            )
         if last_error:
-            raise TimeoutError(f"Learner did not become ready before timeout. Last connection error: {last_error}")
-        raise TimeoutError("Learner did not become ready before timeout.")
+            raise TimeoutError(
+                f"Learner did not become ready before timeout. Last connection error: {last_error}.{detail}"
+            )
+        raise TimeoutError(f"Learner did not become ready before timeout.{detail}")
 
     def _write_json(self, name: str, payload: Dict):
         out = self.run_dir / name
@@ -200,7 +213,7 @@ def build_parser():
     parser.add_argument("--load-sec", type=int, default=int(os.getenv("LOAD_SEC", "60")))
     parser.add_argument("--chaos-sec", type=int, default=int(os.getenv("CHAOS_SEC", "120")))
     parser.add_argument("--cooldown-sec", type=int, default=int(os.getenv("COOLDOWN_SEC", "60")))
-    parser.add_argument("--bootstrap-timeout-sec", type=int, default=int(os.getenv("BOOTSTRAP_TIMEOUT_SEC", "900")))
+    parser.add_argument("--bootstrap-timeout-sec", type=int, default=int(os.getenv("BOOTSTRAP_TIMEOUT_SEC", "1800")))
     parser.add_argument("--cpu-workers", type=int, default=int(os.getenv("CHAOS_CPU_WORKERS", "2")))
     parser.add_argument("--mem-mb", type=int, default=int(os.getenv("CHAOS_MEM_MB", "1024")))
     parser.add_argument("--bottleneck-replicas", type=int, default=int(os.getenv("CHAOS_BOTTLENECK_REPLICAS", "2")))

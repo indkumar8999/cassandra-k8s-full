@@ -26,7 +26,7 @@ By following this document, you will:
 
 ## 2) Cluster bootstrap
 
-### Option A (macOS, recommended): destructive 2Gi rebuild
+### Option A (macOS, recommended): destructive Multipass rebuild (4Gi RAM per VM by default)
 
 From `cassandra/`:
 
@@ -46,7 +46,7 @@ Expected:
 Use `docs/strict-zero-cost-cluster.md` platform sections and ensure:
 
 - one control-plane + at least three workers
-- each host at 2 vCPU / 2Gi / 20Gi minimum
+- each host at 2 vCPU / 4Gi / 20Gi minimum for Cassandra + monitoring on workers (use `VM_MEMORY=2G` only if your host is tight)
 - `kubectl get nodes -o wide` shows all Ready
 
 ### Option C (Windows PowerShell, explicit commands)
@@ -56,10 +56,10 @@ From PowerShell in the `cassandra` directory:
 ```powershell
 winget install Canonical.Multipass
 
-multipass launch 22.04 --name cp1 --cpus 2 --memory 2G --disk 20G
-multipass launch 22.04 --name w1  --cpus 2 --memory 2G --disk 20G
-multipass launch 22.04 --name w2  --cpus 2 --memory 2G --disk 20G
-multipass launch 22.04 --name w3  --cpus 2 --memory 2G --disk 20G
+multipass launch 22.04 --name cp1 --cpus 2 --memory 4G --disk 20G
+multipass launch 22.04 --name w1  --cpus 2 --memory 4G --disk 20G
+multipass launch 22.04 --name w2  --cpus 2 --memory 4G --disk 20G
+multipass launch 22.04 --name w3  --cpus 2 --memory 4G --disk 20G
 
 multipass exec cp1 -- bash -lc "curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC='--write-kubeconfig-mode 644 --node-name cp1' sh -"
 $token = multipass exec cp1 -- sudo cat /var/lib/rancher/k3s/server/node-token
@@ -190,7 +190,7 @@ bash .\scripts\run_ubl_tuning_batch.sh
 
 Notes:
 
-- batch now uses stronger chaos defaults suitable for 2Gi nodes
+- batch chaos defaults assume workers have enough RAM (4Gi+ per Multipass VM is the supported default)
 - report generation includes quality gate checks
 - runs fail fast when chaos scoring coverage is too low
 

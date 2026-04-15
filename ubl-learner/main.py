@@ -357,6 +357,15 @@ class LearnerState:
             train_rows.append(np.array([sample.values[f] for f in self.feature_order], dtype=np.float64))
 
         if not train_rows:
+            # Tier B presence can be high per-feature but never overlap in the same samples; fall back to Tier A only.
+            self.feature_order = tier_a_features
+            train_rows = []
+            for sample in valid:
+                if any(feat not in sample.values for feat in self.feature_order):
+                    continue
+                train_rows.append(np.array([sample.values[f] for f in self.feature_order], dtype=np.float64))
+
+        if not train_rows:
             self.last_error = "No complete vectors available for training."
             return
 
