@@ -269,6 +269,24 @@ make push-images DOCKERHUB_USER=aumpandya IMAGE_TAG=v0.2.0
 
 Use the `while true` loops shown above so they auto-recover.
 
+Important:
+
+- if learner is forwarded on `18100`, you must set `LEARNER_BASE=http://localhost:18100`
+- if learner is forwarded on `8100`, unset `LEARNER_BASE` (default)
+
+Examples:
+
+```bash
+# default mapping (recommended)
+unset LEARNER_BASE
+```
+
+```bash
+# alternate mapping (when 8100 is busy)
+export LEARNER_BASE="http://localhost:18100"
+while true; do kubectl port-forward -n cassandra-lab svc/ubl-learner 18100:8100; sleep 1; done
+```
+
 ### Port-forward loop looks "stuck" with no logs
 
 This is often normal: `kubectl port-forward` stays in foreground and can be quiet until traffic arrives.
@@ -289,6 +307,15 @@ kubectl -n cassandra-lab get endpoints
 kubectl -n cassandra-lab get pods -o wide
 ```
 
+If `curl http://localhost:8100/health` fails but learner pod is Running:
+
+```bash
+kubectl -n cassandra-lab get endpoints ubl-learner -o yaml
+```
+
+- if endpoint appears under `notReadyAddresses`, service forwarding will fail
+- recover node/pod readiness first, then retry port-forward
+
 ### Preflight says fewer than 3 Ready workers
 
 A worker may have dropped to `NotReady` (common after VM hiccups). Recover worker VM first:
@@ -306,6 +333,33 @@ Then rerun:
 ```bash
 make demo-preflight
 ```
+
+If a specific worker keeps flapping (`NotReady`), also restart agent service after VM start:
+
+```bash
+multipass exec w1 -- sudo systemctl restart k3s-agent
+kubectl wait --for=condition=Ready node/w1 --timeout=240s
+```
+
+Then refresh learner pod placement if needed:
+
+```bash
+kubectl -n cassandra-lab rollout restart deployment/ubl-learner
+kubectl -n cassandra-lab rollout status deployment/ubl-learner --timeout=300s
+```
+
+### `net/http: TLS handshake timeout` from kubectl/helm
+
+This is usually transient API-server reachability or node instability.
+
+Retry after confirming cluster health:
+
+```bash
+kubectl get nodes -o wide
+kubectl -n cassandra-lab get pods -o wide
+```
+
+If a worker is `NotReady`, recover it first using the worker recovery steps above.
 
 ### `ModuleNotFoundError: No module named 'requests'` in orchestrator
 
