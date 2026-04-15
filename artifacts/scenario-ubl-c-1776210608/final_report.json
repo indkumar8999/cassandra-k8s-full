@@ -31,7 +31,32 @@
     "training_duration_sec": 0.097,
     "bootstrap_collected_samples": 126,
     "avg_score_latency_ms": 5.005,
-    "bmu_coverage_count": 20
+    "bmu_coverage_count": 20,
+    "scored_by_phase": {
+      "normal": 21,
+      "load": 22,
+      "chaos": 5,
+      "cooldown": 0,
+      "unknown": 0
+    },
+    "total_samples_dropped_missing_tier_a": null,
+    "total_samples_dropped_missing_tier_b": null
   },
-  "cause_ranking_top10": []
+  "run_quality": {
+    "passed": false,
+    "chaos_scored_samples": 5,
+    "chaos_min_scored_required": 50,
+    "message": "chaos scored samples too low: 5 < 50"
+  },
+  "cause_ranking_top10": [],
+  "acceptance": {
+    "passed": false,
+    "max_fp_allowed": 10,
+    "checks": {
+      "tp_during_chaos": false,
+      "lead_time_present": false,
+      "chaos_sample_gate_passed": false,
+      "fp_within_limit": true
+    }
+  }
 }

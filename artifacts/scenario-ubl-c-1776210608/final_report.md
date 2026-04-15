@@ -31,6 +31,23 @@
 - Bootstrap samples: `126`
 - Avg scoring latency ms: `5.005`
 - BMU coverage count: `20`
+- Scored by phase: `{'normal': 21, 'load': 22, 'chaos': 5, 'cooldown': 0, 'unknown': 0}`
+- Dropped missing Tier A: `None`
+- Dropped missing Tier B: `None`
+
+## Run Quality Gate
+- Passed: `False`
+- Chaos scored samples: `5`
+- Chaos min required: `50`
+- Message: `chaos scored samples too low: 5 < 50`
+
+## Acceptance Criteria
+- Passed: `False`
+- Max FP allowed: `10`
+- tp_during_chaos: `False`
+- lead_time_present: `False`
+- chaos_sample_gate_passed: `False`
+- fp_within_limit: `True`
 
 ## Top Cause Metrics
 - No cause hints were emitted.

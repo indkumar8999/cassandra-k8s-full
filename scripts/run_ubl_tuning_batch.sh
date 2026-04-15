@@ -6,13 +6,17 @@ cd "${ROOT_DIR}"
 
 NAMESPACE="${NAMESPACE:-cassandra-lab}"
 FAULT_PROFILE="${FAULT_PROFILE:-bottleneck-like}"
-BOTTLENECK_REPLICAS="${BOTTLENECK_REPLICAS:-2}"
+BOTTLENECK_REPLICAS="${BOTTLENECK_REPLICAS:-1}"
+CPU_WORKERS="${CPU_WORKERS:-4}"
+MEM_MB="${MEM_MB:-1200}"
 LOAD_PROFILE="${LOAD_PROFILE:-high}"
 
 NORMAL_SEC="${NORMAL_SEC:-45}"
 LOAD_SEC="${LOAD_SEC:-45}"
 CHAOS_SEC="${CHAOS_SEC:-300}"
 COOLDOWN_SEC="${COOLDOWN_SEC:-30}"
+CHAOS_MIN_SCORED="${CHAOS_MIN_SCORED:-50}"
+MAX_FP_ALLOWED="${MAX_FP_ALLOWED:-10}"
 
 require_health() {
   local name="$1"
@@ -35,7 +39,9 @@ run_config() {
   kubectl -n "${NAMESPACE}" set env deployment/ubl-learner \
     SMOOTH_K="${smooth_k}" \
     ANOMALY_STREAK="${streak}" \
-    THRESHOLD_PERCENTILE="${threshold}" >/dev/null
+    THRESHOLD_PERCENTILE="${threshold}" \
+    THRESHOLD_RECALC_ENABLED="1" \
+    THRESHOLD_RECALC_EVERY_UPDATES="20" >/dev/null
   kubectl -n "${NAMESPACE}" rollout restart deployment/ubl-learner >/dev/null
   kubectl -n "${NAMESPACE}" rollout status deployment/ubl-learner --timeout=300s
 
@@ -48,11 +54,17 @@ run_config() {
     --chaos-sec "${CHAOS_SEC}" \
     --cooldown-sec "${COOLDOWN_SEC}" \
     --fault-profile "${FAULT_PROFILE}" \
+    --cpu-workers "${CPU_WORKERS}" \
+    --mem-mb "${MEM_MB}" \
     --bottleneck-replicas "${BOTTLENECK_REPLICAS}" \
     --load-profile "${LOAD_PROFILE}" \
     --output-dir ./artifacts
 
-  python3 ./reporting/generate_report.py --run-dir "./artifacts/${run_id}"
+  python3 ./reporting/generate_report.py \
+    --run-dir "./artifacts/${run_id}" \
+    --chaos-min-scored "${CHAOS_MIN_SCORED}" \
+    --max-fp "${MAX_FP_ALLOWED}" \
+    --fail-on-quality-gate
   echo "[batch] completed ${run_id}"
 }
 
@@ -64,13 +76,16 @@ require_health "simulator" "http://localhost:8080/health"
 require_health "learner" "http://localhost:8100/health"
 require_health "chaos" "http://localhost:8200/health"
 
-# A: baseline-fast
-run_config "ubl-a" 5 3 85
-# B: fast-fault friendly
-run_config "ubl-b" 1 2 85
-# C: earlier detection bias
-run_config "ubl-c" 1 2 82
+# A: balanced baseline
+run_config "ubl-a" 3 2 82
+# B: recall-oriented
+run_config "ubl-b" 1 2 76
+# C: aggressive recall
+run_config "ubl-c" 1 1 70
 
 echo "[batch] generating grouped ablation report"
-python3 ./reporting/generate_report.py --runs-root ./artifacts
+python3 ./reporting/generate_report.py \
+  --runs-root ./artifacts \
+  --chaos-min-scored "${CHAOS_MIN_SCORED}" \
+  --max-fp "${MAX_FP_ALLOWED}"
 echo "[batch] done"

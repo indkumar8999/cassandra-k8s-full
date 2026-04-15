@@ -83,6 +83,31 @@ Per run, collect:
 - `final_report.json`
 - `final_report.md`
 
+## Run Quality Gate (Required)
+
+Each run must pass data-quality checks before model metrics are trusted:
+
+- Chaos scored samples must be at least `50` (default gate).
+- Reports include explicit counters for:
+  - dropped samples due to missing Tier A
+  - dropped samples due to missing Tier B fallback failure
+  - scored samples by phase (`normal/load/chaos/cooldown`)
+
+CLI (single run):
+
+```bash
+python3 ./reporting/generate_report.py --run-dir <run_dir> --chaos-min-scored 50 --fail-on-quality-gate
+```
+
+## Acceptance Criteria ("Good" Run)
+
+Use these acceptance checks for tuning batches:
+
+1. At least one TP during chaos window.
+2. Lead time is present (`first_detection_delay_sec` is not null).
+3. Chaos sample gate passes.
+4. False positives remain within configured limit (`--max-fp`, default `10`).
+
 ## Mid-Review Fix Mapping
 
 - Training time + SOM performance -> `learner_report.json`, `final_report.md`

@@ -40,6 +40,8 @@ Run a strict validation scenario:
 bash ./scripts/run_strict_validation.sh bottleneck-like high
 ```
 
+The validation script enforces a chaos sample quality gate in report generation (fails when chaos scored samples are too low).
+
 Generate or refresh the latest report:
 
 ```bash

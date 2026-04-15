@@ -65,6 +65,44 @@ def _cause_ranking(alarms: List[Dict]):
     return cause_counter.most_common(10)
 
 
+def _scored_by_phase(score_items: List[Dict]) -> Dict[str, int]:
+    phase_counts = Counter()
+    for item in score_items:
+        phase_counts[item.get("phase", "unknown")] += 1
+    result = {phase: int(phase_counts.get(phase, 0)) for phase in ("normal", "load", "chaos", "cooldown")}
+    result["unknown"] = int(phase_counts.get("unknown", 0))
+    return result
+
+
+def _quality_gate(scored_by_phase: Dict[str, int], chaos_min_scored: int) -> Dict:
+    chaos_scored = int(scored_by_phase.get("chaos", 0))
+    passed = chaos_scored >= chaos_min_scored
+    return {
+        "passed": passed,
+        "chaos_scored_samples": chaos_scored,
+        "chaos_min_scored_required": chaos_min_scored,
+        "message": "ok" if passed else f"chaos scored samples too low: {chaos_scored} < {chaos_min_scored}",
+    }
+
+
+def _acceptance(report: Dict, max_fp: int) -> Dict:
+    cls = report["classification"]
+    lead = report["lead_time"]
+    run_quality = report["run_quality"]
+    checks = {
+        "tp_during_chaos": cls.get("tp", 0) >= 1,
+        "lead_time_present": lead.get("first_detection_delay_sec") is not None,
+        "chaos_sample_gate_passed": run_quality.get("passed", False),
+        "fp_within_limit": cls.get("fp", 0) <= max_fp,
+    }
+    passed = all(checks.values())
+    return {
+        "passed": passed,
+        "max_fp_allowed": max_fp,
+        "checks": checks,
+    }
+
+
 def _median_or_none(values: List[Optional[float]]) -> Optional[float]:
     valid = [value for value in values if value is not None]
     if not valid:
@@ -121,6 +159,23 @@ def render_markdown(report: Dict) -> str:
     lines.append(f"- Bootstrap samples: `{som.get('bootstrap_collected_samples')}`")
     lines.append(f"- Avg scoring latency ms: `{som.get('avg_score_latency_ms')}`")
     lines.append(f"- BMU coverage count: `{som.get('bmu_coverage_count')}`")
+    lines.append(f"- Scored by phase: `{som.get('scored_by_phase')}`")
+    lines.append(f"- Dropped missing Tier A: `{som.get('total_samples_dropped_missing_tier_a')}`")
+    lines.append(f"- Dropped missing Tier B: `{som.get('total_samples_dropped_missing_tier_b')}`")
+    lines.append("")
+    lines.append("## Run Quality Gate")
+    quality = report["run_quality"]
+    lines.append(f"- Passed: `{quality['passed']}`")
+    lines.append(f"- Chaos scored samples: `{quality['chaos_scored_samples']}`")
+    lines.append(f"- Chaos min required: `{quality['chaos_min_scored_required']}`")
+    lines.append(f"- Message: `{quality['message']}`")
+    lines.append("")
+    lines.append("## Acceptance Criteria")
+    acceptance = report["acceptance"]
+    lines.append(f"- Passed: `{acceptance['passed']}`")
+    lines.append(f"- Max FP allowed: `{acceptance['max_fp_allowed']}`")
+    for check_name, check_pass in acceptance["checks"].items():
+        lines.append(f"- {check_name}: `{check_pass}`")
     lines.append("")
     lines.append("## Top Cause Metrics")
     for name, count in report["cause_ranking_top10"]:
@@ -134,12 +189,12 @@ def render_markdown(report: Dict) -> str:
     return "\n".join(lines)
 
 
-def generate_ablation(runs_root: Path) -> Dict:
+def generate_ablation(runs_root: Path, chaos_min_scored: int, max_fp: int) -> Dict:
     run_dirs = _run_dirs(runs_root)
     grouped: Dict[Tuple, List[Dict]] = {}
 
     for run_dir in run_dirs:
-        report = generate(run_dir)
+        report = generate(run_dir, chaos_min_scored=chaos_min_scored, max_fp=max_fp)
         summary = _load_json(run_dir / "run_summary.json")
         inj = summary.get("injection_profile", {})
         key = (
@@ -161,8 +216,11 @@ def generate_ablation(runs_root: Path) -> Dict:
         train_vals = [item["som_metrics"]["training_duration_sec"] for item in items]
         score_vals = [item["som_metrics"]["avg_score_latency_ms"] for item in items]
         bmu_vals = [item["som_metrics"]["bmu_coverage_count"] for item in items]
+        chaos_scored_vals = [item["som_metrics"]["scored_by_phase"].get("chaos", 0) for item in items]
         tp_runs = sum(1 for item in items if item["classification"]["tp"] > 0)
         fp_runs = sum(1 for item in items if item["classification"]["fp"] > 0)
+        quality_pass_runs = sum(1 for item in items if item["run_quality"]["passed"])
+        acceptance_pass_runs = sum(1 for item in items if item["acceptance"]["passed"])
 
         rows.append(
             {
@@ -183,10 +241,13 @@ def generate_ablation(runs_root: Path) -> Dict:
                     "training_duration_sec": _median_or_none(train_vals),
                     "avg_score_latency_ms": _median_or_none(score_vals),
                     "bmu_coverage_count": _median_or_none(bmu_vals),
+                    "chaos_scored_samples": _median_or_none(chaos_scored_vals),
                 },
                 "run_level_outcomes": {
                     "runs_with_tp": tp_runs,
                     "runs_with_fp": fp_runs,
+                    "runs_passing_quality_gate": quality_pass_runs,
+                    "runs_passing_acceptance": acceptance_pass_runs,
                 },
             }
         )
@@ -219,22 +280,28 @@ def render_ablation_markdown(report: Dict) -> str:
         lines.append(f"- Median training sec: `{med['training_duration_sec']}`")
         lines.append(f"- Median score latency ms: `{med['avg_score_latency_ms']}`")
         lines.append(f"- Median BMU coverage: `{med['bmu_coverage_count']}`")
+        lines.append(f"- Median chaos scored samples: `{med['chaos_scored_samples']}`")
         lines.append(f"- Runs with TP / FP: `{outcomes['runs_with_tp']}` / `{outcomes['runs_with_fp']}`")
+        lines.append(f"- Runs passing quality gate: `{outcomes['runs_passing_quality_gate']}`")
+        lines.append(f"- Runs passing acceptance: `{outcomes['runs_passing_acceptance']}`")
         lines.append(f"- Run IDs: `{', '.join(group['run_ids'])}`")
         lines.append("")
     return "\n".join(lines)
 
 
-def generate(run_dir: Path) -> Dict:
+def generate(run_dir: Path, chaos_min_scored: int, max_fp: int) -> Dict:
     summary = _load_json(run_dir / "run_summary.json")
     events = _load_json(run_dir / "run_events.json").get("events", [])
     alarms = _load_json(run_dir / "alarms.json").get("items", [])
     learner_report = _load_json(run_dir / "learner_report.json")
+    score_items = _load_json(run_dir / "score_stream.json").get("items", [])
 
     chaos_start, chaos_stop = _chaos_window(events)
     cls = _classify_alarms(alarms, chaos_start, chaos_stop)
     lead = _lead_times(cls["during"], chaos_start)
     causes = _cause_ranking(cls["during"])
+    scored_by_phase = learner_report.get("scored_by_phase") or _scored_by_phase(score_items)
+    run_quality = _quality_gate(scored_by_phase, chaos_min_scored=chaos_min_scored)
 
     result = {
         "run_id": summary.get("run_id"),
@@ -250,9 +317,14 @@ def generate(run_dir: Path) -> Dict:
             "bootstrap_collected_samples": learner_report.get("bootstrap_collected_samples"),
             "avg_score_latency_ms": learner_report.get("avg_score_latency_ms"),
             "bmu_coverage_count": learner_report.get("bmu_coverage_count"),
+            "scored_by_phase": scored_by_phase,
+            "total_samples_dropped_missing_tier_a": learner_report.get("total_samples_dropped_missing_tier_a"),
+            "total_samples_dropped_missing_tier_b": learner_report.get("total_samples_dropped_missing_tier_b"),
         },
+        "run_quality": run_quality,
         "cause_ranking_top10": causes,
     }
+    result["acceptance"] = _acceptance(result, max_fp=max_fp)
     return result
 
 
@@ -261,6 +333,10 @@ def main():
     target = parser.add_mutually_exclusive_group(required=True)
     target.add_argument("--run-dir", help="Path to one orchestrator run directory.")
     target.add_argument("--runs-root", help="Path containing multiple run directories for ablation summary.")
+    parser.add_argument("--chaos-min-scored", type=int, default=50, help="Minimum scored samples required during chaos.")
+    parser.add_argument("--max-fp", type=int, default=10, help="Maximum false positives allowed for acceptance pass.")
+    parser.add_argument("--fail-on-quality-gate", action="store_true", help="Exit non-zero if quality gate fails.")
+    parser.add_argument("--fail-on-acceptance", action="store_true", help="Exit non-zero if acceptance criteria fail.")
     args = parser.parse_args()
 
     if args.run_dir:
@@ -268,7 +344,7 @@ def main():
         if not run_dir.exists():
             raise FileNotFoundError(f"Run directory not found: {run_dir}")
 
-        result = generate(run_dir)
+        result = generate(run_dir, chaos_min_scored=args.chaos_min_scored, max_fp=args.max_fp)
         report_json_path = run_dir / "final_report.json"
         report_md_path = run_dir / "final_report.md"
 
@@ -276,13 +352,17 @@ def main():
         report_md_path.write_text(render_markdown(result), encoding="utf-8")
         print(f"Report generated: {report_json_path}")
         print(f"Report generated: {report_md_path}")
+        if args.fail_on_quality_gate and not result["run_quality"]["passed"]:
+            raise SystemExit("Run quality gate failed.")
+        if args.fail_on_acceptance and not result["acceptance"]["passed"]:
+            raise SystemExit("Run acceptance criteria failed.")
         return
 
     runs_root = Path(args.runs_root)
     if not runs_root.exists():
         raise FileNotFoundError(f"Runs root not found: {runs_root}")
 
-    result = generate_ablation(runs_root)
+    result = generate_ablation(runs_root, chaos_min_scored=args.chaos_min_scored, max_fp=args.max_fp)
     report_json_path = runs_root / "ablation_report.json"
     report_md_path = runs_root / "ablation_report.md"
     report_json_path.write_text(json.dumps(result, indent=2), encoding="utf-8")

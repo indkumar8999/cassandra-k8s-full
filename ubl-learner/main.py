@@ -4,6 +4,7 @@ import os
 import threading
 import time
 from collections import Counter, deque
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass
 from typing import Dict, List, Optional, Tuple
 
@@ -53,6 +54,12 @@ MAX_ALARMS = _env_int("MAX_ALARMS", 1000)
 TIER_B_MIN_COVERAGE = _env_float("TIER_B_MIN_COVERAGE", 0.9)
 TARGET_NAMESPACE = os.getenv("TARGET_NAMESPACE", "cassandra-lab")
 CASSANDRA_PODS = [pod.strip() for pod in os.getenv("CASSANDRA_PODS", "cassandra-0,cassandra-1,cassandra-2").split(",") if pod.strip()]
+PROM_QUERY_WORKERS = _env_int("PROM_QUERY_WORKERS", 12)
+PROM_QUERY_TIMEOUT_SEC = _env_float("PROM_QUERY_TIMEOUT_SEC", 3.0)
+THRESHOLD_RECALC_ENABLED = os.getenv("THRESHOLD_RECALC_ENABLED", "1") == "1"
+THRESHOLD_RECALC_EVERY_UPDATES = _env_int("THRESHOLD_RECALC_EVERY_UPDATES", 25)
+
+KNOWN_PHASES = ("normal", "load", "chaos", "cooldown")
 
 
 TIER_A_NODE_QUERY_TEMPLATES = {
@@ -88,7 +95,8 @@ class Sample:
     ts: float
     values: Dict[str, float]
     quality_valid: bool
-    missing: List[str]
+    missing_required: List[str]
+    missing_tier_b: List[str]
 
 
 class SOM:
@@ -162,6 +170,14 @@ class LearnerState:
         self.total_samples_scored = 0
         self.score_latency_ms = deque(maxlen=MAX_SCORE_STREAM)
         self.bmu_hits = Counter()
+        self.scored_by_phase = Counter()
+        self.dropped_missing_tier_a = 0
+        self.dropped_missing_tier_b = 0
+        self.tier_b_feature_set = set(TIER_B_FEATURE_QUERIES.keys())
+        self.tier_b_baseline_values: Dict[str, float] = {}
+        self.last_tier_b_values: Dict[str, float] = {}
+        self.online_updates_since_threshold_refresh = 0
+        self.query_pool = ThreadPoolExecutor(max_workers=max(1, PROM_QUERY_WORKERS))
         self.running = True
         self.thread = threading.Thread(target=self._poll_loop, daemon=True)
         self.thread.start()
@@ -178,7 +194,7 @@ class LearnerState:
             response = requests.get(
                 f"{PROMETHEUS_BASE}/api/v1/query",
                 params={"query": query},
-                timeout=10,
+                timeout=PROM_QUERY_TIMEOUT_SEC,
             )
             response.raise_for_status()
             payload = response.json()
@@ -193,29 +209,40 @@ class LearnerState:
 
     def _collect_sample(self) -> Sample:
         values: Dict[str, float] = {}
-        missing: List[str] = []
+        required_missing: List[str] = []
+        missing_tier_b: List[str] = []
+
+        query_jobs = []
         for pod in CASSANDRA_PODS:
             for base_name, template in TIER_A_NODE_QUERY_TEMPLATES.items():
                 key = f"{base_name}__{pod}"
                 promql = template.replace("__NAMESPACE__", TARGET_NAMESPACE).replace("__POD__", pod)
-                value = self._query_prom(promql)
-                if value is None or math.isnan(value) or math.isinf(value):
-                    missing.append(key)
-                else:
-                    values[key] = value
+                query_jobs.append((key, promql, True))
 
         for key, promql in TIER_B_FEATURE_QUERIES.items():
-            value = self._query_prom(promql)
+            query_jobs.append((key, promql, False))
+
+        future_to_meta = {
+            self.query_pool.submit(self._query_prom, promql): (key, required)
+            for key, promql, required in query_jobs
+        }
+        for future in as_completed(future_to_meta):
+            key, required = future_to_meta[future]
+            value = future.result()
             if value is None or math.isnan(value) or math.isinf(value):
-                missing.append(key)
-            else:
-                values[key] = value
-        required_missing = [m for m in missing if m in self._tier_a_feature_names()]
+                if required:
+                    required_missing.append(key)
+                else:
+                    missing_tier_b.append(key)
+                continue
+            values[key] = value
+
         return Sample(
             ts=time.time(),
             values=values,
             quality_valid=len(required_missing) == 0,
-            missing=required_missing,
+            missing_required=required_missing,
+            missing_tier_b=missing_tier_b,
         )
 
     def _moving_avg(self, history: List[np.ndarray], vec: np.ndarray) -> np.ndarray:
@@ -225,18 +252,55 @@ class LearnerState:
         window = history[-SMOOTH_K:]
         return np.mean(window, axis=0)
 
-    def _normalize_vector(self, values: Dict[str, float]) -> Tuple[np.ndarray, List[str]]:
-        missing = [f for f in self.feature_order if f not in values]
-        if missing:
-            return np.array([]), missing
+    def _normalize_vector(self, sample: Sample) -> Tuple[np.ndarray, List[str]]:
+        missing_required = [f for f in self._tier_a_feature_names() if f not in sample.values]
+        missing_tier_b_fallback = []
+        if missing_required:
+            return np.array([]), missing_required
 
-        raw = np.array([values[f] for f in self.feature_order], dtype=np.float64)
+        raw_values = []
+        for feature in self.feature_order:
+            if feature in sample.values:
+                val = sample.values[feature]
+                if feature in self.tier_b_feature_set:
+                    self.last_tier_b_values[feature] = val
+                raw_values.append(val)
+                continue
+
+            if feature in self.tier_b_feature_set:
+                fallback = self.last_tier_b_values.get(feature, self.tier_b_baseline_values.get(feature))
+                if fallback is None:
+                    missing_tier_b_fallback.append(feature)
+                else:
+                    raw_values.append(fallback)
+                continue
+
+            missing_required.append(feature)
+
+        if missing_required or missing_tier_b_fallback:
+            return np.array([]), missing_required + missing_tier_b_fallback
+
+        raw = np.array(raw_values, dtype=np.float64)
         if not self.norm_max:
             return raw, []
 
         denom = np.array([max(self.norm_max[f], 1e-9) for f in self.feature_order], dtype=np.float64)
         normed = (raw / denom) * 100.0
         return normed, []
+
+    def _apply_training_smoothing(self, data: np.ndarray) -> np.ndarray:
+        if SMOOTH_K <= 1 or len(data) <= 1:
+            return data
+        smoothed = []
+        for idx in range(len(data)):
+            lo = max(0, idx - SMOOTH_K + 1)
+            smoothed.append(np.mean(data[lo : idx + 1], axis=0))
+        return np.array(smoothed, dtype=np.float64)
+
+    def _refresh_threshold(self):
+        if self.area_map is None:
+            return
+        self.threshold = float(np.percentile(self.area_map.flatten(), THRESHOLD_PERCENTILE))
 
     def _cause_ranking(self, bmu_r: int, bmu_c: int) -> List[str]:
         if self.area_map is None or self.som is None:
@@ -297,13 +361,20 @@ class LearnerState:
             return
 
         train_data = np.array(train_rows)
+        train_data = self._apply_training_smoothing(train_data)
         self.norm_max = {name: float(max(train_data[:, idx].max(), 1e-9)) for idx, name in enumerate(self.feature_order)}
+        self.tier_b_baseline_values = {}
+        for feature in self.feature_order:
+            if feature in self.tier_b_feature_set:
+                feature_idx = self.feature_order.index(feature)
+                self.tier_b_baseline_values[feature] = float(np.median(train_data[:, feature_idx]))
+        self.last_tier_b_values = dict(self.tier_b_baseline_values)
         train_data_norm = (train_data / np.array([self.norm_max[f] for f in self.feature_order])) * 100.0
 
         self.som = SOM(SOM_ROWS, SOM_COLS, train_data_norm.shape[1], SOM_LR, SOM_SIGMA)
         self.som.train(train_data_norm.copy(), TRAIN_EPOCHS)
         self.area_map = self.som.area_map()
-        self.threshold = float(np.percentile(self.area_map.flatten(), THRESHOLD_PERCENTILE))
+        self._refresh_threshold()
         self.trained = True
         self.ready = True
         self.training_end_ts = time.time()
@@ -317,8 +388,13 @@ class LearnerState:
             return
 
         start = time.perf_counter()
-        vec, missing = self._normalize_vector(sample.values)
+        vec, missing = self._normalize_vector(sample)
         if missing:
+            tier_a_set = set(self._tier_a_feature_names())
+            if any(name in tier_a_set for name in missing):
+                self.dropped_missing_tier_a += 1
+            else:
+                self.dropped_missing_tier_b += 1
             return
 
         vec = self._moving_avg(smooth_history, vec)
@@ -330,10 +406,16 @@ class LearnerState:
         if ONLINE_UPDATE_ENABLED and self.phase != "chaos":
             self.som.train_step(vec)
             self.area_map = self.som.area_map()
+            if THRESHOLD_RECALC_ENABLED:
+                self.online_updates_since_threshold_refresh += 1
+                if self.online_updates_since_threshold_refresh >= max(1, THRESHOLD_RECALC_EVERY_UPDATES):
+                    self._refresh_threshold()
+                    self.online_updates_since_threshold_refresh = 0
 
         score_latency = (time.perf_counter() - start) * 1000.0
         self.score_latency_ms.append(score_latency)
         self.total_samples_scored += 1
+        self.scored_by_phase[self.phase] += 1
         self.bmu_hits[f"{bmu_r},{bmu_c}"] += 1
 
         event = {
@@ -346,7 +428,8 @@ class LearnerState:
             "bmu": [bmu_r, bmu_c],
             "causes": causes,
             "quality_valid": sample.quality_valid,
-            "missing_required": sample.missing,
+            "missing_required": sample.missing_required,
+            "missing_tier_b": sample.missing_tier_b,
             "score_latency_ms": round(score_latency, 3),
         }
         self.score_stream.append(event)
@@ -375,6 +458,8 @@ class LearnerState:
                         self._train()
                     elif sample.quality_valid:
                         self._score_sample(sample, smooth_history)
+                    else:
+                        self.dropped_missing_tier_a += 1
                 except Exception as ex:
                     self.last_error = str(ex)
             time.sleep(POLL_SEC)
@@ -404,6 +489,9 @@ class LearnerState:
             "training_duration_sec": round(self.training_duration_sec, 3),
             "total_samples_seen": self.total_samples_seen,
             "total_samples_scored": self.total_samples_scored,
+            "total_samples_dropped_missing_tier_a": self.dropped_missing_tier_a,
+            "total_samples_dropped_missing_tier_b": self.dropped_missing_tier_b,
+            "scored_by_phase": {phase: self.scored_by_phase.get(phase, 0) for phase in KNOWN_PHASES},
             "alarm_count": len(alarms),
             "score_stream_count": len(stream),
             "avg_score_latency_ms": round(avg_score_latency, 3),
@@ -443,6 +531,8 @@ def status():
                 "training_duration_sec": round(state.training_duration_sec, 3),
                 "threshold": state.threshold,
                 "threshold_percentile": THRESHOLD_PERCENTILE,
+                "total_samples_dropped_missing_tier_a": state.dropped_missing_tier_a,
+                "total_samples_dropped_missing_tier_b": state.dropped_missing_tier_b,
                 "last_error": state.last_error,
             }
         )
@@ -496,8 +586,14 @@ def reset():
         state.training_end_ts = None
         state.total_samples_seen = 0
         state.total_samples_scored = 0
+        state.dropped_missing_tier_a = 0
+        state.dropped_missing_tier_b = 0
         state.score_latency_ms.clear()
         state.bmu_hits.clear()
+        state.scored_by_phase.clear()
+        state.tier_b_baseline_values.clear()
+        state.last_tier_b_values.clear()
+        state.online_updates_since_threshold_refresh = 0
     return jsonify({"message": "learner reset"})
 
 
@@ -528,6 +624,10 @@ def config():
             "smooth_k": SMOOTH_K,
             "cause_q": CAUSE_Q,
             "online_update_enabled": ONLINE_UPDATE_ENABLED,
+            "threshold_recalc_enabled": THRESHOLD_RECALC_ENABLED,
+            "threshold_recalc_every_updates": THRESHOLD_RECALC_EVERY_UPDATES,
+            "prom_query_workers": PROM_QUERY_WORKERS,
+            "prom_query_timeout_sec": PROM_QUERY_TIMEOUT_SEC,
             "tier_b_min_coverage": TIER_B_MIN_COVERAGE,
             "tier_a_features": TIER_A_FEATURES,
             "tier_a_feature_count": tier_a_feature_count,
