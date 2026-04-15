@@ -102,6 +102,7 @@ Full details and PromQL queries: `docs/metrics-contract.md`.
 
 ## Experiment and Demo Docs
 
+- End-to-end setup/runbook: `docs/end-to-end-setup-and-run.md`
 - Strict cluster guide: `docs/strict-zero-cost-cluster.md`
 - Protocol: `docs/experiment-protocol.md`
 - Results template: `docs/results-template.md`

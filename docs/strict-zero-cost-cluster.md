@@ -2,6 +2,8 @@
 
 This guide defines the mandatory infrastructure for final experiments.
 
+For full build/deploy/run commands and troubleshooting, use `docs/end-to-end-setup-and-run.md`.
+
 ## Non-Negotiable Rule
 
 - Final runs must not use `docker-desktop` or `kind`.
