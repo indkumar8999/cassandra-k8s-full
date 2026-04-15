@@ -8,9 +8,11 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass
 from typing import Dict, List, Optional, Tuple
 
+
 import numpy as np
 import requests
 from flask import Flask, jsonify, request
+from sklearn.model_selection import KFold
 
 
 app = Flask(__name__)
@@ -66,27 +68,21 @@ TIER_A_NODE_QUERY_TEMPLATES = {
     "tier_a_cpu_usage_cores": 'sum(rate(container_cpu_usage_seconds_total{namespace="__NAMESPACE__",pod="__POD__"}[1m]))',
     "tier_a_memory_working_set_bytes": 'sum(container_memory_working_set_bytes{namespace="__NAMESPACE__",pod="__POD__"})',
     "tier_a_disk_read_bytes_per_sec": 'sum(rate(container_fs_reads_bytes_total{namespace="__NAMESPACE__",pod="__POD__"}[1m]))',
-    "tier_a_disk_write_bytes_per_sec": 'sum(rate(container_fs_writes_bytes_total{namespace="__NAMESPACE__",pod="__POD__"}[1m]))',
-    "tier_a_network_rx_bytes_per_sec": 'sum(rate(cassandra_metrics_count{namespace="__NAMESPACE__",pod="__POD__",type="ClientMessageSize",metric="BytesReceived"}[1m]))',
-    "tier_a_network_tx_bytes_per_sec": 'sum(rate(cassandra_metrics_count{namespace="__NAMESPACE__",pod="__POD__",type="ClientMessageSize",metric="BytesSent"}[1m]))',
 }
 
-TIER_B_FEATURE_QUERIES = {
-    "tier_b_simulator_write_latency_p95_ms": f'max(simulator_write_latency_p95_ms{{namespace="{TARGET_NAMESPACE}"}})',
-    "tier_b_simulator_read_latency_p95_ms": f'max(simulator_read_latency_p95_ms{{namespace="{TARGET_NAMESPACE}"}})',
-    "tier_b_simulator_writes_success_total": f'sum(simulator_writes_success_total{{namespace="{TARGET_NAMESPACE}"}})',
-    "tier_b_simulator_reads_success_total": f'sum(simulator_reads_success_total{{namespace="{TARGET_NAMESPACE}"}})',
-    "tier_b_jvm_heap_used_bytes": f'sum(jvm_memory_heap_used_bytes{{namespace="{TARGET_NAMESPACE}"}})',
-    "tier_b_cassandra_client_request_count_per_sec": f'sum(rate(cassandra_metrics_count{{namespace="{TARGET_NAMESPACE}",type="ClientRequest"}}[1m]))',
-}
+
 
 TIER_A_FEATURES = [
     "tier_a_cpu_usage_cores",
     "tier_a_memory_working_set_bytes",
     "tier_a_disk_read_bytes_per_sec",
-    "tier_a_disk_write_bytes_per_sec",
-    "tier_a_network_rx_bytes_per_sec",
-    "tier_a_network_tx_bytes_per_sec",
+]
+
+# For averaging, define the base metric names (without pod suffix)
+TIER_A_AVG_FEATURES = [
+    "tier_a_cpu_usage_cores",
+    "tier_a_memory_working_set_bytes",
+    "tier_a_disk_read_bytes_per_sec",
 ]
 
 
@@ -100,12 +96,13 @@ class Sample:
 
 
 class SOM:
-    def __init__(self, rows: int, cols: int, dims: int, lr: float, sigma: float):
+    def __init__(self, rows: int, cols: int, dims: int, lr: float, sigma: float, radius: int = 2):
         self.rows = rows
         self.cols = cols
         self.dims = dims
         self.lr = lr
         self.sigma = sigma
+        self.radius = radius
         self.weights = np.random.uniform(0.0, 100.0, (rows, cols, dims))
 
     def bmu(self, vec: np.ndarray) -> Tuple[int, int]:
@@ -116,7 +113,9 @@ class SOM:
         bmu_r, bmu_c = self.bmu(vec)
         rr, cc = np.indices((self.rows, self.cols))
         dist2 = (rr - bmu_r) ** 2 + (cc - bmu_c) ** 2
-        neighborhood = np.exp(-dist2 / (2.0 * (self.sigma ** 2)))
+        # Only update neurons within the defined radius
+        mask = dist2 <= self.radius ** 2
+        neighborhood = np.exp(-dist2 / (2.0 * (self.sigma ** 2))) * mask
         adjustment = self.lr * neighborhood[..., np.newaxis] * (vec - self.weights)
         self.weights += adjustment
 
@@ -172,10 +171,6 @@ class LearnerState:
         self.bmu_hits = Counter()
         self.scored_by_phase = Counter()
         self.dropped_missing_tier_a = 0
-        self.dropped_missing_tier_b = 0
-        self.tier_b_feature_set = set(TIER_B_FEATURE_QUERIES.keys())
-        self.tier_b_baseline_values: Dict[str, float] = {}
-        self.last_tier_b_values: Dict[str, float] = {}
         self.online_updates_since_threshold_refresh = 0
         self.query_pool = ThreadPoolExecutor(max_workers=max(1, PROM_QUERY_WORKERS))
         self.running = True
@@ -183,11 +178,21 @@ class LearnerState:
         self.thread.start()
 
     def _tier_a_feature_names(self) -> List[str]:
+        # Return all per-pod feature names for completeness, but not used for input vector anymore
         names: List[str] = []
         for pod in CASSANDRA_PODS:
             for base in TIER_A_FEATURES:
                 names.append(f"{base}__{pod}")
         return names
+
+    def _avg_tier_a_features(self, sample: Sample) -> Dict[str, float]:
+        # For each base metric, average across all pods
+        avg_features = {}
+        for base in TIER_A_AVG_FEATURES:
+            vals = [sample.values.get(f"{base}__{pod}") for pod in CASSANDRA_PODS]
+            vals = [v for v in vals if v is not None]
+            avg_features[base] = float(np.mean(vals)) if vals else 0.0
+        return avg_features
 
     def _query_prom(self, query: str) -> Optional[float]:
         try:
@@ -210,7 +215,6 @@ class LearnerState:
     def _collect_sample(self) -> Sample:
         values: Dict[str, float] = {}
         required_missing: List[str] = []
-        missing_tier_b: List[str] = []
 
         query_jobs = []
         for pod in CASSANDRA_PODS:
@@ -218,9 +222,6 @@ class LearnerState:
                 key = f"{base_name}__{pod}"
                 promql = template.replace("__NAMESPACE__", TARGET_NAMESPACE).replace("__POD__", pod)
                 query_jobs.append((key, promql, True))
-
-        for key, promql in TIER_B_FEATURE_QUERIES.items():
-            query_jobs.append((key, promql, False))
 
         future_to_meta = {
             self.query_pool.submit(self._query_prom, promql): (key, required)
@@ -232,8 +233,6 @@ class LearnerState:
             if value is None or math.isnan(value) or math.isinf(value):
                 if required:
                     required_missing.append(key)
-                else:
-                    missing_tier_b.append(key)
                 continue
             values[key] = value
 
@@ -242,7 +241,7 @@ class LearnerState:
             values=values,
             quality_valid=len(required_missing) == 0,
             missing_required=required_missing,
-            missing_tier_b=missing_tier_b,
+            missing_tier_b=[],
         )
 
     def _moving_avg(self, history: List[np.ndarray], vec: np.ndarray) -> np.ndarray:
@@ -253,38 +252,18 @@ class LearnerState:
         return np.mean(window, axis=0)
 
     def _normalize_vector(self, sample: Sample) -> Tuple[np.ndarray, List[str]]:
-        missing_required = [f for f in self._tier_a_feature_names() if f not in sample.values]
-        missing_tier_b_fallback = []
+        # Use only the average value for each metric
+        avg_features = self._avg_tier_a_features(sample)
+        missing_required = [k for k, v in avg_features.items() if v == 0.0]
         if missing_required:
             return np.array([]), missing_required
 
-        raw_values = []
-        for feature in self.feature_order:
-            if feature in sample.values:
-                val = sample.values[feature]
-                if feature in self.tier_b_feature_set:
-                    self.last_tier_b_values[feature] = val
-                raw_values.append(val)
-                continue
-
-            if feature in self.tier_b_feature_set:
-                fallback = self.last_tier_b_values.get(feature, self.tier_b_baseline_values.get(feature))
-                if fallback is None:
-                    missing_tier_b_fallback.append(feature)
-                else:
-                    raw_values.append(fallback)
-                continue
-
-            missing_required.append(feature)
-
-        if missing_required or missing_tier_b_fallback:
-            return np.array([]), missing_required + missing_tier_b_fallback
-
+        raw_values = [avg_features[feature] for feature in TIER_A_AVG_FEATURES]
         raw = np.array(raw_values, dtype=np.float64)
         if not self.norm_max:
             return raw, []
 
-        denom = np.array([max(self.norm_max[f], 1e-9) for f in self.feature_order], dtype=np.float64)
+        denom = np.array([max(self.norm_max[f], 1e-9) for f in TIER_A_AVG_FEATURES], dtype=np.float64)
         normed = (raw / denom) * 100.0
         return normed, []
 
@@ -340,30 +319,13 @@ class LearnerState:
             return
 
         self.training_start_ts = time.time()
-        tier_a_features = self._tier_a_feature_names()
-        tier_b_candidates = list(TIER_B_FEATURE_QUERIES.keys())
-        coverage_threshold = max(1, int(len(valid) * TIER_B_MIN_COVERAGE))
-        tier_b_presence = Counter()
-        for sample in valid:
-            for feature in tier_b_candidates:
-                if feature in sample.values:
-                    tier_b_presence[feature] += 1
-        tier_b_order = [f for f in tier_b_candidates if tier_b_presence[f] >= coverage_threshold]
-        self.feature_order = tier_a_features + tier_b_order
+        self.feature_order = TIER_A_AVG_FEATURES.copy()
         train_rows = []
         for sample in valid:
-            if any(feat not in sample.values for feat in self.feature_order):
+            avg_features = self._avg_tier_a_features(sample)
+            if any(avg_features[k] == 0.0 for k in TIER_A_AVG_FEATURES):
                 continue
-            train_rows.append(np.array([sample.values[f] for f in self.feature_order], dtype=np.float64))
-
-        if not train_rows:
-            # Tier B presence can be high per-feature but never overlap in the same samples; fall back to Tier A only.
-            self.feature_order = tier_a_features
-            train_rows = []
-            for sample in valid:
-                if any(feat not in sample.values for feat in self.feature_order):
-                    continue
-                train_rows.append(np.array([sample.values[f] for f in self.feature_order], dtype=np.float64))
+            train_rows.append(np.array([avg_features[feature] for feature in TIER_A_AVG_FEATURES], dtype=np.float64))
 
         if not train_rows:
             self.last_error = "No complete vectors available for training."
@@ -372,17 +334,45 @@ class LearnerState:
         train_data = np.array(train_rows)
         train_data = self._apply_training_smoothing(train_data)
         self.norm_max = {name: float(max(train_data[:, idx].max(), 1e-9)) for idx, name in enumerate(self.feature_order)}
-        self.tier_b_baseline_values = {}
-        for feature in self.feature_order:
-            if feature in self.tier_b_feature_set:
-                feature_idx = self.feature_order.index(feature)
-                self.tier_b_baseline_values[feature] = float(np.median(train_data[:, feature_idx]))
-        self.last_tier_b_values = dict(self.tier_b_baseline_values)
         train_data_norm = (train_data / np.array([self.norm_max[f] for f in self.feature_order])) * 100.0
 
-        self.som = SOM(SOM_ROWS, SOM_COLS, train_data_norm.shape[1], SOM_LR, SOM_SIGMA)
-        self.som.train(train_data_norm.copy(), TRAIN_EPOCHS)
-        self.area_map = self.som.area_map()
+        # K-Fold Cross Validation (k=3) and best SOM selection by min sum of validation BMU areas
+        k = 3
+        kf = KFold(n_splits=k, shuffle=True, random_state=42)
+        fold_metrics = []
+        som_models = []
+        for fold, (train_idx, test_idx) in enumerate(kf.split(train_data_norm)):
+            X_train, X_val = train_data_norm[train_idx], train_data_norm[test_idx]
+            som = SOM(SOM_ROWS, SOM_COLS, X_train.shape[1], SOM_LR, SOM_SIGMA, radius=2)
+            som.train(X_train.copy(), TRAIN_EPOCHS)
+            area_map = som.area_map()
+            # For each validation sample, get BMU and area value
+            val_areas = []
+            for vec in X_val:
+                bmu_r, bmu_c = som.bmu(vec)
+                val_areas.append(area_map[bmu_r, bmu_c])
+            sum_area = float(np.sum(val_areas)) if val_areas else float('inf')
+            fold_metrics.append({
+                "fold": fold+1,
+                "sum_area": sum_area,
+                "mean_area": float(np.mean(val_areas)) if val_areas else 0.0,
+                "std_area": float(np.std(val_areas)) if val_areas else 0.0,
+                "min_area": float(np.min(val_areas)) if val_areas else 0.0,
+                "max_area": float(np.max(val_areas)) if val_areas else 0.0,
+            })
+            som_models.append({
+                "model": som,
+                "area_map": area_map,
+                "sum_area": sum_area
+            })
+
+        self.kfold_metrics = fold_metrics
+        # Select the SOM with the minimum sum_area on its validation set
+        best_idx = int(np.argmin([m["sum_area"] for m in som_models]))
+        best_som = som_models[best_idx]["model"]
+        best_area_map = som_models[best_idx]["area_map"]
+        self.som = best_som
+        self.area_map = best_area_map
         self._refresh_threshold()
         self.trained = True
         self.ready = True
@@ -402,8 +392,6 @@ class LearnerState:
             tier_a_set = set(self._tier_a_feature_names())
             if any(name in tier_a_set for name in missing):
                 self.dropped_missing_tier_a += 1
-            else:
-                self.dropped_missing_tier_b += 1
             return
 
         vec = self._moving_avg(smooth_history, vec)
@@ -489,7 +477,7 @@ class LearnerState:
                 if alarm["ts"] >= first_chaos_ts:
                     lead_times.append(alarm["ts"] - first_chaos_ts)
 
-        return {
+        report = {
             "trained": self.trained,
             "ready": self.ready,
             "phase": self.phase,
@@ -499,7 +487,6 @@ class LearnerState:
             "total_samples_seen": self.total_samples_seen,
             "total_samples_scored": self.total_samples_scored,
             "total_samples_dropped_missing_tier_a": self.dropped_missing_tier_a,
-            "total_samples_dropped_missing_tier_b": self.dropped_missing_tier_b,
             "scored_by_phase": {phase: self.scored_by_phase.get(phase, 0) for phase in KNOWN_PHASES},
             "alarm_count": len(alarms),
             "score_stream_count": len(stream),
@@ -515,6 +502,10 @@ class LearnerState:
             },
             "last_error": self.last_error,
         }
+        # Add k-fold metrics if available
+        if hasattr(self, "kfold_metrics"):
+            report["kfold_metrics"] = self.kfold_metrics
+        return report
 
 
 state = LearnerState()
@@ -596,12 +587,9 @@ def reset():
         state.total_samples_seen = 0
         state.total_samples_scored = 0
         state.dropped_missing_tier_a = 0
-        state.dropped_missing_tier_b = 0
         state.score_latency_ms.clear()
         state.bmu_hits.clear()
         state.scored_by_phase.clear()
-        state.tier_b_baseline_values.clear()
-        state.last_tier_b_values.clear()
         state.online_updates_since_threshold_refresh = 0
     return jsonify({"message": "learner reset"})
 
@@ -615,7 +603,6 @@ def report():
 @app.get("/config")
 def config():
     tier_a_feature_count = len(TIER_A_FEATURES) * len(CASSANDRA_PODS)
-    feature_count_total = tier_a_feature_count + len(TIER_B_FEATURE_QUERIES)
     return jsonify(
         {
             "prometheus_base": PROMETHEUS_BASE,
@@ -637,11 +624,8 @@ def config():
             "threshold_recalc_every_updates": THRESHOLD_RECALC_EVERY_UPDATES,
             "prom_query_workers": PROM_QUERY_WORKERS,
             "prom_query_timeout_sec": PROM_QUERY_TIMEOUT_SEC,
-            "tier_b_min_coverage": TIER_B_MIN_COVERAGE,
             "tier_a_features": TIER_A_FEATURES,
             "tier_a_feature_count": tier_a_feature_count,
-            "tier_b_feature_count": len(TIER_B_FEATURE_QUERIES),
-            "feature_count_total": feature_count_total,
         }
     )
 
