@@ -13,7 +13,7 @@ For full build/deploy/run commands and troubleshooting, use `docs/end-to-end-set
 
 - 1 control-plane VM
 - 3 worker VMs
-- Recommended memory: **`4Gi` per Ubuntu VM** (control-plane and workers) when running Cassandra + kube-prometheus on workers; `2Gi` is possible but often OOMs under load
+- Recommended memory: **`4Gi` per Ubuntu VM** (control-plane and workers) when running Cassandra + kube-prometheus on workers; **`2Gi` per VM** is supported as a **pressure / demo** profile (see `make rebuild-multipass-pressure` in `cassandra/Makefile`) but OOMs under load are more likely—raise stress gradually.
 - Ubuntu 22.04+ on all nodes
 - Container runtime: `containerd`
 - Kubernetes: `kubeadm` + CNI (Calico/Cilium)

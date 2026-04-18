@@ -14,9 +14,20 @@ spec:
         app: chaos-injector
     spec:
       serviceAccountName: chaos-injector
+      # Keep chaos-injector off the hot-spare worker (e.g. w4 for cassandra-3). Scheduler picks any other Ready node otherwise.
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: NotIn
+                    values:
+                      - w4
       containers:
         - name: chaos-injector
-          image: docker.io/aumpandya/cassandra-chaos-injector:v0.1.0
+          # Rebuild/push after chaos-injector changes: `make build-images` with DOCKERHUB_USER/IMAGE_TAG, or retag :v0.3.4.
+          image: docker.io/aumpandya/cassandra-chaos-injector:v0.3.4
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8200
@@ -28,6 +39,17 @@ spec:
               value: app=cassandra
             - name: SIMULATOR_LABEL_SELECTOR
               value: app=cassandra-simulator
+            # Optional: lower on small workers if stress Jobs stay Pending (e.g. STRESS_JOB_CPU_REQUEST=500m, MAX_STRESS_PARALLEL_JOBS=2).
+            - name: STRESS_JOB_CPU_REQUEST
+              value: "1000m"
+            - name: STRESS_JOB_CPU_LIMIT
+              value: "4"
+            - name: STRESS_JOB_MEM_REQUEST
+              value: "1Gi"
+            - name: STRESS_JOB_MEM_LIMIT
+              value: "3Gi"
+            - name: DEFAULT_STRESS_PARALLEL_JOBS
+              value: "1"
           resources:
             requests:
               cpu: "100m"

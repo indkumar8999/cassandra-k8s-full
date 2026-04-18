@@ -1,0 +1,7 @@
+{"ts_utc":"2026-04-16T18:59:52Z","event":"watch_started","detail":"learner_base=http://localhost:8100 namespace=cassandra-lab statefulset=cassandra target_replicas=4"}
+{"ts_utc":"2026-04-16T18:59:52Z","event":"alarm_detected","detail":"count=5 learner_last_alarm_ts=1776365992.6768684"}
+{"ts_utc":"2026-04-16T18:59:52Z","event":"scale_started","detail":"from=3 to=4"}
+{"ts_utc":"2026-04-16T18:59:53Z","event":"scale_submitted","detail":"statefulset=cassandra replicas=4"}
+{"ts_utc":"2026-04-16T18:59:53Z","event":"rollout_wait_started","detail":"timeout=15m"}
+{"ts_utc":"2026-04-16T19:02:08Z","event":"rollout_complete","detail":"statefulset=cassandra"}
+{"ts_utc":"2026-04-16T19:02:10Z","event":"script_complete","detail":"success=true"}

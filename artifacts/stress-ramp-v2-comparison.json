@@ -1,0 +1,40 @@
+{
+  "runs": [
+    {
+      "run_id": "stress-ramp-s1-hot-v2",
+      "fault_profile": "anomaly-hot-partition",
+      "chaos_sec": 180,
+      "fault_threads": 420,
+      "fault_pop_end": null,
+      "alarm_count": 0,
+      "lead_time_mean_sec": null,
+      "scored_chaos": 0,
+      "total_samples_scored": 0,
+      "threshold": 459.5050950547042
+    },
+    {
+      "run_id": "stress-ramp-s2-cpu-v2",
+      "fault_profile": "anomaly-concurrency-spike",
+      "chaos_sec": 180,
+      "fault_threads": 1000,
+      "fault_pop_end": 5000000,
+      "alarm_count": 126,
+      "lead_time_mean_sec": 65.902,
+      "scored_chaos": 130,
+      "total_samples_scored": 176,
+      "threshold": 512.4605051079019
+    },
+    {
+      "run_id": "stress-ramp-s3-compaction-v2",
+      "fault_profile": "anomaly-compaction-pressure",
+      "chaos_sec": 240,
+      "fault_threads": 500,
+      "fault_pop_end": 10000000,
+      "alarm_count": 0,
+      "lead_time_mean_sec": null,
+      "scored_chaos": 91,
+      "total_samples_scored": 91,
+      "threshold": 489.9031454468667
+    }
+  ]
+}

@@ -7,7 +7,7 @@ LEARNER_IMAGE ?= docker.io/$(DOCKERHUB_USER)/cassandra-ubl-learner:$(IMAGE_TAG)
 CHAOS_IMAGE ?= docker.io/$(DOCKERHUB_USER)/cassandra-chaos-injector:$(IMAGE_TAG)
 ORCH_IMAGE ?= docker.io/$(DOCKERHUB_USER)/cassandra-orchestrator:$(IMAGE_TAG)
 
-.PHONY: build-images tag-images push-images deploy-core deploy-monitoring deploy-mvp deploy-strict run-demo collect-report collect-ablation cleanup-mvp demo-preflight show-images rebuild-multipass-2g
+.PHONY: build-images tag-images push-images deploy-core deploy-monitoring deploy-mvp deploy-strict run-demo collect-report collect-ablation cleanup-mvp demo-preflight show-images rebuild-multipass-2g rebuild-multipass-pressure auto-scale-on-alarm
 
 build-images:
 	docker build -t cassandra-simulator:latest ./simulator
@@ -43,6 +43,7 @@ deploy-monitoring:
 	kubectl patch statefulset cassandra -n cassandra-lab --patch-file monitoring/cassandra-statefulset-patch.yaml
 	kubectl apply -f monitoring/cassandra-podmonitor.yaml
 	kubectl apply -f monitoring/simulator-podmonitor.yaml
+	kubectl apply -f monitoring/ubl-learner-podmonitor.yaml
 
 deploy-mvp:
 	kubectl apply -f k8s/ubl-learner/
@@ -70,3 +71,13 @@ cleanup-mvp:
 # Destructive: deletes cp1+w1+w2+w3 and recreates k3s (default 4G RAM/VM; VM_MEMORY=2G for minimal hosts).
 rebuild-multipass-2g:
 	bash ./scripts/rebuild_multipass_k3s_2g.sh
+
+# Destructive: same rebuild but 2G RAM per VM — higher fractional utilization; heavier OOM risk under stress (demo/pressure profile).
+rebuild-multipass-pressure:
+	VM_MEMORY=2G bash ./scripts/rebuild_multipass_k3s_2g.sh
+
+elastic-cassandra-replicas:
+	bash ./scripts/cassandra_elastic_replicas.sh
+
+# Back-compat alias (was wait_for_alarm_and_scale.sh only; now full D+F cycle).
+auto-scale-on-alarm: elastic-cassandra-replicas

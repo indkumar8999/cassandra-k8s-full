@@ -1,0 +1,191 @@
+{
+  "events": [
+    {
+      "ts": 1776284545.999135,
+      "ts_iso": "2026-04-15T20:22:25Z",
+      "event": "run_start",
+      "payload": {
+        "run_id": "one-run-cpuhog-1776284545",
+        "profile": "high",
+        "fault_profile": "cpuhog-like"
+      }
+    },
+    {
+      "ts": 1776284546.017301,
+      "ts_iso": "2026-04-15T20:22:26Z",
+      "event": "health_check",
+      "payload": {
+        "simulator": {
+          "profile": "high",
+          "running": true,
+          "status": "up"
+        },
+        "learner": {
+          "status": "up"
+        },
+        "chaos": {
+          "active_fault_count": 0,
+          "status": "up"
+        }
+      }
+    },
+    {
+      "ts": 1776284546.047565,
+      "ts_iso": "2026-04-15T20:22:26Z",
+      "event": "bootstrap_wait_start",
+      "payload": {
+        "timeout_sec": 1800
+      }
+    },
+    {
+      "ts": 1776284616.916287,
+      "ts_iso": "2026-04-15T20:23:36Z",
+      "event": "learner_ready",
+      "payload": {
+        "bootstrap_collected_samples": 120,
+        "bootstrap_target_samples": 120,
+        "bootstrap_valid_samples": 120,
+        "last_error": null,
+        "phase": "normal",
+        "ready": true,
+        "threshold": 200.92653509211297,
+        "threshold_percentile": 85.0,
+        "trained": true,
+        "training_duration_sec": 0.101
+      }
+    },
+    {
+      "ts": 1776284616.916342,
+      "ts_iso": "2026-04-15T20:23:36Z",
+      "event": "bootstrap_wait_end",
+      "payload": {}
+    },
+    {
+      "ts": 1776284616.916364,
+      "ts_iso": "2026-04-15T20:23:36Z",
+      "event": "phase_start",
+      "payload": {
+        "phase": "normal",
+        "duration_sec": 60
+      }
+    },
+    {
+      "ts": 1776284676.920564,
+      "ts_iso": "2026-04-15T20:24:36Z",
+      "event": "phase_end",
+      "payload": {
+        "phase": "normal"
+      }
+    },
+    {
+      "ts": 1776284676.9334772,
+      "ts_iso": "2026-04-15T20:24:36Z",
+      "event": "phase_start",
+      "payload": {
+        "phase": "load",
+        "duration_sec": 60
+      }
+    },
+    {
+      "ts": 1776284736.9359648,
+      "ts_iso": "2026-04-15T20:25:36Z",
+      "event": "phase_end",
+      "payload": {
+        "phase": "load"
+      }
+    },
+    {
+      "ts": 1776284737.0654368,
+      "ts_iso": "2026-04-15T20:25:37Z",
+      "event": "fault_start",
+      "payload": {
+        "fault": {
+          "command_start_ts": 1776284737.1082335,
+          "command_stop_ts": null,
+          "extra": null,
+          "params": {
+            "cpu_workers": 2,
+            "duration_sec": 120,
+            "job_name": "chaos-cpuhog-like-1776284737",
+            "node_name": "w1"
+          },
+          "profile": "cpuhog-like",
+          "started_at": 1776284737.108232,
+          "status": "running",
+          "target": "cassandra-0",
+          "verified_start_ts": 1776284737.1082337,
+          "verified_stop_ts": null
+        },
+        "message": "fault started"
+      }
+    },
+    {
+      "ts": 1776284737.065529,
+      "ts_iso": "2026-04-15T20:25:37Z",
+      "event": "phase_start",
+      "payload": {
+        "phase": "chaos",
+        "duration_sec": 120
+      }
+    },
+    {
+      "ts": 1776284857.0661702,
+      "ts_iso": "2026-04-15T20:27:37Z",
+      "event": "phase_end",
+      "payload": {
+        "phase": "chaos"
+      }
+    },
+    {
+      "ts": 1776284857.077895,
+      "ts_iso": "2026-04-15T20:27:37Z",
+      "event": "fault_stop",
+      "payload": {
+        "fault": {
+          "command_start_ts": 1776284737.1082335,
+          "command_stop_ts": 1776284857.1192565,
+          "extra": null,
+          "params": {
+            "cpu_workers": 2,
+            "duration_sec": 120,
+            "job_name": "chaos-cpuhog-like-1776284737",
+            "node_name": "w1"
+          },
+          "profile": "cpuhog-like",
+          "started_at": 1776284737.108232,
+          "status": "stopped",
+          "target": "cassandra-0",
+          "verified_start_ts": 1776284737.1082337,
+          "verified_stop_ts": 1776284857.119258
+        },
+        "message": "fault stopped"
+      }
+    },
+    {
+      "ts": 1776284857.140343,
+      "ts_iso": "2026-04-15T20:27:37Z",
+      "event": "phase_start",
+      "payload": {
+        "phase": "cooldown",
+        "duration_sec": 60
+      }
+    },
+    {
+      "ts": 1776284917.1454551,
+      "ts_iso": "2026-04-15T20:28:37Z",
+      "event": "phase_end",
+      "payload": {
+        "phase": "cooldown"
+      }
+    },
+    {
+      "ts": 1776284917.295611,
+      "ts_iso": "2026-04-15T20:28:37Z",
+      "event": "run_complete",
+      "payload": {
+        "run_dir": "artifacts/one-run-cpuhog-1776284545",
+        "alarm_count": 294
+      }
+    }
+  ]
+}

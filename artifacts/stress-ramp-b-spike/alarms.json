@@ -1,0 +1,181 @@
+{
+  "count": 11,
+  "items": [
+    {
+      "bmu": [
+        16,
+        28
+      ],
+      "causes": [
+        "tier_a_disk_read_bytes_per_sec",
+        "tier_a_memory_working_set_bytes",
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 502.962140214958,
+      "streak": 3,
+      "threshold": 431.2010223925953,
+      "ts": 1776457918.4919982
+    },
+    {
+      "bmu": [
+        16,
+        28
+      ],
+      "causes": [
+        "tier_a_disk_read_bytes_per_sec",
+        "tier_a_memory_working_set_bytes",
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 502.962140214958,
+      "streak": 4,
+      "threshold": 431.2010223925953,
+      "ts": 1776457919.0088778
+    },
+    {
+      "bmu": [
+        16,
+        28
+      ],
+      "causes": [
+        "tier_a_disk_read_bytes_per_sec",
+        "tier_a_memory_working_set_bytes",
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 502.962140214958,
+      "streak": 5,
+      "threshold": 431.2010223925953,
+      "ts": 1776457919.5398862
+    },
+    {
+      "bmu": [
+        16,
+        14
+      ],
+      "causes": [
+        "tier_a_disk_read_bytes_per_sec",
+        "tier_a_cpu_usage_cores",
+        "tier_a_memory_working_set_bytes"
+      ],
+      "phase": "chaos",
+      "score_area": 442.87880146935925,
+      "streak": 3,
+      "threshold": 431.2010223925953,
+      "ts": 1776457924.8025382
+    },
+    {
+      "bmu": [
+        16,
+        14
+      ],
+      "causes": [
+        "tier_a_disk_read_bytes_per_sec",
+        "tier_a_cpu_usage_cores",
+        "tier_a_memory_working_set_bytes"
+      ],
+      "phase": "chaos",
+      "score_area": 442.87880146935925,
+      "streak": 4,
+      "threshold": 431.2010223925953,
+      "ts": 1776457925.3209221
+    },
+    {
+      "bmu": [
+        16,
+        14
+      ],
+      "causes": [
+        "tier_a_disk_read_bytes_per_sec",
+        "tier_a_cpu_usage_cores",
+        "tier_a_memory_working_set_bytes"
+      ],
+      "phase": "chaos",
+      "score_area": 442.87880146935925,
+      "streak": 5,
+      "threshold": 431.2010223925953,
+      "ts": 1776457925.8355806
+    },
+    {
+      "bmu": [
+        16,
+        14
+      ],
+      "causes": [
+        "tier_a_disk_read_bytes_per_sec",
+        "tier_a_cpu_usage_cores",
+        "tier_a_memory_working_set_bytes"
+      ],
+      "phase": "chaos",
+      "score_area": 442.87880146935925,
+      "streak": 6,
+      "threshold": 431.2010223925953,
+      "ts": 1776457926.3558707
+    },
+    {
+      "bmu": [
+        16,
+        14
+      ],
+      "causes": [
+        "tier_a_disk_read_bytes_per_sec",
+        "tier_a_cpu_usage_cores",
+        "tier_a_memory_working_set_bytes"
+      ],
+      "phase": "chaos",
+      "score_area": 442.87880146935925,
+      "streak": 7,
+      "threshold": 431.2010223925953,
+      "ts": 1776457926.8932226
+    },
+    {
+      "bmu": [
+        16,
+        14
+      ],
+      "causes": [
+        "tier_a_disk_read_bytes_per_sec",
+        "tier_a_cpu_usage_cores",
+        "tier_a_memory_working_set_bytes"
+      ],
+      "phase": "chaos",
+      "score_area": 442.87880146935925,
+      "streak": 8,
+      "threshold": 431.2010223925953,
+      "ts": 1776457927.4071815
+    },
+    {
+      "bmu": [
+        16,
+        14
+      ],
+      "causes": [
+        "tier_a_disk_read_bytes_per_sec",
+        "tier_a_cpu_usage_cores",
+        "tier_a_memory_working_set_bytes"
+      ],
+      "phase": "chaos",
+      "score_area": 442.87880146935925,
+      "streak": 9,
+      "threshold": 431.2010223925953,
+      "ts": 1776457927.9289052
+    },
+    {
+      "bmu": [
+        10,
+        14
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores",
+        "tier_a_memory_working_set_bytes",
+        "tier_a_disk_read_bytes_per_sec"
+      ],
+      "phase": "cooldown",
+      "score_area": 477.07232612949605,
+      "streak": 10,
+      "threshold": 431.2010223925953,
+      "ts": 1776458067.9589775
+    }
+  ]
+}

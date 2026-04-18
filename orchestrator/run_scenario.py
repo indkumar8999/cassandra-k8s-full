@@ -1,6 +1,8 @@
 import argparse
 import json
 import os
+import subprocess
+import sys
 import time
 from dataclasses import dataclass, asdict
 from pathlib import Path
@@ -70,6 +72,63 @@ class ScenarioRunner:
     def _post(self, base: str, path: str, body: Optional[Dict] = None):
         return self._request_json("POST", base, path, body=body)
 
+    def _generate_final_report(self):
+        script = Path(__file__).resolve().parent.parent / "reporting" / "generate_report.py"
+        if not script.is_file():
+            self._record("report_skipped", {"reason": "generate_report.py not found", "path": str(script)})
+            print(f"[WARN] Skip report: missing {script}", file=sys.stderr)
+            return
+        cmd = [
+            sys.executable,
+            str(script),
+            "--run-dir",
+            str(self.run_dir.resolve()),
+            "--chaos-min-scored",
+            str(self.args.report_chaos_min_scored),
+            "--max-fp",
+            str(self.args.report_max_fp),
+        ]
+        try:
+            completed = subprocess.run(cmd, capture_output=True, text=True, timeout=180)
+        except subprocess.TimeoutExpired as ex:
+            self._record("report_error", {"error": "timeout", "detail": str(ex)})
+            print(f"[WARN] Report generation timed out: {ex}", file=sys.stderr)
+            return
+        if completed.returncode != 0:
+            self._record(
+                "report_error",
+                {
+                    "returncode": completed.returncode,
+                    "stderr": (completed.stderr or "")[:4000],
+                    "stdout": (completed.stdout or "")[:2000],
+                },
+            )
+            print(completed.stderr or completed.stdout or "(no output)", file=sys.stderr)
+            return
+        tail = (completed.stdout or "").strip()
+        if tail:
+            print(tail)
+        self._record("report_generated", {"run_dir": str(self.run_dir)})
+
+    def _post_chaos_stop_fault(self, profile: str) -> Dict:
+        """POST chaos /stop_fault; accept 404 or idempotent 200 when the fault is no longer tracked (pod restart, reset)."""
+        url = f"{self.chaos_base}/stop_fault"
+        response = self.session.post(url, json={"profile": profile}, timeout=30)
+        if response.status_code == 404:
+            try:
+                detail = response.json()
+            except Exception:
+                detail = {"text": (response.text or "")[:500]}
+            return {
+                "message": "fault not active at stop (treated as already stopped)",
+                "fault": None,
+                "profile": profile,
+                "chaos_http_status": 404,
+                "detail": detail,
+            }
+        response.raise_for_status()
+        return response.json()
+
     def _sleep_phase(self, phase: Phase):
         self._record("phase_start", {"phase": phase.name, "duration_sec": phase.duration_sec})
         if phase.duration_sec > 0:
@@ -112,7 +171,15 @@ class ScenarioRunner:
         out.write_text(json.dumps(payload, indent=2), encoding="utf-8")
 
     def run(self):
-        self._record("run_start", {"run_id": self.run_id, "profile": self.args.load_profile, "fault_profile": self.args.fault_profile})
+        self._record(
+            "run_start",
+            {
+                "run_id": self.run_id,
+                "load_profile": self.args.load_profile,
+                "fault_profile": self.args.fault_profile,
+                "bootstrap_fault_profile": self.args.bootstrap_fault_profile,
+            },
+        )
 
         sim_health = self._get(self.simulator_base, "/health")
         learner_health = self._get(self.learner_base, "/health")
@@ -123,34 +190,66 @@ class ScenarioRunner:
         self._post(self.chaos_base, "/reset_all")
         self._post(self.simulator_base, "/reset-metrics")
         self._post(self.simulator_base, "/resume")
-        self._post(self.simulator_base, "/load", {"profile": "low"})
+        # 1) Train while baseline cassandra-stress runs (isolated from simulator high load).
+        self._post(self.simulator_base, "/load", {"profile": self.args.bootstrap_sim_profile})
         self._post(self.learner_base, "/phase", {"phase": "normal"})
 
-        self._record("bootstrap_wait_start", {"timeout_sec": self.args.bootstrap_timeout_sec})
+        baseline_dur = self.args.bootstrap_fault_duration_sec
+        if baseline_dur <= 0:
+            baseline_dur = min(
+                max(self.args.bootstrap_timeout_sec + 600, 1200),
+                7200,
+            )
+        baseline_body: Dict = {
+            "profile": self.args.bootstrap_fault_profile,
+            "duration_sec": baseline_dur,
+            "cpu_workers": self.args.cpu_workers,
+            "mem_mb": self.args.mem_mb,
+            "replicas": self.args.bottleneck_replicas,
+        }
+        if self.args.bootstrap_stress_threads is not None:
+            baseline_body["threads"] = self.args.bootstrap_stress_threads
+        if self.args.bootstrap_stress_pop_end is not None:
+            baseline_body["pop_end"] = self.args.bootstrap_stress_pop_end
+        baseline_body["parallel_jobs"] = self.args.bootstrap_stress_parallel_jobs
+        baseline_start = self._post(self.chaos_base, "/start_fault", baseline_body)
+        self._record("baseline_fault_start", baseline_start)
+
+        self._record(
+            "bootstrap_wait_start",
+            {
+                "timeout_sec": self.args.bootstrap_timeout_sec,
+                "bootstrap_fault_profile": self.args.bootstrap_fault_profile,
+                "bootstrap_fault_duration_sec": baseline_dur,
+                "simulator_profile_during_bootstrap": self.args.bootstrap_sim_profile,
+                "learner_phase": "normal",
+            },
+        )
         self._wait_learner_ready(self.args.bootstrap_timeout_sec)
         self._record("bootstrap_wait_end", {})
 
-        self._sleep_phase(Phase("normal", self.args.normal_sec))
+        baseline_stop = self._post_chaos_stop_fault(self.args.bootstrap_fault_profile)
+        self._record("baseline_fault_stop", baseline_stop)
 
-        self._post(self.learner_base, "/phase", {"phase": "load"})
+        # Anomaly stress: set simulator to target load, then chaos phase + fault (no separate load soak).
         self._post(self.simulator_base, "/load", {"profile": self.args.load_profile})
-        self._sleep_phase(Phase("load", self.args.load_sec))
-
         self._post(self.learner_base, "/phase", {"phase": "chaos"})
-        fault_start_payload = self._post(
-            self.chaos_base,
-            "/start_fault",
-            {
-                "profile": self.args.fault_profile,
-                "duration_sec": self.args.chaos_sec,
-                "cpu_workers": self.args.cpu_workers,
-                "mem_mb": self.args.mem_mb,
-                "replicas": self.args.bottleneck_replicas,
-            },
-        )
+        fault_body: Dict = {
+            "profile": self.args.fault_profile,
+            "duration_sec": self.args.chaos_sec,
+            "cpu_workers": self.args.cpu_workers,
+            "mem_mb": self.args.mem_mb,
+            "replicas": self.args.bottleneck_replicas,
+        }
+        if self.args.stress_threads is not None:
+            fault_body["threads"] = self.args.stress_threads
+        if self.args.stress_pop_end is not None:
+            fault_body["pop_end"] = self.args.stress_pop_end
+        fault_body["parallel_jobs"] = self.args.stress_parallel_jobs
+        fault_start_payload = self._post(self.chaos_base, "/start_fault", fault_body)
         self._record("fault_start", fault_start_payload)
         self._sleep_phase(Phase("chaos", self.args.chaos_sec))
-        fault_stop_payload = self._post(self.chaos_base, "/stop_fault", {"profile": self.args.fault_profile})
+        fault_stop_payload = self._post_chaos_stop_fault(self.args.fault_profile)
         self._record("fault_stop", fault_stop_payload)
 
         self._post(self.learner_base, "/phase", {"phase": "cooldown"})
@@ -163,6 +262,12 @@ class ScenarioRunner:
         alarms = self._get(self.learner_base, "/alarms?limit=5000")
         simulator_metrics = self._get(self.simulator_base, "/metrics")
 
+        som_snapshot: Dict = {}
+        try:
+            som_snapshot = self._get(self.learner_base, "/export/som-snapshot")
+        except Exception as ex:
+            som_snapshot = {"error": str(ex), "note": "Deploy ubl-learner with /export/som-snapshot or check learner logs."}
+
         run_finished = _now()
         summary = {
             "run_id": self.run_id,
@@ -171,18 +276,27 @@ class ScenarioRunner:
             "duration_sec": round(run_finished - self.run_started_at, 2),
             "fault_profile": self.args.fault_profile,
             "load_profile": self.args.load_profile,
+            "bootstrap_fault_profile": self.args.bootstrap_fault_profile,
             "phase_durations": {
-                "normal_sec": self.args.normal_sec,
-                "load_sec": self.args.load_sec,
+                "bootstrap_sim_profile": self.args.bootstrap_sim_profile,
                 "chaos_sec": self.args.chaos_sec,
                 "cooldown_sec": self.args.cooldown_sec,
+                "load_sec_deprecated": self.args.load_sec,
+                "normal_sec_deprecated": self.args.normal_sec,
             },
             "injection_profile": {
+                "bootstrap_fault_profile": self.args.bootstrap_fault_profile,
                 "fault_profile": self.args.fault_profile,
                 "target_namespace": self.args.target_namespace,
                 "cpu_workers": self.args.cpu_workers,
                 "mem_mb": self.args.mem_mb,
                 "bottleneck_replicas": self.args.bottleneck_replicas,
+                "bootstrap_stress_threads": self.args.bootstrap_stress_threads,
+                "bootstrap_stress_pop_end": self.args.bootstrap_stress_pop_end,
+                "stress_threads": self.args.stress_threads,
+                "stress_pop_end": self.args.stress_pop_end,
+                "bootstrap_stress_parallel_jobs": self.args.bootstrap_stress_parallel_jobs,
+                "stress_parallel_jobs": self.args.stress_parallel_jobs,
             },
             "learner_status": learner_status,
             "learner_report": learner_report,
@@ -196,29 +310,117 @@ class ScenarioRunner:
         self._write_json("score_stream.json", score_stream)
         self._write_json("alarms.json", alarms)
         self._write_json("simulator_metrics.json", simulator_metrics)
+        self._write_json("som_snapshot.json", som_snapshot)
+
+        if not self.args.skip_report:
+            self._generate_final_report()
 
         self._record("run_complete", {"run_dir": str(self.run_dir), "alarm_count": alarms.get("count", 0)})
         self._write_json("run_events.json", {"events": self.events})
 
 
 def build_parser():
-    parser = argparse.ArgumentParser(description="Run normal/load/chaos/cooldown scenario.")
+    parser = argparse.ArgumentParser(
+        description=(
+            "Bootstrap trains on cassandra-stress baseline fault (--bootstrap-fault-profile, default baseline-normal) "
+            "with simulator at --bootstrap-sim-profile; then anomaly fault (--fault-profile) with --load-profile; then cooldown."
+        )
+    )
     parser.add_argument("--simulator-base", default=os.getenv("SIMULATOR_BASE", "http://localhost:8080"))
     parser.add_argument("--learner-base", default=os.getenv("LEARNER_BASE", "http://localhost:8100"))
     parser.add_argument("--chaos-base", default=os.getenv("CHAOS_BASE", "http://localhost:8200"))
     parser.add_argument("--target-namespace", default=os.getenv("TARGET_NAMESPACE", "cassandra-lab"))
-    parser.add_argument("--fault-profile", default=os.getenv("FAULT_PROFILE", "network-congestion-like"))
+    parser.add_argument(
+        "--bootstrap-fault-profile",
+        default=os.getenv("BOOTSTRAP_FAULT_PROFILE", "baseline-normal"),
+        help="Chaos profile during SOM bootstrap (cassandra-stress), e.g. baseline-normal.",
+    )
+    parser.add_argument(
+        "--bootstrap-sim-profile",
+        default=os.getenv("BOOTSTRAP_SIM_PROFILE", "low"),
+        help="Simulator load profile while bootstrap fault runs (low recommended to isolate baseline stress).",
+    )
+    parser.add_argument(
+        "--bootstrap-fault-duration-sec",
+        type=int,
+        default=int(os.getenv("BOOTSTRAP_FAULT_DURATION_SEC", "0")),
+        help="Max duration for bootstrap chaos Job; 0 = auto (min ~bootstrap_timeout+600s, capped at 7200).",
+    )
+    parser.add_argument("--fault-profile", default=os.getenv("FAULT_PROFILE", "anomaly-concurrency-spike"))
     parser.add_argument("--load-profile", default=os.getenv("LOAD_PROFILE", "high"))
-    parser.add_argument("--normal-sec", type=int, default=int(os.getenv("NORMAL_SEC", "60")))
-    parser.add_argument("--load-sec", type=int, default=int(os.getenv("LOAD_SEC", "60")))
-    parser.add_argument("--chaos-sec", type=int, default=int(os.getenv("CHAOS_SEC", "120")))
+    parser.add_argument(
+        "--normal-sec",
+        type=int,
+        default=int(os.getenv("NORMAL_SEC", "0")),
+        help="Unused (CLI compatibility only). Former low-load window; bootstrap now runs under --load-profile.",
+    )
+    parser.add_argument(
+        "--load-sec",
+        type=int,
+        default=int(os.getenv("LOAD_SEC", "0")),
+        help="Unused (CLI compatibility). Former pre-chaos simulator soak; removed from scenario.",
+    )
+    parser.add_argument("--chaos-sec", type=int, default=int(os.getenv("CHAOS_SEC", "60")))
     parser.add_argument("--cooldown-sec", type=int, default=int(os.getenv("COOLDOWN_SEC", "60")))
     parser.add_argument("--bootstrap-timeout-sec", type=int, default=int(os.getenv("BOOTSTRAP_TIMEOUT_SEC", "1800")))
     parser.add_argument("--cpu-workers", type=int, default=int(os.getenv("CHAOS_CPU_WORKERS", "2")))
     parser.add_argument("--mem-mb", type=int, default=int(os.getenv("CHAOS_MEM_MB", "1024")))
     parser.add_argument("--bottleneck-replicas", type=int, default=int(os.getenv("CHAOS_BOTTLENECK_REPLICAS", "2")))
+    parser.add_argument(
+        "--bootstrap-stress-threads",
+        type=int,
+        default=None,
+        help="Optional cassandra-stress threads= for the bootstrap /start_fault body (omit to use chaos-injector defaults).",
+    )
+    parser.add_argument(
+        "--bootstrap-stress-pop-end",
+        type=int,
+        default=None,
+        help="Optional -pop seq=1..N end for bootstrap stress (profiles that honor pop_end).",
+    )
+    parser.add_argument(
+        "--stress-threads",
+        type=int,
+        default=None,
+        help="Optional cassandra-stress threads= for the anomaly-phase /start_fault body.",
+    )
+    parser.add_argument(
+        "--stress-pop-end",
+        type=int,
+        default=None,
+        help="Optional -pop seq=1..N end for anomaly stress (profiles that honor pop_end).",
+    )
+    parser.add_argument(
+        "--stress-parallel-jobs",
+        type=int,
+        default=int(os.getenv("STRESS_PARALLEL_JOBS", "4")),
+        help="Number of parallel cassandra-stress Jobs for the anomaly phase (separate pods; default 4, cap in injector).",
+    )
+    parser.add_argument(
+        "--bootstrap-stress-parallel-jobs",
+        type=int,
+        default=int(os.getenv("BOOTSTRAP_STRESS_PARALLEL_JOBS", "1")),
+        help="Parallel cassandra-stress Jobs during bootstrap (default 1 to avoid starving the cluster before SOM is ready).",
+    )
     parser.add_argument("--output-dir", default=os.getenv("OUTPUT_DIR", "cassandra/artifacts"))
     parser.add_argument("--run-id", default=os.getenv("RUN_ID"))
+    parser.add_argument(
+        "--skip-report",
+        action="store_true",
+        help="Do not run reporting/generate_report.py after the run (default: report is generated).",
+    )
+    parser.add_argument(
+        "--report-chaos-min-scored",
+        type=int,
+        default=int(os.getenv("REPORT_CHAOS_MIN_SCORED", "50")),
+        help="Quality gate: minimum chaos-phase scored samples for generate_report.py.",
+    )
+    parser.add_argument(
+        "--report-max-fp",
+        type=int,
+        default=int(os.getenv("REPORT_MAX_FP", "10")),
+        help="Acceptance: max false-positive alarms outside chaos window for generate_report.py.",
+    )
     return parser
 
 

@@ -13,7 +13,7 @@ Final experiments must run on a true multi-host Kubernetes cluster (minimum 3 wo
 - `simulator/`: workload generator and control API.
 - `ubl-learner/`: clean-room SOM + UBL learner service.
 - `chaos-injector/`: Kubernetes-native fault injector API.
-- `orchestrator/`: phase runner (`normal -> load -> chaos -> cooldown`).
+- `orchestrator/`: phase runner (`normal -> load -> chaos -> cooldown`; see `docs/experiment-protocol.md` for the full **A–F** demo story: mitigation **D**, Grafana/SLO **E**, elastic scale **D+F** via [`scripts/cassandra_elastic_replicas.sh`](scripts/cassandra_elastic_replicas.sh)).
 - `reporting/`: report generation (`final_report.json` and `final_report.md`).
 - `monitoring/`: Cassandra JMX + simulator PodMonitor for Prometheus.
 - `docs/`: metric contract, protocol, runbook, and result templates.
@@ -23,7 +23,7 @@ Final experiments must run on a true multi-host Kubernetes cluster (minimum 3 wo
 From `cassandra/`:
 
 ```bash
-# macOS only: destructive Multipass rebuild + k3s bootstrap (4Gi RAM/VM default; VM_MEMORY=2G to shrink)
+# macOS only: destructive Multipass rebuild + k3s bootstrap (4Gi RAM/VM default; 2Gi pressure: make rebuild-multipass-pressure)
 # make rebuild-multipass-2g
 # export KUBECONFIG="$(pwd)/artifacts/kubeconfig-multipass-k3s.yaml"
 
@@ -46,6 +46,15 @@ Generate or refresh the latest report:
 
 ```bash
 bash ./scripts/collect_latest_report.sh
+```
+
+**Mitigation cycle (scale out + scale in):** after port-forwards (see `docs/end-to-end-setup-and-run.md` §6), run [`scripts/cassandra_elastic_replicas.sh`](scripts/cassandra_elastic_replicas.sh) in its own terminal **before** chaos produces a *new* chaos-phase alarm (or use `SCALE_OUT_MODE=prom_bad`). It waits for a **new** `phase=="chaos"` alarm (not stale `/alarms` history), scales **3→4**, then waits for Prometheus SLO “OK” and scales **4→3**. Set `PROMQL` / `SLO_THRESHOLD` for real scale-in gating.
+
+```bash
+export PROMETHEUS_BASE=http://localhost:9090
+export PROMQL='vector(0)'
+export SLO_THRESHOLD=1
+bash ./scripts/cassandra_elastic_replicas.sh
 ```
 
 Cleanup:
@@ -84,12 +93,24 @@ make cleanup-mvp
 - `POST /stop_fault`
 - `POST /reset_all`
 
-## Fault Profiles
+## Fault Profiles (chaos-injector)
 
-- `memleak-like`
-- `cpuhog-like`
+Names are whatever `POST /start_fault` accepts (see `chaos-injector/main.py`). Primary recipes:
+
+- `baseline-normal` (bootstrap / cassandra-stress)
+- `anomaly-hot-partition`
+- `anomaly-compaction-pressure`
+- `anomaly-concurrency-spike`
+- `anomaly-ttl-tombstone`
+- `anomaly-mixed-skew-large-payload`
 - `network-congestion-like`
 - `bottleneck-like`
+
+Compatibility aliases (same implementation as an anomaly recipe, different reported profile): `cpuhog-like`, `memleak-like`.
+
+With local port-forwards up, pass the profile to the orchestrator, for example:
+
+`python3 orchestrator/run_scenario.py --output-dir ./artifacts --fault-profile anomaly-hot-partition --load-profile high`
 
 ## Metrics Model
 

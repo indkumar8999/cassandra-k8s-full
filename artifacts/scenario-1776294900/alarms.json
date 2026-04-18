@@ -1,0 +1,3542 @@
+{
+  "count": 267,
+  "items": [
+    {
+      "bmu": [
+        21,
+        4
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-1"
+      ],
+      "phase": "normal",
+      "score_area": 144.46285460574643,
+      "streak": 3,
+      "threshold": 117.57555079896854,
+      "ts": 1776294973.6249459
+    },
+    {
+      "bmu": [
+        26,
+        20
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0",
+        "tier_a_network_rx_bytes_per_sec__cassandra-2"
+      ],
+      "phase": "normal",
+      "score_area": 181.21436125857113,
+      "streak": 4,
+      "threshold": 117.57555079896854,
+      "ts": 1776294974.238696
+    },
+    {
+      "bmu": [
+        19,
+        22
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 309.52585829446264,
+      "streak": 3,
+      "threshold": 117.57555079896854,
+      "ts": 1776295124.649154
+    },
+    {
+      "bmu": [
+        19,
+        22
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 309.52585829446264,
+      "streak": 4,
+      "threshold": 117.57555079896854,
+      "ts": 1776295125.225954
+    },
+    {
+      "bmu": [
+        21,
+        23
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 329.8001413312554,
+      "streak": 5,
+      "threshold": 117.57555079896854,
+      "ts": 1776295125.8441744
+    },
+    {
+      "bmu": [
+        22,
+        31
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 351.71974958229055,
+      "streak": 3,
+      "threshold": 117.57555079896854,
+      "ts": 1776295132.41275
+    },
+    {
+      "bmu": [
+        24,
+        27
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 501.3861187035065,
+      "streak": 4,
+      "threshold": 117.57555079896854,
+      "ts": 1776295132.9952698
+    },
+    {
+      "bmu": [
+        24,
+        28
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 558.0339796172238,
+      "streak": 5,
+      "threshold": 117.57555079896854,
+      "ts": 1776295133.6200206
+    },
+    {
+      "bmu": [
+        24,
+        29
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 702.9848136014406,
+      "streak": 6,
+      "threshold": 117.57555079896854,
+      "ts": 1776295134.193551
+    },
+    {
+      "bmu": [
+        23,
+        31
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 589.3674746576689,
+      "streak": 7,
+      "threshold": 117.57555079896854,
+      "ts": 1776295134.7796462
+    },
+    {
+      "bmu": [
+        23,
+        31
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 589.3674746576689,
+      "streak": 8,
+      "threshold": 117.57555079896854,
+      "ts": 1776295135.3773382
+    },
+    {
+      "bmu": [
+        23,
+        31
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 589.3674746576689,
+      "streak": 9,
+      "threshold": 117.57555079896854,
+      "ts": 1776295135.9684901
+    },
+    {
+      "bmu": [
+        12,
+        26
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 703.017112551868,
+      "streak": 10,
+      "threshold": 117.57555079896854,
+      "ts": 1776295136.5979867
+    },
+    {
+      "bmu": [
+        13,
+        24
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 695.7496085515385,
+      "streak": 11,
+      "threshold": 117.57555079896854,
+      "ts": 1776295137.1784241
+    },
+    {
+      "bmu": [
+        13,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 453.196392024173,
+      "streak": 12,
+      "threshold": 117.57555079896854,
+      "ts": 1776295137.754333
+    },
+    {
+      "bmu": [
+        21,
+        31
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 200.00203045583874,
+      "streak": 13,
+      "threshold": 117.57555079896854,
+      "ts": 1776295138.3275182
+    },
+    {
+      "bmu": [
+        21,
+        31
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 200.00203045583874,
+      "streak": 14,
+      "threshold": 117.57555079896854,
+      "ts": 1776295138.964576
+    },
+    {
+      "bmu": [
+        21,
+        31
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 200.00203045583874,
+      "streak": 15,
+      "threshold": 117.57555079896854,
+      "ts": 1776295139.6194751
+    },
+    {
+      "bmu": [
+        21,
+        31
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 200.00203045583874,
+      "streak": 16,
+      "threshold": 117.57555079896854,
+      "ts": 1776295140.1971958
+    },
+    {
+      "bmu": [
+        23,
+        28
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 295.0849751245537,
+      "streak": 17,
+      "threshold": 117.57555079896854,
+      "ts": 1776295140.7865999
+    },
+    {
+      "bmu": [
+        13,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 453.196392024173,
+      "streak": 18,
+      "threshold": 117.57555079896854,
+      "ts": 1776295141.3850756
+    },
+    {
+      "bmu": [
+        21,
+        31
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 200.00203045583874,
+      "streak": 19,
+      "threshold": 117.57555079896854,
+      "ts": 1776295141.9753115
+    },
+    {
+      "bmu": [
+        11,
+        24
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 1986.2687583464258,
+      "streak": 3,
+      "threshold": 117.57555079896854,
+      "ts": 1776295185.4622676
+    },
+    {
+      "bmu": [
+        11,
+        24
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 1986.2687583464258,
+      "streak": 4,
+      "threshold": 117.57555079896854,
+      "ts": 1776295186.0456386
+    },
+    {
+      "bmu": [
+        10,
+        30
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 2181.9660255174745,
+      "streak": 5,
+      "threshold": 117.57555079896854,
+      "ts": 1776295186.6176927
+    },
+    {
+      "bmu": [
+        9,
+        29
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 2120.960107872088,
+      "streak": 6,
+      "threshold": 117.57555079896854,
+      "ts": 1776295187.2554734
+    },
+    {
+      "bmu": [
+        8,
+        27
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 1744.3459689310914,
+      "streak": 7,
+      "threshold": 117.57555079896854,
+      "ts": 1776295187.8427982
+    },
+    {
+      "bmu": [
+        7,
+        26
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 1274.6392363480597,
+      "streak": 8,
+      "threshold": 117.57555079896854,
+      "ts": 1776295188.431161
+    },
+    {
+      "bmu": [
+        6,
+        24
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 676.1877448458688,
+      "streak": 9,
+      "threshold": 117.57555079896854,
+      "ts": 1776295189.012313
+    },
+    {
+      "bmu": [
+        6,
+        24
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 676.1877448458688,
+      "streak": 10,
+      "threshold": 117.57555079896854,
+      "ts": 1776295189.6018825
+    },
+    {
+      "bmu": [
+        6,
+        24
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 676.1877448458688,
+      "streak": 11,
+      "threshold": 117.57555079896854,
+      "ts": 1776295190.2446601
+    },
+    {
+      "bmu": [
+        6,
+        24
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 676.1877448458688,
+      "streak": 12,
+      "threshold": 117.57555079896854,
+      "ts": 1776295190.8227875
+    },
+    {
+      "bmu": [
+        6,
+        24
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 676.1877448458688,
+      "streak": 13,
+      "threshold": 117.57555079896854,
+      "ts": 1776295191.430165
+    },
+    {
+      "bmu": [
+        6,
+        24
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 676.1877448458688,
+      "streak": 14,
+      "threshold": 117.57555079896854,
+      "ts": 1776295192.0259593
+    },
+    {
+      "bmu": [
+        6,
+        24
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 676.1877448458688,
+      "streak": 15,
+      "threshold": 117.57555079896854,
+      "ts": 1776295192.597333
+    },
+    {
+      "bmu": [
+        6,
+        24
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 676.1877448458688,
+      "streak": 16,
+      "threshold": 117.57555079896854,
+      "ts": 1776295193.2321343
+    },
+    {
+      "bmu": [
+        6,
+        24
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 676.1877448458688,
+      "streak": 17,
+      "threshold": 117.57555079896854,
+      "ts": 1776295193.8062892
+    },
+    {
+      "bmu": [
+        6,
+        24
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 676.1877448458688,
+      "streak": 18,
+      "threshold": 117.57555079896854,
+      "ts": 1776295194.466487
+    },
+    {
+      "bmu": [
+        6,
+        24
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 676.1877448458688,
+      "streak": 19,
+      "threshold": 117.57555079896854,
+      "ts": 1776295195.0765092
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 20,
+      "threshold": 117.57555079896854,
+      "ts": 1776295195.6459668
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 21,
+      "threshold": 117.57555079896854,
+      "ts": 1776295196.2478352
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 22,
+      "threshold": 117.57555079896854,
+      "ts": 1776295196.8382566
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 23,
+      "threshold": 117.57555079896854,
+      "ts": 1776295197.4744685
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 24,
+      "threshold": 117.57555079896854,
+      "ts": 1776295198.044699
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 25,
+      "threshold": 117.57555079896854,
+      "ts": 1776295198.6228132
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 26,
+      "threshold": 117.57555079896854,
+      "ts": 1776295199.2695782
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 27,
+      "threshold": 117.57555079896854,
+      "ts": 1776295199.8819644
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 28,
+      "threshold": 117.57555079896854,
+      "ts": 1776295200.5030177
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 29,
+      "threshold": 117.57555079896854,
+      "ts": 1776295201.092493
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 30,
+      "threshold": 117.57555079896854,
+      "ts": 1776295201.6630075
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 31,
+      "threshold": 117.57555079896854,
+      "ts": 1776295202.2334669
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 32,
+      "threshold": 117.57555079896854,
+      "ts": 1776295202.8128455
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 33,
+      "threshold": 117.57555079896854,
+      "ts": 1776295203.513205
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 34,
+      "threshold": 117.57555079896854,
+      "ts": 1776295204.1049564
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 35,
+      "threshold": 117.57555079896854,
+      "ts": 1776295204.7263129
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 36,
+      "threshold": 117.57555079896854,
+      "ts": 1776295205.321436
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 37,
+      "threshold": 117.57555079896854,
+      "ts": 1776295205.8911057
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 38,
+      "threshold": 117.57555079896854,
+      "ts": 1776295206.5126941
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 39,
+      "threshold": 117.57555079896854,
+      "ts": 1776295207.1661046
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 40,
+      "threshold": 117.57555079896854,
+      "ts": 1776295207.809314
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 41,
+      "threshold": 117.57555079896854,
+      "ts": 1776295208.4331603
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 42,
+      "threshold": 117.57555079896854,
+      "ts": 1776295209.0070934
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 43,
+      "threshold": 117.57555079896854,
+      "ts": 1776295209.6264095
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 44,
+      "threshold": 117.57555079896854,
+      "ts": 1776295210.2231975
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 45,
+      "threshold": 117.57555079896854,
+      "ts": 1776295210.8257735
+    },
+    {
+      "bmu": [
+        6,
+        24
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 676.1877448458688,
+      "streak": 46,
+      "threshold": 117.57555079896854,
+      "ts": 1776295211.43515
+    },
+    {
+      "bmu": [
+        6,
+        24
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 676.1877448458688,
+      "streak": 47,
+      "threshold": 117.57555079896854,
+      "ts": 1776295212.0141659
+    },
+    {
+      "bmu": [
+        6,
+        24
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 676.1877448458688,
+      "streak": 48,
+      "threshold": 117.57555079896854,
+      "ts": 1776295212.6304996
+    },
+    {
+      "bmu": [
+        6,
+        24
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 676.1877448458688,
+      "streak": 49,
+      "threshold": 117.57555079896854,
+      "ts": 1776295213.2172952
+    },
+    {
+      "bmu": [
+        6,
+        24
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 676.1877448458688,
+      "streak": 50,
+      "threshold": 117.57555079896854,
+      "ts": 1776295213.7973173
+    },
+    {
+      "bmu": [
+        6,
+        24
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 676.1877448458688,
+      "streak": 51,
+      "threshold": 117.57555079896854,
+      "ts": 1776295214.391185
+    },
+    {
+      "bmu": [
+        6,
+        24
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 676.1877448458688,
+      "streak": 52,
+      "threshold": 117.57555079896854,
+      "ts": 1776295214.9835994
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 53,
+      "threshold": 117.57555079896854,
+      "ts": 1776295215.6438367
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 54,
+      "threshold": 117.57555079896854,
+      "ts": 1776295216.2334487
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 55,
+      "threshold": 117.57555079896854,
+      "ts": 1776295216.8433607
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 56,
+      "threshold": 117.57555079896854,
+      "ts": 1776295217.4355373
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 57,
+      "threshold": 117.57555079896854,
+      "ts": 1776295218.0062933
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 58,
+      "threshold": 117.57555079896854,
+      "ts": 1776295218.669445
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 59,
+      "threshold": 117.57555079896854,
+      "ts": 1776295219.2802596
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 60,
+      "threshold": 117.57555079896854,
+      "ts": 1776295219.8527217
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 61,
+      "threshold": 117.57555079896854,
+      "ts": 1776295220.4213462
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 62,
+      "threshold": 117.57555079896854,
+      "ts": 1776295220.9940948
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 63,
+      "threshold": 117.57555079896854,
+      "ts": 1776295221.5655665
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 64,
+      "threshold": 117.57555079896854,
+      "ts": 1776295222.1401412
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 65,
+      "threshold": 117.57555079896854,
+      "ts": 1776295222.7984672
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 66,
+      "threshold": 117.57555079896854,
+      "ts": 1776295223.3849528
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 67,
+      "threshold": 117.57555079896854,
+      "ts": 1776295223.9564135
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 68,
+      "threshold": 117.57555079896854,
+      "ts": 1776295224.579554
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 69,
+      "threshold": 117.57555079896854,
+      "ts": 1776295225.1559734
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 70,
+      "threshold": 117.57555079896854,
+      "ts": 1776295225.7964208
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 71,
+      "threshold": 117.57555079896854,
+      "ts": 1776295226.3795977
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 72,
+      "threshold": 117.57555079896854,
+      "ts": 1776295227.0046616
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 73,
+      "threshold": 117.57555079896854,
+      "ts": 1776295227.6012971
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 74,
+      "threshold": 117.57555079896854,
+      "ts": 1776295228.1744428
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 75,
+      "threshold": 117.57555079896854,
+      "ts": 1776295228.800687
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 76,
+      "threshold": 117.57555079896854,
+      "ts": 1776295229.4448867
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 77,
+      "threshold": 117.57555079896854,
+      "ts": 1776295230.1023767
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 78,
+      "threshold": 117.57555079896854,
+      "ts": 1776295230.6963856
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 79,
+      "threshold": 117.57555079896854,
+      "ts": 1776295231.2899032
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 80,
+      "threshold": 117.57555079896854,
+      "ts": 1776295231.9228644
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 81,
+      "threshold": 117.57555079896854,
+      "ts": 1776295232.505025
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 82,
+      "threshold": 117.57555079896854,
+      "ts": 1776295233.0803375
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 83,
+      "threshold": 117.57555079896854,
+      "ts": 1776295233.674269
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 84,
+      "threshold": 117.57555079896854,
+      "ts": 1776295234.288586
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 85,
+      "threshold": 117.57555079896854,
+      "ts": 1776295234.9286146
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 86,
+      "threshold": 117.57555079896854,
+      "ts": 1776295235.5113242
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 87,
+      "threshold": 117.57555079896854,
+      "ts": 1776295236.1136017
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 88,
+      "threshold": 117.57555079896854,
+      "ts": 1776295236.7232232
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 89,
+      "threshold": 117.57555079896854,
+      "ts": 1776295237.3241782
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 90,
+      "threshold": 117.57555079896854,
+      "ts": 1776295238.0212467
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 91,
+      "threshold": 117.57555079896854,
+      "ts": 1776295238.5914958
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 92,
+      "threshold": 117.57555079896854,
+      "ts": 1776295239.1655686
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 93,
+      "threshold": 117.57555079896854,
+      "ts": 1776295239.7338
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 94,
+      "threshold": 117.57555079896854,
+      "ts": 1776295240.3155937
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 95,
+      "threshold": 117.57555079896854,
+      "ts": 1776295240.921668
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 96,
+      "threshold": 117.57555079896854,
+      "ts": 1776295241.5061305
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 97,
+      "threshold": 117.57555079896854,
+      "ts": 1776295242.1176271
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 98,
+      "threshold": 117.57555079896854,
+      "ts": 1776295242.7186618
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 99,
+      "threshold": 117.57555079896854,
+      "ts": 1776295243.3336346
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 100,
+      "threshold": 117.57555079896854,
+      "ts": 1776295243.9407537
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 101,
+      "threshold": 117.57555079896854,
+      "ts": 1776295244.5705154
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 102,
+      "threshold": 117.57555079896854,
+      "ts": 1776295245.2663236
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 103,
+      "threshold": 117.57555079896854,
+      "ts": 1776295245.853428
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 104,
+      "threshold": 117.57555079896854,
+      "ts": 1776295246.4439402
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 105,
+      "threshold": 117.57555079896854,
+      "ts": 1776295247.0759928
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 106,
+      "threshold": 117.57555079896854,
+      "ts": 1776295247.6569433
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 107,
+      "threshold": 117.57555079896854,
+      "ts": 1776295248.3016837
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 108,
+      "threshold": 117.57555079896854,
+      "ts": 1776295248.8759177
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 109,
+      "threshold": 117.57555079896854,
+      "ts": 1776295249.4970524
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 110,
+      "threshold": 117.57555079896854,
+      "ts": 1776295250.0857897
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 111,
+      "threshold": 117.57555079896854,
+      "ts": 1776295250.6843085
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 112,
+      "threshold": 117.57555079896854,
+      "ts": 1776295251.3239381
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 113,
+      "threshold": 117.57555079896854,
+      "ts": 1776295251.891263
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 114,
+      "threshold": 117.57555079896854,
+      "ts": 1776295252.459355
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 115,
+      "threshold": 117.57555079896854,
+      "ts": 1776295253.0749652
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 116,
+      "threshold": 117.57555079896854,
+      "ts": 1776295253.6454523
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 117,
+      "threshold": 117.57555079896854,
+      "ts": 1776295254.2308457
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 118,
+      "threshold": 117.57555079896854,
+      "ts": 1776295254.8254528
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 119,
+      "threshold": 117.57555079896854,
+      "ts": 1776295255.456976
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 120,
+      "threshold": 117.57555079896854,
+      "ts": 1776295256.0654347
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 121,
+      "threshold": 117.57555079896854,
+      "ts": 1776295256.648074
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 122,
+      "threshold": 117.57555079896854,
+      "ts": 1776295257.4833426
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 123,
+      "threshold": 117.57555079896854,
+      "ts": 1776295258.293415
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 124,
+      "threshold": 117.57555079896854,
+      "ts": 1776295259.1554
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 393.6720059839022,
+      "streak": 125,
+      "threshold": 117.57555079896854,
+      "ts": 1776295260.1193998
+    },
+    {
+      "bmu": [
+        6,
+        24
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 676.1877448458688,
+      "streak": 126,
+      "threshold": 117.57555079896854,
+      "ts": 1776295260.8750422
+    },
+    {
+      "bmu": [
+        6,
+        26
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 764.9132477423237,
+      "streak": 127,
+      "threshold": 117.57555079896854,
+      "ts": 1776295261.7734869
+    },
+    {
+      "bmu": [
+        7,
+        28
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 1261.5649341701298,
+      "streak": 128,
+      "threshold": 117.57555079896854,
+      "ts": 1776295262.4232996
+    },
+    {
+      "bmu": [
+        27,
+        31
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 1035.9853912618005,
+      "streak": 129,
+      "threshold": 117.57555079896854,
+      "ts": 1776295263.0378263
+    },
+    {
+      "bmu": [
+        27,
+        31
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 1035.9853912618005,
+      "streak": 130,
+      "threshold": 117.57555079896854,
+      "ts": 1776295263.6159084
+    },
+    {
+      "bmu": [
+        26,
+        31
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 1132.9383471426906,
+      "streak": 131,
+      "threshold": 117.57555079896854,
+      "ts": 1776295264.2357101
+    },
+    {
+      "bmu": [
+        26,
+        30
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 1335.5026116983656,
+      "streak": 132,
+      "threshold": 117.57555079896854,
+      "ts": 1776295264.8290823
+    },
+    {
+      "bmu": [
+        25,
+        31
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 1080.789380618252,
+      "streak": 133,
+      "threshold": 117.57555079896854,
+      "ts": 1776295265.432059
+    },
+    {
+      "bmu": [
+        25,
+        31
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 1080.789380618252,
+      "streak": 134,
+      "threshold": 117.57555079896854,
+      "ts": 1776295266.0196762
+    },
+    {
+      "bmu": [
+        25,
+        31
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 1080.789380618252,
+      "streak": 135,
+      "threshold": 117.57555079896854,
+      "ts": 1776295266.6016674
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 1628.7631641913758,
+      "streak": 136,
+      "threshold": 117.57555079896854,
+      "ts": 1776295267.2170327
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 1628.7631641913758,
+      "streak": 137,
+      "threshold": 117.57555079896854,
+      "ts": 1776295267.8744476
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 1628.7631641913758,
+      "streak": 138,
+      "threshold": 117.57555079896854,
+      "ts": 1776295268.5072167
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 1628.7631641913758,
+      "streak": 139,
+      "threshold": 117.57555079896854,
+      "ts": 1776295269.121823
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 1628.7631641913758,
+      "streak": 140,
+      "threshold": 117.57555079896854,
+      "ts": 1776295269.7104895
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 1628.7631641913758,
+      "streak": 141,
+      "threshold": 117.57555079896854,
+      "ts": 1776295270.3136425
+    },
+    {
+      "bmu": [
+        11,
+        30
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 1718.721786138125,
+      "streak": 142,
+      "threshold": 117.57555079896854,
+      "ts": 1776295270.912402
+    },
+    {
+      "bmu": [
+        24,
+        31
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 868.8502067242058,
+      "streak": 143,
+      "threshold": 117.57555079896854,
+      "ts": 1776295271.5287635
+    },
+    {
+      "bmu": [
+        24,
+        31
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 868.8502067242058,
+      "streak": 144,
+      "threshold": 117.57555079896854,
+      "ts": 1776295272.1091523
+    },
+    {
+      "bmu": [
+        24,
+        30
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 903.8516497479568,
+      "streak": 145,
+      "threshold": 117.57555079896854,
+      "ts": 1776295272.7046397
+    },
+    {
+      "bmu": [
+        21,
+        31
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 200.00203045583874,
+      "streak": 146,
+      "threshold": 117.57555079896854,
+      "ts": 1776295273.2953475
+    },
+    {
+      "bmu": [
+        0,
+        0
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 1020279799775.8528,
+      "streak": 3,
+      "threshold": 117.57555079896854,
+      "ts": 1776295304.3243842
+    },
+    {
+      "bmu": [
+        0,
+        0
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 350951316232.4592,
+      "streak": 4,
+      "threshold": 117.57555079896854,
+      "ts": 1776295306.1180894
+    },
+    {
+      "bmu": [
+        0,
+        0
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 352972946959.1252,
+      "streak": 5,
+      "threshold": 117.57555079896854,
+      "ts": 1776295306.7311928
+    },
+    {
+      "bmu": [
+        0,
+        0
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 556537809881.1877,
+      "streak": 6,
+      "threshold": 117.57555079896854,
+      "ts": 1776295307.3133636
+    },
+    {
+      "bmu": [
+        0,
+        0
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 649246054446.3977,
+      "streak": 7,
+      "threshold": 117.57555079896854,
+      "ts": 1776295307.906618
+    },
+    {
+      "bmu": [
+        0,
+        0
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 691414681428.9718,
+      "streak": 8,
+      "threshold": 117.57555079896854,
+      "ts": 1776295308.4906826
+    },
+    {
+      "bmu": [
+        0,
+        0
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 712943747559.4321,
+      "streak": 9,
+      "threshold": 117.57555079896854,
+      "ts": 1776295309.1258187
+    },
+    {
+      "bmu": [
+        1,
+        3
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 5556980864578.521,
+      "streak": 10,
+      "threshold": 117.57555079896854,
+      "ts": 1776295309.711265
+    },
+    {
+      "bmu": [
+        1,
+        3
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 2498440042397.4443,
+      "streak": 11,
+      "threshold": 117.57555079896854,
+      "ts": 1776295310.3005056
+    },
+    {
+      "bmu": [
+        1,
+        3
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 2419175420477.5337,
+      "streak": 12,
+      "threshold": 117.57555079896854,
+      "ts": 1776295310.9000072
+    },
+    {
+      "bmu": [
+        1,
+        3
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 2697321228212.0605,
+      "streak": 13,
+      "threshold": 117.57555079896854,
+      "ts": 1776295311.4902086
+    },
+    {
+      "bmu": [
+        1,
+        3
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 2858087564609.636,
+      "streak": 14,
+      "threshold": 117.57555079896854,
+      "ts": 1776295312.0946097
+    },
+    {
+      "bmu": [
+        1,
+        3
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 2935290408091.9233,
+      "streak": 15,
+      "threshold": 117.57555079896854,
+      "ts": 1776295312.7018006
+    },
+    {
+      "bmu": [
+        1,
+        3
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 1786135602947.7102,
+      "streak": 16,
+      "threshold": 117.57555079896854,
+      "ts": 1776295313.2843533
+    },
+    {
+      "bmu": [
+        1,
+        3
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 827007783505.1082,
+      "streak": 17,
+      "threshold": 117.57555079896854,
+      "ts": 1776295313.8855925
+    },
+    {
+      "bmu": [
+        1,
+        3
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 701100605045.517,
+      "streak": 18,
+      "threshold": 117.57555079896854,
+      "ts": 1776295314.5028663
+    },
+    {
+      "bmu": [
+        1,
+        3
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 715363116825.6687,
+      "streak": 19,
+      "threshold": 117.57555079896854,
+      "ts": 1776295315.1423242
+    },
+    {
+      "bmu": [
+        1,
+        3
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 772734252919.4695,
+      "streak": 20,
+      "threshold": 117.57555079896854,
+      "ts": 1776295315.7363484
+    },
+    {
+      "bmu": [
+        1,
+        3
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 855413637036.2825,
+      "streak": 21,
+      "threshold": 117.57555079896854,
+      "ts": 1776295316.3244057
+    },
+    {
+      "bmu": [
+        1,
+        4
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 1181727084015.0635,
+      "streak": 22,
+      "threshold": 117.57555079896854,
+      "ts": 1776295316.9271603
+    },
+    {
+      "bmu": [
+        1,
+        3
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 361519890736.68646,
+      "streak": 23,
+      "threshold": 117.57555079896854,
+      "ts": 1776295317.5207133
+    },
+    {
+      "bmu": [
+        1,
+        3
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 500999333318.4575,
+      "streak": 24,
+      "threshold": 117.57555079896854,
+      "ts": 1776295318.1122575
+    },
+    {
+      "bmu": [
+        1,
+        3
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 571095057843.2766,
+      "streak": 25,
+      "threshold": 117.57555079896854,
+      "ts": 1776295318.7236097
+    },
+    {
+      "bmu": [
+        1,
+        6
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 2586196873801.1396,
+      "streak": 26,
+      "threshold": 117.57555079896854,
+      "ts": 1776295319.3781466
+    },
+    {
+      "bmu": [
+        3,
+        8
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 7256508308879.859,
+      "streak": 27,
+      "threshold": 117.57555079896854,
+      "ts": 1776295320.0659766
+    },
+    {
+      "bmu": [
+        7,
+        7
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 37416932625458.97,
+      "streak": 28,
+      "threshold": 117.57555079896854,
+      "ts": 1776295320.6571655
+    },
+    {
+      "bmu": [
+        8,
+        8
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 36868602144710.33,
+      "streak": 29,
+      "threshold": 117.57555079896854,
+      "ts": 1776295321.2659428
+    },
+    {
+      "bmu": [
+        9,
+        2
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 49826008651033.14,
+      "streak": 30,
+      "threshold": 117.57555079896854,
+      "ts": 1776295321.8642898
+    },
+    {
+      "bmu": [
+        10,
+        7
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 22433758326688.7,
+      "streak": 31,
+      "threshold": 117.57555079896854,
+      "ts": 1776295322.4482973
+    },
+    {
+      "bmu": [
+        9,
+        2
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 10873874878420.129,
+      "streak": 32,
+      "threshold": 117.57555079896854,
+      "ts": 1776295323.042482
+    },
+    {
+      "bmu": [
+        10,
+        5
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 4274595012587.6104,
+      "streak": 33,
+      "threshold": 117.57555079896854,
+      "ts": 1776295323.6416388
+    },
+    {
+      "bmu": [
+        10,
+        7
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 2331696118647.0005,
+      "streak": 34,
+      "threshold": 117.57555079896854,
+      "ts": 1776295324.24874
+    },
+    {
+      "bmu": [
+        10,
+        8
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 1697892723777.1572,
+      "streak": 35,
+      "threshold": 117.57555079896854,
+      "ts": 1776295324.8399851
+    },
+    {
+      "bmu": [
+        6,
+        0
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 7057952365112.406,
+      "streak": 36,
+      "threshold": 117.57555079896854,
+      "ts": 1776295325.4555366
+    },
+    {
+      "bmu": [
+        6,
+        0
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 2334720592937.9023,
+      "streak": 37,
+      "threshold": 117.57555079896854,
+      "ts": 1776295326.0527031
+    },
+    {
+      "bmu": [
+        6,
+        0
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 1066232553901.3413,
+      "streak": 38,
+      "threshold": 117.57555079896854,
+      "ts": 1776295326.6428258
+    },
+    {
+      "bmu": [
+        6,
+        0
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 990972133843.6514,
+      "streak": 39,
+      "threshold": 117.57555079896854,
+      "ts": 1776295327.2919834
+    },
+    {
+      "bmu": [
+        6,
+        0
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 1052696726878.9165,
+      "streak": 40,
+      "threshold": 117.57555079896854,
+      "ts": 1776295327.8976784
+    },
+    {
+      "bmu": [
+        6,
+        0
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 1284607511353.7935,
+      "streak": 41,
+      "threshold": 117.57555079896854,
+      "ts": 1776295328.5002022
+    },
+    {
+      "bmu": [
+        6,
+        0
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 880363415074.6064,
+      "streak": 42,
+      "threshold": 117.57555079896854,
+      "ts": 1776295329.15721
+    },
+    {
+      "bmu": [
+        6,
+        0
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 604413045760.5187,
+      "streak": 43,
+      "threshold": 117.57555079896854,
+      "ts": 1776295329.7395468
+    },
+    {
+      "bmu": [
+        6,
+        0
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 541711392475.32227,
+      "streak": 44,
+      "threshold": 117.57555079896854,
+      "ts": 1776295330.3510418
+    },
+    {
+      "bmu": [
+        6,
+        0
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 554163843848.5225,
+      "streak": 45,
+      "threshold": 117.57555079896854,
+      "ts": 1776295330.9596217
+    },
+    {
+      "bmu": [
+        6,
+        0
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 419745257447.30225,
+      "streak": 46,
+      "threshold": 117.57555079896854,
+      "ts": 1776295331.569655
+    },
+    {
+      "bmu": [
+        6,
+        0
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 323049872839.8556,
+      "streak": 47,
+      "threshold": 117.57555079896854,
+      "ts": 1776295332.1890764
+    },
+    {
+      "bmu": [
+        13,
+        0
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 20570783792436.07,
+      "streak": 48,
+      "threshold": 117.57555079896854,
+      "ts": 1776295332.8207092
+    },
+    {
+      "bmu": [
+        13,
+        1
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 7174756382350.472,
+      "streak": 49,
+      "threshold": 117.57555079896854,
+      "ts": 1776295333.4328027
+    },
+    {
+      "bmu": [
+        14,
+        1
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 6294421321362.12,
+      "streak": 50,
+      "threshold": 117.57555079896854,
+      "ts": 1776295334.0212812
+    },
+    {
+      "bmu": [
+        14,
+        3
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 4590192529016.236,
+      "streak": 51,
+      "threshold": 117.57555079896854,
+      "ts": 1776295334.6459038
+    },
+    {
+      "bmu": [
+        15,
+        5
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 10716428344381.135,
+      "streak": 52,
+      "threshold": 117.57555079896854,
+      "ts": 1776295335.2467167
+    },
+    {
+      "bmu": [
+        15,
+        7
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 12097858564232.771,
+      "streak": 53,
+      "threshold": 117.57555079896854,
+      "ts": 1776295335.8544881
+    },
+    {
+      "bmu": [
+        15,
+        9
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 17340218647164.16,
+      "streak": 54,
+      "threshold": 117.57555079896854,
+      "ts": 1776295336.4876554
+    },
+    {
+      "bmu": [
+        16,
+        10
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 20049793691644.5,
+      "streak": 55,
+      "threshold": 117.57555079896854,
+      "ts": 1776295337.082463
+    },
+    {
+      "bmu": [
+        15,
+        12
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 19750383991921.42,
+      "streak": 56,
+      "threshold": 117.57555079896854,
+      "ts": 1776295337.6713605
+    },
+    {
+      "bmu": [
+        15,
+        13
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 13549666121262.963,
+      "streak": 57,
+      "threshold": 117.57555079896854,
+      "ts": 1776295338.2702646
+    },
+    {
+      "bmu": [
+        19,
+        11
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 22974527639713.35,
+      "streak": 58,
+      "threshold": 117.57555079896854,
+      "ts": 1776295338.893794
+    },
+    {
+      "bmu": [
+        20,
+        5
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 33205678144566.18,
+      "streak": 59,
+      "threshold": 117.57555079896854,
+      "ts": 1776295339.482067
+    },
+    {
+      "bmu": [
+        19,
+        0
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 35409632158941.99,
+      "streak": 60,
+      "threshold": 117.57555079896854,
+      "ts": 1776295340.069268
+    },
+    {
+      "bmu": [
+        19,
+        0
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 11375944393183.441,
+      "streak": 61,
+      "threshold": 117.57555079896854,
+      "ts": 1776295340.6929336
+    },
+    {
+      "bmu": [
+        20,
+        0
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 6449300473870.473,
+      "streak": 62,
+      "threshold": 117.57555079896854,
+      "ts": 1776295341.3103411
+    },
+    {
+      "bmu": [
+        19,
+        0
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 1614222786454.5962,
+      "streak": 63,
+      "threshold": 117.57555079896854,
+      "ts": 1776295341.8987257
+    },
+    {
+      "bmu": [
+        19,
+        0
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 714689872618.1482,
+      "streak": 64,
+      "threshold": 117.57555079896854,
+      "ts": 1776295342.513271
+    },
+    {
+      "bmu": [
+        19,
+        0
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 654212938767.4873,
+      "streak": 65,
+      "threshold": 117.57555079896854,
+      "ts": 1776295343.099599
+    },
+    {
+      "bmu": [
+        19,
+        0
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 566253953571.9434,
+      "streak": 66,
+      "threshold": 117.57555079896854,
+      "ts": 1776295343.686437
+    },
+    {
+      "bmu": [
+        19,
+        0
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 497862250752.2589,
+      "streak": 67,
+      "threshold": 117.57555079896854,
+      "ts": 1776295344.297954
+    },
+    {
+      "bmu": [
+        19,
+        0
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 530120547052.9924,
+      "streak": 68,
+      "threshold": 117.57555079896854,
+      "ts": 1776295344.9039798
+    },
+    {
+      "bmu": [
+        24,
+        0
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 13830699382665.652,
+      "streak": 69,
+      "threshold": 117.57555079896854,
+      "ts": 1776295345.4984574
+    },
+    {
+      "bmu": [
+        26,
+        0
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 23564738572446.723,
+      "streak": 70,
+      "threshold": 117.57555079896854,
+      "ts": 1776295346.1075182
+    },
+    {
+      "bmu": [
+        28,
+        0
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 26828242021858.33,
+      "streak": 71,
+      "threshold": 117.57555079896854,
+      "ts": 1776295346.7087297
+    },
+    {
+      "bmu": [
+        29,
+        2
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 27970684111089.727,
+      "streak": 72,
+      "threshold": 117.57555079896854,
+      "ts": 1776295347.378457
+    },
+    {
+      "bmu": [
+        31,
+        3
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 18841009887017.52,
+      "streak": 73,
+      "threshold": 117.57555079896854,
+      "ts": 1776295347.96114
+    },
+    {
+      "bmu": [
+        31,
+        4
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 9597316598640.812,
+      "streak": 74,
+      "threshold": 117.57555079896854,
+      "ts": 1776295348.5835433
+    },
+    {
+      "bmu": [
+        31,
+        4
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 3237179288931.0674,
+      "streak": 75,
+      "threshold": 117.57555079896854,
+      "ts": 1776295349.2104268
+    },
+    {
+      "bmu": [
+        31,
+        4
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 1593198673939.3945,
+      "streak": 76,
+      "threshold": 117.57555079896854,
+      "ts": 1776295349.8188298
+    },
+    {
+      "bmu": [
+        31,
+        4
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 1113437437418.015,
+      "streak": 77,
+      "threshold": 117.57555079896854,
+      "ts": 1776295350.4267251
+    },
+    {
+      "bmu": [
+        31,
+        4
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 953020027311.0443,
+      "streak": 78,
+      "threshold": 117.57555079896854,
+      "ts": 1776295351.008422
+    },
+    {
+      "bmu": [
+        31,
+        4
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 484933645256.4096,
+      "streak": 79,
+      "threshold": 117.57555079896854,
+      "ts": 1776295351.629809
+    },
+    {
+      "bmu": [
+        31,
+        4
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 209474790376.9787,
+      "streak": 80,
+      "threshold": 117.57555079896854,
+      "ts": 1776295352.2331371
+    },
+    {
+      "bmu": [
+        31,
+        9
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 11026396918438.633,
+      "streak": 81,
+      "threshold": 117.57555079896854,
+      "ts": 1776295352.8156278
+    },
+    {
+      "bmu": [
+        31,
+        11
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 13017604648840.44,
+      "streak": 82,
+      "threshold": 117.57555079896854,
+      "ts": 1776295353.4472356
+    },
+    {
+      "bmu": [
+        31,
+        13
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 12081164086236.836,
+      "streak": 83,
+      "threshold": 117.57555079896854,
+      "ts": 1776295354.0822554
+    },
+    {
+      "bmu": [
+        31,
+        15
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 10419150037054.758,
+      "streak": 84,
+      "threshold": 117.57555079896854,
+      "ts": 1776295354.7294068
+    },
+    {
+      "bmu": [
+        29,
+        17
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 14498648567518.041,
+      "streak": 85,
+      "threshold": 117.57555079896854,
+      "ts": 1776295355.316839
+    },
+    {
+      "bmu": [
+        28,
+        18
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 8715283292786.749,
+      "streak": 86,
+      "threshold": 117.57555079896854,
+      "ts": 1776295355.8966174
+    },
+    {
+      "bmu": [
+        27,
+        19
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 6343865903881.452,
+      "streak": 87,
+      "threshold": 117.57555079896854,
+      "ts": 1776295356.4827797
+    },
+    {
+      "bmu": [
+        25,
+        22
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 13524045073595.445,
+      "streak": 88,
+      "threshold": 117.57555079896854,
+      "ts": 1776295357.0971315
+    },
+    {
+      "bmu": [
+        29,
+        25
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 11608071663908.172,
+      "streak": 89,
+      "threshold": 117.57555079896854,
+      "ts": 1776295357.743121
+    },
+    {
+      "bmu": [
+        22,
+        26
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 10302717721090.758,
+      "streak": 90,
+      "threshold": 117.57555079896854,
+      "ts": 1776295358.3711152
+    },
+    {
+      "bmu": [
+        27,
+        31
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 2435813572540.7803,
+      "streak": 91,
+      "threshold": 117.57555079896854,
+      "ts": 1776295358.96818
+    },
+    {
+      "bmu": [
+        0,
+        31
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 56492050.907533936,
+      "streak": 92,
+      "threshold": 117.57555079896854,
+      "ts": 1776295359.5706801
+    },
+    {
+      "bmu": [
+        0,
+        31
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 18875810.17894811,
+      "streak": 93,
+      "threshold": 117.57555079896854,
+      "ts": 1776295360.1727316
+    },
+    {
+      "bmu": [
+        0,
+        31
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 6282731.7595250355,
+      "streak": 94,
+      "threshold": 117.57555079896854,
+      "ts": 1776295360.7863038
+    },
+    {
+      "bmu": [
+        0,
+        31
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 2084164.8674309223,
+      "streak": 95,
+      "threshold": 117.57555079896854,
+      "ts": 1776295361.3761144
+    },
+    {
+      "bmu": [
+        0,
+        31
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 689344.8282650037,
+      "streak": 96,
+      "threshold": 117.57555079896854,
+      "ts": 1776295361.968125
+    },
+    {
+      "bmu": [
+        0,
+        31
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 227417.1158822623,
+      "streak": 97,
+      "threshold": 117.57555079896854,
+      "ts": 1776295362.5867202
+    },
+    {
+      "bmu": [
+        0,
+        31
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 74856.36079615974,
+      "streak": 98,
+      "threshold": 117.57555079896854,
+      "ts": 1776295363.1705182
+    },
+    {
+      "bmu": [
+        0,
+        31
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 24590.2483375923,
+      "streak": 99,
+      "threshold": 117.57555079896854,
+      "ts": 1776295363.7581143
+    },
+    {
+      "bmu": [
+        0,
+        31
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 8063.167442044982,
+      "streak": 100,
+      "threshold": 117.57555079896854,
+      "ts": 1776295364.3382761
+    },
+    {
+      "bmu": [
+        0,
+        31
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 2639.654401706419,
+      "streak": 101,
+      "threshold": 117.57555079896854,
+      "ts": 1776295364.9206843
+    },
+    {
+      "bmu": [
+        0,
+        31
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 863.8510516567802,
+      "streak": 102,
+      "threshold": 117.57555079896854,
+      "ts": 1776295365.5416865
+    },
+    {
+      "bmu": [
+        0,
+        31
+      ],
+      "causes": [],
+      "phase": "cooldown",
+      "score_area": 282.9190220915903,
+      "streak": 103,
+      "threshold": 117.57555079896854,
+      "ts": 1776295366.1324272
+    }
+  ]
+}

@@ -11,11 +11,61 @@ from typing import Dict, List, Optional, Tuple
 
 import numpy as np
 import requests
-from flask import Flask, jsonify, request
+from flask import Flask, Response, jsonify, request
+from prometheus_client import CONTENT_TYPE_LATEST, Counter as PromCounter, Gauge, generate_latest
 from sklearn.model_selection import KFold
 
 
 app = Flask(__name__)
+
+DEMO_EVENT_TOTAL = PromCounter(
+    "ubl_demo_event_total",
+    "Count of externally published demo events (alarm, scale, rollout).",
+    ["event", "source"],
+)
+DEMO_EVENT_LAST_TS = Gauge(
+    "ubl_demo_event_last_timestamp_seconds",
+    "Unix epoch timestamp for last published demo event.",
+    ["event", "source"],
+)
+DEMO_EVENT_LAST_RUN = Gauge(
+    "ubl_demo_event_last_run_info",
+    "Latest published demo event run marker (always 1).",
+    ["run_label", "event", "source"],
+)
+UBL_READY = Gauge("ubl_ready", "Whether learner is ready (1 ready, 0 not ready).")
+UBL_TRAINED = Gauge("ubl_trained", "Whether learner is trained (1 trained, 0 not trained).")
+UBL_ALARM_COUNT = Gauge("ubl_alarm_count", "Current number of retained learner alarms.")
+
+
+def _sanitize_label(value: str, default: str = "unknown") -> str:
+    raw = (value or "").strip()
+    if not raw:
+        return default
+    cleaned = []
+    for ch in raw:
+        if ch.isalnum() or ch in ("_", "-", "."):
+            cleaned.append(ch)
+        else:
+            cleaned.append("_")
+    return "".join(cleaned)[:80] or default
+
+
+def _publish_demo_event_metric(event: str, source: str = "learner", run_label: str = "n/a", ts: Optional[float] = None):
+    event_lbl = _sanitize_label(event)
+    source_lbl = _sanitize_label(source, default="learner")
+    run_lbl = _sanitize_label(run_label, default="n_a")
+    event_ts = float(ts if ts is not None else time.time())
+    DEMO_EVENT_TOTAL.labels(event=event_lbl, source=source_lbl).inc()
+    DEMO_EVENT_LAST_TS.labels(event=event_lbl, source=source_lbl).set(event_ts)
+    DEMO_EVENT_LAST_RUN.labels(run_label=run_lbl, event=event_lbl, source=source_lbl).set(1.0)
+
+
+def _sync_runtime_metrics():
+    with state.lock:
+        UBL_READY.set(1.0 if state.ready else 0.0)
+        UBL_TRAINED.set(1.0 if state.trained else 0.0)
+        UBL_ALARM_COUNT.set(float(len(state.alarms)))
 
 
 def _to_builtin(value):
@@ -39,8 +89,8 @@ def _env_int(name: str, default: int) -> int:
 
 
 PROMETHEUS_BASE = os.getenv("PROMETHEUS_BASE", "http://prometheus-operated.monitoring.svc.cluster.local:9090")
-POLL_SEC = _env_float("POLL_SEC", 2.0)
-BOOTSTRAP_SAMPLES = _env_int("BOOTSTRAP_SAMPLES", 300)
+POLL_SEC = _env_float("POLL_SEC", 0.5)
+BOOTSTRAP_SAMPLES = _env_int("BOOTSTRAP_SAMPLES", 350)
 SOM_ROWS = _env_int("SOM_ROWS", 32)
 SOM_COLS = _env_int("SOM_COLS", 32)
 SOM_LR = _env_float("SOM_LR", 0.7)
@@ -171,6 +221,7 @@ class LearnerState:
         self.bmu_hits = Counter()
         self.scored_by_phase = Counter()
         self.dropped_missing_tier_a = 0
+        self.dropped_missing_tier_b = 0
         self.online_updates_since_threshold_refresh = 0
         self.query_pool = ThreadPoolExecutor(max_workers=max(1, PROM_QUERY_WORKERS))
         self.running = True
@@ -381,6 +432,7 @@ class LearnerState:
 
     def _record_alarm(self, payload: Dict):
         self.alarms.append(payload)
+        _publish_demo_event_metric("alarm_detected", source="ubl-learner", run_label="learner", ts=payload.get("ts"))
 
     def _score_sample(self, sample: Sample, smooth_history: List[np.ndarray]):
         if self.som is None or self.area_map is None:
@@ -423,6 +475,7 @@ class LearnerState:
             "is_anomaly": is_anomaly,
             "streak": self.anomaly_streak,
             "bmu": [bmu_r, bmu_c],
+            "input_vector": vec.tolist(),
             "causes": causes,
             "quality_valid": sample.quality_valid,
             "missing_required": sample.missing_required,
@@ -565,6 +618,33 @@ def alarms():
     return jsonify({"count": len(data), "items": _to_builtin(data)})
 
 
+@app.post("/demo-event")
+def demo_event():
+    body = request.get_json(silent=True) or {}
+    event = _sanitize_label(str(body.get("event", "")), default="")
+    if not event:
+        return jsonify({"error": "event is required"}), 400
+    source = _sanitize_label(str(body.get("source", "automation")), default="automation")
+    run_label = _sanitize_label(str(body.get("run_label", "manual")), default="manual")
+
+    ts_val = body.get("ts")
+    ts = None
+    if ts_val is not None:
+        try:
+            ts = float(ts_val)
+        except (TypeError, ValueError):
+            return jsonify({"error": "ts must be numeric if provided"}), 400
+
+    _publish_demo_event_metric(event=event, source=source, run_label=run_label, ts=ts)
+    return jsonify({"message": "event recorded", "event": event, "source": source, "run_label": run_label})
+
+
+@app.get("/metrics")
+def metrics():
+    _sync_runtime_metrics()
+    return Response(generate_latest(), mimetype=CONTENT_TYPE_LATEST)
+
+
 @app.post("/reset")
 def reset():
     with state.lock:
@@ -587,6 +667,7 @@ def reset():
         state.total_samples_seen = 0
         state.total_samples_scored = 0
         state.dropped_missing_tier_a = 0
+        state.dropped_missing_tier_b = 0
         state.score_latency_ms.clear()
         state.bmu_hits.clear()
         state.scored_by_phase.clear()
@@ -598,6 +679,35 @@ def reset():
 def report():
     with state.lock:
         return jsonify(_to_builtin(state.report()))
+
+
+@app.get("/export/som-snapshot")
+def export_som_snapshot():
+    """Read-only export of trained SOM weights and area map for offline artifacts / plots."""
+    with state.lock:
+        if state.som is None or state.area_map is None:
+            return jsonify({"error": "SOM not trained", "trained": state.trained}), 503
+        som = state.som
+        area_np = state.area_map
+        feature_order = list(state.feature_order)
+        norm_max = dict(state.norm_max)
+        threshold = float(state.threshold)
+        kfold_metrics = getattr(state, "kfold_metrics", None)
+    # Avoid holding state.lock during large .tolist() / JSON encode (reduces stalls and flaky clients).
+    payload = {
+        "som_rows": som.rows,
+        "som_cols": som.cols,
+        "feature_order": feature_order,
+        "norm_max": norm_max,
+        "threshold": threshold,
+        "threshold_percentile": float(THRESHOLD_PERCENTILE),
+        "weights": som.weights.tolist(),
+        "area_map": area_np.tolist(),
+    }
+    if kfold_metrics is not None:
+        payload["kfold_metrics"] = kfold_metrics
+    body = json.dumps(_to_builtin(payload))
+    return Response(body, mimetype="application/json")
 
 
 @app.get("/config")

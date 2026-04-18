@@ -110,14 +110,16 @@ Total Tier A dimension = `6 metrics * 3 pods = 18`.
 
 ## Fault-to-Feature Fidelity Matrix
 
-This section states which learned signals are expected to move for each injected profile.
+This section states which learned signals are expected to move for each injected profile. Chaos profiles are defined in `chaos-injector/main.py` (includes `anomaly-*` cassandra-stress recipes and legacy aliases `cpuhog-like` / `memleak-like`).
 
-- `cpuhog-like` (stress cpu on target node/pod)
-  - Primary: per-node CPU for targeted Cassandra pod
+- `anomaly-concurrency-spike` (cassandra-stress load; alias **`cpuhog-like`** reports the same family of stress)
+  - Primary: per-node CPU for Cassandra pods under load
   - Secondary: per-node disk/network and simulator latency/throughput
-- `memleak-like` (stress vm allocation on target node/pod)
-  - Primary: per-node memory working set for targeted pod
+- `anomaly-compaction-pressure` (cassandra-stress; alias **`memleak-like`**)
+  - Primary: per-node memory / pressure and compaction-related signals
   - Secondary: per-node CPU/disk and JVM heap usage
+- `anomaly-hot-partition`, `anomaly-ttl-tombstone`, `anomaly-mixed-skew-large-payload` (cassandra-stress variants)
+  - Primary: skewed partitions, TTL/tombstone path, or large-payload mix — expect Tier A + Tier B shifts per workload
 - `bottleneck-like` (scale StatefulSet replicas down)
   - Primary: per-node CPU/memory/disk/network shifts across surviving pods
   - Secondary: simulator p95 latencies and success totals

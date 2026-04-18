@@ -1,5 +1,6 @@
 import argparse
 import json
+import sys
 from collections import Counter
 from pathlib import Path
 from statistics import mean, median
@@ -183,6 +184,21 @@ def render_markdown(report: Dict) -> str:
     if not report["cause_ranking_top10"]:
         lines.append("- No cause hints were emitted.")
     lines.append("")
+    som = report.get("som_artifacts") or {}
+    if som:
+        lines.append("## SOM artifacts (saved per run)")
+        lines.append("- Per-sample **normalized input vectors** are in `score_stream.json` under `input_vector` (same order as `feature_order` in `som_snapshot.json`).")
+        lines.append("- **SOM weights** (`weights`) and **area map** (`area_map`) are in `som_snapshot.json`.")
+        for label, key in (
+            ("Snapshot JSON", "som_snapshot_json"),
+            ("Area map plot", "som_area_map.png"),
+            ("BMU by phase plot", "som_bmu_by_phase.png"),
+            ("Weight norm heatmap", "som_weight_norm.png"),
+        ):
+            path = som.get(key)
+            if path:
+                lines.append(f"- {label}: `{path}`")
+        lines.append("")
     lines.append("## Notes")
     lines.append("- Precision/recall are run-level indicators intended for comparative ablations.")
     lines.append("- FN is proxy-based (`1` if no alarm during chaos window; else `0`) for MVP comparability.")
@@ -325,6 +341,17 @@ def generate(run_dir: Path, chaos_min_scored: int, max_fp: int) -> Dict:
         "cause_ranking_top10": causes,
     }
     result["acceptance"] = _acceptance(result, max_fp=max_fp)
+
+    som_artifacts: Dict[str, str] = {}
+    snap_path = run_dir / "som_snapshot.json"
+    if snap_path.exists():
+        som_artifacts["som_snapshot_json"] = str(snap_path.resolve())
+    for fname in ("som_area_map.png", "som_bmu_by_phase.png", "som_weight_norm.png"):
+        p = run_dir / fname
+        if p.exists():
+            som_artifacts[fname] = str(p.resolve())
+    result["som_artifacts"] = som_artifacts
+
     return result
 
 
@@ -337,12 +364,28 @@ def main():
     parser.add_argument("--max-fp", type=int, default=10, help="Maximum false positives allowed for acceptance pass.")
     parser.add_argument("--fail-on-quality-gate", action="store_true", help="Exit non-zero if quality gate fails.")
     parser.add_argument("--fail-on-acceptance", action="store_true", help="Exit non-zero if acceptance criteria fail.")
+    parser.add_argument(
+        "--plot-som",
+        action="store_true",
+        help="Generate SOM PNG plots (requires matplotlib; needs som_snapshot.json + score_stream.json in run dir).",
+    )
     args = parser.parse_args()
 
     if args.run_dir:
         run_dir = Path(args.run_dir)
         if not run_dir.exists():
             raise FileNotFoundError(f"Run directory not found: {run_dir}")
+
+        if args.plot_som:
+            try:
+                _report_dir = Path(__file__).resolve().parent
+                if str(_report_dir) not in sys.path:
+                    sys.path.insert(0, str(_report_dir))
+                from plot_som_run import plot_run
+
+                plot_run(run_dir.resolve())
+            except Exception as ex:
+                print(f"[warn] --plot-som skipped: {ex}")
 
         result = generate(run_dir, chaos_min_scored=args.chaos_min_scored, max_fp=args.max_fp)
         report_json_path = run_dir / "final_report.json"

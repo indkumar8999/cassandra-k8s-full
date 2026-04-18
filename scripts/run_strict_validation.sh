@@ -14,8 +14,6 @@ make demo-preflight
 
 echo "[validation] launching scenario fault=${FAULT_PROFILE} load=${LOAD_PROFILE}"
 python3 ./orchestrator/run_scenario.py \
-  --normal-sec 60 \
-  --load-sec 60 \
   --chaos-sec 240 \
   --cooldown-sec 90 \
   --fault-profile "${FAULT_PROFILE}" \

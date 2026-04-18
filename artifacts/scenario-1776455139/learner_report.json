@@ -1,0 +1,60 @@
+{
+  "alarm_count": 0,
+  "avg_score_latency_ms": 2.383,
+  "bmu_coverage_count": 35,
+  "bootstrap_collected_samples": 534,
+  "bootstrap_target_samples": 350,
+  "feature_order": [
+    "tier_a_cpu_usage_cores",
+    "tier_a_memory_working_set_bytes",
+    "tier_a_disk_read_bytes_per_sec"
+  ],
+  "kfold_metrics": [
+    {
+      "fold": 1,
+      "max_area": 213.78454040734917,
+      "mean_area": 213.78454040734917,
+      "min_area": 213.78454040734917,
+      "std_area": 0.0,
+      "sum_area": 213.78454040734917
+    },
+    {
+      "fold": 2,
+      "max_area": 229.09556620955615,
+      "mean_area": 229.09556620955615,
+      "min_area": 229.09556620955615,
+      "std_area": 0.0,
+      "sum_area": 229.09556620955615
+    },
+    {
+      "fold": 3,
+      "max_area": 418.6506851392985,
+      "mean_area": 418.6506851392985,
+      "min_area": 418.6506851392985,
+      "std_area": 0.0,
+      "sum_area": 418.6506851392985
+    }
+  ],
+  "last_error": "Cannot have number of splits n_splits=3 greater than the number of samples: n_samples=2.",
+  "lead_time_seconds": {
+    "mean": null,
+    "median": null,
+    "samples": 0
+  },
+  "phase": "cooldown",
+  "ready": true,
+  "score_stream_count": 201,
+  "scored_by_phase": {
+    "chaos": 114,
+    "cooldown": 86,
+    "load": 0,
+    "normal": 1
+  },
+  "threshold_percentile": 85.0,
+  "threshold_value": 496.67072415046715,
+  "total_samples_dropped_missing_tier_a": 0,
+  "total_samples_scored": 201,
+  "total_samples_seen": 762,
+  "trained": true,
+  "training_duration_sec": 0.022
+}

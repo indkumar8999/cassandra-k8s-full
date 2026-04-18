@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import argparse
+import re
 from pathlib import Path
 
 
@@ -13,8 +14,11 @@ TARGET_FILES = [
 
 def update_file(path: Path, user: str, tag: str) -> None:
     text = path.read_text(encoding="utf-8")
-    text = text.replace("docker.io/your-dockerhub-user/", f"docker.io/{user}/")
-    text = text.replace(":0.1.0", f":{tag}")
+    text = re.sub(
+        r"(image:\s*docker\.io/)[^/\s]+/([A-Za-z0-9._-]+):[^\s]+",
+        rf"\1{user}/\2:{tag}",
+        text,
+    )
     path.write_text(text, encoding="utf-8")
 
 

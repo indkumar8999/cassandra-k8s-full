@@ -16,6 +16,7 @@ By following this document, you will:
 2. deploy Cassandra + simulator + learner + chaos + monitoring in the correct order
 3. validate strict placement and ring health
 4. run tuning experiments with quality gates enabled
+5. optionally drive **local** `orchestrator/run_scenario.py` with port-forwards, use **Grafana** (phase E), and **elastic replicas** (phases D+F) via [`scripts/cassandra_elastic_replicas.sh`](../scripts/cassandra_elastic_replicas.sh) (see §6–7)
 
 ## 1) Prerequisites
 
@@ -40,6 +41,27 @@ Expected:
 
 - 4 nodes ready (`cp1`, `w1`, `w2`, `w3`)
 - server endpoint points to `192.168.2.x:6443` for current control-plane
+
+### Option A‑pressure (macOS): smaller VMs (destructive)
+
+Use when you want **higher fractional CPU/memory use** for the same stress (UBL / Grafana look “busier” on 2 vCPU boxes). Same rebuild script as Option A but **2G RAM per VM** (higher OOM risk under monitoring + heavy `cassandra-stress`):
+
+```bash
+make rebuild-multipass-pressure
+export KUBECONFIG="$(pwd)/artifacts/kubeconfig-multipass-k3s.yaml"
+kubectl get nodes -o wide
+```
+
+Equivalent without the Make target: `VM_MEMORY=2G make rebuild-multipass-2g` (the underlying script reads `VM_MEMORY`).
+
+### Cassandra requests / limits (repo default, visible utilization)
+
+The lab [`k8s/cassandra/cassandra-statefulset.yaml`](../k8s/cassandra/cassandra-statefulset.yaml) uses **raised** `resources.requests` (`900m` CPU, `1536Mi` memory) so idle + loaded Tier‑A metrics are more noticeable on **2 vCPU / ~4GiB** Multipass workers than the legacy `500m` / `1Gi` profile. After changing the manifest or refreshing an older cluster:
+
+```bash
+kubectl apply -f k8s/cassandra/cassandra-statefulset.yaml
+kubectl -n cassandra-lab rollout status statefulset/cassandra --timeout=900s
+```
 
 ### Option B (Windows PowerShell / Linux)
 
@@ -134,7 +156,7 @@ Expected:
 
 ## 6) Reliable local port-forwards (required for local orchestrator scripts)
 
-Run these in three separate terminals:
+Run these in **separate terminals** (resilient loops):
 
 ```bash
 while true; do kubectl port-forward -n cassandra-lab svc/cassandra-simulator 8080:8080; sleep 1; done
@@ -161,6 +183,40 @@ while ($true) { kubectl port-forward -n cassandra-lab svc/ubl-learner 8100:8100;
 ```powershell
 while ($true) { kubectl port-forward -n cassandra-lab svc/chaos-injector 8200:8200; Start-Sleep -Seconds 1 }
 ```
+
+### Fourth terminal: Grafana (mitigation / SLO narrative)
+
+Use either NodePort (often simplest on Multipass: worker IP and port **32000**, admin password in `monitoring/kube-prometheus-stack-values.yaml`) or a forward to the Grafana service created by Helm (release name `kube-prom-stack`):
+
+```bash
+while true; do kubectl port-forward -n monitoring svc/kube-prom-stack-grafana 3000:80; sleep 1; done
+```
+
+Then open `http://localhost:3000` (login `admin` / `admin123` unless you changed values). Apply the lab dashboard if needed: `kubectl apply -f monitoring/grafana-dashboard-cassandra-lab.yaml` (from repo paths as in `monitoring/README.md`).
+
+### Prometheus API (elastic replicas + SLO scale-in, phases D/F)
+
+[`scripts/cassandra_elastic_replicas.sh`](../scripts/cassandra_elastic_replicas.sh) calls `GET ${PROMETHEUS_BASE}/api/v1/query` for the scale-**in** leg. Port-forward the **Prometheus server** Service in `monitoring`. With Helm release `kube-prom-stack`, Kubernetes often **truncates** the Service name. Discover yours:
+
+```bash
+kubectl -n monitoring get svc | rg -i 'prometheus'
+```
+
+Typical server Service (NodePort **9090** in the `PORT(S)` column):
+
+```bash
+while true; do kubectl port-forward -n monitoring svc/kube-prom-stack-kube-prome-prometheus 9090:9090; sleep 1; done
+```
+
+If your `kubectl get svc` shows a different Prometheus server name, substitute it in the command above. Then set `PROMETHEUS_BASE=http://localhost:9090`. Alternatively use NodePort **32090** on a worker IP (see `monitoring/kube-prometheus-stack-values.yaml`) if your network path can reach it.
+
+### Optional fifth terminal: tail learner alarms
+
+```bash
+while true; do date; curl -sS "http://localhost:8100/alarms?limit=20"; echo; sleep 1; done
+```
+
+Responses are a bounded recent list; timestamps can span bootstrap, chaos, cooldown, and any later scoring if you keep polling after the scenario script finishes.
 
 ## 7) Run experiment workflows
 
@@ -193,6 +249,45 @@ Notes:
 - batch chaos defaults assume workers have enough RAM (4Gi+ per Multipass VM is the supported default)
 - report generation includes quality gate checks
 - runs fail fast when chaos scoring coverage is too low
+
+### Local `run_scenario.py` (same ports as §6)
+
+With the three `cassandra-lab` port-forwards on **8080 / 8100 / 8200**, from the `cassandra/` directory:
+
+```bash
+python3 orchestrator/run_scenario.py --output-dir ./artifacts
+```
+
+Use `python3 orchestrator/run_scenario.py --help` for fault profile, chaos duration, bootstrap options, and bases (`SIMULATOR_BASE`, `LEARNER_BASE`, `CHAOS_BASE` env vars override defaults).
+
+This script implements **phases A–C** plus orchestrator **cooldown**; it does **not** scale the cluster by itself.
+
+### Phases D + F: one script — elastic Cassandra replicas
+
+Use Grafana (**phase E**) for panels during/after stress. For **scale out then scale in** in one process, run [`scripts/cassandra_elastic_replicas.sh`](../scripts/cassandra_elastic_replicas.sh) in **another terminal** while port-forwards for **8100** (learner) and **9090** (Prometheus) are up (and start it **before** or **as** chaos begins so the “new chaos alarm” window is meaningful).
+
+Default scale-out signal is a **new** alarm with `phase == "chaos"` recorded **after the script starts** (avoids the old bug where any non-empty `/alarms` buffer scaled out on stale history). Optional: `SCALE_OUT_MODE=prom_bad` or `both` — see the script header.
+
+```bash
+export LEARNER_BASE=http://localhost:8100
+export PROMETHEUS_BASE=http://localhost:9090
+export PROMQL='vector(0)'
+export SLO_THRESHOLD=1
+export SLO_COMPARISON=lt
+export STABLE_OK_SEC=15
+bash ./scripts/cassandra_elastic_replicas.sh
+```
+
+Manual scale-out only (no automation), then run the same script with replicas already at **4** to perform **scale-in only** (it skips the scale-out wait):
+
+```bash
+kubectl -n cassandra-lab scale statefulset cassandra --replicas=4
+kubectl -n cassandra-lab rollout status statefulset/cassandra --timeout=900s
+# then same cassandra_elastic_replicas.sh as above for SLO-gated scale-in
+```
+
+- **`SLO_COMPARISON`:** `lt` / `lte` = OK when the sample is below threshold (typical for latency); `gt` / `gte` for minimum-throughput style checks.
+- **Demo vs production:** **demo-grade**. Production shrink normally requires **decommission** before lowering replica count.
 
 ## 8) Analyze outputs
 
