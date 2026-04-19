@@ -374,6 +374,7 @@ def _start_anomaly_compaction_pressure(params: Dict) -> FaultRecord:
     )
 
 
+
 def _start_anomaly_concurrency_spike(params: Dict) -> FaultRecord:
     duration = int(params.get("duration_sec", 180))
     threads = int(params.get("threads", DEFAULT_CASSANDRA_STRESS_SPIKE_THREADS))
@@ -383,6 +384,57 @@ def _start_anomaly_concurrency_spike(params: Dict) -> FaultRecord:
         params,
         profile_name="anomaly-concurrency-spike",
         command=_cmd_anomaly_concurrency_spike(duration_sec=duration, threads=threads, pop_end=pop_end, rf=rf),
+    )
+
+# Custom short CPU spike fault (busybox job with busy loop)
+def _start_short_cpu_spike(params: Dict) -> FaultRecord:
+    duration = int(params.get("duration_sec", 2))
+    parallel = int(params.get("parallel_jobs", 1))
+    base = f"short-cpu-spike-{int(time.time())}-{secrets.token_hex(3)}"
+    job_names = [f"{base}-{i}" for i in range(parallel)]
+    command = ["sh", "-c", f"echo Spiking CPU for {duration}s; timeout {duration} sh -c 'while :; do :; done'"]
+    jobs = []
+    for job_name in job_names:
+        pod_spec = client.V1PodSpec(
+            restart_policy="Never",
+            containers=[
+                client.V1Container(
+                    name="cpu-spike",
+                    image="busybox",
+                    command=command,
+                    resources=client.V1ResourceRequirements(
+                        limits={"cpu": "2", "memory": "128Mi"},
+                        requests={"cpu": "500m", "memory": "64Mi"},
+                    ),
+                )
+            ],
+        )
+        job = client.V1Job(
+            metadata=client.V1ObjectMeta(name=job_name, namespace=NAMESPACE, labels={"app": "chaos-injector", "profile": "short-cpu-spike"}),
+            spec=client.V1JobSpec(
+                backoff_limit=0,
+                ttl_seconds_after_finished=60,
+                template=client.V1PodTemplateSpec(
+                    metadata=client.V1ObjectMeta(labels={"app": "chaos-injector", "profile": "short-cpu-spike"}),
+                    spec=pod_spec,
+                ),
+            ),
+        )
+        batch.create_namespaced_job(namespace=NAMESPACE, body=job)
+        jobs.append(job)
+    return FaultRecord(
+        profile="short-cpu-spike",
+        started_at=time.time(),
+        target="busybox",
+        params={
+            "job_names": job_names,
+            "parallel_jobs": parallel,
+            "request": params,
+            "command": command,
+        },
+        status="running",
+        command_start_ts=time.time(),
+        verified_start_ts=time.time(),
     )
 
 
@@ -461,6 +513,7 @@ def _stop_fault(record: FaultRecord):
         "anomaly-concurrency-spike",
         "anomaly-ttl-tombstone",
         "anomaly-mixed-skew-large-payload",
+        "short-cpu-spike",
         # aliases retained for compatibility
         "cpuhog-like",
         "memleak-like",
@@ -503,6 +556,8 @@ def start_fault():
             record = _start_anomaly_ttl_tombstone(body)
         elif profile == "anomaly-mixed-skew-large-payload":
             record = _start_anomaly_mixed_skew_large_payload(body)
+        elif profile == "short-cpu-spike":
+            record = _start_short_cpu_spike(body)
         elif profile == "cpuhog-like":
             # Compatibility alias
             record = _start_anomaly_concurrency_spike(body)
@@ -527,6 +582,7 @@ def start_fault():
                             "anomaly-concurrency-spike",
                             "anomaly-ttl-tombstone",
                             "anomaly-mixed-skew-large-payload",
+                            "short-cpu-spike",
                             "cpuhog-like",
                             "memleak-like",
                             "network-congestion-like",
