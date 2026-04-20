@@ -1,0 +1,84 @@
+{
+  "run_id": "scenario-1776548758",
+  "fault_profile": "anomaly-concurrency-spike",
+  "load_profile": "high",
+  "duration_sec": 455.65,
+  "injection_profile": {
+    "bootstrap_fault_profile": "baseline-normal",
+    "fault_profile": "anomaly-concurrency-spike",
+    "target_namespace": "cassandra-lab",
+    "cpu_workers": 2,
+    "mem_mb": 1024,
+    "bottleneck_replicas": 2,
+    "bootstrap_stress_threads": 150,
+    "bootstrap_stress_pop_end": 2000000,
+    "stress_threads": 500,
+    "stress_pop_end": 2000000,
+    "bootstrap_stress_parallel_jobs": 1,
+    "stress_parallel_jobs": 4
+  },
+  "chaos_window": {
+    "start_ts": 1776548943.848171,
+    "stop_ts": 1776549124.09236
+  },
+  "classification": {
+    "tp": 7,
+    "fp": 24,
+    "fn_proxy": 0,
+    "precision": 0.22580645161290322,
+    "recall": 1.0,
+    "f1": 0.3684210526315789
+  },
+  "lead_time": {
+    "first_detection_delay_sec": 26.837757349014282,
+    "mean_detection_delay_sec": 54.861090251377654,
+    "median_detection_delay_sec": 74.6940758228302
+  },
+  "som_metrics": {
+    "training_duration_sec": 0.131,
+    "bootstrap_collected_samples": 350,
+    "avg_score_latency_ms": 3.869,
+    "bmu_coverage_count": 68,
+    "scored_by_phase": {
+      "chaos": 329,
+      "cooldown": 150,
+      "load": 0,
+      "normal": 0
+    },
+    "total_samples_dropped_missing_tier_a": 0,
+    "total_samples_dropped_missing_tier_b": null
+  },
+  "run_quality": {
+    "passed": true,
+    "chaos_scored_samples": 329,
+    "chaos_min_scored_required": 50,
+    "message": "ok"
+  },
+  "cause_ranking_top10": [
+    [
+      "tier_a_memory_working_set_bytes",
+      7
+    ],
+    [
+      "tier_a_cpu_usage_cores",
+      7
+    ],
+    [
+      "tier_a_disk_read_bytes_per_sec",
+      4
+    ]
+  ],
+  "acceptance": {
+    "passed": false,
+    "max_fp_allowed": 10,
+    "checks": {
+      "tp_during_chaos": true,
+      "lead_time_present": true,
+      "chaos_sample_gate_passed": true,
+      "fp_within_limit": false
+    }
+  },
+  "som_artifacts": {
+    "som_snapshot_json": "/Users/aumpandya/Documents/Projects/ads_project/cassandra/artifacts/scenario-1776548758/som_snapshot.json"
+  }
+}

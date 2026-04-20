@@ -47,6 +47,9 @@ deploy-monitoring:
 
 deploy-mvp:
 	kubectl apply -f k8s/ubl-learner/
+	kubectl create configmap chaos-university-stress-profile \
+		--from-file=university-profile.yaml=./chaos-injector/university-profile.yaml \
+		-n cassandra-lab --dry-run=client -o yaml | kubectl apply -f -
 	kubectl apply -f k8s/chaos-injector/
 	kubectl apply -f k8s/orchestrator/orchestrator-config.yaml
 

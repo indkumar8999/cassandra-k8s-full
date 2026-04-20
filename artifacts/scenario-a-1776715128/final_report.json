@@ -1,0 +1,75 @@
+{
+  "run_id": "scenario-a-1776715128",
+  "fault_profile": null,
+  "load_profile": null,
+  "duration_sec": 692.49,
+  "injection_profile": {
+    "target_namespace": "cassandra-lab",
+    "cpu_workers": 2,
+    "mem_mb": 1024,
+    "bottleneck_replicas": 2,
+    "stress_threads": null,
+    "stress_pop_end": null,
+    "stress_parallel_jobs": 8
+  },
+  "chaos_window": {
+    "start_ts": 1776715580.772927,
+    "stop_ts": 1776715700.864243
+  },
+  "classification": {
+    "tp": 1,
+    "fp": 30,
+    "fn_proxy": 0,
+    "precision": 0.03225806451612903,
+    "recall": 1.0,
+    "f1": 0.0625
+  },
+  "lead_time": {
+    "first_detection_delay_sec": 89.40091586112976,
+    "mean_detection_delay_sec": 89.40091586112976,
+    "median_detection_delay_sec": 89.40091586112976
+  },
+  "som_metrics": {
+    "training_duration_sec": 0.198,
+    "bootstrap_collected_samples": 816,
+    "avg_score_latency_ms": 3.182,
+    "bmu_coverage_count": 139,
+    "scored_by_phase": {
+      "chaos": 225,
+      "cooldown": 245,
+      "load": 0,
+      "normal": 0
+    },
+    "total_samples_dropped_missing_tier_a": 0,
+    "total_samples_dropped_missing_tier_b": null
+  },
+  "run_quality": {
+    "passed": true,
+    "chaos_scored_samples": 225,
+    "chaos_min_scored_required": 50,
+    "message": "ok"
+  },
+  "cause_ranking_top10": [
+    [
+      "tier_a_disk_read_bytes_per_sec",
+      1
+    ],
+    [
+      "tier_a_cpu_usage_cores",
+      1
+    ]
+  ],
+  "acceptance": {
+    "passed": false,
+    "max_fp_allowed": 10,
+    "checks": {
+      "tp_during_chaos": true,
+      "lead_time_present": true,
+      "chaos_sample_gate_passed": true,
+      "fp_within_limit": false
+    }
+  },
+  "som_artifacts": {
+    "som_snapshot_json": "/Users/aumpandya/Documents/Projects/ads_project/cassandra/artifacts/scenario-a-1776715128/som_snapshot.json"
+  }
+}

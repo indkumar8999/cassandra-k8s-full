@@ -301,7 +301,7 @@ data:
           "targets": [
             {
               "editorMode": "code",
-              "expr": "sum by (pod) (rate(container_cpu_usage_seconds_total{namespace=\"$namespace\",pod=~\"$pod\",container!=\"\",container!=\"POD\"}[5m]))",
+              "expr": "sum by (pod) (rate(container_cpu_usage_seconds_total{namespace=\"$namespace\",pod=~\"$pod\",container!=\"\",container!=\"POD\"}[1m]))",
               "legendFormat": "{{pod}}",
               "range": true,
               "refId": "A"

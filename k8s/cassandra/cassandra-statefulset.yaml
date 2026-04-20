@@ -16,6 +16,20 @@ spec:
     spec:
       terminationGracePeriodSeconds: 180
       affinity:
+        # Cassandra only on workers w1–w4 (hot spare w4 for cassandra-3 on elastic 3→4→3). Excludes cp1.
+        # Node names must match `kubectl get nodes`. Chaos-injector stays off w4 via its own affinity.
+        # If a pod is Pending: PVC may be bound to cp1 from before this affinity — delete that ordinal's PVC (see README).
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - w1
+                      - w2
+                      - w3
+                      - w4
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             - labelSelector:

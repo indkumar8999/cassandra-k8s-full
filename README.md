@@ -7,6 +7,25 @@ This package contains an end-to-end MVP for online anomaly detection on Cassandr
 Final experiments must run on a true multi-host Kubernetes cluster (minimum 3 worker nodes).  
 `docker-desktop` and `kind` are allowed for development only, not final result collection.
 
+### Cassandra `Pending`: node affinity vs PVC volume affinity
+
+The StatefulSet pins pods to **`w1`–`w4`** (not `cp1`). If a pod (often **`cassandra-1`**) stays **`Pending`** with:
+
+`didn't match Pod's node affinity` **and** `didn't match PersistentVolume's node affinity`,
+
+the **PVC was usually created earlier** while the pod could still land on **`cp1`**, so the volume is **topology-bound** there while the pod may no longer schedule there. **No node** then satisfies both rules.
+
+**Lab recovery (destroys that replica’s local data on its old volume):**
+
+```bash
+kubectl -n cassandra-lab delete pod cassandra-1 --wait=false
+kubectl -n cassandra-lab delete pvc cassandra-data-cassandra-1
+# StatefulSet recreates the pod; a new PVC binds on a worker that matches w1–w4.
+kubectl -n cassandra-lab get pods -l app=cassandra -w
+```
+
+Confirm where the old volume lived: `kubectl -n cassandra-lab describe pvc cassandra-data-cassandra-1` (before delete) and check **Events** / **Volume** node affinity.
+
 ## Components
 
 - `k8s/cassandra/`: distributed Cassandra StatefulSet (multi-node).
@@ -48,7 +67,7 @@ Generate or refresh the latest report:
 bash ./scripts/collect_latest_report.sh
 ```
 
-**Mitigation cycle (scale out + scale in):** after port-forwards (see `docs/end-to-end-setup-and-run.md` §6), run [`scripts/cassandra_elastic_replicas.sh`](scripts/cassandra_elastic_replicas.sh) in its own terminal **before** chaos produces a *new* chaos-phase alarm (or use `SCALE_OUT_MODE=prom_bad`). It waits for a **new** `phase=="chaos"` alarm (not stale `/alarms` history), scales **3→4**, then waits for Prometheus SLO “OK” and scales **4→3**. Set `PROMQL` / `SLO_THRESHOLD` for real scale-in gating.
+**Mitigation cycle (scale out + scale in):** after port-forwards (see `docs/end-to-end-setup-and-run.md` §6), run [`scripts/cassandra_elastic_replicas.sh`](scripts/cassandra_elastic_replicas.sh) in its own terminal **before** chaos begins (or use `SCALE_OUT_MODE=prom_bad`). It waits for **CONSECUTIVE_CHAOS_ALARMS** (default **3**) consecutive `phase=="chaos"` alarms in time order after each cycle’s watch start (`CONSECUTIVE_CHAOS_ALARMS=1` restores the old single-alarm trigger), then scales **3→4**, waits for Prometheus SLO “OK”, and scales **4→3**. Set `ELASTIC_DAEMON=1` to repeat cycles; `PROMQL` / `SLO_THRESHOLD` for real scale-in gating.
 
 ```bash
 export PROMETHEUS_BASE=http://localhost:9090
@@ -103,6 +122,7 @@ Names are whatever `POST /start_fault` accepts (see `chaos-injector/main.py`). P
 - `anomaly-concurrency-spike`
 - `anomaly-ttl-tombstone`
 - `anomaly-mixed-skew-large-payload`
+- `anomaly-university-memory-pressure` (cassandra-stress **user** profile; requires ConfigMap `chaos-university-stress-profile` — applied by `make deploy-mvp` from `chaos-injector/university-profile.yaml`)
 - `network-congestion-like`
 - `bottleneck-like`
 

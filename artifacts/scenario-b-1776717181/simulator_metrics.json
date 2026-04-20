@@ -1,0 +1,23 @@
+{
+  "config": {
+    "ops_per_sec": 200,
+    "workers": 30,
+    "write_ratio": 0.7
+  },
+  "inserted_ids_count": 87353,
+  "profile": "medium",
+  "reads": {
+    "avg_latency_ms": 16.19,
+    "failures": 3,
+    "p95_latency_ms": 44.05,
+    "success": 37037
+  },
+  "running": true,
+  "stop_requested": false,
+  "writes": {
+    "avg_latency_ms": 14.99,
+    "failures": 7,
+    "p95_latency_ms": 39.93,
+    "success": 87353
+  }
+}

@@ -43,7 +43,8 @@ MAX_STRESS_PARALLEL_JOBS = int(os.getenv("MAX_STRESS_PARALLEL_JOBS", "8"))
 DEFAULT_CASSANDRA_STRESS_BASELINE_THREADS = int(os.getenv("DEFAULT_CASSANDRA_STRESS_BASELINE_THREADS", "130"))
 DEFAULT_CASSANDRA_STRESS_HOT_THREADS = int(os.getenv("DEFAULT_CASSANDRA_STRESS_HOT_THREADS", "220"))
 DEFAULT_CASSANDRA_STRESS_COMPACTION_THREADS = int(os.getenv("DEFAULT_CASSANDRA_STRESS_COMPACTION_THREADS", "280"))
-DEFAULT_CASSANDRA_STRESS_SPIKE_THREADS = int(os.getenv("DEFAULT_CASSANDRA_STRESS_SPIKE_THREADS", "800"))
+# Concurrency-spike profile matches canonical lab one-liner: write, 500 threads, pop 1..5M, n=1 size=FIXED(1024), RF=3, LOCAL_ONE, log 5s, default 180s duration.
+DEFAULT_CASSANDRA_STRESS_SPIKE_THREADS = int(os.getenv("DEFAULT_CASSANDRA_STRESS_SPIKE_THREADS", "500"))
 DEFAULT_CASSANDRA_STRESS_TTL_WRITE_THREADS = int(os.getenv("DEFAULT_CASSANDRA_STRESS_TTL_WRITE_THREADS", "200"))
 DEFAULT_CASSANDRA_STRESS_TTL_READ_THREADS = int(os.getenv("DEFAULT_CASSANDRA_STRESS_TTL_READ_THREADS", "170"))
 DEFAULT_CASSANDRA_STRESS_MIXED_SKEW_THREADS = int(os.getenv("DEFAULT_CASSANDRA_STRESS_MIXED_SKEW_THREADS", "340"))
@@ -54,6 +55,15 @@ DEFAULT_CASSANDRA_STRESS_TTL_DELAY_SEC = int(os.getenv("DEFAULT_CASSANDRA_STRESS
 DEFAULT_CASSANDRA_STRESS_POP_BASELINE_END = int(os.getenv("DEFAULT_CASSANDRA_STRESS_POP_BASELINE_END", "5000000"))
 DEFAULT_CASSANDRA_STRESS_POP_HOT_END = int(os.getenv("DEFAULT_CASSANDRA_STRESS_POP_HOT_END", "100"))
 DEFAULT_CASSANDRA_STRESS_POP_MIXED_SKEW_END = int(os.getenv("DEFAULT_CASSANDRA_STRESS_POP_MIXED_SKEW_END", "500"))
+
+# cassandra-stress user profile (ConfigMap chaos-university-stress-profile, key university-profile.yaml → /profiles/...)
+UNIVERSITY_STRESS_CONFIGMAP = os.getenv("UNIVERSITY_STRESS_CONFIGMAP", "chaos-university-stress-profile")
+DEFAULT_UNIVERSITY_STRESS_THREADS = int(os.getenv("DEFAULT_UNIVERSITY_STRESS_THREADS", "120"))
+DEFAULT_UNIVERSITY_STRESS_OPS = os.getenv(
+    "DEFAULT_UNIVERSITY_STRESS_OPS",
+    "ops(insert=4,course_section_enrollments=3,by_student_id=2,by_teacher_id=2,student_courses_lookup=1)",
+)
+DEFAULT_UNIVERSITY_TRUNCATE = os.getenv("DEFAULT_UNIVERSITY_TRUNCATE", "truncate=once")
 
 
 def init_k8s():
@@ -87,14 +97,50 @@ class FaultRecord:
 ACTIVE_FAULTS: Dict[str, FaultRecord] = {}
 
 
-def _build_cassandra_stress_job(name: str, command: list[str]):
+def _university_stress_nodes() -> str:
+    ns = NAMESPACE
+    return os.getenv(
+        "UNIVERSITY_STRESS_NODES",
+        (
+            f"cassandra-0.cassandra.{ns}.svc.cluster.local,"
+            f"cassandra-1.cassandra.{ns}.svc.cluster.local,"
+            f"cassandra-2.cassandra.{ns}.svc.cluster.local"
+        ),
+    )
+
+
+def _build_cassandra_stress_job(name: str, command: list[str], *, mount_university_profile: bool = False):
+    volumes: List[client.V1Volume] = []
+    mounts: List[client.V1VolumeMount] = []
+    if mount_university_profile:
+        vname = "chaos-university-profile"
+        volumes.append(
+            client.V1Volume(
+                name=vname,
+                config_map=client.V1ConfigMapVolumeSource(
+                    name=UNIVERSITY_STRESS_CONFIGMAP,
+                    items=[client.V1KeyToPath(key="university-profile.yaml", path="university-profile.yaml")],
+                ),
+            )
+        )
+        mounts.append(
+            client.V1VolumeMount(
+                name=vname,
+                mount_path="/profiles/university-profile.yaml",
+                sub_path="university-profile.yaml",
+                read_only=True,
+            )
+        )
+
     pod_spec = client.V1PodSpec(
         restart_policy="Never",
+        volumes=volumes or None,
         containers=[
             client.V1Container(
                 name="cassandra-stress",
                 image=STRESS_CASSANDRA_IMAGE,
                 command=command,
+                volume_mounts=mounts or None,
                 resources=client.V1ResourceRequirements(
                     limits={"cpu": STRESS_JOB_CPU_LIMIT, "memory": STRESS_JOB_MEM_LIMIT},
                     requests={"cpu": STRESS_JOB_CPU_REQUEST, "memory": STRESS_JOB_MEM_REQUEST},
@@ -253,6 +299,8 @@ def _cmd_anomaly_concurrency_spike(*, duration_sec: int, threads: int, pop_end: 
             threads=threads,
             pop_start=1,
             pop_end=pop_end,
+            # cassandra-stress expects distribution specs (e.g. FIXED(1)); plain `n=1` fails with
+            # "Illegal distribution specification: 1" on cassandra:4.1.
             col="n=FIXED(1) size=FIXED(1024)",
             rf=rf,
         ),
@@ -321,12 +369,47 @@ def _cmd_anomaly_ttl_tombstone_script(
     return ["sh", "-lc", script]
 
 
-def _start_cassandra_stress_job(params: Dict, *, profile_name: str, command: list[str]) -> FaultRecord:
+def _cmd_anomaly_university_memory_pressure(
+    *,
+    duration_sec: int,
+    threads: int,
+    ops: str,
+    truncate: str,
+) -> list[str]:
+    """Wide rows + mixed ops (user YAML) to push heap / memtables / read paths (memory pressure lab)."""
+    return [
+        CASSANDRA_STRESS_BIN,
+        "user",
+        "profile=/profiles/university-profile.yaml",
+        f"duration={duration_sec}s",
+        ops,
+        truncate,
+        "-node",
+        _university_stress_nodes(),
+        "-port",
+        f"native={CASSANDRA_STRESS_PORT}",
+        "-rate",
+        f"threads={threads}",
+        "-log",
+        "interval=5s",
+    ]
+
+
+def _start_cassandra_stress_job(
+    params: Dict,
+    *,
+    profile_name: str,
+    command: list[str],
+    mount_university_profile: bool = False,
+) -> FaultRecord:
     parallel = _resolve_parallel_jobs(params)
     base = f"chaos-{int(time.time())}-{secrets.token_hex(3)}"
     job_names = [f"{base}-{i}" for i in range(parallel)]
     for job_name in job_names:
-        batch.create_namespaced_job(namespace=NAMESPACE, body=_build_cassandra_stress_job(job_name, command))
+        batch.create_namespaced_job(
+            namespace=NAMESPACE,
+            body=_build_cassandra_stress_job(job_name, command, mount_university_profile=mount_university_profile),
+        )
     return FaultRecord(
         profile=profile_name,
         started_at=time.time(),
@@ -372,7 +455,6 @@ def _start_anomaly_compaction_pressure(params: Dict) -> FaultRecord:
         profile_name="anomaly-compaction-pressure",
         command=_cmd_anomaly_compaction_pressure(duration_sec=duration, threads=threads, pop_end=pop_end, rf=rf),
     )
-
 
 
 def _start_anomaly_concurrency_spike(params: Dict) -> FaultRecord:
@@ -437,7 +519,6 @@ def _start_short_cpu_spike(params: Dict) -> FaultRecord:
         verified_start_ts=time.time(),
     )
 
-
 def _start_anomaly_ttl_tombstone(params: Dict) -> FaultRecord:
     write_duration = int(params.get("write_duration_sec", 240))
     read_duration = int(params.get("read_duration_sec", 180))
@@ -471,6 +552,26 @@ def _start_anomaly_mixed_skew_large_payload(params: Dict) -> FaultRecord:
         params,
         profile_name="anomaly-mixed-skew-large-payload",
         command=_cmd_anomaly_mixed_skew_large_payload(duration_sec=duration, threads=threads, rf=rf),
+    )
+
+
+def _start_anomaly_university_memory_pressure(params: Dict) -> FaultRecord:
+    duration = int(params.get("duration_sec", 120))
+    threads = int(params.get("threads", DEFAULT_UNIVERSITY_STRESS_THREADS))
+    ops = str(params.get("user_ops", DEFAULT_UNIVERSITY_STRESS_OPS)).strip()
+    truncate = str(params.get("user_truncate", DEFAULT_UNIVERSITY_TRUNCATE)).strip()
+    # Single Job: parallel stress + truncate=once races DDL and keyspace init.
+    merged = {**params, "parallel_jobs": 1}
+    return _start_cassandra_stress_job(
+        merged,
+        profile_name="anomaly-university-memory-pressure",
+        command=_cmd_anomaly_university_memory_pressure(
+            duration_sec=duration,
+            threads=threads,
+            ops=ops,
+            truncate=truncate,
+        ),
+        mount_university_profile=True,
     )
 
 
@@ -513,6 +614,7 @@ def _stop_fault(record: FaultRecord):
         "anomaly-concurrency-spike",
         "anomaly-ttl-tombstone",
         "anomaly-mixed-skew-large-payload",
+        "anomaly-university-memory-pressure",
         "short-cpu-spike",
         # aliases retained for compatibility
         "cpuhog-like",
@@ -556,8 +658,8 @@ def start_fault():
             record = _start_anomaly_ttl_tombstone(body)
         elif profile == "anomaly-mixed-skew-large-payload":
             record = _start_anomaly_mixed_skew_large_payload(body)
-        elif profile == "short-cpu-spike":
-            record = _start_short_cpu_spike(body)
+        elif profile == "anomaly-university-memory-pressure":
+            record = _start_anomaly_university_memory_pressure(body)
         elif profile == "cpuhog-like":
             # Compatibility alias
             record = _start_anomaly_concurrency_spike(body)
@@ -566,6 +668,8 @@ def start_fault():
             # Compatibility alias
             record = _start_anomaly_compaction_pressure(body)
             record.profile = "memleak-like"
+        elif profile == "short-cpu-spike":
+            record = _start_short_cpu_spike(body)
         elif profile == "network-congestion-like":
             record = _start_network_congestion(body)
         elif profile == "bottleneck-like":
@@ -582,11 +686,12 @@ def start_fault():
                             "anomaly-concurrency-spike",
                             "anomaly-ttl-tombstone",
                             "anomaly-mixed-skew-large-payload",
-                            "short-cpu-spike",
+                            "anomaly-university-memory-pressure",
                             "cpuhog-like",
                             "memleak-like",
                             "network-congestion-like",
                             "bottleneck-like",
+                            "short-cpu-spike",
                         ],
                     }
                 ),
