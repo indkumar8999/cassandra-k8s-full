@@ -15,8 +15,8 @@ prometheus:
     type: NodePort
     nodePort: 32090
   prometheusSpec:
-    scrapeInterval: 15s
-    evaluationInterval: 15s
+    scrapeInterval: 1s
+    evaluationInterval: 1s
     podMonitorSelectorNilUsesHelmValues: false
     serviceMonitorSelectorNilUsesHelmValues: false
 

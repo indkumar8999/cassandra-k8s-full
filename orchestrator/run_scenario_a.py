@@ -138,13 +138,29 @@ class ScenarioRunner:
         out = self.run_dir / name
         out.write_text(json.dumps(payload, indent=2), encoding="utf-8")
 
+    def _stress_burst_body(self) -> Dict:
+        """Short, very high cassandra-stress write burst (same chaos profile as test3, different scale)."""
+        body: Dict = {
+            "profile": "anomaly-concurrency-spike",
+            "duration_sec": self.args.short_spike_sec,
+            "parallel_jobs": self.args.stress_burst_parallel_jobs,
+            "threads": self.args.stress_burst_threads,
+        }
+        if self.args.stress_burst_pop_end is not None:
+            body["pop_end"] = self.args.stress_burst_pop_end
+        return body
+
     def run(self):
         self._record(
             "run_start",
             {
                 "run_id": self.run_id,
                 "version": "A",
-                "tests": ["baseline-normal", "short-cpu-spike", "anomaly-concurrency-spike"],
+                "tests": [
+                    "baseline-normal",
+                    "anomaly-concurrency-spike (high write burst)",
+                    "anomaly-concurrency-spike",
+                ],
             },
         )
 
@@ -170,29 +186,35 @@ class ScenarioRunner:
         boot_stop = self._post_chaos_stop_fault("baseline-normal")
         self._record("bootstrap_fault_stop", boot_stop)
 
-        # Test 1: Normal baseline (no alarms expected).
-        self._post(self.learner_base, "/phase", {"phase": "normal"})
-        baseline_body = {"profile": "baseline-normal", "duration_sec": self.args.baseline_sec}
-        t1_start = self._post(self.chaos_base, "/start_fault", baseline_body)
-        self._record("test1_start", {"profile": "baseline-normal", "start": t1_start})
-        self._sleep_phase(Phase("test1_baseline_normal", self.args.baseline_sec))
-        t1_stop = self._post_chaos_stop_fault("baseline-normal")
-        self._record("test1_stop", {"profile": "baseline-normal", "stop": t1_stop})
+        # # Test 1: Normal baseline (no alarms expected).
+        # self._post(self.learner_base, "/phase", {"phase": "normal"})
+        # baseline_body = {"profile": "baseline-normal", "duration_sec": self.args.baseline_sec}
+        # t1_start = self._post(self.chaos_base, "/start_fault", baseline_body)
+        # self._record("test1_start", {"profile": "baseline-normal", "start": t1_start})
+        # self._sleep_phase(Phase("test1_baseline_normal", self.args.baseline_sec))
+        # t1_stop = self._post_chaos_stop_fault("baseline-normal")
+        # self._record("test1_stop", {"profile": "baseline-normal", "stop": t1_stop})
 
-        self._post(self.learner_base, "/phase", {"phase": "cooldown"})
-        self._sleep_phase(Phase("cooldown_after_test1", self.args.cooldown1_sec))
+        # self._post(self.learner_base, "/phase", {"phase": "cooldown"})
+        # self._sleep_phase(Phase("cooldown_after_test1", self.args.cooldown1_sec))
 
-        # Test 2: Extremely short spike (no alarms expected).
-        self._post(self.learner_base, "/phase", {"phase": "chaos"})
-        cpu_body = {"profile": "short-cpu-spike", "duration_sec": self.args.short_spike_sec}
-        t2_start = self._post(self.chaos_base, "/start_fault", cpu_body)
-        self._record("test2_start", {"profile": "short-cpu-spike", "start": t2_start})
-        self._sleep_phase(Phase("test2_short_cpu_spike", self.args.short_spike_sec))
-        t2_stop = self._post_chaos_stop_fault("short-cpu-spike")
-        self._record("test2_stop", {"profile": "short-cpu-spike", "stop": t2_stop})
+        # # Test 2: Very high cassandra-stress write burst (short window; drives cluster CPU).
+        # self._post(self.learner_base, "/phase", {"phase": "chaos"})
+        # burst_body = self._stress_burst_body()
+        # t2_start = self._post(self.chaos_base, "/start_fault", burst_body)
+        # self._record(
+        #     "test2_start",
+        #     {"profile": "anomaly-concurrency-spike", "variant": "stress_burst", "start": t2_start},
+        # )
+        # self._sleep_phase(Phase("test2_cassandra_stress_burst", self.args.short_spike_sec))
+        # t2_stop = self._post_chaos_stop_fault("anomaly-concurrency-spike")
+        # self._record(
+        #     "test2_stop",
+        #     {"profile": "anomaly-concurrency-spike", "variant": "stress_burst", "stop": t2_stop},
+        # )
 
-        self._post(self.learner_base, "/phase", {"phase": "cooldown"})
-        self._sleep_phase(Phase("cooldown_after_test2", self.args.cooldown2_sec))
+        # self._post(self.learner_base, "/phase", {"phase": "cooldown"})
+        # self._sleep_phase(Phase("cooldown_after_test2", self.args.cooldown2_sec))
 
         # Test 3: Concurrency spike anomaly (alarms + elastic scale expected).
         self._post(self.simulator_base, "/load", {"profile": self.args.load_profile})
@@ -244,7 +266,15 @@ class ScenarioRunner:
             "bootstrap_fault_profile": "baseline-normal",
             "tests": [
                 {"name": "test1", "profile": "baseline-normal", "duration_sec": self.args.baseline_sec},
-                {"name": "test2", "profile": "short-cpu-spike", "duration_sec": self.args.short_spike_sec},
+                {
+                    "name": "test2",
+                    "profile": "anomaly-concurrency-spike",
+                    "variant": "stress_burst",
+                    "duration_sec": self.args.short_spike_sec,
+                    "threads": self.args.stress_burst_threads,
+                    "parallel_jobs": self.args.stress_burst_parallel_jobs,
+                    "pop_end": self.args.stress_burst_pop_end,
+                },
                 {"name": "test3", "profile": "anomaly-concurrency-spike", "duration_sec": self.args.concurrency_sec},
             ],
             "phase_durations": {
@@ -258,6 +288,9 @@ class ScenarioRunner:
                 "cpu_workers": self.args.cpu_workers,
                 "mem_mb": self.args.mem_mb,
                 "bottleneck_replicas": self.args.bottleneck_replicas,
+                "stress_burst_threads": self.args.stress_burst_threads,
+                "stress_burst_parallel_jobs": self.args.stress_burst_parallel_jobs,
+                "stress_burst_pop_end": self.args.stress_burst_pop_end,
                 "stress_threads": self.args.stress_threads,
                 "stress_pop_end": self.args.stress_pop_end,
                 "stress_parallel_jobs": self.args.stress_parallel_jobs,
@@ -285,7 +318,10 @@ class ScenarioRunner:
 
 def build_parser():
     parser = argparse.ArgumentParser(
-        description="Scenario A: bootstrap, then baseline-normal → cooldown → short-cpu-spike → cooldown → anomaly-concurrency-spike → cooldown."
+        description=(
+            "Scenario A: bootstrap, then baseline-normal → cooldown → "
+            "high cassandra-stress write burst → cooldown → anomaly-concurrency-spike → cooldown."
+        )
     )
     parser.add_argument("--simulator-base", default=os.getenv("SIMULATOR_BASE", "http://localhost:8080"))
     parser.add_argument("--learner-base", default=os.getenv("LEARNER_BASE", "http://localhost:8100"))
@@ -314,7 +350,30 @@ def build_parser():
     # Fixed plan defaults (per your demo plan)
     parser.add_argument("--bootstrap-sec", type=int, default=int(os.getenv("BOOTSTRAP_SEC", "180")))
     parser.add_argument("--baseline-sec", type=int, default=int(os.getenv("BASELINE_SEC", "120")))
-    parser.add_argument("--short-spike-sec", type=int, default=int(os.getenv("SHORT_SPIKE_SEC", "2")))
+    parser.add_argument(
+        "--short-spike-sec",
+        type=int,
+        default=int(os.getenv("SHORT_SPIKE_SEC", "2")),
+        help="Duration of the high cassandra-stress burst (test2), default 2s.",
+    )
+    parser.add_argument(
+        "--stress-burst-threads",
+        type=int,
+        default=int(os.getenv("STRESS_BURST_THREADS", "10000")),
+        help="cassandra-stress threads= for the short write burst (test2).",
+    )
+    parser.add_argument(
+        "--stress-burst-parallel-jobs",
+        type=int,
+        default=int(os.getenv("STRESS_BURST_PARALLEL_JOBS", "8")),
+        help="Parallel stress Jobs for test2 (capped by chaos-injector MAX_STRESS_PARALLEL_JOBS).",
+    )
+    parser.add_argument(
+        "--stress-burst-pop-end",
+        type=int,
+        default=None,
+        help="Optional -pop seq=1..N end for test2 (chaos-injector default if omitted).",
+    )
     parser.add_argument("--cooldown1-sec", type=int, default=int(os.getenv("COOLDOWN1_SEC", "75")))
     parser.add_argument("--cooldown2-sec", type=int, default=int(os.getenv("COOLDOWN2_SEC", "75")))
     parser.add_argument("--concurrency-sec", type=int, default=int(os.getenv("CONCURRENCY_SEC", "120")))

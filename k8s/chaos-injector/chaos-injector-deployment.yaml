@@ -26,8 +26,8 @@ spec:
                       - w4
       containers:
         - name: chaos-injector
-          # Rebuild/push after chaos-injector changes: `make build-images` with DOCKERHUB_USER/IMAGE_TAG, or retag :v0.3.4.
-          image: docker.io/aumpandya/cassandra-chaos-injector:v0.3.4
+          # Rebuild/push after chaos-injector changes: `make build-images` with DOCKERHUB_USER/IMAGE_TAG, or retag :v0.3.10.
+          image: docker.io/aumpandya/cassandra-chaos-injector:v0.3.10
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8200

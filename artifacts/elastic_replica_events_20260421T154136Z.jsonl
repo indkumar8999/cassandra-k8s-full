@@ -1,0 +1,10 @@
+{"ts_utc":"2026-04-21T15:41:36Z","event":"run_started","detail":"mode=chaos_alarm daemon=0 max=4 baseline=3 consecutive_chaos=3"}
+{"ts_utc":"2026-04-21T15:42:06Z","event":"cycle_started","detail":"cycle=1 mode=chaos_alarm watch_start_ts=1776786126.388581"}
+{"ts_utc":"2026-04-21T15:58:06Z","event":"scale_out_signal","detail":"reason=chaos_alarm consecutive=3 cycle=1"}
+{"ts_utc":"2026-04-21T15:58:06Z","event":"scale_up","detail":"to=4 cycle=1"}
+{"ts_utc":"2026-04-21T16:00:45Z","event":"rollout_up_complete","detail":"replicas=4 cycle=1"}
+{"ts_utc":"2026-04-21T16:01:22Z","event":"slo_stable","detail":"value=0.0 cycle=1"}
+{"ts_utc":"2026-04-21T16:01:22Z","event":"scale_down","detail":"to=3 cycle=1"}
+{"ts_utc":"2026-04-21T16:01:22Z","event":"rollout_down_complete","detail":"replicas=3 cycle=1"}
+{"ts_utc":"2026-04-21T16:01:24Z","event":"cycle_complete","detail":"success=true cycle=1"}
+{"ts_utc":"2026-04-21T16:01:24Z","event":"run_complete","detail":"cycles=1 daemon=0"}

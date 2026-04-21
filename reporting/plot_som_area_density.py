@@ -130,7 +130,6 @@ def plot_scenario_a_batch(
     output_dir: Optional[Path] = None,
 ) -> Tuple[List[Path], Optional[Path]]:
     import matplotlib.pyplot as plt
-    import numpy as np
 
     roots = sorted(p for p in artifacts_root.glob(pattern) if p.is_dir())
     if not roots:
@@ -167,7 +166,13 @@ def plot_scenario_a_batch(
             nrows = int(math.ceil(n / ncols))
             fig_w = 4.2 * ncols
             fig_h = 3.8 * nrows
-            fig, axes = plt.subplots(nrows, ncols, figsize=(fig_w, fig_h), squeeze=False)
+            fig, axes = plt.subplots(
+                nrows,
+                ncols,
+                figsize=(fig_w, fig_h),
+                squeeze=False,
+                layout="constrained",
+            )
             dest_dir = output_dir if output_dir is not None else artifacts_root
             dest_dir.mkdir(parents=True, exist_ok=True)
             m_last = None
@@ -186,24 +191,17 @@ def plot_scenario_a_batch(
                 r, c = divmod(idx, ncols)
                 axes[r][c].set_visible(False)
 
-            fig.suptitle(
-                "SOM area_map (shared color scale) — scenario-a runs",
-                fontsize=12,
-                y=1.02,
-            )
-            fig.subplots_adjust(right=0.88)
+            fig.suptitle("SOM area_map (shared color scale) — scenario-a runs", fontsize=12)
             if m_last is not None:
                 fig.colorbar(
                     m_last,
-                    ax=axes.ravel().tolist(),
-                    fraction=0.035,
-                    pad=0.02,
+                    ax=axes,
+                    shrink=0.72,
                     label="Inter-neuron distance (area)",
                 )
-            fig.tight_layout(rect=[0, 0, 0.86, 0.96])
             combined = dest_dir / combined_name
             fig.savefig(combined, dpi=dpi, bbox_inches="tight")
-        plt.close(fig)
+            plt.close(fig)
 
     return written, combined
 

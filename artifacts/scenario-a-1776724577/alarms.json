@@ -1,0 +1,118 @@
+{
+  "count": 8,
+  "items": [
+    {
+      "bmu": [
+        8,
+        6
+      ],
+      "causes": [
+        "tier_a_disk_read_bytes_per_sec"
+      ],
+      "phase": "cooldown",
+      "score_area": 44351.243267933954,
+      "streak": 3,
+      "threshold": 493.5659339875239,
+      "ts": 1776725221.5126126
+    },
+    {
+      "bmu": [
+        10,
+        6
+      ],
+      "causes": [
+        "tier_a_disk_read_bytes_per_sec"
+      ],
+      "phase": "cooldown",
+      "score_area": 19115.805129073437,
+      "streak": 4,
+      "threshold": 493.5659339875239,
+      "ts": 1776725222.0312004
+    },
+    {
+      "bmu": [
+        12,
+        30
+      ],
+      "causes": [
+        "tier_a_disk_read_bytes_per_sec"
+      ],
+      "phase": "cooldown",
+      "score_area": 715.7276703982427,
+      "streak": 3,
+      "threshold": 533.0837500061198,
+      "ts": 1776725252.8049839
+    },
+    {
+      "bmu": [
+        9,
+        27
+      ],
+      "causes": [
+        "tier_a_disk_read_bytes_per_sec"
+      ],
+      "phase": "cooldown",
+      "score_area": 1691.3020145135456,
+      "streak": 3,
+      "threshold": 541.9657260845956,
+      "ts": 1776725262.9429858
+    },
+    {
+      "bmu": [
+        10,
+        26
+      ],
+      "causes": [
+        "tier_a_disk_read_bytes_per_sec"
+      ],
+      "phase": "cooldown",
+      "score_area": 1202.4871338904854,
+      "streak": 4,
+      "threshold": 541.9657260845956,
+      "ts": 1776725263.4633424
+    },
+    {
+      "bmu": [
+        9,
+        23
+      ],
+      "causes": [
+        "tier_a_disk_read_bytes_per_sec"
+      ],
+      "phase": "cooldown",
+      "score_area": 1156.7859231849739,
+      "streak": 3,
+      "threshold": 541.9657260845956,
+      "ts": 1776725266.0975783
+    },
+    {
+      "bmu": [
+        8,
+        24
+      ],
+      "causes": [
+        "tier_a_disk_read_bytes_per_sec"
+      ],
+      "phase": "cooldown",
+      "score_area": 912.9095800213129,
+      "streak": 4,
+      "threshold": 541.9657260845956,
+      "ts": 1776725266.630182
+    },
+    {
+      "bmu": [
+        8,
+        22
+      ],
+      "causes": [
+        "tier_a_disk_read_bytes_per_sec",
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "cooldown",
+      "score_area": 1070.6540826704831,
+      "streak": 5,
+      "threshold": 541.9657260845956,
+      "ts": 1776725267.1514964
+    }
+  ]
+}

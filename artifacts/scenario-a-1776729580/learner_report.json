@@ -1,0 +1,60 @@
+{
+  "alarm_count": 1,
+  "avg_score_latency_ms": 5.421,
+  "bmu_coverage_count": 61,
+  "bootstrap_collected_samples": 350,
+  "bootstrap_target_samples": 350,
+  "feature_order": [
+    "tier_a_cpu_usage_cores",
+    "tier_a_memory_working_set_bytes",
+    "tier_a_disk_read_bytes_per_sec"
+  ],
+  "kfold_metrics": [
+    {
+      "fold": 1,
+      "max_area": 420.6979556545489,
+      "mean_area": 55.50076587390713,
+      "min_area": 3.3644512116872427,
+      "std_area": 86.78944232970697,
+      "sum_area": 2553.0352301997277
+    },
+    {
+      "fold": 2,
+      "max_area": 289.0906459103834,
+      "mean_area": 46.06509165628756,
+      "min_area": 0.04077645319854639,
+      "std_area": 67.82795003407448,
+      "sum_area": 2072.92912453294
+    },
+    {
+      "fold": 3,
+      "max_area": 461.62209158044095,
+      "mean_area": 63.69964673224244,
+      "min_area": 0.6684210401305251,
+      "std_area": 100.0421089480218,
+      "sum_area": 2866.48410295091
+    }
+  ],
+  "last_error": null,
+  "lead_time_seconds": {
+    "mean": null,
+    "median": null,
+    "samples": 0
+  },
+  "phase": "cooldown",
+  "ready": true,
+  "score_stream_count": 95,
+  "scored_by_phase": {
+    "chaos": 0,
+    "cooldown": 95,
+    "load": 0,
+    "normal": 0
+  },
+  "threshold_percentile": 85.0,
+  "threshold_value": 426.4091596715499,
+  "total_samples_dropped_missing_tier_a": 0,
+  "total_samples_scored": 95,
+  "total_samples_seen": 798,
+  "trained": true,
+  "training_duration_sec": 0.145
+}

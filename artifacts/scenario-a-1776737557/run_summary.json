@@ -1,0 +1,145 @@
+{
+  "run_id": "scenario-a-1776737557",
+  "version": "A",
+  "started_at": 1776737557.258156,
+  "finished_at": 1776737977.677571,
+  "duration_sec": 420.42,
+  "bootstrap_fault_profile": "baseline-normal",
+  "tests": [
+    {
+      "name": "test1",
+      "profile": "baseline-normal",
+      "duration_sec": 120
+    },
+    {
+      "name": "test2",
+      "profile": "anomaly-concurrency-spike",
+      "variant": "stress_burst",
+      "duration_sec": 2,
+      "threads": 10000,
+      "parallel_jobs": 8,
+      "pop_end": null
+    },
+    {
+      "name": "test3",
+      "profile": "anomaly-concurrency-spike",
+      "duration_sec": 120
+    }
+  ],
+  "phase_durations": {
+    "bootstrap_sec": 180,
+    "cooldown_after_test1_sec": 75,
+    "cooldown_after_test2_sec": 75,
+    "cooldown_after_test3_sec": 120
+  },
+  "injection_profile": {
+    "target_namespace": "cassandra-lab",
+    "cpu_workers": 2,
+    "mem_mb": 1024,
+    "bottleneck_replicas": 2,
+    "stress_burst_threads": 10000,
+    "stress_burst_parallel_jobs": 8,
+    "stress_burst_pop_end": null,
+    "stress_threads": null,
+    "stress_pop_end": null,
+    "stress_parallel_jobs": 8
+  },
+  "learner_status": {
+    "bootstrap_collected_samples": 350,
+    "bootstrap_target_samples": 350,
+    "bootstrap_valid_samples": 350,
+    "last_error": null,
+    "phase": "cooldown",
+    "ready": true,
+    "threshold": 395.2059995697866,
+    "threshold_percentile": 85.0,
+    "total_samples_dropped_missing_tier_a": 0,
+    "total_samples_dropped_missing_tier_b": 0,
+    "trained": true,
+    "training_duration_sec": 0.346
+  },
+  "learner_report": {
+    "alarm_count": 109,
+    "avg_score_latency_ms": 2.851,
+    "bmu_coverage_count": 132,
+    "bootstrap_collected_samples": 350,
+    "bootstrap_target_samples": 350,
+    "feature_order": [
+      "tier_a_cpu_usage_cores",
+      "tier_a_memory_working_set_bytes",
+      "tier_a_disk_read_bytes_per_sec"
+    ],
+    "kfold_metrics": [
+      {
+        "fold": 1,
+        "max_area": 113.10133956211229,
+        "mean_area": 11.23569529656641,
+        "min_area": 0.14598216666426822,
+        "std_area": 23.379013563828323,
+        "sum_area": 1314.57634969827
+      },
+      {
+        "fold": 2,
+        "max_area": 89.58053022351677,
+        "mean_area": 7.525402495373694,
+        "min_area": 0.16607067216972382,
+        "std_area": 14.200620376799332,
+        "sum_area": 880.4720919587222
+      },
+      {
+        "fold": 3,
+        "max_area": 81.47232309896872,
+        "mean_area": 6.1581503230913395,
+        "min_area": 0.0624160523545951,
+        "std_area": 12.152929302777384,
+        "sum_area": 714.3454374785954
+      }
+    ],
+    "last_error": null,
+    "lead_time_seconds": {
+      "mean": 200.599,
+      "median": 200.508,
+      "samples": 109
+    },
+    "phase": "cooldown",
+    "ready": true,
+    "score_stream_count": 407,
+    "scored_by_phase": {
+      "chaos": 200,
+      "cooldown": 207,
+      "load": 0,
+      "normal": 0
+    },
+    "threshold_percentile": 85.0,
+    "threshold_value": 395.2059995697866,
+    "total_samples_dropped_missing_tier_a": 0,
+    "total_samples_scored": 407,
+    "total_samples_seen": 757,
+    "trained": true,
+    "training_duration_sec": 0.346
+  },
+  "simulator_metrics": {
+    "config": {
+      "ops_per_sec": 200,
+      "workers": 30,
+      "write_ratio": 0.7
+    },
+    "inserted_ids_count": 86464,
+    "profile": "medium",
+    "reads": {
+      "avg_latency_ms": 21.66,
+      "failures": 16,
+      "p95_latency_ms": 42.06,
+      "success": 37027
+    },
+    "running": true,
+    "stop_requested": false,
+    "writes": {
+      "avg_latency_ms": 19.2,
+      "failures": 43,
+      "p95_latency_ms": 41.74,
+      "success": 86464
+    }
+  },
+  "alarm_count": 109
+}

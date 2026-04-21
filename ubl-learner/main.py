@@ -106,7 +106,7 @@ MAX_ALARMS = _env_int("MAX_ALARMS", 1000)
 TIER_B_MIN_COVERAGE = _env_float("TIER_B_MIN_COVERAGE", 0.9)
 TARGET_NAMESPACE = os.getenv("TARGET_NAMESPACE", "cassandra-lab")
 CASSANDRA_PODS = [pod.strip() for pod in os.getenv("CASSANDRA_PODS", "cassandra-0,cassandra-1,cassandra-2").split(",") if pod.strip()]
-PROM_QUERY_WORKERS = _env_int("PROM_QUERY_WORKERS", 12)
+PROM_QUERY_WORKERS = _env_int("PROM_QUERY_WORKERS", 1)
 PROM_QUERY_TIMEOUT_SEC = _env_float("PROM_QUERY_TIMEOUT_SEC", 3.0)
 THRESHOLD_RECALC_ENABLED = os.getenv("THRESHOLD_RECALC_ENABLED", "1") == "1"
 THRESHOLD_RECALC_EVERY_UPDATES = _env_int("THRESHOLD_RECALC_EVERY_UPDATES", 25)
@@ -117,7 +117,11 @@ KNOWN_PHASES = ("normal", "load", "chaos", "cooldown")
 TIER_A_NODE_QUERY_TEMPLATES = {
     "tier_a_cpu_usage_cores": 'sum(rate(container_cpu_usage_seconds_total{namespace="__NAMESPACE__",pod="__POD__"}[1m]))',
     "tier_a_memory_working_set_bytes": 'sum(container_memory_working_set_bytes{namespace="__NAMESPACE__",pod="__POD__"})',
-    "tier_a_disk_read_bytes_per_sec": 'sum(rate(container_fs_reads_bytes_total{namespace="__NAMESPACE__",pod="__POD__"}[1m]))',
+    "tier_a_disk_io_bytes_per_sec": (
+        'sum(rate(container_fs_reads_bytes_total{namespace="__NAMESPACE__",pod="__POD__"}[1m]))'
+        ' + '
+        'sum(rate(container_fs_writes_bytes_total{namespace="__NAMESPACE__",pod="__POD__"}[1m]))'
+    ),
 }
 
 
@@ -125,14 +129,14 @@ TIER_A_NODE_QUERY_TEMPLATES = {
 TIER_A_FEATURES = [
     "tier_a_cpu_usage_cores",
     "tier_a_memory_working_set_bytes",
-    "tier_a_disk_read_bytes_per_sec",
+    "tier_a_disk_io_bytes_per_sec",
 ]
 
 # For averaging, define the base metric names (without pod suffix)
 TIER_A_AVG_FEATURES = [
     "tier_a_cpu_usage_cores",
     "tier_a_memory_working_set_bytes",
-    "tier_a_disk_read_bytes_per_sec",
+    "tier_a_disk_io_bytes_per_sec",
 ]
 
 
@@ -204,6 +208,8 @@ class LearnerState:
         self.trained = False
         self.bootstrap_samples: List[Sample] = []
         self.norm_max: Dict[str, float] = {}
+        self.capacity_norm_max_cached: Optional[Dict[str, float]] = None
+        self.capacity_norm_max_cached_at: Optional[float] = None
         self.feature_order: List[str] = []
         self.som: Optional[SOM] = None
         self.area_map: Optional[np.ndarray] = None
@@ -228,6 +234,70 @@ class LearnerState:
         self.thread = threading.Thread(target=self._poll_loop, daemon=True)
         self.thread.start()
 
+    def _query_prom_scalar_best_effort(self, queries: List[str]) -> Optional[float]:
+        for q in queries:
+            value = self._query_prom(q)
+            if value is not None and not math.isnan(value) and not math.isinf(value):
+                return float(value)
+        return None
+
+    def _capacity_norm_max(self) -> Dict[str, float]:
+        if self.capacity_norm_max_cached is not None:
+            return dict(self.capacity_norm_max_cached)
+
+        ns = TARGET_NAMESPACE
+        pod_re = "cassandra-[0-9]+"
+        pvc_re = "cassandra-data-cassandra-[0-9]+"
+
+        cpu_queries = [
+            # kube-state-metrics (preferred)
+            (
+                f'max(sum by (pod) (kube_pod_container_resource_limits{{namespace="{ns}",pod=~"{pod_re}",resource="cpu",unit="core"}}))'
+            ),
+            # older kube-state-metrics variants without unit label
+            (
+                f'max(sum by (pod) (kube_pod_container_resource_limits{{namespace="{ns}",pod=~"{pod_re}",resource="cpu"}}))'
+            ),
+        ]
+        mem_queries = [
+            (
+                f'max(sum by (pod) (kube_pod_container_resource_limits{{namespace="{ns}",pod=~"{pod_re}",resource="memory",unit="byte"}}))'
+            ),
+            (
+                f'max(sum by (pod) (kube_pod_container_resource_limits{{namespace="{ns}",pod=~"{pod_re}",resource="memory"}}))'
+            ),
+        ]
+        disk_queries = [
+            # kubelet volume stats (capacity bytes) if available
+            f'max(max by (persistentvolumeclaim) (kubelet_volume_stats_capacity_bytes{{namespace="{ns}",persistentvolumeclaim=~"{pvc_re}"}}))',
+            # kube-state-metrics PVC request bytes fallback
+            f'max(max by (persistentvolumeclaim) (kube_persistentvolumeclaim_resource_requests_storage_bytes{{namespace="{ns}",persistentvolumeclaim=~"{pvc_re}"}}))',
+        ]
+
+        cpu_limit_cores = self._query_prom_scalar_best_effort(cpu_queries)
+        mem_limit_bytes = self._query_prom_scalar_best_effort(mem_queries)
+        pvc_bytes = self._query_prom_scalar_best_effort(disk_queries)/1e4  # Convert bytes to MB for more reasonable scaling in disk IO feature
+
+        result: Dict[str, float] = {}
+        if cpu_limit_cores is not None:
+            result["tier_a_cpu_usage_cores"] = float(max(cpu_limit_cores, 1e-9))
+        if mem_limit_bytes is not None:
+            result["tier_a_memory_working_set_bytes"] = float(max(mem_limit_bytes, 1e-9))
+        if pvc_bytes is not None:
+            # NOTE: Unit mismatch with tier_a_disk_io_bytes_per_sec; kept as requested (capacity-based normalization).
+            result["tier_a_disk_io_bytes_per_sec"] = float(max(pvc_bytes, 1e-9))
+
+        self.capacity_norm_max_cached = dict(result)
+        self.capacity_norm_max_cached_at = time.time()
+        if not result:
+            print(
+                f"PHASE:{self.phase} Capacity norm unavailable; falling back to observed maxima. "
+                f"Check kube-state-metrics / kubelet volume metrics in Prometheus."
+            )
+        else:
+            print(f"PHASE:{self.phase} Capacity norm maxima cached: {result}")
+        return dict(result)
+
     def _tier_a_feature_names(self) -> List[str]:
         # Return all per-pod feature names for completeness, but not used for input vector anymore
         names: List[str] = []
@@ -239,6 +309,7 @@ class LearnerState:
     def _avg_tier_a_features(self, sample: Sample) -> Dict[str, float]:
         # For each base metric, average across all pods
         avg_features = {}
+        print(f"[SAMPLE VALUES] PHASE:{self.phase} Averaging features for sample : {sample.values}:")
         for base in TIER_A_AVG_FEATURES:
             vals = [sample.values.get(f"{base}__{pod}") for pod in CASSANDRA_PODS]
             vals = [v for v in vals if v is not None]
@@ -255,12 +326,16 @@ class LearnerState:
             response.raise_for_status()
             payload = response.json()
             if payload.get("status") != "success":
+                print(f"PHASE:{self.phase} Prometheus query failed : {payload}")
                 return None
             result = payload.get("data", {}).get("result", [])
             if not result:
+                print(f"PHASE:{self.phase} Prometheus query returned no data: {query}")
                 return None
+            print(f"PHASE:{self.phase} Prometheus query result for '{query}': {result}")  
             return float(result[0]["value"][1])
         except Exception:
+            print(f"PHASE:{self.phase} Error querying Prometheus for '{query}': ")
             return None
 
     def _collect_sample(self) -> Sample:
@@ -305,9 +380,9 @@ class LearnerState:
     def _normalize_vector(self, sample: Sample) -> Tuple[np.ndarray, List[str]]:
         # Use only the average value for each metric
         avg_features = self._avg_tier_a_features(sample)
-        missing_required = [k for k, v in avg_features.items() if v == 0.0]
-        if missing_required:
-            return np.array([]), missing_required
+        # missing_required = [k for k, v in avg_features.items() if v == 0.0]
+        # if missing_required:
+        #     return np.array([]), missing_required
 
         raw_values = [avg_features[feature] for feature in TIER_A_AVG_FEATURES]
         raw = np.array(raw_values, dtype=np.float64)
@@ -374,8 +449,8 @@ class LearnerState:
         train_rows = []
         for sample in valid:
             avg_features = self._avg_tier_a_features(sample)
-            if any(avg_features[k] == 0.0 for k in TIER_A_AVG_FEATURES):
-                continue
+            # if any(avg_features[k] == 0.0 for k in TIER_A_AVG_FEATURES):
+            #     continue
             train_rows.append(np.array([avg_features[feature] for feature in TIER_A_AVG_FEATURES], dtype=np.float64))
 
         if not train_rows:
@@ -384,7 +459,12 @@ class LearnerState:
 
         train_data = np.array(train_rows)
         train_data = self._apply_training_smoothing(train_data)
-        self.norm_max = {name: float(max(train_data[:, idx].max(), 1e-9)) for idx, name in enumerate(self.feature_order)}
+        observed_max = {name: float(max(train_data[:, idx].max(), 1e-9)) for idx, name in enumerate(self.feature_order)}
+        capacity_max = self._capacity_norm_max()
+        self.norm_max = {
+            name: float(max(capacity_max.get(name, observed_max.get(name, 1e-9)), 1e-9))
+            for name in self.feature_order
+        }
         train_data_norm = (train_data / np.array([self.norm_max[f] for f in self.feature_order])) * 100.0
 
         # K-Fold Cross Validation (k=3) and best SOM selection by min sum of validation BMU areas
@@ -436,6 +516,7 @@ class LearnerState:
 
     def _score_sample(self, sample: Sample, smooth_history: List[np.ndarray]):
         if self.som is None or self.area_map is None:
+            print(f"[SCORE SAMPLE] PHASE:{self.phase} Cannot score sample, model not ready.")
             return
 
         start = time.perf_counter()
@@ -444,6 +525,7 @@ class LearnerState:
             tier_a_set = set(self._tier_a_feature_names())
             if any(name in tier_a_set for name in missing):
                 self.dropped_missing_tier_a += 1
+            print(f"[SCORE SAMPLE] PHASE:{self.phase} Sample missing required features {missing}, dropping sample.")
             return
 
         vec = self._moving_avg(smooth_history, vec)
@@ -455,11 +537,11 @@ class LearnerState:
         if ONLINE_UPDATE_ENABLED and self.phase != "chaos":
             self.som.train_step(vec)
             self.area_map = self.som.area_map()
-            if THRESHOLD_RECALC_ENABLED:
-                self.online_updates_since_threshold_refresh += 1
-                if self.online_updates_since_threshold_refresh >= max(1, THRESHOLD_RECALC_EVERY_UPDATES):
-                    self._refresh_threshold()
-                    self.online_updates_since_threshold_refresh = 0
+            # if THRESHOLD_RECALC_ENABLED:
+            #     self.online_updates_since_threshold_refresh += 1
+            #     if self.online_updates_since_threshold_refresh >= max(1, THRESHOLD_RECALC_EVERY_UPDATES):
+            #         self._refresh_threshold()
+            #         self.online_updates_since_threshold_refresh = 0
 
         score_latency = (time.perf_counter() - start) * 1000.0
         self.score_latency_ms.append(score_latency)

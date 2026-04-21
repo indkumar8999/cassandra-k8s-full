@@ -149,6 +149,18 @@ class ScenarioRunner:
         body["parallel_jobs"] = self.args.stress_parallel_jobs
         return body
 
+    def _stress_write_burst_body(self) -> Dict:
+        """Short, very high cassandra-stress write burst (replaces busybox short-cpu-spike)."""
+        body: Dict = {
+            "profile": "anomaly-concurrency-spike",
+            "duration_sec": self.args.cpu_spike_duration,
+            "parallel_jobs": self.args.stress_spike_parallel_jobs,
+            "threads": self.args.stress_spike_threads,
+        }
+        if self.args.stress_spike_pop_end is not None:
+            body["pop_end"] = self.args.stress_spike_pop_end
+        return body
+
     def run(self):
         self._record("run_start", {"run_id": self.run_id})
 
@@ -181,17 +193,17 @@ class ScenarioRunner:
         self._sleep_phase(Phase("cooldown_after_baseline", self.args.cooldown_duration))
 
         self._post(self.learner_base, "/phase", {"phase": "chaos"})
-        # Test 2: short-cpu-spike (isolated; ideally no alarms)
-        self._record("custom_cpu_spike_start", {})
-        cpu_spike_body = {"profile": "short-cpu-spike", "duration_sec": self.args.cpu_spike_duration}
-        cpu_spike_start = self._post(self.chaos_base, "/start_fault", cpu_spike_body)
-        self._record("custom_cpu_spike_injected", cpu_spike_start)
-        self._sleep_phase(Phase("custom_cpu_spike", self.args.cpu_spike_duration))
-        cpu_spike_stop = self._post_chaos_stop_fault("short-cpu-spike")
-        self._record("custom_cpu_spike_end", cpu_spike_stop)
+        # Test 2: very high cassandra-stress write burst (short; drives cluster CPU)
+        self._record("stress_write_burst_start", {})
+        burst_body = self._stress_write_burst_body()
+        burst_start = self._post(self.chaos_base, "/start_fault", burst_body)
+        self._record("stress_write_burst_injected", burst_start)
+        self._sleep_phase(Phase("stress_write_burst", self.args.cpu_spike_duration))
+        burst_stop = self._post_chaos_stop_fault("anomaly-concurrency-spike")
+        self._record("stress_write_burst_end", burst_stop)
 
         self._post(self.learner_base, "/phase", {"phase": "cooldown"})
-        self._sleep_phase(Phase("cooldown_after_cpu_spike", self.args.cooldown_duration))
+        self._sleep_phase(Phase("cooldown_after_stress_burst", self.args.cooldown_duration))
 
         self._post(self.learner_base, "/phase", {"phase": "chaos"})
         # Test 3: anomaly-concurrency-spike (same /start_fault scale as run_scenario.py anomaly phase)
@@ -232,7 +244,7 @@ class ScenarioRunner:
             "phase_durations": {
                 "bootstrap_sec": self.args.bootstrap_duration,
                 "chaos_baseline_sec": self.args.chaos_baseline_duration,
-                "cpu_spike_sec": self.args.cpu_spike_duration,
+                "stress_write_burst_sec": self.args.cpu_spike_duration,
                 "concurrency_spike_sec": self.args.concurrency_spike_duration,
                 "cooldown_sec": self.args.cooldown_duration,
             },
@@ -242,6 +254,9 @@ class ScenarioRunner:
                 "cpu_workers": self.args.cpu_workers,
                 "mem_mb": self.args.mem_mb,
                 "bottleneck_replicas": self.args.bottleneck_replicas,
+                "stress_spike_threads": self.args.stress_spike_threads,
+                "stress_spike_parallel_jobs": self.args.stress_spike_parallel_jobs,
+                "stress_spike_pop_end": self.args.stress_spike_pop_end,
                 "stress_threads": self.args.stress_threads,
                 "stress_pop_end": self.args.stress_pop_end,
                 "stress_parallel_jobs": self.args.stress_parallel_jobs,
@@ -274,7 +289,8 @@ class ScenarioRunner:
 def build_parser():
     parser = argparse.ArgumentParser(
         description=(
-            "Bootstrap (normal), then chaos: baseline-normal → cooldown → short-cpu-spike → cooldown → "
+            "Bootstrap (normal), then chaos: baseline-normal → cooldown → "
+            "high cassandra-stress write burst → cooldown → "
             "anomaly-concurrency-spike (run_scenario-scale injection), then final cooldown."
         )
     )
@@ -292,7 +308,30 @@ def build_parser():
     parser.add_argument("--bootstrap-duration", type=int, default=int(os.getenv("BOOTSTRAP_DURATION", "60")), help="Bootstrap phase duration (seconds)")
     parser.add_argument("--chaos-baseline-duration", type=int, default=int(os.getenv("CHAOS_BASELINE_DURATION", "30")), help="Baseline-normal in chaos mode duration (seconds)")
     parser.add_argument("--concurrency-spike-duration", type=int, default=int(os.getenv("CONCURRENCY_SPIKE_DURATION", "30")), help="Concurrency spike duration (seconds)")
-    parser.add_argument("--cpu-spike-duration", type=int, default=int(os.getenv("CPU_SPIKE_DURATION", "1")), help="Custom CPU spike duration (seconds)")
+    parser.add_argument(
+        "--cpu-spike-duration",
+        type=int,
+        default=int(os.getenv("CPU_SPIKE_DURATION", "10")),
+        help="Duration of the high cassandra-stress write burst (seconds), default 10.",
+    )
+    parser.add_argument(
+        "--stress-spike-threads",
+        type=int,
+        default=int(os.getenv("STRESS_SPIKE_THREADS", "4500")),
+        help="cassandra-stress threads= for the short write burst phase.",
+    )
+    parser.add_argument(
+        "--stress-spike-parallel-jobs",
+        type=int,
+        default=int(os.getenv("STRESS_SPIKE_PARALLEL_JOBS", "8")),
+        help="Parallel stress Jobs for the short write burst (capped by chaos-injector).",
+    )
+    parser.add_argument(
+        "--stress-spike-pop-end",
+        type=int,
+        default=None,
+        help="Optional -pop seq=1..N end for the short write burst (chaos default if omitted).",
+    )
     parser.add_argument("--cooldown-duration", type=int, default=int(os.getenv("COOLDOWN_DURATION", "15")), help="Cooldown between isolated tests and final cooldown (seconds)")
     parser.add_argument("--cpu-workers", type=int, default=int(os.getenv("CHAOS_CPU_WORKERS", "2")))
     parser.add_argument("--mem-mb", type=int, default=int(os.getenv("CHAOS_MEM_MB", "1024")))

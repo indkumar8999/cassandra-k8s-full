@@ -15,8 +15,7 @@ spec:
     spec:
       containers:
         - name: learner
-          image: docker.io/aumpandya/cassandra-ubl-learner:v0.3.2
-          imagePullPolicy: IfNotPresent
+          image: docker.io/aumpandya/cassandra-ubl-learner:latest
           ports:
             - containerPort: 8100
               name: http
