@@ -4,7 +4,7 @@ metadata:
   name: ubl-learner-config
   namespace: cassandra-lab
 data:
-  PROMETHEUS_BASE: "http://kube-prom-stack-kube-prome-prometheus.monitoring.svc.cluster.local:9090"
+  PROMETHEUS_BASE: "http://10.152.34.58:9090"
   TARGET_NAMESPACE: "cassandra-lab"
   CASSANDRA_PODS: "cassandra-0"
   POLL_SEC: "0.5"
