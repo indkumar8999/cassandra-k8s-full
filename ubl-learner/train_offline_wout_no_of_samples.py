@@ -4,7 +4,7 @@ Offline SOM Training Script
 
 Imports SOM class and config from main.py.
 Fetches metrics directly from Prometheus.
-Trains a Self-Organizing Map (SOM) using K-fold cross-validation.
+Trains a Self-Organizing Map (SOM) using collected samples.
 Saves the trained model snapshot for later import/inference.
 """
 
@@ -13,7 +13,7 @@ import json
 import sys
 import time
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Dict, List
 
 import numpy as np
 import main as learner_main
@@ -36,7 +36,7 @@ def _build_training_harness() -> LearnerState:
     """Create a minimal LearnerState object without starting background threads."""
     state = object.__new__(LearnerState)
     state.phase = "offline"
-    state.bootstrap_samples = []
+    state.training_samples  = []
     state.norm_max = {}
     state.capacity_norm_max_cached = None
     state.capacity_norm_max_cached_at = None
@@ -62,54 +62,59 @@ def fetch_metrics_samples(
     """
     Poll Prometheus every poll_interval seconds for duration_sec.
     Collect raw metric samples for each pod and metric.
-    
-    Returns: List of dicts with keys like "metric__pod" and values as floats.
+
+    Returns:
+        List of dicts with keys like "metric__pod" and values as floats.
     """
     samples: List[Dict[str, float]] = []
     start_time = time.time()
     end_time = start_time + duration_sec
-    
+
     print(f"[COLLECT] Starting metrics collection for {duration_sec}s (interval: {poll_interval}s)")
     print(f"[COLLECT] Prometheus: {learner_main.PROMETHEUS_BASE}")
     print(f"[COLLECT] Pods: {CASSANDRA_PODS}")
-    
+
     while time.time() < end_time:
         sample_dict: Dict[str, float] = {}
-        
+
         # Query each pod + metric combination
         for pod in CASSANDRA_PODS:
             for base_name, template in TIER_A_NODE_QUERY_TEMPLATES.items():
                 query = template.replace("__NAMESPACE__", TARGET_NAMESPACE).replace("__POD__", pod)
                 value = state._query_prom(query)
                 key = f"{base_name}__{pod}"
+
                 if value is not None:
                     sample_dict[key] = value
                 else:
                     print(f"[COLLECT] Missing metric: {key}")
-        
+
         if sample_dict:
             samples.append(sample_dict)
             print(f"[COLLECT] Sample {len(samples)}: {len(sample_dict)} metrics collected")
-        
+
         elapsed = time.time() - start_time
         remaining = end_time - time.time()
         if remaining > 0:
             sleep_time = min(poll_interval, remaining)
             print(f"[COLLECT] Progress: {elapsed:.1f}s / {duration_sec}s, sleeping {sleep_time:.1f}s...")
             time.sleep(sleep_time)
-    
+
     print(f"[COLLECT] Collection complete: {len(samples)} samples")
     return samples
 
 
 # === Data Normalization and Training ===
-def normalize_and_train(samples: List[Dict[str, float]], state: LearnerState) -> tuple[SOM, np.ndarray, Dict[str, float], float]:
+def normalize_and_train(
+    samples: List[Dict[str, float]],
+    state: LearnerState,
+) -> tuple[SOM, np.ndarray, Dict[str, float], float]:
     """Convert raw samples and run main.py's LearnerState._train implementation."""
     if not samples:
         raise ValueError("No samples provided for training")
-    
+
     print(f"[TRAIN] Processing {len(samples)} samples")
-    state.bootstrap_samples = [
+    state.training_samples = [
         Sample(
             ts=time.time(),
             values=sample,
@@ -143,7 +148,7 @@ def save_snapshot(
     """Save trained SOM snapshot to JSON file."""
     output_path = Path(output_dir) / output_file
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    
+
     payload = {
         "som_rows": som.rows,
         "som_cols": som.cols,
@@ -155,10 +160,10 @@ def save_snapshot(
         "weights": som.weights.tolist(),
         "area_map": area_map.tolist(),
     }
-    
+
     with open(output_path, "w") as f:
         json.dump(payload, f, indent=2)
-    
+
     print(f"[SAVE] Snapshot saved to: {output_path}")
     print(f"[SAVE] Snapshot size: {output_path.stat().st_size / 1024:.1f} KB")
     return output_path
@@ -196,48 +201,40 @@ def main():
         default="som_trained_snapshot.json",
         help="Output filename (default: som_trained_snapshot.json)",
     )
-    parser.add_argument(
-        "--bootstrap-samples",
-        type=int,
-        default=learner_main.BOOTSTRAP_SAMPLES,
-        help=f"Minimum valid samples required before training (default: {learner_main.BOOTSTRAP_SAMPLES})",
-    )
-    
+
     args = parser.parse_args()
-    
+
     print("=" * 80)
     print("Offline SOM Training from Prometheus")
     print("=" * 80)
     print(f"Prometheus: {args.prometheus_base}")
     print(f"Duration: {args.duration_sec}s, Poll interval: {args.poll_interval}s")
-    print(f"Bootstrap samples: {args.bootstrap_samples}")
     print("Training path: LearnerState._train from main.py")
     print("=" * 80)
-    
+
     try:
         learner_main.PROMETHEUS_BASE = args.prometheus_base
-        learner_main.BOOTSTRAP_SAMPLES = args.bootstrap_samples
         state = _build_training_harness()
 
-        # Collect metrics from Prometheus
+        # Collect metrics from Prometheus for the full requested duration
         samples = fetch_metrics_samples(
             args.duration_sec,
             args.poll_interval,
             state,
         )
-        
-        if len(samples) < 10:
-            print(f"[ERROR] Only {len(samples)} samples collected; need at least 10")
+
+        if len(samples) == 0:
+            print("[ERROR] No samples collected; cannot train SOM")
             sys.exit(1)
-        
-        # Train SOM
+
+        # Train SOM on all collected samples
         state.training_start_ts = time.time()
         som, area_map, norm_max, threshold = normalize_and_train(samples, state)
         state.training_end_ts = time.time()
         state.training_duration_sec = state.training_end_ts - state.training_start_ts
 
         print(f"[TRAIN] SOM training time: {state.training_duration_sec:.4f} sec")
-        
+
         # Save snapshot
         output_path = save_snapshot(
             som,
@@ -248,11 +245,12 @@ def main():
             args.output_dir,
             args.output_file,
         )
-        
+
         print("=" * 80)
         print(f"✓ Training complete. Snapshot: {output_path}")
         print("=" * 80)
         print(f"Samples Collected: {len(samples)}")
+
     except Exception as e:
         print(f"[ERROR] {e}", file=sys.stderr)
         import traceback

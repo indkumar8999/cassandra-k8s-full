@@ -8,11 +8,13 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass
 from typing import Dict, List, Optional, Tuple
 
+
 import numpy as np
 import requests
 from flask import Flask, Response, jsonify, request
 from prometheus_client import CONTENT_TYPE_LATEST, Counter as PromCounter, Gauge, generate_latest
 from sklearn.model_selection import KFold
+
 
 app = Flask(__name__)
 
@@ -88,6 +90,7 @@ def _env_int(name: str, default: int) -> int:
 
 PROMETHEUS_BASE = os.getenv("PROMETHEUS_BASE", "http://prometheus-operated.monitoring.svc.cluster.local:9090")
 POLL_SEC = _env_float("POLL_SEC", 0.5)
+BOOTSTRAP_SAMPLES = _env_int("BOOTSTRAP_SAMPLES", 350)
 SOM_ROWS = _env_int("SOM_ROWS", 32)
 SOM_COLS = _env_int("SOM_COLS", 32)
 SOM_LR = _env_float("SOM_LR", 0.7)
@@ -122,12 +125,15 @@ TIER_A_NODE_QUERY_TEMPLATES = {
     ),
 }
 
+
+
 TIER_A_FEATURES = [
     "tier_a_cpu_usage_cores",
     "tier_a_memory_working_set_bytes",
     "tier_a_disk_io_bytes_per_sec",
 ]
 
+# For averaging, define the base metric names (without pod suffix)
 TIER_A_AVG_FEATURES = [
     "tier_a_cpu_usage_cores",
     "tier_a_memory_working_set_bytes",
@@ -162,6 +168,7 @@ class SOM:
         bmu_r, bmu_c = self.bmu(vec)
         rr, cc = np.indices((self.rows, self.cols))
         dist2 = (rr - bmu_r) ** 2 + (cc - bmu_c) ** 2
+        # Only update neurons within the defined radius
         mask = dist2 <= self.radius ** 2
         neighborhood = np.exp(-dist2 / (2.0 * (self.sigma ** 2))) * mask
         adjustment = self.lr * neighborhood[..., np.newaxis] * (vec - self.weights)
@@ -200,7 +207,7 @@ class LearnerState:
         self.phase = "normal"
         self.ready = False
         self.trained = False
-        self.training_samples: List[Sample] = []
+        self.bootstrap_samples: List[Sample] = []
         self.norm_max: Dict[str, float] = {}
         self.capacity_norm_max_cached: Optional[Dict[str, float]] = None
         self.capacity_norm_max_cached_at: Optional[float] = None
@@ -246,21 +253,33 @@ class LearnerState:
         pvc_re = "cassandra-data-cassandra-[0-9]+"
 
         cpu_queries = [
-            f'max(sum by (pod) (kube_pod_container_resource_limits{{namespace="{ns}",pod=~"{pod_re}",resource="cpu",unit="core"}}))',
-            f'max(sum by (pod) (kube_pod_container_resource_limits{{namespace="{ns}",pod=~"{pod_re}",resource="cpu"}}))',
+            # kube-state-metrics (preferred)
+            (
+                f'max(sum by (pod) (kube_pod_container_resource_limits{{namespace="{ns}",pod=~"{pod_re}",resource="cpu",unit="core"}}))'
+            ),
+            # older kube-state-metrics variants without unit label
+            (
+                f'max(sum by (pod) (kube_pod_container_resource_limits{{namespace="{ns}",pod=~"{pod_re}",resource="cpu"}}))'
+            ),
         ]
         mem_queries = [
-            f'max(sum by (pod) (kube_pod_container_resource_limits{{namespace="{ns}",pod=~"{pod_re}",resource="memory",unit="byte"}}))',
-            f'max(sum by (pod) (kube_pod_container_resource_limits{{namespace="{ns}",pod=~"{pod_re}",resource="memory"}}))',
+            (
+                f'max(sum by (pod) (kube_pod_container_resource_limits{{namespace="{ns}",pod=~"{pod_re}",resource="memory",unit="byte"}}))'
+            ),
+            (
+                f'max(sum by (pod) (kube_pod_container_resource_limits{{namespace="{ns}",pod=~"{pod_re}",resource="memory"}}))'
+            ),
         ]
         disk_queries = [
+            # kubelet volume stats (capacity bytes) if available
             f'max(max by (persistentvolumeclaim) (kubelet_volume_stats_capacity_bytes{{namespace="{ns}",persistentvolumeclaim=~"{pvc_re}"}}))',
+            # kube-state-metrics PVC request bytes fallback
             f'max(max by (persistentvolumeclaim) (kube_persistentvolumeclaim_resource_requests_storage_bytes{{namespace="{ns}",persistentvolumeclaim=~"{pvc_re}"}}))',
         ]
 
         cpu_limit_cores = self._query_prom_scalar_best_effort(cpu_queries)
         mem_limit_bytes = self._query_prom_scalar_best_effort(mem_queries)
-        pvc_bytes = self._query_prom_scalar_best_effort(disk_queries) / 1e3
+        pvc_bytes = self._query_prom_scalar_best_effort(disk_queries)/1e3 # convert to MB
 
         result: Dict[str, float] = {}
         if cpu_limit_cores is not None:
@@ -268,6 +287,7 @@ class LearnerState:
         if mem_limit_bytes is not None:
             result["tier_a_memory_working_set_bytes"] = float(max(mem_limit_bytes, 1e-9))
         if pvc_bytes is not None:
+            # NOTE: Unit mismatch with tier_a_disk_io_bytes_per_sec; kept as requested (capacity-based normalization).
             result["tier_a_disk_io_bytes_per_sec"] = float(max(pvc_bytes, 1e-9))
 
         self.capacity_norm_max_cached = dict(result)
@@ -282,6 +302,7 @@ class LearnerState:
         return dict(result)
 
     def _tier_a_feature_names(self) -> List[str]:
+        # Return all per-pod feature names for completeness, but not used for input vector anymore
         names: List[str] = []
         for pod in CASSANDRA_PODS:
             for base in TIER_A_FEATURES:
@@ -289,6 +310,7 @@ class LearnerState:
         return names
 
     def _avg_tier_a_features(self, sample: Sample) -> Dict[str, float]:
+        # For each base metric, average across all pods
         avg_features = {}
         print(f"[SAMPLE VALUES] PHASE:{self.phase} Averaging features for sample : {sample.values}:")
         for base in TIER_A_AVG_FEATURES:
@@ -313,7 +335,7 @@ class LearnerState:
             if not result:
                 print(f"PHASE:{self.phase} Prometheus query returned no data: {query}")
                 return None
-            print(f"PHASE:{self.phase} Prometheus query result for '{query}': {result}")
+            print(f"PHASE:{self.phase} Prometheus query result for '{query}': {result}")  
             return float(result[0]["value"][1])
         except Exception:
             print(f"PHASE:{self.phase} Error querying Prometheus for '{query}': ")
@@ -341,6 +363,7 @@ class LearnerState:
                 continue
             values[key] = value
 
+        # Coverage-based validity: allow sampling during pod moves as long as enough pods report metrics.
         total_pods = max(1, len(CASSANDRA_PODS))
         for base_name in TIER_A_NODE_QUERY_TEMPLATES.keys():
             have = sum(1 for pod in CASSANDRA_PODS if f"{base_name}__{pod}" in values)
@@ -371,7 +394,12 @@ class LearnerState:
         return np.mean(window, axis=0)
 
     def _normalize_vector(self, sample: Sample) -> Tuple[np.ndarray, List[str]]:
+        # Use only the average value for each metric
         avg_features = self._avg_tier_a_features(sample)
+        # missing_required = [k for k, v in avg_features.items() if v == 0.0]
+        # if missing_required:
+        #     return np.array([]), missing_required
+
         raw_values = [avg_features[feature] for feature in TIER_A_AVG_FEATURES]
         raw = np.array(raw_values, dtype=np.float64)
         if not self.norm_max:
@@ -428,9 +456,8 @@ class LearnerState:
         return [name for name, _ in votes.most_common()]
 
     def _train(self):
-        valid = [s for s in self.training_samples if s.quality_valid]
-        if not valid:
-            self.last_error = "No valid samples available for training."
+        valid = [s for s in self.bootstrap_samples if s.quality_valid]
+        if len(valid) < BOOTSTRAP_SAMPLES:
             return
 
         self.training_start_ts = time.time()
@@ -438,6 +465,8 @@ class LearnerState:
         train_rows = []
         for sample in valid:
             avg_features = self._avg_tier_a_features(sample)
+            # if any(avg_features[k] == 0.0 for k in TIER_A_AVG_FEATURES):
+            #     continue
             train_rows.append(np.array([avg_features[feature] for feature in TIER_A_AVG_FEATURES], dtype=np.float64))
 
         if not train_rows:
@@ -454,22 +483,9 @@ class LearnerState:
         }
         train_data_norm = (train_data / np.array([self.norm_max[f] for f in self.feature_order])) * 100.0
 
+        # K-Fold Cross Validation (k=3) and best SOM selection by min sum of validation BMU areas
         k = 3
-        effective_splits = min(k, len(train_data_norm))
-        if effective_splits < 2:
-            som = SOM(SOM_ROWS, SOM_COLS, train_data_norm.shape[1], SOM_LR, SOM_SIGMA, radius=2)
-            som.train(train_data_norm.copy(), TRAIN_EPOCHS)
-            self.kfold_metrics = []
-            self.som = som
-            self.area_map = som.area_map()
-            self._refresh_threshold()
-            self.trained = True
-            self.ready = True
-            self.training_end_ts = time.time()
-            self.training_duration_sec = self.training_end_ts - self.training_start_ts
-            return
-
-        kf = KFold(n_splits=effective_splits, shuffle=True, random_state=42)
+        kf = KFold(n_splits=k, shuffle=True, random_state=42)
         fold_metrics = []
         som_models = []
         for fold, (train_idx, test_idx) in enumerate(kf.split(train_data_norm)):
@@ -477,15 +493,14 @@ class LearnerState:
             som = SOM(SOM_ROWS, SOM_COLS, X_train.shape[1], SOM_LR, SOM_SIGMA, radius=2)
             som.train(X_train.copy(), TRAIN_EPOCHS)
             area_map = som.area_map()
-
+            # For each validation sample, get BMU and area value
             val_areas = []
             for vec in X_val:
                 bmu_r, bmu_c = som.bmu(vec)
                 val_areas.append(area_map[bmu_r, bmu_c])
-
-            sum_area = float(np.sum(val_areas)) if val_areas else float("inf")
+            sum_area = float(np.sum(val_areas)) if val_areas else float('inf')
             fold_metrics.append({
-                "fold": fold + 1,
+                "fold": fold+1,
                 "sum_area": sum_area,
                 "mean_area": float(np.mean(val_areas)) if val_areas else 0.0,
                 "std_area": float(np.std(val_areas)) if val_areas else 0.0,
@@ -495,10 +510,11 @@ class LearnerState:
             som_models.append({
                 "model": som,
                 "area_map": area_map,
-                "sum_area": sum_area,
+                "sum_area": sum_area
             })
 
         self.kfold_metrics = fold_metrics
+        # Select the SOM with the minimum sum_area on its validation set
         best_idx = int(np.argmin([m["sum_area"] for m in som_models]))
         best_som = som_models[best_idx]["model"]
         best_area_map = som_models[best_idx]["area_map"]
@@ -537,6 +553,11 @@ class LearnerState:
         if ONLINE_UPDATE_ENABLED and self.phase != "chaos":
             self.som.train_step(vec)
             self.area_map = self.som.area_map()
+            # if THRESHOLD_RECALC_ENABLED:
+            #     self.online_updates_since_threshold_refresh += 1
+            #     if self.online_updates_since_threshold_refresh >= max(1, THRESHOLD_RECALC_EVERY_UPDATES):
+            #         self._refresh_threshold()
+            #         self.online_updates_since_threshold_refresh = 0
 
         score_latency = (time.perf_counter() - start) * 1000.0
         self.score_latency_ms.append(score_latency)
@@ -581,7 +602,8 @@ class LearnerState:
                     sample = self._collect_sample()
                     self.total_samples_seen += 1
                     if not self.trained:
-                        self.training_samples.append(sample)
+                        self.bootstrap_samples.append(sample)
+                        self._train()
                     elif sample.quality_valid:
                         self._score_sample(sample, smooth_history)
                     else:
@@ -610,7 +632,8 @@ class LearnerState:
             "trained": self.trained,
             "ready": self.ready,
             "phase": self.phase,
-            "training_collected_samples": len(self.training_samples),
+            "bootstrap_target_samples": BOOTSTRAP_SAMPLES,
+            "bootstrap_collected_samples": len(self.bootstrap_samples),
             "training_duration_sec": round(self.training_duration_sec, 3),
             "total_samples_seen": self.total_samples_seen,
             "total_samples_scored": self.total_samples_scored,
@@ -630,6 +653,7 @@ class LearnerState:
             },
             "last_error": self.last_error,
         }
+        # Add k-fold metrics if available
         if hasattr(self, "kfold_metrics"):
             report["kfold_metrics"] = self.kfold_metrics
         return report
@@ -646,14 +670,15 @@ def health():
 @app.get("/status")
 def status():
     with state.lock:
-        valid_training_samples = len([sample for sample in state.training_samples if sample.quality_valid])
+        valid_bootstrap_samples = len([sample for sample in state.bootstrap_samples if sample.quality_valid])
         return jsonify(
             {
                 "trained": state.trained,
                 "ready": state.ready,
                 "phase": state.phase,
-                "training_collected_samples": len(state.training_samples),
-                "training_valid_samples": valid_training_samples,
+                "bootstrap_collected_samples": len(state.bootstrap_samples),
+                "bootstrap_valid_samples": valid_bootstrap_samples,
+                "bootstrap_target_samples": BOOTSTRAP_SAMPLES,
                 "training_duration_sec": round(state.training_duration_sec, 3),
                 "threshold": state.threshold,
                 "threshold_percentile": THRESHOLD_PERCENTILE,
@@ -728,7 +753,7 @@ def reset():
         state.phase = "normal"
         state.ready = False
         state.trained = False
-        state.training_samples.clear()
+        state.bootstrap_samples.clear()
         state.norm_max.clear()
         state.feature_order.clear()
         state.som = None
@@ -762,6 +787,7 @@ def report():
 
 @app.get("/export/som-snapshot")
 def export_som_snapshot():
+    """Read-only export of trained SOM weights and area map for offline artifacts / plots."""
     with state.lock:
         if state.som is None or state.area_map is None:
             return jsonify({"error": "SOM not trained", "trained": state.trained}), 503
@@ -771,7 +797,7 @@ def export_som_snapshot():
         norm_max = dict(state.norm_max)
         threshold = float(state.threshold)
         kfold_metrics = getattr(state, "kfold_metrics", None)
-
+    # Avoid holding state.lock during large .tolist() / JSON encode (reduces stalls and flaky clients).
     payload = {
         "som_rows": som.rows,
         "som_cols": som.cols,
@@ -797,6 +823,7 @@ def config():
             "target_namespace": TARGET_NAMESPACE,
             "cassandra_pods": CASSANDRA_PODS,
             "poll_sec": POLL_SEC,
+            "bootstrap_samples": BOOTSTRAP_SAMPLES,
             "som_rows": SOM_ROWS,
             "som_cols": SOM_COLS,
             "som_lr": SOM_LR,
