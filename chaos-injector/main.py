@@ -48,6 +48,8 @@ DEFAULT_CASSANDRA_STRESS_SPIKE_THREADS = int(os.getenv("DEFAULT_CASSANDRA_STRESS
 DEFAULT_CASSANDRA_STRESS_TTL_WRITE_THREADS = int(os.getenv("DEFAULT_CASSANDRA_STRESS_TTL_WRITE_THREADS", "2000"))
 DEFAULT_CASSANDRA_STRESS_TTL_READ_THREADS = int(os.getenv("DEFAULT_CASSANDRA_STRESS_TTL_READ_THREADS", "1700"))
 DEFAULT_CASSANDRA_STRESS_MIXED_SKEW_THREADS = int(os.getenv("DEFAULT_CASSANDRA_STRESS_MIXED_SKEW_THREADS", "500"))
+DEFAULT_CASSANDRA_STRESS_CPU_MIXED_THREADS = int(os.getenv("DEFAULT_CASSANDRA_STRESS_CPU_MIXED_THREADS", "800"))
+DEFAULT_CASSANDRA_STRESS_MEM_MIXED_THREADS = int(os.getenv("DEFAULT_CASSANDRA_STRESS_MEM_MIXED_THREADS", "400"))
 DEFAULT_CASSANDRA_STRESS_TTL_SEC = int(os.getenv("DEFAULT_CASSANDRA_STRESS_TTL_SEC", "60"))
 DEFAULT_CASSANDRA_STRESS_TTL_DELAY_SEC = int(os.getenv("DEFAULT_CASSANDRA_STRESS_TTL_DELAY_SEC", "90"))
 
@@ -55,6 +57,8 @@ DEFAULT_CASSANDRA_STRESS_TTL_DELAY_SEC = int(os.getenv("DEFAULT_CASSANDRA_STRESS
 DEFAULT_CASSANDRA_STRESS_POP_BASELINE_END = int(os.getenv("DEFAULT_CASSANDRA_STRESS_POP_BASELINE_END", "1000000"))
 DEFAULT_CASSANDRA_STRESS_POP_HOT_END = int(os.getenv("DEFAULT_CASSANDRA_STRESS_POP_HOT_END", "100"))
 DEFAULT_CASSANDRA_STRESS_POP_MIXED_SKEW_END = int(os.getenv("DEFAULT_CASSANDRA_STRESS_POP_MIXED_SKEW_END", "500"))
+DEFAULT_CASSANDRA_STRESS_POP_CPU_MIXED_END = int(os.getenv("DEFAULT_CASSANDRA_STRESS_POP_CPU_MIXED_END", "5000"))
+DEFAULT_CASSANDRA_STRESS_POP_MEM_MIXED_END = int(os.getenv("DEFAULT_CASSANDRA_STRESS_POP_MEM_MIXED_END", "2000"))
 
 # cassandra-stress user profile (ConfigMap chaos-university-stress-profile, key university-profile.yaml → /profiles/...)
 UNIVERSITY_STRESS_CONFIGMAP = os.getenv("UNIVERSITY_STRESS_CONFIGMAP", "chaos-university-stress-profile")
@@ -323,6 +327,40 @@ def _cmd_anomaly_mixed_skew_large_payload(*, duration_sec: int, threads: int, rf
     ]
 
 
+def _cmd_anomaly_cpu_mixed_cached(*, duration_sec: int, threads: int, pop_end: int, rf: int) -> list[str]:
+    # Read-heavy mixed workload over a small working set to bias toward CPU (vs disk/compaction).
+    return [
+        CASSANDRA_STRESS_BIN,
+        "mixed",
+        "ratio(write=1,read=9)",
+        *_cassandra_stress_base_args(
+            duration_sec=duration_sec,
+            threads=threads,
+            pop_start=1,
+            pop_end=pop_end,
+            col="n=FIXED(1) size=FIXED(256)",
+            rf=rf,
+        ),
+    ]
+
+
+def _cmd_anomaly_mem_mixed_cached(*, duration_sec: int, threads: int, pop_end: int, rf: int) -> list[str]:
+    # Larger rows + smaller working set to bias toward memory pressure (heap/memtables/caches) on Cassandra pods.
+    return [
+        CASSANDRA_STRESS_BIN,
+        "mixed",
+        "ratio(write=3,read=7)",
+        *_cassandra_stress_base_args(
+            duration_sec=duration_sec,
+            threads=threads,
+            pop_start=1,
+            pop_end=pop_end,
+            col="n=FIXED(20) size=FIXED(2048)",
+            rf=rf,
+        ),
+    ]
+
+
 def _cmd_anomaly_ttl_tombstone_script(
     *,
     write_duration_sec: int,
@@ -466,6 +504,30 @@ def _start_anomaly_concurrency_spike(params: Dict) -> FaultRecord:
         params,
         profile_name="anomaly-concurrency-spike",
         command=_cmd_anomaly_concurrency_spike(duration_sec=duration, threads=threads, pop_end=pop_end, rf=rf),
+    )
+
+
+def _start_anomaly_cpu_mixed_cached(params: Dict) -> FaultRecord:
+    duration = int(params.get("duration_sec", 180))
+    threads = int(params.get("threads", DEFAULT_CASSANDRA_STRESS_CPU_MIXED_THREADS))
+    pop_end = int(params.get("pop_end", DEFAULT_CASSANDRA_STRESS_POP_CPU_MIXED_END))
+    rf = int(params.get("replication_factor", 3))
+    return _start_cassandra_stress_job(
+        params,
+        profile_name="anomaly-cpu-mixed-cached",
+        command=_cmd_anomaly_cpu_mixed_cached(duration_sec=duration, threads=threads, pop_end=pop_end, rf=rf),
+    )
+
+
+def _start_anomaly_mem_mixed_cached(params: Dict) -> FaultRecord:
+    duration = int(params.get("duration_sec", 180))
+    threads = int(params.get("threads", DEFAULT_CASSANDRA_STRESS_MEM_MIXED_THREADS))
+    pop_end = int(params.get("pop_end", DEFAULT_CASSANDRA_STRESS_POP_MEM_MIXED_END))
+    rf = int(params.get("replication_factor", 3))
+    return _start_cassandra_stress_job(
+        params,
+        profile_name="anomaly-mem-mixed-cached",
+        command=_cmd_anomaly_mem_mixed_cached(duration_sec=duration, threads=threads, pop_end=pop_end, rf=rf),
     )
 
 # Custom short CPU spike fault (busybox job with busy loop)
@@ -612,6 +674,8 @@ def _stop_fault(record: FaultRecord):
         "anomaly-hot-partition",
         "anomaly-compaction-pressure",
         "anomaly-concurrency-spike",
+        "anomaly-cpu-mixed-cached",
+        "anomaly-mem-mixed-cached",
         "anomaly-ttl-tombstone",
         "anomaly-mixed-skew-large-payload",
         "anomaly-university-memory-pressure",
@@ -654,6 +718,10 @@ def start_fault():
             record = _start_anomaly_compaction_pressure(body)
         elif profile == "anomaly-concurrency-spike":
             record = _start_anomaly_concurrency_spike(body)
+        elif profile == "anomaly-cpu-mixed-cached":
+            record = _start_anomaly_cpu_mixed_cached(body)
+        elif profile == "anomaly-mem-mixed-cached":
+            record = _start_anomaly_mem_mixed_cached(body)
         elif profile == "anomaly-ttl-tombstone":
             record = _start_anomaly_ttl_tombstone(body)
         elif profile == "anomaly-mixed-skew-large-payload":
@@ -684,6 +752,8 @@ def start_fault():
                             "anomaly-hot-partition",
                             "anomaly-compaction-pressure",
                             "anomaly-concurrency-spike",
+                            "anomaly-cpu-mixed-cached",
+                            "anomaly-mem-mixed-cached",
                             "anomaly-ttl-tombstone",
                             "anomaly-mixed-skew-large-payload",
                             "anomaly-university-memory-pressure",
