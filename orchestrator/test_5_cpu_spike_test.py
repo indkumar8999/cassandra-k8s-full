@@ -101,6 +101,14 @@ class ScenarioRunner:
         out = self.run_dir / name
         out.write_text(json.dumps(payload, indent=2), encoding="utf-8")
 
+    def _import_som_snapshot(self, snapshot_path: Path) -> Dict:
+        if not snapshot_path.is_file():
+            raise FileNotFoundError(f"SOM snapshot file not found: {snapshot_path}")
+        payload = json.loads(snapshot_path.read_text(encoding="utf-8"))
+        resp = self.session.post(f"{self.learner_base}/import/som-snapshot", json=payload, timeout=60)
+        resp.raise_for_status()
+        return resp.json()
+
     def run(self):
         profile = "anomaly-cpu-mixed-cached"
 
@@ -126,6 +134,10 @@ class ScenarioRunner:
         self._post(self.chaos_base, "/reset_all")
         self._post(self.simulator_base, "/reset-metrics")
         self._post(self.simulator_base, "/resume")
+
+        if self.args.som_snapshot_path:
+            import_result = self._import_som_snapshot(Path(self.args.som_snapshot_path))
+            self._record("som_snapshot_imported", {"path": self.args.som_snapshot_path, "result": import_result})
 
         # Force chaos phase even though this is a stress profile.
         self._post(self.simulator_base, "/load", {"profile": self.args.load_profile})
@@ -225,6 +237,15 @@ def build_parser():
         type=int,
         default=int(os.getenv("STRESS_PARALLEL_JOBS", "8")),
         help="Parallel cassandra-stress Jobs (capped by chaos-injector MAX_STRESS_PARALLEL_JOBS).",
+    )
+
+    parser.add_argument(
+        "--som-snapshot-path",
+        default=os.getenv("SOM_SNAPSHOT_PATH"),
+        help=(
+            "Path to a trained SOM snapshot JSON (from learner /export/som-snapshot, e.g. som_trained_snapshot.json). "
+            "If provided, Test 5 imports it into the learner before running the fault."
+        ),
     )
     return parser
 

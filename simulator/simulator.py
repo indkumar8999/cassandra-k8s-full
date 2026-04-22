@@ -25,6 +25,7 @@ KEYSPACE = os.getenv("KEYSPACE", "loadtest")
 TABLE_NAME = os.getenv("TABLE_NAME", "events")
 DURATION_SEC = int(os.getenv("DURATION_SEC", "3600"))
 CONSISTENCY_NAME = os.getenv("CONSISTENCY", "LOCAL_QUORUM").upper()
+REPLICATION_FACTOR = int(os.getenv("REPLICATION_FACTOR", "3"))
 
 PROFILE_CONFIG = {
     "low": {
@@ -290,7 +291,7 @@ def create_schema(session_obj):
         CREATE KEYSPACE IF NOT EXISTS {KEYSPACE}
         WITH replication = {{
             'class': 'SimpleStrategy',
-            'replication_factor': 3
+            'replication_factor': {REPLICATION_FACTOR}
         }}
     """)
 

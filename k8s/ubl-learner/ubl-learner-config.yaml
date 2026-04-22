@@ -6,7 +6,7 @@ metadata:
 data:
   PROMETHEUS_BASE: "http://kube-prom-stack-kube-prome-prometheus.monitoring.svc.cluster.local:9090"
   TARGET_NAMESPACE: "cassandra-lab"
-  CASSANDRA_PODS: "cassandra-0,cassandra-1,cassandra-2"
+  CASSANDRA_PODS: "cassandra-0"
   POLL_SEC: "0.5"
   BOOTSTRAP_SAMPLES: "350"
   SOM_ROWS: "32"

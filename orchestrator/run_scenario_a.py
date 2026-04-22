@@ -11,6 +11,8 @@ from typing import Dict, List, Optional
 import requests
 from requests import exceptions as req_exc
 
+from training import bootstrap_train_and_save_som
+
 
 def _now() -> float:
     return time.time()
@@ -174,17 +176,21 @@ class ScenarioRunner:
         self._post(self.simulator_base, "/reset-metrics")
         self._post(self.simulator_base, "/resume")
 
-        # Match run_scenario.py behavior: drive simulator load profiles explicitly.
-        self._post(self.simulator_base, "/load", {"profile": self.args.bootstrap_sim_profile})
-
-        # Bootstrap: fixed time window (do not wait for /status ready).
-        self._post(self.learner_base, "/phase", {"phase": "normal"})
-        baseline_boot_body = {"profile": "baseline-normal", "duration_sec": self.args.bootstrap_sec}
-        boot_start = self._post(self.chaos_base, "/start_fault", baseline_boot_body)
-        self._record("bootstrap_fault_start", boot_start)
-        self._sleep_phase(Phase("bootstrap", self.args.bootstrap_sec))
-        boot_stop = self._post_chaos_stop_fault("baseline-normal")
-        self._record("bootstrap_fault_stop", boot_stop)
+        bootstrap_train_and_save_som(
+            simulator_base=self.simulator_base,
+            learner_base=self.learner_base,
+            chaos_base=self.chaos_base,
+            bootstrap_sim_profile=self.args.bootstrap_sim_profile,
+            bootstrap_fault_profile="baseline-normal",
+            bootstrap_sec=self.args.bootstrap_sec,
+            bootstrap_timeout_sec=self.args.bootstrap_timeout_sec,
+            run_dir=self.run_dir,
+            post=self._post,
+            get=self._get,
+            record=self._record,
+            post_chaos_stop_fault=self._post_chaos_stop_fault,
+            sleep_phase=lambda name, duration: self._sleep_phase(Phase(name, duration)),
+        )
 
         # # Test 1: Normal baseline (no alarms expected).
         # self._post(self.learner_base, "/phase", {"phase": "normal"})
@@ -349,6 +355,12 @@ def build_parser():
 
     # Fixed plan defaults (per your demo plan)
     parser.add_argument("--bootstrap-sec", type=int, default=int(os.getenv("BOOTSTRAP_SEC", "180")))
+    parser.add_argument(
+        "--bootstrap-timeout-sec",
+        type=int,
+        default=int(os.getenv("BOOTSTRAP_TIMEOUT_SEC", "1800")),
+        help="Max time to wait for learner to report ready after bootstrap (default 1800s).",
+    )
     parser.add_argument("--baseline-sec", type=int, default=int(os.getenv("BASELINE_SEC", "120")))
     parser.add_argument(
         "--short-spike-sec",

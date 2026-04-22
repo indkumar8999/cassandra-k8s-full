@@ -792,6 +792,89 @@ def export_som_snapshot():
     return Response(body, mimetype="application/json")
 
 
+@app.post("/import/som-snapshot")
+def import_som_snapshot():
+    """Import a previously exported SOM snapshot.
+
+    This enables running orchestration tests against a fixed, offline-trained SOM without
+    re-running the bootstrap collection + training loop.
+    """
+    body = request.get_json(silent=True) or {}
+    weights_raw = body.get("weights")
+    area_raw = body.get("area_map")
+    feature_order_raw = body.get("feature_order")
+    norm_max_raw = body.get("norm_max")
+
+    if weights_raw is None or area_raw is None:
+        return jsonify({"error": "weights and area_map are required"}), 400
+    if not isinstance(feature_order_raw, list) or not feature_order_raw:
+        return jsonify({"error": "feature_order must be a non-empty list"}), 400
+    if not isinstance(norm_max_raw, dict) or not norm_max_raw:
+        return jsonify({"error": "norm_max must be a non-empty object"}), 400
+
+    try:
+        weights = np.array(weights_raw, dtype=np.float64)
+        area_map = np.array(area_raw, dtype=np.float64)
+    except Exception as ex:
+        return jsonify({"error": f"invalid weights/area_map: {ex}"}), 400
+
+    if weights.ndim != 3:
+        return jsonify({"error": "weights must be a 3D array [rows][cols][dims]"}), 400
+    rows, cols, dims = [int(x) for x in weights.shape]
+    if area_map.shape != (rows, cols):
+        return jsonify({"error": f"area_map shape must be ({rows},{cols}); got {tuple(area_map.shape)}"}), 400
+
+    declared_rows = body.get("som_rows")
+    declared_cols = body.get("som_cols")
+    if declared_rows is not None and int(declared_rows) != rows:
+        return jsonify({"error": f"som_rows mismatch: snapshot {rows}, declared {declared_rows}"}), 400
+    if declared_cols is not None and int(declared_cols) != cols:
+        return jsonify({"error": f"som_cols mismatch: snapshot {cols}, declared {declared_cols}"}), 400
+
+    try:
+        norm_max = {str(k): float(v) for k, v in norm_max_raw.items()}
+    except Exception as ex:
+        return jsonify({"error": f"invalid norm_max values: {ex}"}), 400
+
+    som = SOM(rows, cols, dims, SOM_LR, SOM_SIGMA, radius=2)
+    som.weights = weights
+
+    threshold = body.get("threshold")
+    kfold_metrics = body.get("kfold_metrics")
+
+    with state.lock:
+        state.som = som
+        state.area_map = area_map
+        state.feature_order = [str(x) for x in feature_order_raw]
+        state.norm_max = norm_max
+        if threshold is not None:
+            try:
+                state.threshold = float(threshold)
+            except Exception:
+                state._refresh_threshold()
+        else:
+            state._refresh_threshold()
+        if kfold_metrics is not None:
+            state.kfold_metrics = kfold_metrics
+        state.trained = True
+        state.ready = True
+        state.last_error = None
+        state.training_duration_sec = 0.0
+        state.training_start_ts = None
+        state.training_end_ts = None
+        state.online_updates_since_threshold_refresh = 0
+
+    return jsonify(
+        {
+            "message": "som snapshot imported",
+            "som_rows": rows,
+            "som_cols": cols,
+            "dims": dims,
+            "threshold": float(state.threshold),
+        }
+    )
+
+
 @app.get("/config")
 def config():
     tier_a_feature_count = len(TIER_A_FEATURES) * len(CASSANDRA_PODS)
