@@ -16,7 +16,7 @@ from flask import Flask, jsonify, request
 from kubernetes import client, config
 from kubernetes.client.rest import ApiException
 from prometheus_client import CONTENT_TYPE_LATEST, Gauge, generate_latest
-
+from kubernetes.stream import stream
 
 app = Flask(__name__)
 
@@ -683,6 +683,134 @@ def _nb_start_anomaly_concurrency_spike(params: Dict) -> FaultRecord:
 
     return _start_nb_parallel_jobs(params, profile_name="anomaly-concurrency-spike", build_cmd=build)
 
+def _list_cassandra_pods() -> List[str]:
+    pods = core.list_namespaced_pod(namespace=NAMESPACE, label_selector=CASSANDRA_LABEL).items
+    if not pods:
+        raise RuntimeError("No Cassandra pods found for fault target.")
+    return sorted(
+        [
+            p.metadata.name
+            for p in pods
+            if p.status.phase == "Running"
+        ]
+    )
+
+def _exec_short_cpu_spike_in_pod(pod_name: str, duration_sec: float) -> str:
+    if duration_sec <= 0:
+        raise ValueError("duration_sec must be > 0")
+
+    cmd = [
+        "/bin/sh",
+        "-lc",
+        (
+            "python3 - <<'PY'\n"
+            "import time\n"
+            f"end=time.time()+{duration_sec}\n"
+            "x=0\n"
+            "while time.time()<end:\n"
+            "    x += 1\n"
+            "print(x)\n"
+            "PY"
+        ),
+    ]
+
+    return stream(
+        core.connect_get_namespaced_pod_exec,
+        pod_name,
+        NAMESPACE,
+        command=cmd,
+        container="cassandra",
+        stderr=True,
+        stdin=False,
+        stdout=True,
+        tty=False,
+    )
+    
+def _nb_start_anomaly_memory_pressure(params: Dict) -> FaultRecord:
+    duration = int(params.get("duration_sec", 90))
+    threads = int(params.get("threads", 8))
+    rf = int(params.get("replication_factor", 3))
+    hosts = _nb_hosts_for_load()
+    payload_size = int(params.get("payload_size", 262144))
+
+    def build(job_name: str, idx: int, ks: str) -> List[str]:
+        return _nb_cmd_file_workload(
+            "memory_pressure.yaml",
+            "default",
+            keyspace=ks,
+            rf=rf,
+            main_cycles=_nb_main_cycles(duration, threads),
+            rampup_cycles=_nb_rampup_cycles(duration, threads),
+            threads=threads,
+            hosts=hosts,
+            profile_name="anomaly-memory-pressure",
+            job_name=job_name,
+            job_index=idx,
+            extra_kv=[
+                f"payload_size={payload_size}",
+            ],
+        )
+
+    return _start_nb_parallel_jobs(
+        params,
+        profile_name="anomaly-memory-pressure",
+        build_cmd=build,
+    )
+
+def _start_short_cpu_spike(params: Dict) -> FaultRecord:
+    duration = float(params.get("duration_sec", 0.8))
+    target_mode = str(params.get("target_mode", "all")).strip().lower()
+    target_pod = str(params.get("target_pod", "")).strip()
+
+    if duration <= 0:
+        raise ValueError("duration_sec must be > 0")
+
+    if target_mode == "one":
+        pod_names = [target_pod] if target_pod else [_pick_cassandra_pod().metadata.name]
+    elif target_mode == "all":
+        pod_names = _list_cassandra_pods()
+    else:
+        raise ValueError("target_mode must be 'one' or 'all'")
+
+    outputs: Dict[str, str] = {}
+
+    def worker(pod_name: str):
+        try:
+            outputs[pod_name] = _exec_short_cpu_spike_in_pod(pod_name, duration)
+        except Exception as ex:
+            outputs[pod_name] = f"ERROR: {ex}"
+
+    worker_threads = []
+    for pod_name in pod_names:
+        t = threading.Thread(target=worker, args=(pod_name,), daemon=True)
+        t.start()
+        worker_threads.append(t)
+
+    for t in worker_threads:
+        t.join()
+
+    had_error = any(str(v).startswith("ERROR:") for v in outputs.values())
+    final_status = "failed" if had_error else "completed"
+
+    return FaultRecord(
+        profile="short-cpu-spike",
+        started_at=time.time(),
+        target=",".join(pod_names),
+        params={
+            "engine": "inpod-exec",
+            "request": params,
+            "duration_sec": duration,
+            "target_mode": target_mode,
+            "pod_names": pod_names,
+            "outputs": outputs,
+        },
+        status=final_status,
+        command_start_ts=time.time(),
+        verified_start_ts=time.time(),
+        command_stop_ts=time.time(),
+        verified_stop_ts=time.time(),
+        extra={"transient": True},
+    )
 
 def _nb_start_anomaly_mixed_skew_large_payload(params: Dict) -> FaultRecord:
     duration = int(params.get("duration_sec", 300))
@@ -822,9 +950,10 @@ def _stop_nosqlbench_fault(record: FaultRecord):
         "anomaly-ttl-tombstone",
         "anomaly-mixed-skew-large-payload",
         "anomaly-university-memory-pressure",
-        "short-cpu-spike",
+        # "short-cpu-spike",
         "cpuhog-like",
         "memleak-like",
+        "anomaly-memory-pressure",
     } or engine in ("nosqlbench", "busybox"):
         _delete_stress_jobs(record)
     elif record.profile == "network-congestion-like":
@@ -1147,56 +1276,56 @@ def _start_anomaly_concurrency_spike(params: Dict) -> FaultRecord:
         command=_cmd_anomaly_concurrency_spike(duration_sec=duration, threads=threads, pop_end=pop_end, rf=rf),
     )
 
-# Custom short CPU spike fault (busybox job with busy loop)
-def _start_short_cpu_spike(params: Dict) -> FaultRecord:
-    duration = int(params.get("duration_sec", 2))
-    parallel = int(params.get("parallel_jobs", 1))
-    base = f"short-cpu-spike-{int(time.time())}-{secrets.token_hex(3)}"
-    job_names = [f"{base}-{i}" for i in range(parallel)]
-    command = ["sh", "-c", f"echo Spiking CPU for {duration}s; timeout {duration} sh -c 'while :; do :; done'"]
-    jobs = []
-    for job_name in job_names:
-        pod_spec = client.V1PodSpec(
-            restart_policy="Never",
-            containers=[
-                client.V1Container(
-                    name="cpu-spike",
-                    image="busybox",
-                    command=command,
-                    resources=client.V1ResourceRequirements(
-                        limits={"cpu": "2", "memory": "128Mi"},
-                        requests={"cpu": "500m", "memory": "64Mi"},
-                    ),
-                )
-            ],
-        )
-        job = client.V1Job(
-            metadata=client.V1ObjectMeta(name=job_name, namespace=NAMESPACE, labels={"app": "chaos-injector", "profile": "short-cpu-spike"}),
-            spec=client.V1JobSpec(
-                backoff_limit=0,
-                ttl_seconds_after_finished=60,
-                template=client.V1PodTemplateSpec(
-                    metadata=client.V1ObjectMeta(labels={"app": "chaos-injector", "profile": "short-cpu-spike"}),
-                    spec=pod_spec,
-                ),
-            ),
-        )
-        batch.create_namespaced_job(namespace=NAMESPACE, body=job)
-        jobs.append(job)
-    return FaultRecord(
-        profile="short-cpu-spike",
-        started_at=time.time(),
-        target="busybox",
-        params={
-            "job_names": job_names,
-            "parallel_jobs": parallel,
-            "request": params,
-            "command": command,
-        },
-        status="running",
-        command_start_ts=time.time(),
-        verified_start_ts=time.time(),
-    )
+# # Custom short CPU spike fault (busybox job with busy loop)
+# def _start_short_cpu_spike(params: Dict) -> FaultRecord:
+#     duration = int(params.get("duration_sec", 2))
+#     parallel = int(params.get("parallel_jobs", 1))
+#     base = f"short-cpu-spike-{int(time.time())}-{secrets.token_hex(3)}"
+#     job_names = [f"{base}-{i}" for i in range(parallel)]
+#     command = ["sh", "-c", f"echo Spiking CPU for {duration}s; timeout {duration} sh -c 'while :; do :; done'"]
+#     jobs = []
+#     for job_name in job_names:
+#         pod_spec = client.V1PodSpec(
+#             restart_policy="Never",
+#             containers=[
+#                 client.V1Container(
+#                     name="cpu-spike",
+#                     image="busybox",
+#                     command=command,
+#                     resources=client.V1ResourceRequirements(
+#                         limits={"cpu": "2", "memory": "128Mi"},
+#                         requests={"cpu": "500m", "memory": "64Mi"},
+#                     ),
+#                 )
+#             ],
+#         )
+#         job = client.V1Job(
+#             metadata=client.V1ObjectMeta(name=job_name, namespace=NAMESPACE, labels={"app": "chaos-injector", "profile": "short-cpu-spike"}),
+#             spec=client.V1JobSpec(
+#                 backoff_limit=0,
+#                 ttl_seconds_after_finished=60,
+#                 template=client.V1PodTemplateSpec(
+#                     metadata=client.V1ObjectMeta(labels={"app": "chaos-injector", "profile": "short-cpu-spike"}),
+#                     spec=pod_spec,
+#                 ),
+#             ),
+#         )
+#         batch.create_namespaced_job(namespace=NAMESPACE, body=job)
+#         jobs.append(job)
+#     return FaultRecord(
+#         profile="short-cpu-spike",
+#         started_at=time.time(),
+#         target="busybox",
+#         params={
+#             "job_names": job_names,
+#             "parallel_jobs": parallel,
+#             "request": params,
+#             "command": command,
+#         },
+#         status="running",
+#         command_start_ts=time.time(),
+#         verified_start_ts=time.time(),
+#     )
 
 def _start_anomaly_ttl_tombstone(params: Dict) -> FaultRecord:
     write_duration = int(params.get("write_duration_sec", 240))
@@ -1297,7 +1426,7 @@ def _stop_fault(record: FaultRecord):
         "anomaly-ttl-tombstone",
         "anomaly-mixed-skew-large-payload",
         "anomaly-university-memory-pressure",
-        "short-cpu-spike",
+        # "short-cpu-spike",
         # aliases retained for compatibility
         "cpuhog-like",
         "memleak-like",
@@ -1344,6 +1473,7 @@ VALID_NOSQLBENCH_PROFILES = [
     "short-cpu-spike",
     "network-congestion-like",
     "bottleneck-like",
+    "anomaly-memory-pressure",
 ]
 
 
@@ -1375,6 +1505,8 @@ def start_nosqlbench():
             record = _nb_start_anomaly_mixed_skew_large_payload(body)
         elif profile == "anomaly-university-memory-pressure":
             record = _nb_start_anomaly_university_memory_pressure(body)
+        elif profile == "anomaly-memory-pressure":
+            record = _nb_start_anomaly_memory_pressure(body)
         elif profile == "cpuhog-like":
             rec = _nb_start_anomaly_concurrency_spike(body)
             rec.profile = "cpuhog-like"

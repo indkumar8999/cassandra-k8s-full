@@ -184,6 +184,7 @@ class NoSQLBenchScenarioRunner:
                 "load_profile": self.args.load_profile,
                 "fault_profile": self.args.fault_profile,
                 "bootstrap_fault_profile": self.args.bootstrap_fault_profile,
+                "start_fault_profile": self.args.start_fault_profile,
             },
         )
 
@@ -244,6 +245,20 @@ class NoSQLBenchScenarioRunner:
 
         self._post(self.simulator_base, "/load", {"profile": self.args.load_profile})
         self._post(self.learner_base, "/phase", {"phase": "chaos"})
+
+        # Optional non-NoSQLBench fault injection (e.g. short-cpu-spike) before starting the anomaly NB job(s).
+        if self.args.start_fault_profile:
+            start_fault_body: Dict = {
+                "profile": self.args.start_fault_profile,
+                "duration_sec": self.args.start_fault_duration_sec,
+                "target_mode": self.args.start_fault_target_mode,
+            }
+            if self.args.start_fault_target_pod:
+                start_fault_body["target_pod"] = self.args.start_fault_target_pod
+            self._record("start_fault_start", start_fault_body)
+            start_fault_resp = self._post(self.chaos_base, "/start_fault", start_fault_body)
+            self._record("start_fault_end", start_fault_resp)
+
         fault_body: Dict = {
             "profile": self.args.fault_profile,
             "duration_sec": self.args.chaos_sec,
@@ -419,6 +434,27 @@ def build_parser():
     )
     parser.add_argument("--output-dir", default=os.getenv("OUTPUT_DIR", "cassandra/artifacts"))
     parser.add_argument("--run-id", default=os.getenv("RUN_ID"))
+    parser.add_argument(
+        "--start-fault-profile",
+        default=os.getenv("START_FAULT_PROFILE", ""),
+        help="Optional chaos-injector /start_fault profile to run before anomaly NoSQLBench (e.g. short-cpu-spike).",
+    )
+    parser.add_argument(
+        "--start-fault-duration-sec",
+        type=float,
+        default=float(os.getenv("START_FAULT_DURATION_SEC", "10")),
+        help="duration_sec for /start_fault when --start-fault-profile is set (float supported).",
+    )
+    parser.add_argument(
+        "--start-fault-target-mode",
+        default=os.getenv("START_FAULT_TARGET_MODE", "one"),
+        help="target_mode for /start_fault (one|all) when --start-fault-profile is set.",
+    )
+    parser.add_argument(
+        "--start-fault-target-pod",
+        default=os.getenv("START_FAULT_TARGET_POD", "cassandra-0"),
+        help="target_pod for /start_fault when target_mode=one (empty to auto-pick).",
+    )
     parser.add_argument(
         "--skip-report",
         action="store_true",

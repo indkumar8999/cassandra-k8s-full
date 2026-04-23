@@ -374,3 +374,39 @@ data:
           ins: |
             insert into <<keyspace:starter>>.<<table:uni>> (pk, ck, payload, time)
             values ({pk}, {ck}, {payload}, {time}) USING TIMESTAMP {ts};
+
+  memory_pressure.yaml: |
+    description: Memory-biased write workload that grows memtables with lower CPU pressure
+
+    scenarios:
+      default:
+        schema: run driver=cql tags==block:schema threads==1 cycles==UNDEF
+        run: run driver=cql tags==block:main-write cycles===TEMPLATE(main-cycles,500000) threads===TEMPLATE(threads,12)
+
+    bindings:
+      pk: Hash(); Mod(50000000); ToString()
+      ck: Identity()
+      payload: ByteBufferSizedHashed(TEMPLATE(payload_size,262144))
+
+    blocks:
+      schema:
+        ops:
+          create-keyspace:
+            stmt: |
+              CREATE KEYSPACE IF NOT EXISTS TEMPLATE(keyspace,nbtest)
+              WITH replication = {'class':'SimpleStrategy','replication_factor':TEMPLATE(rf,3)};
+          create-table:
+            stmt: |
+              CREATE TABLE IF NOT EXISTS TEMPLATE(keyspace,nbtest).mem_pressure (
+                pk text,
+                ck bigint,
+                payload blob,
+                PRIMARY KEY (pk, ck)
+              );
+
+      main-write:
+        ops:
+          insert:
+            stmt: |
+              INSERT INTO TEMPLATE(keyspace,nbtest).mem_pressure (pk, ck, payload)
+              VALUES ({pk}, {ck}, {payload});
