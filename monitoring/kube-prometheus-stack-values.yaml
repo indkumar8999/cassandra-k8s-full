@@ -1,5 +1,10 @@
+# Pin monitoring stack to the platform worker. Hostname must match `kubectl get nodes` (e.g. Multipass VM control-node).
+_platformNodeSelector: &platform_node
+  kubernetes.io/hostname: control-node
+
 grafana:
   adminPassword: admin123
+  nodeSelector: *platform_node
   service:
     type: NodePort
     nodePort: 32000
@@ -9,6 +14,16 @@ grafana:
       label: grafana_dashboard
       labelValue: "1"
       searchNamespace: monitoring
+  # NoSQLBench metrics land in VictoriaMetrics (see extraManifests). VM does not implement
+  # Prometheus remote_read (/api/v1/read); query NB series here or in VM’s vmui, not in default Prometheus Explore.
+  additionalDataSources:
+    - name: VictoriaMetrics-NB
+      uid: victoriametrics-nb
+      type: prometheus
+      access: proxy
+      url: http://victoria-metrics-nb.monitoring.svc:8428
+      isDefault: false
+      editable: true
 
 prometheus:
   service:
@@ -19,12 +34,180 @@ prometheus:
     evaluationInterval: 1s
     podMonitorSelectorNilUsesHelmValues: false
     serviceMonitorSelectorNilUsesHelmValues: false
+    nodeSelector: *platform_node
 
 alertmanager:
   enabled: true
+  alertmanagerSpec:
+    nodeSelector: *platform_node
+
+prometheusOperator:
+  nodeSelector: *platform_node
+  admissionWebhooks:
+    patch:
+      nodeSelector: *platform_node
+    createSecretJob:
+      nodeSelector: *platform_node
 
 kubeStateMetrics:
   enabled: true
 
+kube-state-metrics:
+  nodeSelector: *platform_node
+
 nodeExporter:
   enabled: true
+
+# -----------------------------------------------------------------------------
+# Prometheus Pushgateway (in-cluster, monitoring namespace)
+#
+# Upstream kube-prometheus-stack dropped the prometheus-pushgateway subchart as a
+# direct dependency (see chart Chart.yaml). We still install Pushgateway by
+# rendering these objects via the chart's extraManifests hook so Prometheus can
+# scrape pushed metrics from short-lived Jobs (e.g. chaos-injector NoSQLBench).
+#
+# After upgrade: kubectl -n monitoring get svc,pod,sm prometheus-pushgateway
+#
+# NoSQLBench → metrics: use VictoriaMetrics single-node (below). NB5's --report-prompush-to with
+# PROMPUSH_URL=victoria:plain:… is expanded by chaos-injector to VM's HTTP
+# /api/v1/import/prometheus/metrics/job/.../instance/... (OpenMetrics-friendly). Query them in
+# Grafana via the VictoriaMetrics-NB datasource (or VM vmui); Prometheus remote_read to VM is unsupported.
+#
+# Pushgateway remains available for other tools that emit classic Prometheus text.
+# -----------------------------------------------------------------------------
+extraManifests:
+  - apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: prometheus-pushgateway
+      namespace: monitoring
+      labels:
+        app: prometheus-pushgateway
+        release: kube-prom-stack
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          app: prometheus-pushgateway
+      template:
+        metadata:
+          labels:
+            app: prometheus-pushgateway
+        spec:
+          nodeSelector:
+            kubernetes.io/hostname: control-node
+          containers:
+            - name: pushgateway
+              image: quay.io/prometheus/pushgateway:v1.11.1
+              args:
+                - --web.enable-lifecycle
+              ports:
+                - name: http
+                  containerPort: 9091
+              resources:
+                requests:
+                  cpu: 50m
+                  memory: 64Mi
+                limits:
+                  cpu: 500m
+                  memory: 256Mi
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      name: prometheus-pushgateway
+      namespace: monitoring
+      labels:
+        app: prometheus-pushgateway
+        release: kube-prom-stack
+    spec:
+      type: ClusterIP
+      ports:
+        - name: http
+          port: 9091
+          targetPort: http
+      selector:
+        app: prometheus-pushgateway
+  - apiVersion: monitoring.coreos.com/v1
+    kind: ServiceMonitor
+    metadata:
+      name: prometheus-pushgateway
+      namespace: monitoring
+      labels:
+        app: prometheus-pushgateway
+        release: kube-prom-stack
+    spec:
+      namespaceSelector:
+        matchNames:
+          - monitoring
+      selector:
+        matchLabels:
+          app: prometheus-pushgateway
+      endpoints:
+        - port: http
+          path: /metrics
+          interval: 15s
+          # Required for Pushgateway semantics so pushed job/instance labels survive ingestion.
+          honorLabels: true
+  # VictoriaMetrics single-node: ingest path for NoSQLBench HTTP push (see chaos-injector PROMPUSH_URL).
+  - apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: victoria-metrics-nb
+      namespace: monitoring
+      labels:
+        app: victoria-metrics-nb
+        release: kube-prom-stack
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          app: victoria-metrics-nb
+      template:
+        metadata:
+          labels:
+            app: victoria-metrics-nb
+        spec:
+          nodeSelector:
+            kubernetes.io/hostname: control-node
+          containers:
+            - name: vmsingle
+              image: victoriametrics/victoria-metrics:v1.106.1
+              args:
+                - -storageDataPath=/storage
+                - -httpListenAddr=:8428
+                - -retentionPeriod=30d
+              ports:
+                - name: http
+                  containerPort: 8428
+              volumeMounts:
+                - name: storage
+                  mountPath: /storage
+              resources:
+                requests:
+                  cpu: 50m
+                  memory: 256Mi
+                limits:
+                  cpu: "1"
+                  memory: 1Gi
+          volumes:
+            - name: storage
+              emptyDir: {}
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      name: victoria-metrics-nb
+      namespace: monitoring
+      labels:
+        app: victoria-metrics-nb
+        release: kube-prom-stack
+    spec:
+      type: ClusterIP
+      ports:
+        - name: http
+          port: 8428
+          targetPort: http
+
+  # NOTE: NoSQLBench histostats exporter is scraped directly from ephemeral Job pods via PodMonitor
+  # (see cassandra/monitoring/nosqlbench-histostats-podmonitor.yaml). It does not require a Service.
+      selector:
+        app: victoria-metrics-nb

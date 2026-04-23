@@ -76,186 +76,11 @@ data:
             "h": 1,
             "w": 24,
             "x": 0,
-            "y": 0
-          },
-          "id": 1,
-          "panels": [],
-          "title": "Scenario (load profile) + cluster overview",
-          "type": "row"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "custom": {
-                "drawStyle": "line",
-                "fillOpacity": 15,
-                "lineWidth": 2,
-                "showPoints": "never",
-                "spanNulls": true,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "orange",
-                    "value": 1
-                  }
-                ]
-              },
-              "unit": "none"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 7,
-            "w": 16,
-            "x": 0,
-            "y": 1
-          },
-          "id": 2,
-          "options": {
-            "legend": {
-              "calcs": [],
-              "displayMode": "table",
-              "placement": "right",
-              "showLegend": true
-            },
-            "tooltip": {
-              "mode": "single",
-              "sort": "none"
-            }
-          },
-          "targets": [
-            {
-              "editorMode": "code",
-              "expr": "max by (profile) (simulator_profile_state{namespace=\"$namespace\",profile=~\"$scenario\"})",
-              "legendFormat": "{{profile}}",
-              "range": true,
-              "refId": "A"
-            }
-          ],
-          "title": "Active scenario (one-hot)",
-          "type": "timeseries"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "custom": {
-                "align": "auto",
-                "cellOptions": {
-                  "type": "auto"
-                },
-                "filterable": true,
-                "inspect": false
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 7,
-            "w": 8,
-            "x": 16,
-            "y": 1
-          },
-          "id": 3,
-          "options": {
-            "cellHeight": "sm",
-            "footer": {
-              "countRows": false,
-              "fields": "",
-              "reducer": [
-                "sum"
-              ],
-              "show": false
-            },
-            "showHeader": true,
-            "sortBy": [
-              {
-                "desc": false,
-                "displayName": "pod"
-              }
-            ]
-          },
-          "pluginVersion": "10.4.0",
-          "targets": [
-            {
-              "editorMode": "code",
-              "expr": "kube_pod_info{namespace=\"$namespace\",pod=~\"$pod\"}",
-              "format": "table",
-              "instant": true,
-              "refId": "A"
-            }
-          ],
-          "title": "Cluster map (pod → node)",
-          "transformations": [
-            {
-              "id": "organize",
-              "options": {
-                "excludeByName": {
-                  "Time": true,
-                  "__name__": true,
-                  "container": true,
-                  "endpoint": true,
-                  "instance": true,
-                  "job": true,
-                  "namespace": true,
-                  "pod_ip": true,
-                  "service": true,
-                  "uid": true
-                },
-                "indexByName": {},
-                "renameByName": {
-                  "node": "node",
-                  "pod": "pod",
-                  "host_ip": "host_ip"
-                }
-              }
-            }
-          ],
-          "type": "table"
-        },
-        {
-          "collapsed": false,
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "gridPos": {
-            "h": 1,
-            "w": 24,
-            "x": 0,
             "y": 8
           },
           "id": 10,
           "panels": [],
-          "title": "Per-metric load profiles (Tier A style)",
+          "title": "Resource load profiles",
           "type": "row"
         },
         {
@@ -494,230 +319,8 @@ data:
           },
           "id": 20,
           "panels": [],
-          "title": "Simulator + Cassandra/JVM (Tier B style)",
+          "title": "SLO metrics and Alarms",
           "type": "row"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "custom": {
-                "drawStyle": "line",
-                "fillOpacity": 10,
-                "lineWidth": 2,
-                "showPoints": "never",
-                "spanNulls": true
-              },
-              "unit": "ops"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 0,
-            "y": 26
-          },
-          "id": 21,
-          "options": {
-            "legend": {
-              "calcs": [
-                "lastNotNull",
-                "max"
-              ],
-              "displayMode": "table",
-              "placement": "bottom",
-              "showLegend": true
-            },
-            "tooltip": {
-              "mode": "multi",
-              "sort": "none"
-            }
-          },
-          "targets": [
-            {
-              "editorMode": "code",
-              "expr": "rate(simulator_writes_success_total{namespace=\"$namespace\"}[5m])",
-              "legendFormat": "writes_success/sec",
-              "range": true,
-              "refId": "A"
-            },
-            {
-              "editorMode": "code",
-              "expr": "rate(simulator_reads_success_total{namespace=\"$namespace\"}[5m])",
-              "legendFormat": "reads_success/sec",
-              "range": true,
-              "refId": "B"
-            }
-          ],
-          "title": "Simulator throughput (success/sec)",
-          "type": "timeseries"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "custom": {
-                "drawStyle": "line",
-                "fillOpacity": 10,
-                "lineWidth": 2,
-                "showPoints": "never",
-                "spanNulls": true
-              },
-              "unit": "ms"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 12,
-            "y": 26
-          },
-          "id": 22,
-          "options": {
-            "legend": {
-              "calcs": [
-                "lastNotNull",
-                "max"
-              ],
-              "displayMode": "table",
-              "placement": "bottom",
-              "showLegend": true
-            },
-            "tooltip": {
-              "mode": "multi",
-              "sort": "none"
-            }
-          },
-          "targets": [
-            {
-              "editorMode": "code",
-              "expr": "max(simulator_write_latency_p95_ms{namespace=\"$namespace\"})",
-              "legendFormat": "write_p95_ms",
-              "range": true,
-              "refId": "A"
-            },
-            {
-              "editorMode": "code",
-              "expr": "max(simulator_read_latency_p95_ms{namespace=\"$namespace\"})",
-              "legendFormat": "read_p95_ms",
-              "range": true,
-              "refId": "B"
-            }
-          ],
-          "title": "Simulator latency p95 (ms)",
-          "type": "timeseries"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "custom": {
-                "drawStyle": "line",
-                "fillOpacity": 10,
-                "lineWidth": 2,
-                "showPoints": "never",
-                "spanNulls": true
-              },
-              "unit": "bytes"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 0,
-            "y": 34
-          },
-          "id": 23,
-          "options": {
-            "legend": {
-              "calcs": [
-                "lastNotNull",
-                "max"
-              ],
-              "displayMode": "table",
-              "placement": "bottom",
-              "showLegend": true
-            },
-            "tooltip": {
-              "mode": "multi",
-              "sort": "none"
-            }
-          },
-          "targets": [
-            {
-              "editorMode": "code",
-              "expr": "sum(jvm_memory_heap_used_bytes{namespace=\"$namespace\"})",
-              "legendFormat": "jvm_heap_used_bytes",
-              "range": true,
-              "refId": "A"
-            }
-          ],
-          "title": "JVM heap used (sum)",
-          "type": "timeseries"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "custom": {
-                "drawStyle": "line",
-                "fillOpacity": 10,
-                "lineWidth": 2,
-                "showPoints": "never",
-                "spanNulls": true
-              },
-              "unit": "reqps"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 12,
-            "y": 34
-          },
-          "id": 24,
-          "options": {
-            "legend": {
-              "calcs": [
-                "lastNotNull",
-                "max"
-              ],
-              "displayMode": "table",
-              "placement": "bottom",
-              "showLegend": true
-            },
-            "tooltip": {
-              "mode": "multi",
-              "sort": "none"
-            }
-          },
-          "targets": [
-            {
-              "editorMode": "code",
-              "expr": "sum(rate(cassandra_metrics_count{namespace=\"$namespace\",type=\"ClientRequest\"}[1m]))",
-              "legendFormat": "client_requests/sec",
-              "range": true,
-              "refId": "A"
-            }
-          ],
-          "title": "Cassandra client requests/sec (sum)",
-          "type": "timeseries"
         },
         {
           "datasource": {
@@ -825,6 +428,79 @@ data:
           ],
           "title": "Cassandra desired replicas",
           "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "custom": {
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "lineWidth": 2,
+                "showPoints": "never",
+                "spanNulls": true
+              },
+              "unit": "ms"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 24,
+            "x": 0,
+            "y": 50
+          },
+          "id": 33,
+          "options": {
+            "legend": {
+              "calcs": [
+                "lastNotNull",
+                "max"
+              ],
+              "displayMode": "table",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "editorMode": "code",
+              "expr": "max by (profile, job_name) (cassandra_stress_p95_ms)",
+              "legendFormat": "{{profile}}/{{job_name}} p95_ms",
+              "range": true,
+              "refId": "A"
+            },
+            {
+              "editorMode": "code",
+              "expr": "max by (profile, job_name) (cassandra_stress_p99_ms)",
+              "legendFormat": "{{profile}}/{{job_name}} p99_ms",
+              "range": true,
+              "refId": "B"
+            },
+            {
+              "editorMode": "code",
+              "expr": "max by (nb_job, tag) (nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+              "legendFormat": "nosqlbench {{nb_job}} {{tag}} p95_ms",
+              "range": true,
+              "refId": "C"
+            },
+            {
+              "editorMode": "code",
+              "expr": "max by (nb_job, tag) (nosqlbench_histostat_p99_ms{tag=\"execute\"})",
+              "legendFormat": "nosqlbench {{nb_job}} {{tag}} p99_ms",
+              "range": true,
+              "refId": "D"
+            }
+          ],
+          "title": "Client latency (p95/p99): cassandra-stress + nosqlbench",
+          "type": "timeseries"
         }
       ],
       "refresh": "5s",
@@ -955,3 +631,117 @@ data:
       "version": 1,
       "weekStart": ""
     }
+
+# Commented-out panels (kept for easy re-add)
+#
+# - Scenario (load profile) + cluster overview (row)
+#   {
+#     "collapsed": false,
+#     "datasource": {
+#       "type": "prometheus",
+#       "uid": "${DS_PROMETHEUS}"
+#     },
+#     "gridPos": {
+#       "h": 1,
+#       "w": 24,
+#       "x": 0,
+#       "y": 0
+#     },
+#     "id": 1,
+#     "panels": [],
+#     "title": "Scenario (load profile) + cluster overview",
+#     "type": "row"
+#   }
+#
+# - Cluster map (pod → node) (table)
+#   {
+#     "datasource": {
+#       "type": "prometheus",
+#       "uid": "${DS_PROMETHEUS}"
+#     },
+#     "fieldConfig": {
+#       "defaults": {
+#         "custom": {
+#           "align": "auto",
+#           "cellOptions": {
+#             "type": "auto"
+#           },
+#           "filterable": true,
+#           "inspect": false
+#         },
+#         "mappings": [],
+#         "thresholds": {
+#           "mode": "absolute",
+#           "steps": [
+#             {
+#               "color": "green",
+#               "value": null
+#             }
+#           ]
+#         }
+#       },
+#       "overrides": []
+#     },
+#     "gridPos": {
+#       "h": 7,
+#       "w": 8,
+#       "x": 16,
+#       "y": 1
+#     },
+#     "id": 3,
+#     "options": {
+#       "cellHeight": "sm",
+#       "footer": {
+#         "countRows": false,
+#         "fields": "",
+#         "reducer": [
+#           "sum"
+#         ],
+#         "show": false
+#       },
+#       "showHeader": true,
+#       "sortBy": [
+#         {
+#           "desc": false,
+#           "displayName": "pod"
+#         }
+#       ]
+#     },
+#     "pluginVersion": "10.4.0",
+#     "targets": [
+#       {
+#         "editorMode": "code",
+#         "expr": "kube_pod_info{namespace=\"$namespace\",pod=~\"$pod\"}",
+#         "format": "table",
+#         "instant": true,
+#         "refId": "A"
+#       }
+#     ],
+#     "title": "Cluster map (pod → node)",
+#     "transformations": [
+#       {
+#         "id": "organize",
+#         "options": {
+#           "excludeByName": {
+#             "Time": true,
+#             "__name__": true,
+#             "container": true,
+#             "endpoint": true,
+#             "instance": true,
+#             "job": true,
+#             "namespace": true,
+#             "pod_ip": true,
+#             "service": true,
+#             "uid": true
+#           },
+#           "indexByName": {},
+#           "renameByName": {
+#             "node": "node",
+#             "pod": "pod",
+#             "host_ip": "host_ip"
+#           }
+#         }
+#       }
+#     ],
+#     "type": "table"
+#   }

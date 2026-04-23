@@ -1,0 +1,18 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: chaos-injector
+  namespace: monitoring
+  labels:
+    release: kube-prom-stack
+spec:
+  namespaceSelector:
+    matchNames:
+      - cassandra-lab
+  selector:
+    matchLabels:
+      app: chaos-injector
+  podMetricsEndpoints:
+    - port: http
+      path: /metrics
+      interval: 15s

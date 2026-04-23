@@ -13,6 +13,15 @@ spec:
       labels:
         app: ubl-learner
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: workload
+                    operator: In
+                    values:
+                      - ubl-learner
       containers:
         - name: learner
           image: docker.io/aumpandya/cassandra-ubl-learner:latest

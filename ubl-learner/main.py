@@ -104,6 +104,7 @@ ONLINE_UPDATE_ENABLED = os.getenv("ONLINE_UPDATE_ENABLED", "1") == "1"
 MAX_SCORE_STREAM = _env_int("MAX_SCORE_STREAM", 5000)
 MAX_ALARMS = _env_int("MAX_ALARMS", 1000)
 TIER_B_MIN_COVERAGE = _env_float("TIER_B_MIN_COVERAGE", 0.9)
+TIER_A_MIN_COVERAGE = _env_float("TIER_A_MIN_COVERAGE", 0.67)
 TARGET_NAMESPACE = os.getenv("TARGET_NAMESPACE", "cassandra-lab")
 CASSANDRA_PODS = [pod.strip() for pod in os.getenv("CASSANDRA_PODS", "cassandra-0,cassandra-1,cassandra-2").split(",") if pod.strip()]
 PROM_QUERY_WORKERS = _env_int("PROM_QUERY_WORKERS", 1)
@@ -228,6 +229,8 @@ class LearnerState:
         self.scored_by_phase = Counter()
         self.dropped_missing_tier_a = 0
         self.dropped_missing_tier_b = 0
+        self.last_missing_required: List[str] = []
+        self.last_tier_a_coverage: Dict[str, float] = {}
         self.online_updates_since_threshold_refresh = 0
         self.query_pool = ThreadPoolExecutor(max_workers=max(1, PROM_QUERY_WORKERS))
         self.running = True
@@ -276,7 +279,7 @@ class LearnerState:
 
         cpu_limit_cores = self._query_prom_scalar_best_effort(cpu_queries)
         mem_limit_bytes = self._query_prom_scalar_best_effort(mem_queries)
-        pvc_bytes = self._query_prom_scalar_best_effort(disk_queries)/1e4  # Convert bytes to MB for more reasonable scaling in disk IO feature
+        pvc_bytes = self._query_prom_scalar_best_effort(disk_queries)/1e3 # convert to MB
 
         result: Dict[str, float] = {}
         if cpu_limit_cores is not None:
@@ -341,26 +344,39 @@ class LearnerState:
     def _collect_sample(self) -> Sample:
         values: Dict[str, float] = {}
         required_missing: List[str] = []
+        tier_a_coverage: Dict[str, float] = {}
 
         query_jobs = []
         for pod in CASSANDRA_PODS:
             for base_name, template in TIER_A_NODE_QUERY_TEMPLATES.items():
                 key = f"{base_name}__{pod}"
                 promql = template.replace("__NAMESPACE__", TARGET_NAMESPACE).replace("__POD__", pod)
-                query_jobs.append((key, promql, True))
+                query_jobs.append((key, promql))
 
         future_to_meta = {
-            self.query_pool.submit(self._query_prom, promql): (key, required)
-            for key, promql, required in query_jobs
+            self.query_pool.submit(self._query_prom, promql): key for key, promql in query_jobs
         }
         for future in as_completed(future_to_meta):
-            key, required = future_to_meta[future]
+            key = future_to_meta[future]
             value = future.result()
             if value is None or math.isnan(value) or math.isinf(value):
-                if required:
-                    required_missing.append(key)
                 continue
             values[key] = value
+
+        # Coverage-based validity: allow sampling during pod moves as long as enough pods report metrics.
+        total_pods = max(1, len(CASSANDRA_PODS))
+        for base_name in TIER_A_NODE_QUERY_TEMPLATES.keys():
+            have = sum(1 for pod in CASSANDRA_PODS if f"{base_name}__{pod}" in values)
+            coverage = have / float(total_pods)
+            tier_a_coverage[base_name] = coverage
+            if coverage < TIER_A_MIN_COVERAGE:
+                for pod in CASSANDRA_PODS:
+                    key = f"{base_name}__{pod}"
+                    if key not in values:
+                        required_missing.append(key)
+
+        self.last_missing_required = list(required_missing)
+        self.last_tier_a_coverage = dict(tier_a_coverage)
 
         return Sample(
             ts=time.time(),
@@ -666,6 +682,10 @@ def status():
                 "training_duration_sec": round(state.training_duration_sec, 3),
                 "threshold": state.threshold,
                 "threshold_percentile": THRESHOLD_PERCENTILE,
+                "tier_a_min_coverage": TIER_A_MIN_COVERAGE,
+                "last_tier_a_coverage": state.last_tier_a_coverage,
+                "last_missing_required_count": len(state.last_missing_required),
+                "last_missing_required": state.last_missing_required[:50],
                 "total_samples_dropped_missing_tier_a": state.dropped_missing_tier_a,
                 "total_samples_dropped_missing_tier_b": state.dropped_missing_tier_b,
                 "last_error": state.last_error,
@@ -750,6 +770,8 @@ def reset():
         state.total_samples_scored = 0
         state.dropped_missing_tier_a = 0
         state.dropped_missing_tier_b = 0
+        state.last_missing_required = []
+        state.last_tier_a_coverage = {}
         state.score_latency_ms.clear()
         state.bmu_hits.clear()
         state.scored_by_phase.clear()

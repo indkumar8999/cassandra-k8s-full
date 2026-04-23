@@ -701,7 +701,7 @@
       "targets": [
         {
           "editorMode": "code",
-          "expr": "sum(rate(cassandra_metrics_count{namespace=\"$namespace\",type=\"ClientRequest\"}[1m]))",
+          "expr": "sum(rate(cassandra_metrics_count{namespace=\"$namespace\",type=\"CQL\",metric=\"RegularStatementsExecuted\"}[1m]))",
           "legendFormat": "client_requests/sec",
           "range": true,
           "refId": "A"

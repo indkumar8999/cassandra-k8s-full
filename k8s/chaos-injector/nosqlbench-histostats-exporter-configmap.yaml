@@ -1,0 +1,171 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nosqlbench-histostats-exporter
+  namespace: cassandra-lab
+data:
+  exporter.py: |
+    import csv
+    import os
+    import time
+    from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+    from pathlib import Path
+    from typing import Dict, Tuple
+
+    JOB_NAME = os.environ.get("NB_JOB_NAME", "").strip()
+    PROFILE = os.environ.get("NB_PROFILE", "").strip()
+    ROOT = os.environ.get("NB_HISTOSTATS_ROOT", "/work").strip() or "/work"
+    FILENAME = os.environ.get("NB_HISTOSTATS_FILENAME", "hdrstats.csv").strip() or "hdrstats.csv"
+    LISTEN = int(os.environ.get("PORT", "9406"))
+
+    # NB histostats CSV columns (see NB docs): Tag, Interval_Start, Interval_Length, count, min, p25...p99...
+    PCT_FIELDS = ("p50", "p95", "p99", "max")
+
+    def _pick_latest_job_dir() -> Path | None:
+      root = Path(ROOT)
+      if not root.exists():
+        return None
+      try:
+        dirs = [p for p in root.iterdir() if p.is_dir()]
+      except Exception:
+        return None
+      if not dirs:
+        return None
+      # Prefer newest by mtime.
+      return max(dirs, key=lambda p: p.stat().st_mtime)
+
+    def _latest_csv_path() -> Path | None:
+      # Preferred path: /work/<job-name>/hdrstats.csv
+      if JOB_NAME:
+        p = Path(ROOT) / JOB_NAME / FILENAME
+        if p.exists():
+          return p
+      # Fallback: pick newest directory under ROOT.
+      d = _pick_latest_job_dir()
+      if not d:
+        return None
+      p = d / FILENAME
+      return p if p.exists() else None
+
+    def _parse_latest_rows(path: Path) -> Dict[str, Dict[str, float]]:
+      # Returns {tag: {p95:..., p99:..., ...}} using the latest line per tag.
+      out: Dict[str, Dict[str, float]] = {}
+      try:
+        with path.open("r", newline="") as f:
+          reader = csv.reader(f)
+          header: list[str] | None = None
+          for row in reader:
+            if not row:
+              continue
+            # NB emits a commented header line like:
+            #   #Tag,Interval_Start,...,p95,...,p99,...
+            if row[0].startswith("#Tag") and len(row) > 10:
+              # Strip leading '#' from the first column only.
+              row0 = row[0][1:]
+              header = [row0.strip(), *[c.strip() for c in row[1:]]]
+              continue
+            # Skip other NB comment lines and preamble.
+            if row[0].startswith("#"):
+              continue
+            # Some NB versions emit an un-commented header too (exact "Tag", not "Tag=...").
+            if row[0].strip() == "Tag" and len(row) > 10:
+              header = [c.strip() for c in row]
+              continue
+            if header is None:
+              continue
+            if len(row) != len(header):
+              continue
+            rec = {header[i]: row[i] for i in range(len(header))}
+            tag = rec.get("Tag", "").strip()
+            # Data rows look like "Tag=execute", not "execute".
+            if tag.startswith("Tag="):
+              tag = tag.split("=", 1)[1].strip()
+            if not tag:
+              continue
+            # Optionally skip rows with no samples.
+            try:
+              if float(rec.get("count", "1") or "1") <= 0:
+                continue
+            except ValueError:
+              pass
+            vals: Dict[str, float] = {}
+            for k in PCT_FIELDS:
+              v = rec.get(k, "")
+              if v == "":
+                continue
+              try:
+                vals[k] = float(v)
+              except ValueError:
+                continue
+            if vals:
+              out[tag] = vals
+      except FileNotFoundError:
+        return {}
+      except Exception:
+        return {}
+      return out
+
+    def _emit_gauges(rows: Dict[str, Dict[str, float]]) -> str:
+      # NB docs: "All metrics ... recorded in nanoseconds". Export both ns and ms.
+      lines = []
+      lines.append("# HELP nosqlbench_histostat_p95_ns NoSQLBench histostat p95 (nanoseconds)")
+      lines.append("# TYPE nosqlbench_histostat_p95_ns gauge")
+      lines.append("# HELP nosqlbench_histostat_p99_ns NoSQLBench histostat p99 (nanoseconds)")
+      lines.append("# TYPE nosqlbench_histostat_p99_ns gauge")
+      lines.append("# HELP nosqlbench_histostat_p95_ms NoSQLBench histostat p95 (milliseconds)")
+      lines.append("# TYPE nosqlbench_histostat_p95_ms gauge")
+      lines.append("# HELP nosqlbench_histostat_p99_ms NoSQLBench histostat p99 (milliseconds)")
+      lines.append("# TYPE nosqlbench_histostat_p99_ms gauge")
+      for tag, vals in rows.items():
+        labels = []
+        if tag:
+          labels.append(f'tag="{tag}"')
+        # Derive job label from JOB_NAME when present; otherwise from the directory name.
+        job_label = JOB_NAME
+        if not job_label:
+          try:
+            path = _latest_csv_path()
+            if path and path.parent:
+              job_label = path.parent.name
+          except Exception:
+            job_label = ""
+        if job_label:
+          labels.append(f'nb_job="{job_label}"')
+        if PROFILE:
+          labels.append(f'nb_profile="{PROFILE}"')
+        lab = "{" + ",".join(labels) + "}"
+        p95 = vals.get("p95")
+        p99 = vals.get("p99")
+        if p95 is not None:
+          lines.append(f"nosqlbench_histostat_p95_ns{lab} {p95}")
+          lines.append(f"nosqlbench_histostat_p95_ms{lab} {p95/1_000_000.0}")
+        if p99 is not None:
+          lines.append(f"nosqlbench_histostat_p99_ns{lab} {p99}")
+          lines.append(f"nosqlbench_histostat_p99_ms{lab} {p99/1_000_000.0}")
+      return "\n".join(lines) + "\n"
+
+    class Handler(BaseHTTPRequestHandler):
+      def do_GET(self):
+        if self.path not in ("/metrics", "/metrics/"):
+          self.send_response(404)
+          self.end_headers()
+          return
+        path = _latest_csv_path()
+        rows = _parse_latest_rows(path) if path else {}
+        body = _emit_gauges(rows).encode("utf-8")
+        self.send_response(200)
+        self.send_header("Content-Type", "text/plain; version=0.0.4; charset=utf-8")
+        self.send_header("Content-Length", str(len(body)))
+        self.end_headers()
+        self.wfile.write(body)
+
+      def log_message(self, fmt, *args):
+        return
+
+    def main():
+      server = ThreadingHTTPServer(("0.0.0.0", LISTEN), Handler)
+      server.serve_forever()
+
+    if __name__ == "__main__":
+      main()
+

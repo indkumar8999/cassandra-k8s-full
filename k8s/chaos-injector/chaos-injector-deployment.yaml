@@ -14,20 +14,20 @@ spec:
         app: chaos-injector
     spec:
       serviceAccountName: chaos-injector
-      # Keep chaos-injector off the hot-spare worker (e.g. w4 for cassandra-3). Scheduler picks any other Ready node otherwise.
+      # Platform / lab control traffic on the dedicated Multipass VM (must match `kubectl get nodes` hostname).
       affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
               - matchExpressions:
                   - key: kubernetes.io/hostname
-                    operator: NotIn
+                    operator: In
                     values:
-                      - w4
+                      - control-node
       containers:
         - name: chaos-injector
-          # Rebuild/push after chaos-injector changes: `make build-images` with DOCKERHUB_USER/IMAGE_TAG, or retag :v0.3.10.
-          image: docker.io/aumpandya/cassandra-chaos-injector:v0.3.10
+          # Rebuild/push after chaos-injector changes: `make build-images` with DOCKERHUB_USER/IMAGE_TAG, or retag :v0.3.32.
+          image: docker.io/aumpandya/cassandra-chaos-injector:v0.3.32
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8200
@@ -39,17 +39,47 @@ spec:
               value: app=cassandra
             - name: SIMULATOR_LABEL_SELECTOR
               value: app=cassandra-simulator
-            # Optional: lower on small workers if stress Jobs stay Pending (e.g. STRESS_JOB_CPU_REQUEST=500m, MAX_STRESS_PARALLEL_JOBS=2).
+            # Lower defaults so cassandra-stress Jobs don't stay Pending on small workers.
             - name: STRESS_JOB_CPU_REQUEST
-              value: "1000m"
+              value: "250m"
             - name: STRESS_JOB_CPU_LIMIT
-              value: "4"
+              value: "2"
             - name: STRESS_JOB_MEM_REQUEST
-              value: "1Gi"
+              value: "512Mi"
             - name: STRESS_JOB_MEM_LIMIT
-              value: "3Gi"
+              value: "2Gi"
             - name: DEFAULT_STRESS_PARALLEL_JOBS
               value: "1"
+            # NoSQLBench metrics: victoria:plain:host:port → expanded by chaos-injector to http://host:port/.../import/prometheus/metrics/job/...
+            # (NB 5.17.x Java HttpClient rejects the victoria: scheme.) Classic Pushgateway often HTTP 400 on NB OpenMetrics.
+            - name: PROMPUSH_URL
+              value: "victoria:plain:victoria-metrics-nb.monitoring.svc:8428"
+            - name: NOSQLBENCH_IMAGE
+              value: "nosqlbench/nosqlbench:5.17.9"
+            # Official image runs NB via: java ... -jar /nb5.jar (nb5 is not on PATH).
+            - name: NOSQLBENCH_JAVA_BIN
+              value: "java"
+            - name: NOSQLBENCH_JAR_PATH
+              value: "/nb5.jar"
+            # Space-separated JVM flags if your NB image requires them (e.g. --enable-preview for newer jars).
+            - name: NOSQLBENCH_JAVA_OPTS
+              value: ""
+            # Leave empty so workload paths resolve like the image default cwd (jar directory).
+            - name: NOSQLBENCH_WORKDIR
+              value: ""
+            - name: NOSQLBENCH_SCENARIO_CONFIGMAP
+              value: chaos-nosqlbench-scenarios
+            - name: CASSANDRA_LOCAL_DC
+              value: DC1
+            # Persist HDR histostats (p95/p99 ns) to a PVC and export to Prometheus via a sidecar.
+            - name: NOSQLBENCH_HISTOSTATS_ENABLED
+              value: "1"
+            - name: NOSQLBENCH_HISTOSTATS_INTERVAL
+              value: "10s"
+            - name: NOSQLBENCH_HISTOSTATS_PVC
+              value: nosqlbench-histostats-pvc
+            - name: NOSQLBENCH_HISTOSTATS_EXPORTER_CONFIGMAP
+              value: nosqlbench-histostats-exporter
           resources:
             requests:
               cpu: "100m"

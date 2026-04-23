@@ -11,6 +11,15 @@ spec:
         app: scenario-orchestrator
     spec:
       restartPolicy: Never
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - control-node
       containers:
         - name: orchestrator
           image: docker.io/aumpandya/cassandra-orchestrator:v0.3.2

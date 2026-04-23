@@ -16,8 +16,9 @@ spec:
     spec:
       terminationGracePeriodSeconds: 180
       affinity:
-        # Cassandra only on workers w1–w4 (hot spare w4 for cassandra-3 on elastic 3→4→3). Excludes cp1.
-        # Node names must match `kubectl get nodes`. Chaos-injector stays off w4 via its own affinity.
+        # Cassandra on named workers only (excludes cp1). Includes backup-w4 so a 4th replica (cassandra-3) can schedule
+        # there when replicas scale 3→4 with hostname spread + anti-affinity (elastic demo).
+        # Node names must match `kubectl get nodes` (e.g. join agents with INSTALL_K3S_EXEC='--node-name <name>').
         # If a pod is Pending: PVC may be bound to cp1 from before this affinity — delete that ordinal's PVC (see README).
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
@@ -26,10 +27,20 @@ spec:
                   - key: kubernetes.io/hostname
                     operator: In
                     values:
-                      - w1
-                      - w2
-                      - w3
-                      - w4
+                      - aum-w1
+                      - aum-w2
+                      - aum-w3
+          # With replicas=3, avoid landing on backup-w4 while all three primaries are Ready (spread is not enough to express that).
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              preference:
+                matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - aum-w1
+                      - aum-w2
+                      - aum-w3
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             - labelSelector:

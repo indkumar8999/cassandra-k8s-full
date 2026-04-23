@@ -13,6 +13,15 @@ spec:
       labels:
         app: cassandra-simulator
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - control-node
       containers:
         - name: simulator
           image: docker.io/aumpandya/cassandra-simulator:v0.3.2

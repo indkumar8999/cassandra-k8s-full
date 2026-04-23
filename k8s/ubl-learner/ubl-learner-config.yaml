@@ -6,6 +6,7 @@ metadata:
 data:
   PROMETHEUS_BASE: "http://kube-prom-stack-kube-prome-prometheus.monitoring.svc.cluster.local:9090"
   TARGET_NAMESPACE: "cassandra-lab"
+  # cassandra-0 is currently Pending; excluding it keeps samples "valid" while the pod is rescheduled.
   CASSANDRA_PODS: "cassandra-0,cassandra-1,cassandra-2"
   POLL_SEC: "0.5"
   BOOTSTRAP_SAMPLES: "350"

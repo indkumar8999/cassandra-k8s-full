@@ -9,7 +9,7 @@ Final experiments must run on a true multi-host Kubernetes cluster (minimum 3 wo
 
 ### Cassandra `Pending`: node affinity vs PVC volume affinity
 
-The StatefulSet pins pods to **`w1`–`w4`** (not `cp1`). If a pod (often **`cassandra-1`**) stays **`Pending`** with:
+The StatefulSet pins pods to **`aum-w1`**, **`dilip-w2`**, **`msi`**, and **`backup-w4`** (not `cp1`). If a pod (often **`cassandra-1`**) stays **`Pending`** with:
 
 `didn't match Pod's node affinity` **and** `didn't match PersistentVolume's node affinity`,
 
@@ -20,7 +20,7 @@ the **PVC was usually created earlier** while the pod could still land on **`cp1
 ```bash
 kubectl -n cassandra-lab delete pod cassandra-1 --wait=false
 kubectl -n cassandra-lab delete pvc cassandra-data-cassandra-1
-# StatefulSet recreates the pod; a new PVC binds on a worker that matches w1–w4.
+# StatefulSet recreates the pod; a new PVC binds on a worker that matches the Cassandra node hostname list.
 kubectl -n cassandra-lab get pods -l app=cassandra -w
 ```
 
