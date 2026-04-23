@@ -24,7 +24,7 @@ spec:
                       - ubl-learner
       containers:
         - name: learner
-          image: docker.io/aumpandya/cassandra-ubl-learner:latest
+          image: docker.io/aumpandya/cassandra-ubl-learner:v0.3.37
           ports:
             - containerPort: 8100
               name: http

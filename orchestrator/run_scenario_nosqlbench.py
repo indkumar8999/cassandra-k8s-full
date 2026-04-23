@@ -2,6 +2,8 @@
 End-to-end lab scenario using chaos-injector NoSQLBench APIs (/start_nosqlbench, /stop_nosqlbench).
 
 Mirrors orchestrator/run_scenario.py but drives NB5 Jobs + optional Prometheus push (PROMPUSH_URL on chaos-injector).
+
+Default timings: 15s normal baseline (NoSQLBench baseline-normal hold after learner ready), then 60s anomaly phase.
 """
 import argparse
 import json
@@ -232,6 +234,11 @@ class NoSQLBenchScenarioRunner:
         self._wait_learner_ready(self.args.bootstrap_timeout_sec)
         self._record("bootstrap_wait_end", {})
 
+        # With a pretrained learner, /status becomes ready immediately; without a hold, baseline NB would be
+        # stopped almost instantly. When bootstrap fault duration is explicit (>0), hold that many seconds here.
+        if self.args.bootstrap_fault_duration_sec > 0:
+            self._sleep_phase(Phase("baseline_hold", self.args.bootstrap_fault_duration_sec))
+
         baseline_stop = self._post_chaos_stop_nosqlbench(self.args.bootstrap_fault_profile)
         self._record("baseline_nosqlbench_fault_stop", baseline_stop)
 
@@ -326,8 +333,8 @@ class NoSQLBenchScenarioRunner:
 def build_parser():
     parser = argparse.ArgumentParser(
         description=(
-            "Bootstrap trains while chaos-injector runs baseline NoSQLBench load (/start_nosqlbench); "
-            "then anomaly profile with /start_nosqlbench; then cooldown. "
+            "Runs baseline NoSQLBench load (/start_nosqlbench) during normal phase, then anomaly profile; "
+            "then cooldown. Default: 15s baseline hold, 60s chaos. "
             "Configure chaos-injector PROMPUSH_URL (default victoria:plain:…→VictoriaMetrics for NB metrics)."
         )
     )
@@ -348,8 +355,11 @@ def build_parser():
     parser.add_argument(
         "--bootstrap-fault-duration-sec",
         type=int,
-        default=int(os.getenv("BOOTSTRAP_FAULT_DURATION_SEC", "0")),
-        help="Max duration for bootstrap chaos Job; 0 = auto (min ~bootstrap_timeout+600s, capped at 7200).",
+        default=int(os.getenv("BOOTSTRAP_FAULT_DURATION_SEC", "15")),
+        help=(
+            "Baseline NoSQLBench job duration_sec and wall-clock hold after learner ready before stop; "
+            "0 = auto job duration only (min ~bootstrap_timeout+600s, capped at 7200), no explicit baseline_hold sleep."
+        ),
     )
     parser.add_argument("--fault-profile", default=os.getenv("FAULT_PROFILE", "anomaly-concurrency-spike"))
     parser.add_argument("--load-profile", default=os.getenv("LOAD_PROFILE", "high"))

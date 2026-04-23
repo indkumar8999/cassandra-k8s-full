@@ -111,6 +111,8 @@ PROM_QUERY_WORKERS = _env_int("PROM_QUERY_WORKERS", 1)
 PROM_QUERY_TIMEOUT_SEC = _env_float("PROM_QUERY_TIMEOUT_SEC", 3.0)
 THRESHOLD_RECALC_ENABLED = os.getenv("THRESHOLD_RECALC_ENABLED", "1") == "1"
 THRESHOLD_RECALC_EVERY_UPDATES = _env_int("THRESHOLD_RECALC_EVERY_UPDATES", 25)
+# Path to JSON snapshot (same shape as GET /export/som-snapshot). Reloaded after POST /reset if set.
+UBL_SNAPSHOT_PATH = os.getenv("UBL_SNAPSHOT_PATH", "").strip()
 
 KNOWN_PHASES = ("normal", "load", "chaos", "cooldown")
 
@@ -234,8 +236,84 @@ class LearnerState:
         self.online_updates_since_threshold_refresh = 0
         self.query_pool = ThreadPoolExecutor(max_workers=max(1, PROM_QUERY_WORKERS))
         self.running = True
+        if UBL_SNAPSHOT_PATH:
+            self._apply_som_snapshot_unlocked(UBL_SNAPSHOT_PATH)
         self.thread = threading.Thread(target=self._poll_loop, daemon=True)
         self.thread.start()
+
+    def _apply_som_snapshot_unlocked(self, path: str) -> bool:
+        """
+        Load a pretrained SOM from disk (offline export / train_offline_wout_no_of_samples.py).
+        Caller must not run this concurrently with _poll_loop unless self.lock is held.
+        """
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+        except Exception as ex:
+            self.last_error = f"snapshot read failed ({path}): {ex}"
+            print(f"[SNAPSHOT] {self.last_error}")
+            return False
+
+        required_keys = ("som_rows", "som_cols", "feature_order", "norm_max", "threshold", "weights", "area_map")
+        for key in required_keys:
+            if key not in data:
+                self.last_error = f"snapshot missing key {key!r}"
+                print(f"[SNAPSHOT] {self.last_error}")
+                return False
+
+        feature_order = list(data["feature_order"])
+        if feature_order != TIER_A_AVG_FEATURES:
+            self.last_error = (
+                f"snapshot feature_order mismatch: expected {TIER_A_AVG_FEATURES}, got {feature_order}"
+            )
+            print(f"[SNAPSHOT] {self.last_error}")
+            return False
+
+        rows = int(data["som_rows"])
+        cols = int(data["som_cols"])
+        dims = len(feature_order)
+        weights = np.asarray(data["weights"], dtype=np.float64)
+        if weights.shape != (rows, cols, dims):
+            self.last_error = f"snapshot weights shape {weights.shape}, expected {(rows, cols, dims)}"
+            print(f"[SNAPSHOT] {self.last_error}")
+            return False
+
+        area_map = np.asarray(data["area_map"], dtype=np.float64)
+        if area_map.shape != (rows, cols):
+            self.last_error = f"snapshot area_map shape {area_map.shape}, expected {(rows, cols)}"
+            print(f"[SNAPSHOT] {self.last_error}")
+            return False
+
+        raw_norm = data["norm_max"]
+        if not isinstance(raw_norm, dict):
+            self.last_error = "snapshot norm_max must be an object"
+            print(f"[SNAPSHOT] {self.last_error}")
+            return False
+        norm_max: Dict[str, float] = {str(k): float(v) for k, v in raw_norm.items()}
+        for name in feature_order:
+            if name not in norm_max:
+                self.last_error = f"snapshot norm_max missing key {name!r}"
+                print(f"[SNAPSHOT] {self.last_error}")
+                return False
+
+        som = SOM(rows, cols, dims, SOM_LR, SOM_SIGMA, radius=2)
+        som.weights = weights
+        self.som = som
+        self.area_map = area_map
+        self.feature_order = list(feature_order)
+        self.norm_max = {k: float(norm_max[k]) for k in feature_order}
+        self.threshold = float(data["threshold"])
+        if hasattr(self, "kfold_metrics"):
+            delattr(self, "kfold_metrics")
+        self.bootstrap_samples.clear()
+        self.trained = True
+        self.ready = True
+        self.last_error = None
+        print(
+            f"[SNAPSHOT] Loaded SOM from {path} rows={rows} cols={cols} dims={dims} "
+            f"threshold={self.threshold}"
+        )
+        return True
 
     def _query_prom_scalar_best_effort(self, queries: List[str]) -> Optional[float]:
         for q in queries:
@@ -570,7 +648,7 @@ class LearnerState:
             "phase": self.phase,
             "score_area": area_value,
             "threshold": self.threshold,
-            "is_anomaly": is_anomaly,
+            "diagnosis": "abnormal" if is_anomaly else "normal",
             "streak": self.anomaly_streak,
             "bmu": [bmu_r, bmu_c],
             "input_vector": vec.tolist(),
@@ -709,7 +787,19 @@ def score_stream():
     limit = int(request.args.get("limit", "200"))
     with state.lock:
         data = list(state.score_stream)[-limit:]
-    return jsonify({"count": len(data), "items": _to_builtin(data)})
+    items = _to_builtin(data)
+    for item in items:
+        if not isinstance(item, dict):
+            continue
+        is_anomaly = item.pop("is_anomaly", None)
+        if is_anomaly is True:
+            item["diagnosis"] = "abnormal"
+        elif is_anomaly is False:
+            item["diagnosis"] = "normal"
+        else:
+            # Backfill for older/partial items without anomaly flag
+            item.setdefault("diagnosis", "unknown")
+    return jsonify({"count": len(items), "items": items})
 
 
 @app.get("/alarms")
@@ -776,6 +866,11 @@ def reset():
         state.bmu_hits.clear()
         state.scored_by_phase.clear()
         state.online_updates_since_threshold_refresh = 0
+        if UBL_SNAPSHOT_PATH:
+            if os.path.isfile(UBL_SNAPSHOT_PATH):
+                state._apply_som_snapshot_unlocked(UBL_SNAPSHOT_PATH)
+            else:
+                state.last_error = f"UBL_SNAPSHOT_PATH set but file missing: {UBL_SNAPSHOT_PATH}"
     return jsonify({"message": "learner reset"})
 
 
@@ -840,6 +935,7 @@ def config():
             "prom_query_timeout_sec": PROM_QUERY_TIMEOUT_SEC,
             "tier_a_features": TIER_A_FEATURES,
             "tier_a_feature_count": tier_a_feature_count,
+            "ubl_snapshot_path": UBL_SNAPSHOT_PATH or None,
         }
     )
 

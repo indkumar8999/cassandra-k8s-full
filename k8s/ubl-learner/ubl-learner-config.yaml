@@ -24,3 +24,5 @@ data:
   THRESHOLD_RECALC_EVERY_UPDATES: "25"
   PROM_QUERY_WORKERS: "1"
   PROM_QUERY_TIMEOUT_SEC: "3.0"
+  # Pretrained SOM baked into learner image at /models/som_trained_snapshot.json (see ubl-learner/Dockerfile).
+  UBL_SNAPSHOT_PATH: "/models/som_trained_snapshot.json"

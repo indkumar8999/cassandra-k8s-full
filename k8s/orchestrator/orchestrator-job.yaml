@@ -22,7 +22,7 @@ spec:
                       - control-node
       containers:
         - name: orchestrator
-          image: docker.io/aumpandya/cassandra-orchestrator:v0.3.2
+          image: docker.io/aumpandya/cassandra-orchestrator:v0.3.37
           imagePullPolicy: IfNotPresent
           envFrom:
             - configMapRef:
