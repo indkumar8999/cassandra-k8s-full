@@ -3,7 +3,7 @@
 Offline SOM Training Script
 
 Imports SOM class and config from main.py.
-Fetches metrics directly from Prometheus.
+Loads pre-collected metrics samples from JSON.
 Trains a Self-Organizing Map (SOM) using collected samples.
 Saves the trained model snapshot for later import/inference.
 """
@@ -16,18 +16,13 @@ from pathlib import Path
 from typing import Dict, List
 
 import numpy as np
-import main as learner_main
 
 # Import implementation and config from main.py
 from main import (
     Sample,
     LearnerState,
     SOM,
-    PROMETHEUS_BASE as DEFAULT_PROMETHEUS_BASE,
     THRESHOLD_PERCENTILE,
-    CASSANDRA_PODS,
-    TARGET_NAMESPACE,
-    TIER_A_NODE_QUERY_TEMPLATES,
     TIER_A_AVG_FEATURES,
 )
 
@@ -53,55 +48,25 @@ def _build_training_harness() -> LearnerState:
     return state
 
 
-# === Metrics Collection ===
-def fetch_metrics_samples(
-    duration_sec: int,
-    poll_interval: float,
-    state: LearnerState,
-) -> List[Dict[str, float]]:
-    """
-    Poll Prometheus every poll_interval seconds for duration_sec.
-    Collect raw metric samples for each pod and metric.
+def load_samples_from_json(samples_json_path: str) -> List[Dict[str, float]]:
+    """Load collected sample dictionaries from a JSON file."""
+    path = Path(samples_json_path)
+    if not path.exists():
+        raise FileNotFoundError(f"Samples JSON not found: {path}")
 
-    Returns:
-        List of dicts with keys like "metric__pod" and values as floats.
-    """
-    samples: List[Dict[str, float]] = []
-    start_time = time.time()
-    end_time = start_time + duration_sec
+    with path.open("r", encoding="utf-8") as f:
+        payload = json.load(f)
 
-    print(f"[COLLECT] Starting metrics collection for {duration_sec}s (interval: {poll_interval}s)")
-    print(f"[COLLECT] Prometheus: {learner_main.PROMETHEUS_BASE}")
-    print(f"[COLLECT] Pods: {CASSANDRA_PODS}")
+    if isinstance(payload, list):
+        samples = payload
+    elif isinstance(payload, dict) and isinstance(payload.get("samples"), list):
+        samples = payload["samples"]
+    else:
+        raise ValueError("Unsupported JSON format. Expected list or object with 'samples' list")
 
-    while time.time() < end_time:
-        sample_dict: Dict[str, float] = {}
-
-        # Query each pod + metric combination
-        for pod in CASSANDRA_PODS:
-            for base_name, template in TIER_A_NODE_QUERY_TEMPLATES.items():
-                query = template.replace("__NAMESPACE__", TARGET_NAMESPACE).replace("__POD__", pod)
-                value = state._query_prom(query)
-                key = f"{base_name}__{pod}"
-
-                if value is not None:
-                    sample_dict[key] = value
-                else:
-                    print(f"[COLLECT] Missing metric: {key}")
-
-        if sample_dict:
-            samples.append(sample_dict)
-            print(f"[COLLECT] Sample {len(samples)}: {len(sample_dict)} metrics collected")
-
-        elapsed = time.time() - start_time
-        remaining = end_time - time.time()
-        if remaining > 0:
-            sleep_time = min(poll_interval, remaining)
-            print(f"[COLLECT] Progress: {elapsed:.1f}s / {duration_sec}s, sleeping {sleep_time:.1f}s...")
-            time.sleep(sleep_time)
-
-    print(f"[COLLECT] Collection complete: {len(samples)} samples")
-    return samples
+    valid_samples = [s for s in samples if isinstance(s, dict) and s]
+    print(f"[LOAD] Loaded {len(valid_samples)} non-empty sample dictionaries from {path}")
+    return valid_samples
 
 
 # === Data Normalization and Training ===
@@ -172,24 +137,12 @@ def save_snapshot(
 # === Main ===
 def main():
     parser = argparse.ArgumentParser(
-        description="Train SOM offline from Prometheus metrics"
+        description="Train SOM offline from pre-collected metrics samples JSON"
     )
     parser.add_argument(
-        "--prometheus-base",
-        default=DEFAULT_PROMETHEUS_BASE,
-        help=f"Prometheus base URL (default: {DEFAULT_PROMETHEUS_BASE})",
-    )
-    parser.add_argument(
-        "--duration-sec",
-        type=int,
-        default=180,
-        help="Metrics collection duration in seconds (default: 180)",
-    )
-    parser.add_argument(
-        "--poll-interval",
-        type=float,
-        default=1.0,
-        help="Polling interval in seconds (default: 1.0)",
+        "--samples-json",
+        default="./artifacts/prometheus_samples.json",
+        help="Input JSON path containing collected samples (default: ./artifacts/prometheus_samples.json)",
     )
     parser.add_argument(
         "--output-dir",
@@ -205,26 +158,20 @@ def main():
     args = parser.parse_args()
 
     print("=" * 80)
-    print("Offline SOM Training from Prometheus")
+    print("Offline SOM Training from Samples JSON")
     print("=" * 80)
-    print(f"Prometheus: {args.prometheus_base}")
-    print(f"Duration: {args.duration_sec}s, Poll interval: {args.poll_interval}s")
+    print(f"Input samples JSON: {args.samples_json}")
     print("Training path: LearnerState._train from main.py")
     print("=" * 80)
 
     try:
-        learner_main.PROMETHEUS_BASE = args.prometheus_base
         state = _build_training_harness()
 
-        # Collect metrics from Prometheus for the full requested duration
-        samples = fetch_metrics_samples(
-            args.duration_sec,
-            args.poll_interval,
-            state,
-        )
+        # Load pre-collected metrics samples from JSON
+        samples = load_samples_from_json(args.samples_json)
 
         if len(samples) == 0:
-            print("[ERROR] No samples collected; cannot train SOM")
+            print("[ERROR] No samples loaded; cannot train SOM")
             sys.exit(1)
 
         # Train SOM on all collected samples
