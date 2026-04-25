@@ -113,6 +113,17 @@ THRESHOLD_RECALC_ENABLED = os.getenv("THRESHOLD_RECALC_ENABLED", "1") == "1"
 THRESHOLD_RECALC_EVERY_UPDATES = _env_int("THRESHOLD_RECALC_EVERY_UPDATES", 25)
 # Path to JSON snapshot (same shape as GET /export/som-snapshot). Reloaded after POST /reset if set.
 UBL_SNAPSHOT_PATH = os.getenv("UBL_SNAPSHOT_PATH", "").strip()
+DEFAULT_SNAPSHOT_PATH = "/models/som_trained_snapshot.json"
+
+
+def _effective_snapshot_path() -> str:
+    """
+    Prefer explicit UBL_SNAPSHOT_PATH. Otherwise auto-detect the baked-in default
+    snapshot path if present in the container image.
+    """
+    if UBL_SNAPSHOT_PATH:
+        return UBL_SNAPSHOT_PATH
+    return DEFAULT_SNAPSHOT_PATH if os.path.isfile(DEFAULT_SNAPSHOT_PATH) else ""
 
 KNOWN_PHASES = ("normal", "load", "chaos", "cooldown")
 
@@ -236,8 +247,15 @@ class LearnerState:
         self.online_updates_since_threshold_refresh = 0
         self.query_pool = ThreadPoolExecutor(max_workers=max(1, PROM_QUERY_WORKERS))
         self.running = True
-        if UBL_SNAPSHOT_PATH:
-            self._apply_som_snapshot_unlocked(UBL_SNAPSHOT_PATH)
+        self.snapshot_loaded_from: Optional[str] = None
+        snapshot_path = _effective_snapshot_path()
+        if snapshot_path:
+            if os.path.isfile(snapshot_path):
+                if self._apply_som_snapshot_unlocked(snapshot_path):
+                    self.snapshot_loaded_from = snapshot_path
+            else:
+                self.last_error = f"Snapshot path configured but file missing: {snapshot_path}"
+                print(f"[SNAPSHOT] {self.last_error}")
         self.thread = threading.Thread(target=self._poll_loop, daemon=True)
         self.thread.start()
 
@@ -754,6 +772,7 @@ def status():
                 "trained": state.trained,
                 "ready": state.ready,
                 "phase": state.phase,
+                "snapshot_loaded_from": state.snapshot_loaded_from,
                 "bootstrap_collected_samples": len(state.bootstrap_samples),
                 "bootstrap_valid_samples": valid_bootstrap_samples,
                 "bootstrap_target_samples": BOOTSTRAP_SAMPLES,
@@ -866,11 +885,14 @@ def reset():
         state.bmu_hits.clear()
         state.scored_by_phase.clear()
         state.online_updates_since_threshold_refresh = 0
-        if UBL_SNAPSHOT_PATH:
-            if os.path.isfile(UBL_SNAPSHOT_PATH):
-                state._apply_som_snapshot_unlocked(UBL_SNAPSHOT_PATH)
+        state.snapshot_loaded_from = None
+        snapshot_path = _effective_snapshot_path()
+        if snapshot_path:
+            if os.path.isfile(snapshot_path):
+                if state._apply_som_snapshot_unlocked(snapshot_path):
+                    state.snapshot_loaded_from = snapshot_path
             else:
-                state.last_error = f"UBL_SNAPSHOT_PATH set but file missing: {UBL_SNAPSHOT_PATH}"
+                state.last_error = f"Snapshot path configured but file missing: {snapshot_path}"
     return jsonify({"message": "learner reset"})
 
 
@@ -935,7 +957,7 @@ def config():
             "prom_query_timeout_sec": PROM_QUERY_TIMEOUT_SEC,
             "tier_a_features": TIER_A_FEATURES,
             "tier_a_feature_count": tier_a_feature_count,
-            "ubl_snapshot_path": UBL_SNAPSHOT_PATH or None,
+            "ubl_snapshot_path": _effective_snapshot_path() or None,
         }
     )
 
