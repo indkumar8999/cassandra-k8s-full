@@ -99,6 +99,15 @@ TRAIN_EPOCHS = _env_int("TRAIN_EPOCHS", 10)
 THRESHOLD_PERCENTILE = _env_float("THRESHOLD_PERCENTILE", 85.0)
 ANOMALY_STREAK = _env_int("ANOMALY_STREAK", 3)
 SMOOTH_K = _env_int("SMOOTH_K", 5)
+# Multi-detector comparison knobs (used for /score-stream "models" output).
+# Keep SMOOTH_K for backwards compatibility, but do not use it to drive detector behavior.
+UBL_NS_TRAIN_SMOOTH_K = _env_int("UBL_NS_TRAIN_SMOOTH_K", 1)
+UBL_NS_SCORE_SMOOTH_K = _env_int("UBL_NS_SCORE_SMOOTH_K", 1)
+UBL_5PTS_TRAIN_SMOOTH_K = _env_int("UBL_5PTS_TRAIN_SMOOTH_K", 5)
+UBL_5PTS_SCORE_SMOOTH_K = _env_int("UBL_5PTS_SCORE_SMOOTH_K", 5)
+KNN_K = _env_int("KNN_K", 5)
+KNN_REF_SIZE = _env_int("KNN_REF_SIZE", BOOTSTRAP_SAMPLES)
+KNN_TAU_PERCENTILE = _env_float("KNN_TAU_PERCENTILE", 95.0)
 CAUSE_Q = _env_int("CAUSE_Q", 5)
 ONLINE_UPDATE_ENABLED = os.getenv("ONLINE_UPDATE_ENABLED", "1") == "1"
 MAX_SCORE_STREAM = _env_int("MAX_SCORE_STREAM", 5000)
@@ -337,6 +346,225 @@ class SOM:
         return area
 
 
+class UBLDetector:
+    """
+    UBL detector instance with per-detector smoothing settings.
+    It consumes the shared normalized input vector (0..100 scale) per tick.
+    """
+
+    def __init__(self, *, name: str, smooth_k_train: int, smooth_k_score: int):
+        self.name = str(name)
+        self.smooth_k_train = max(1, int(smooth_k_train))
+        self.smooth_k_score = max(1, int(smooth_k_score))
+
+        self.som: Optional[SOM] = None
+        self.area_map: Optional[np.ndarray] = None
+        self.threshold: float = 0.0
+        self.trained: bool = False
+
+        self._score_history: deque[np.ndarray] = deque(maxlen=max(1, self.smooth_k_score))
+        self.anomaly_streak: int = 0
+        self.bmu_hits = Counter()
+
+        self.training_duration_sec: float = 0.0
+        self.training_start_ts: Optional[float] = None
+        self.training_end_ts: Optional[float] = None
+        self.kfold_metrics: Optional[List[Dict]] = None
+
+    def _moving_avg(self, vec: np.ndarray) -> np.ndarray:
+        if self.smooth_k_score <= 1:
+            return vec
+        self._score_history.append(vec)
+        window = list(self._score_history)
+        return np.mean(window, axis=0)
+
+    def _apply_training_smoothing(self, data: np.ndarray) -> np.ndarray:
+        k = self.smooth_k_train
+        if k <= 1 or len(data) <= 1:
+            return data
+        smoothed = []
+        for idx in range(len(data)):
+            lo = max(0, idx - k + 1)
+            smoothed.append(np.mean(data[lo : idx + 1], axis=0))
+        return np.array(smoothed, dtype=np.float64)
+
+    def _refresh_threshold(self):
+        if self.area_map is None:
+            return
+        self.threshold = float(np.percentile(self.area_map.flatten(), THRESHOLD_PERCENTILE))
+
+    def train(self, train_data_norm: np.ndarray):
+        """
+        Train UBL (SOM) on shared normalized data (0..100 scale).
+        Uses 3-fold CV to select best SOM among 3 initializations (by min validation BMU area sum).
+        """
+        if train_data_norm is None or len(train_data_norm) == 0:
+            return
+
+        self.training_start_ts = time.time()
+        X = self._apply_training_smoothing(np.asarray(train_data_norm, dtype=np.float64))
+
+        k = 3
+        kf = KFold(n_splits=k, shuffle=True, random_state=42)
+        fold_metrics: List[Dict] = []
+        som_models: List[Dict] = []
+
+        for fold, (train_idx, test_idx) in enumerate(kf.split(X)):
+            X_train, X_val = X[train_idx], X[test_idx]
+            som = SOM(SOM_ROWS, SOM_COLS, X_train.shape[1], SOM_LR, SOM_SIGMA, radius=2)
+            som.train(X_train.copy(), TRAIN_EPOCHS)
+            area_map = som.area_map()
+
+            val_areas = []
+            for vec in X_val:
+                bmu_r, bmu_c = som.bmu(vec)
+                val_areas.append(area_map[bmu_r, bmu_c])
+            sum_area = float(np.sum(val_areas)) if val_areas else float("inf")
+            fold_metrics.append(
+                {
+                    "model": self.name,
+                    "fold": fold + 1,
+                    "sum_area": sum_area,
+                    "mean_area": float(np.mean(val_areas)) if val_areas else 0.0,
+                    "std_area": float(np.std(val_areas)) if val_areas else 0.0,
+                    "min_area": float(np.min(val_areas)) if val_areas else 0.0,
+                    "max_area": float(np.max(val_areas)) if val_areas else 0.0,
+                }
+            )
+            som_models.append({"model": som, "area_map": area_map, "sum_area": sum_area})
+
+        best_idx = int(np.argmin([m["sum_area"] for m in som_models]))
+        best_som = som_models[best_idx]["model"]
+        best_area_map = som_models[best_idx]["area_map"]
+
+        self.som = best_som
+        self.area_map = best_area_map
+        self._refresh_threshold()
+        self.trained = True
+        self.kfold_metrics = fold_metrics
+        self.training_end_ts = time.time()
+        self.training_duration_sec = float(self.training_end_ts - float(self.training_start_ts or self.training_end_ts))
+
+    def score(self, vec_norm: np.ndarray, *, phase: str, online_update: bool) -> Dict:
+        if self.som is None or self.area_map is None:
+            return {"ready": False}
+
+        start = time.perf_counter()
+        vec = self._moving_avg(np.asarray(vec_norm, dtype=np.float64))
+        bmu_r, bmu_c = self.som.bmu(vec)
+        area_value = float(self.area_map[bmu_r, bmu_c])
+        is_anomaly = area_value >= float(self.threshold)
+        self.anomaly_streak = self.anomaly_streak + 1 if is_anomaly else 0
+        self.bmu_hits[f"{bmu_r},{bmu_c}"] += 1
+
+        causes: List[str] = []
+        if is_anomaly and CAUSE_Q > 0:
+            # Cause ranking uses SOM weight diffs vs nearest "normal" neighbors in area-map space.
+            max_radius = max(self.som.rows, self.som.cols)
+            normal_neighbors: List[Tuple[int, int]] = []
+            for radius in range(1, max_radius + 1):
+                for r in range(max(0, bmu_r - radius), min(self.som.rows, bmu_r + radius + 1)):
+                    for c in range(max(0, bmu_c - radius), min(self.som.cols, bmu_c + radius + 1)):
+                        if abs(r - bmu_r) + abs(c - bmu_c) > radius:
+                            continue
+                        if float(self.area_map[r, c]) < float(self.threshold):
+                            normal_neighbors.append((r, c))
+                        if len(normal_neighbors) >= CAUSE_Q:
+                            break
+                    if len(normal_neighbors) >= CAUSE_Q:
+                        break
+                if len(normal_neighbors) >= CAUSE_Q:
+                    break
+            if normal_neighbors:
+                anomaly_vec = self.som.weights[bmu_r, bmu_c]
+                votes = Counter()
+                for nr, nc in normal_neighbors:
+                    diffs = np.abs(anomaly_vec - self.som.weights[nr, nc])
+                    top_idx = int(np.argmax(diffs))
+                    votes[TIER_A_AVG_FEATURES[top_idx]] += 1
+                causes = [name for name, _ in votes.most_common()]
+
+        # Optional online update (same as original: skip during chaos).
+        if online_update and phase != "chaos":
+            self.som.train_step(vec)
+            self.area_map = self.som.area_map()
+
+        score_latency = (time.perf_counter() - start) * 1000.0
+        return {
+            "ready": True,
+            "score_area": area_value,
+            "threshold": float(self.threshold),
+            "is_anomaly": bool(is_anomaly),
+            "streak": int(self.anomaly_streak),
+            "bmu": [int(bmu_r), int(bmu_c)],
+            "causes": causes,
+            "score_latency_ms": round(float(score_latency), 3),
+        }
+
+
+class KNNDetector:
+    """
+    Unsupervised k-NN distance scoring.
+    "Training" here means freezing a reference set X_ref; thresholding is done offline.
+    """
+
+    def __init__(self, *, k: int, ref_size: int, tau_percentile: float):
+        self.k = max(1, int(k))
+        self.ref_size = max(1, int(ref_size))
+        self.tau_percentile = float(tau_percentile)
+        self._ref: List[np.ndarray] = []
+        self.ready: bool = False
+        self.tau: Optional[float] = None
+
+    def _fit_tau_from_reference(self):
+        if not self._ref:
+            self.tau = None
+            return
+        X = np.vstack(self._ref)
+        n = int(X.shape[0])
+        if n <= 1:
+            self.tau = None
+            return
+
+        k_excl = min(self.k + 1, n)
+        baseline_scores = np.zeros((n,), dtype=np.float64)
+        for i in range(n):
+            d = np.linalg.norm(X - X[i], axis=1)
+            baseline_scores[i] = float(np.partition(d, k_excl - 1)[k_excl - 1])
+
+        pct = float(min(max(self.tau_percentile, 0.0), 100.0))
+        self.tau = float(np.percentile(baseline_scores, pct))
+
+    def consider_for_reference(self, vec_norm: np.ndarray):
+        if self.ready:
+            return
+        self._ref.append(np.asarray(vec_norm, dtype=np.float64))
+        if len(self._ref) >= self.ref_size:
+            self.ready = True
+            self._fit_tau_from_reference()
+
+    def score(self, vec_norm: np.ndarray) -> Dict:
+        if not self.ready or not self._ref:
+            return {"ready": False}
+
+        X = np.vstack(self._ref)  # (N, d)
+        x = np.asarray(vec_norm, dtype=np.float64).reshape(1, -1)  # (1, d)
+        dists = np.linalg.norm(X - x, axis=1)
+        kth = min(self.k, max(1, len(dists)))
+        # kth nearest (1-indexed) => index kth-1
+        score = float(np.partition(dists, kth - 1)[kth - 1])
+        is_anomaly = bool(self.tau is not None and score >= float(self.tau))
+        return {
+            "ready": True,
+            "score_knn_kth": score,
+            "k": int(self.k),
+            "ref_size": int(len(self._ref)),
+            "tau": float(self.tau) if self.tau is not None else None,
+            "tau_percentile": float(self.tau_percentile),
+            "is_anomaly": is_anomaly,
+        }
+
+
 class LearnerState:
     def __init__(self):
         self.lock = threading.Lock()
@@ -344,14 +572,24 @@ class LearnerState:
         self.ready = False
         self.trained = False
         self.bootstrap_samples: List[Sample] = []
+        # Shared normalization (applies to all detectors): raw feature maxima (capacity or observed).
         self.norm_max: Dict[str, float] = {}
         self.capacity_norm_max_cached: Optional[Dict[str, float]] = None
         self.capacity_norm_max_cached_at: Optional[float] = None
         self.feature_order: List[str] = []
+        # Backwards-compatible primary model fields (kept for /alarms and legacy dashboards).
         self.som: Optional[SOM] = None
         self.area_map: Optional[np.ndarray] = None
         self.threshold: float = 0.0
         self.anomaly_streak = 0
+
+        # Multi-model detectors for comparison.
+        self.ubl_ns = UBLDetector(name="ubl_ns", smooth_k_train=UBL_NS_TRAIN_SMOOTH_K, smooth_k_score=UBL_NS_SCORE_SMOOTH_K)
+        self.ubl_5pts = UBLDetector(
+            name="ubl_5pts", smooth_k_train=UBL_5PTS_TRAIN_SMOOTH_K, smooth_k_score=UBL_5PTS_SCORE_SMOOTH_K
+        )
+        self.knn = KNNDetector(k=KNN_K, ref_size=KNN_REF_SIZE, tau_percentile=KNN_TAU_PERCENTILE)
+
         self.score_stream = deque(maxlen=MAX_SCORE_STREAM)
         self.alarms = deque(maxlen=MAX_ALARMS)
         self.last_error: Optional[str] = None
@@ -605,74 +843,31 @@ class LearnerState:
             missing_tier_b=[],
         )
 
-    def _moving_avg(self, history: List[np.ndarray], vec: np.ndarray) -> np.ndarray:
-        if SMOOTH_K <= 1:
-            return vec
-        history.append(vec)
-        window = history[-SMOOTH_K:]
-        return np.mean(window, axis=0)
-
-    def _normalize_vector(self, sample: Sample) -> Tuple[np.ndarray, List[str]]:
-        # Use only the average value for each metric
+    def _vectorize_raw(self, sample: Sample) -> Tuple[np.ndarray, List[str]]:
+        """
+        Shared feature extraction: average tier-A metrics across pods, in raw units.
+        Returns (raw_vec, missing_required).
+        """
         avg_features = self._avg_tier_a_features(sample)
-        # missing_required = [k for k, v in avg_features.items() if v == 0.0]
-        # if missing_required:
-        #     return np.array([]), missing_required
-
         raw_values = [avg_features[feature] for feature in TIER_A_AVG_FEATURES]
         raw = np.array(raw_values, dtype=np.float64)
+        return raw, []
+
+    def _normalize_raw_vector(self, raw_vec: np.ndarray) -> np.ndarray:
+        """
+        Shared normalization used for *all* detectors.
+        If norm_max isn't ready yet, return raw vector (still numeric) so bootstrap can proceed.
+        """
+        raw = np.asarray(raw_vec, dtype=np.float64)
         if not self.norm_max:
-            return raw, []
-
-        denom = np.array([max(self.norm_max[f], 1e-9) for f in TIER_A_AVG_FEATURES], dtype=np.float64)
-        normed = (raw / denom) * 100.0
-        return normed, []
-
-    def _apply_training_smoothing(self, data: np.ndarray) -> np.ndarray:
-        if SMOOTH_K <= 1 or len(data) <= 1:
-            return data
-        smoothed = []
-        for idx in range(len(data)):
-            lo = max(0, idx - SMOOTH_K + 1)
-            smoothed.append(np.mean(data[lo : idx + 1], axis=0))
-        return np.array(smoothed, dtype=np.float64)
+            return raw
+        denom = np.array([max(float(self.norm_max[f]), 1e-9) for f in TIER_A_AVG_FEATURES], dtype=np.float64)
+        return (raw / denom) * 100.0
 
     def _refresh_threshold(self):
         if self.area_map is None:
             return
         self.threshold = float(np.percentile(self.area_map.flatten(), THRESHOLD_PERCENTILE))
-
-    def _cause_ranking(self, bmu_r: int, bmu_c: int) -> List[str]:
-        if self.area_map is None or self.som is None:
-            return []
-        max_radius = max(self.som.rows, self.som.cols)
-        normal_neighbors: List[Tuple[int, int]] = []
-
-        for radius in range(1, max_radius + 1):
-            for r in range(max(0, bmu_r - radius), min(self.som.rows, bmu_r + radius + 1)):
-                for c in range(max(0, bmu_c - radius), min(self.som.cols, bmu_c + radius + 1)):
-                    if abs(r - bmu_r) + abs(c - bmu_c) > radius:
-                        continue
-                    if self.area_map[r, c] < self.threshold:
-                        normal_neighbors.append((r, c))
-                    if len(normal_neighbors) >= CAUSE_Q:
-                        break
-                if len(normal_neighbors) >= CAUSE_Q:
-                    break
-            if len(normal_neighbors) >= CAUSE_Q:
-                break
-
-        if not normal_neighbors:
-            return []
-
-        anomaly_vec = self.som.weights[bmu_r, bmu_c]
-        votes = Counter()
-        for nr, nc in normal_neighbors:
-            diffs = np.abs(anomaly_vec - self.som.weights[nr, nc])
-            top_idx = int(np.argmax(diffs))
-            votes[self.feature_order[top_idx]] += 1
-
-        return [name for name, _ in votes.most_common()]
 
     def _train(self):
         valid = [s for s in self.bootstrap_samples if s.quality_valid]
@@ -681,140 +876,48 @@ class LearnerState:
 
         self.training_start_ts = time.time()
         self.feature_order = TIER_A_AVG_FEATURES.copy()
-        train_rows = []
+        train_rows_raw: List[np.ndarray] = []
         for sample in valid:
-            avg_features = self._avg_tier_a_features(sample)
-            # if any(avg_features[k] == 0.0 for k in TIER_A_AVG_FEATURES):
-            #     continue
-            train_rows.append(np.array([avg_features[feature] for feature in TIER_A_AVG_FEATURES], dtype=np.float64))
+            raw_vec, _missing = self._vectorize_raw(sample)
+            train_rows_raw.append(raw_vec)
 
-        if not train_rows:
+        if not train_rows_raw:
             self.last_error = "No complete vectors available for training."
             return
 
-        train_data = np.array(train_rows)
-        train_data = self._apply_training_smoothing(train_data)
-        observed_max = {name: float(max(train_data[:, idx].max(), 1e-9)) for idx, name in enumerate(self.feature_order)}
+        train_raw = np.array(train_rows_raw, dtype=np.float64)
+        observed_max = {name: float(max(train_raw[:, idx].max(), 1e-9)) for idx, name in enumerate(self.feature_order)}
         capacity_max = self._capacity_norm_max()
         self.norm_max = {
             name: float(max(capacity_max.get(name, observed_max.get(name, 1e-9)), 1e-9))
             for name in self.feature_order
         }
-        train_data_norm = (train_data / np.array([self.norm_max[f] for f in self.feature_order])) * 100.0
 
-        # K-Fold Cross Validation (k=3) and best SOM selection by min sum of validation BMU areas
-        k = 3
-        kf = KFold(n_splits=k, shuffle=True, random_state=42)
-        fold_metrics = []
-        som_models = []
-        for fold, (train_idx, test_idx) in enumerate(kf.split(train_data_norm)):
-            X_train, X_val = train_data_norm[train_idx], train_data_norm[test_idx]
-            som = SOM(SOM_ROWS, SOM_COLS, X_train.shape[1], SOM_LR, SOM_SIGMA, radius=2)
-            som.train(X_train.copy(), TRAIN_EPOCHS)
-            area_map = som.area_map()
-            # For each validation sample, get BMU and area value
-            val_areas = []
-            for vec in X_val:
-                bmu_r, bmu_c = som.bmu(vec)
-                val_areas.append(area_map[bmu_r, bmu_c])
-            sum_area = float(np.sum(val_areas)) if val_areas else float('inf')
-            fold_metrics.append({
-                "fold": fold+1,
-                "sum_area": sum_area,
-                "mean_area": float(np.mean(val_areas)) if val_areas else 0.0,
-                "std_area": float(np.std(val_areas)) if val_areas else 0.0,
-                "min_area": float(np.min(val_areas)) if val_areas else 0.0,
-                "max_area": float(np.max(val_areas)) if val_areas else 0.0,
-            })
-            som_models.append({
-                "model": som,
-                "area_map": area_map,
-                "sum_area": sum_area
-            })
+        # Normalize raw vectors once (shared across detectors and knn reference set).
+        denom = np.array([self.norm_max[f] for f in self.feature_order], dtype=np.float64)
+        train_norm = (train_raw / denom) * 100.0
 
-        self.kfold_metrics = fold_metrics
-        # Select the SOM with the minimum sum_area on its validation set
-        best_idx = int(np.argmin([m["sum_area"] for m in som_models]))
-        best_som = som_models[best_idx]["model"]
-        best_area_map = som_models[best_idx]["area_map"]
-        self.som = best_som
-        self.area_map = best_area_map
-        self._refresh_threshold()
-        self.trained = True
-        self.ready = True
+        # Train both UBL detectors from the same normalized input sequence.
+        self.ubl_ns.train(train_norm)
+        self.ubl_5pts.train(train_norm)
+
+        # Backwards-compatible primary model points to UBL-5PtS.
+        self.som = self.ubl_5pts.som
+        self.area_map = self.ubl_5pts.area_map
+        self.threshold = float(self.ubl_5pts.threshold)
+
+        # Record training stats (use primary for legacy fields).
+        self.kfold_metrics = self.ubl_5pts.kfold_metrics or []
+        self.trained = bool(self.ubl_5pts.trained and self.ubl_ns.trained)
+        self.ready = self.trained
         self.training_end_ts = time.time()
-        self.training_duration_sec = self.training_end_ts - self.training_start_ts
+        self.training_duration_sec = float(self.training_end_ts - float(self.training_start_ts or self.training_end_ts))
 
     def _record_alarm(self, payload: Dict):
         self.alarms.append(payload)
         _publish_demo_event_metric("alarm_detected", source="ubl-learner", run_label="learner", ts=payload.get("ts"))
 
-    def _score_sample(self, sample: Sample, smooth_history: List[np.ndarray]):
-        if self.som is None or self.area_map is None:
-            print(f"[SCORE SAMPLE] PHASE:{self.phase} Cannot score sample, model not ready.")
-            return
-
-        start = time.perf_counter()
-        vec, missing = self._normalize_vector(sample)
-        if missing:
-            tier_a_set = set(self._tier_a_feature_names())
-            if any(name in tier_a_set for name in missing):
-                self.dropped_missing_tier_a += 1
-            print(f"[SCORE SAMPLE] PHASE:{self.phase} Sample missing required features {missing}, dropping sample.")
-            return
-
-        vec = self._moving_avg(smooth_history, vec)
-        bmu_r, bmu_c = self.som.bmu(vec)
-        area_value = float(self.area_map[bmu_r, bmu_c])
-        is_anomaly = area_value >= self.threshold
-        self.anomaly_streak = self.anomaly_streak + 1 if is_anomaly else 0
-        causes = self._cause_ranking(bmu_r, bmu_c) if is_anomaly else []
-        if ONLINE_UPDATE_ENABLED and self.phase != "chaos":
-            self.som.train_step(vec)
-            self.area_map = self.som.area_map()
-            # if THRESHOLD_RECALC_ENABLED:
-            #     self.online_updates_since_threshold_refresh += 1
-            #     if self.online_updates_since_threshold_refresh >= max(1, THRESHOLD_RECALC_EVERY_UPDATES):
-            #         self._refresh_threshold()
-            #         self.online_updates_since_threshold_refresh = 0
-
-        score_latency = (time.perf_counter() - start) * 1000.0
-        self.score_latency_ms.append(score_latency)
-        self.total_samples_scored += 1
-        self.scored_by_phase[self.phase] += 1
-        self.bmu_hits[f"{bmu_r},{bmu_c}"] += 1
-
-        event = {
-            "ts": sample.ts,
-            "phase": self.phase,
-            "score_area": area_value,
-            "threshold": self.threshold,
-            "diagnosis": "abnormal" if is_anomaly else "normal",
-            "streak": self.anomaly_streak,
-            "bmu": [bmu_r, bmu_c],
-            "input_vector": vec.tolist(),
-            "causes": causes,
-            "quality_valid": sample.quality_valid,
-            "missing_required": sample.missing_required,
-            "missing_tier_b": sample.missing_tier_b,
-            "score_latency_ms": round(score_latency, 3),
-        }
-        self.score_stream.append(event)
-        if self.anomaly_streak >= ANOMALY_STREAK:
-            self._record_alarm(
-                {
-                    "ts": sample.ts,
-                    "phase": self.phase,
-                    "score_area": area_value,
-                    "threshold": self.threshold,
-                    "bmu": [bmu_r, bmu_c],
-                    "causes": causes,
-                    "streak": self.anomaly_streak,
-                }
-            )
-
     def _poll_loop(self):
-        smooth_history: List[np.ndarray] = []
         while self.running:
             with self.lock:
                 try:
@@ -823,10 +926,72 @@ class LearnerState:
                     if not self.trained:
                         self.bootstrap_samples.append(sample)
                         self._train()
-                    elif sample.quality_valid:
-                        self._score_sample(sample, smooth_history)
-                    else:
+                    if not sample.quality_valid:
                         self.dropped_missing_tier_a += 1
+                        continue
+
+                    raw_vec, _missing = self._vectorize_raw(sample)
+                    vec_norm = self._normalize_raw_vector(raw_vec)
+
+                    # Always feed KNN reference set during bootstrap period; it freezes when ref_size is reached.
+                    self.knn.consider_for_reference(vec_norm)
+
+                    # Score all detectors on the same vector.
+                    ubl_ns_out = self.ubl_ns.score(vec_norm, phase=self.phase, online_update=ONLINE_UPDATE_ENABLED)
+                    ubl_5pts_out = self.ubl_5pts.score(vec_norm, phase=self.phase, online_update=ONLINE_UPDATE_ENABLED)
+                    knn_out = self.knn.score(vec_norm)
+
+                    # Backwards-compatible primary model mirrors UBL-5PtS.
+                    primary_ready = bool(ubl_5pts_out.get("ready"))
+                    if primary_ready:
+                        self.threshold = float(ubl_5pts_out.get("threshold", self.threshold))
+                        self.anomaly_streak = int(ubl_5pts_out.get("streak", 0))
+
+                    # Latency accounting: use primary model timing for continuity.
+                    if "score_latency_ms" in ubl_5pts_out:
+                        self.score_latency_ms.append(float(ubl_5pts_out["score_latency_ms"]))
+                    self.total_samples_scored += 1
+                    self.scored_by_phase[self.phase] += 1
+
+                    event = {
+                        "ts": sample.ts,
+                        "phase": self.phase,
+                        "input_vector": np.asarray(vec_norm, dtype=np.float64).tolist(),
+                        "quality_valid": sample.quality_valid,
+                        "missing_required": sample.missing_required,
+                        "missing_tier_b": sample.missing_tier_b,
+                        "models": {
+                            "ubl_ns": _to_builtin(ubl_ns_out),
+                            "ubl_5pts": _to_builtin(ubl_5pts_out),
+                            "knn": _to_builtin(knn_out),
+                        },
+                    }
+
+                    # Legacy top-level fields (primary = UBL-5PtS).
+                    if primary_ready:
+                        event["score_area"] = float(ubl_5pts_out.get("score_area", 0.0))
+                        event["threshold"] = float(ubl_5pts_out.get("threshold", 0.0))
+                        event["diagnosis"] = "abnormal" if bool(ubl_5pts_out.get("is_anomaly")) else "normal"
+                        event["streak"] = int(ubl_5pts_out.get("streak", 0))
+                        event["bmu"] = ubl_5pts_out.get("bmu")
+                        event["causes"] = ubl_5pts_out.get("causes", [])
+                        event["score_latency_ms"] = ubl_5pts_out.get("score_latency_ms")
+
+                        # Preserve alarm behavior for primary model.
+                        if int(ubl_5pts_out.get("streak", 0)) >= int(ANOMALY_STREAK):
+                            self._record_alarm(
+                                {
+                                    "ts": sample.ts,
+                                    "phase": self.phase,
+                                    "score_area": float(ubl_5pts_out.get("score_area", 0.0)),
+                                    "threshold": float(ubl_5pts_out.get("threshold", 0.0)),
+                                    "bmu": ubl_5pts_out.get("bmu"),
+                                    "causes": ubl_5pts_out.get("causes", []),
+                                    "streak": int(ubl_5pts_out.get("streak", 0)),
+                                }
+                            )
+
+                    self.score_stream.append(event)
                 except Exception as ex:
                     self.last_error = str(ex)
             time.sleep(POLL_SEC)
@@ -865,6 +1030,27 @@ class LearnerState:
             "feature_order": self.feature_order,
             "threshold_percentile": THRESHOLD_PERCENTILE,
             "threshold_value": self.threshold,
+            "multi_models": {
+                "ubl_ns": {
+                    "trained": self.ubl_ns.trained,
+                    "smooth_k_train": self.ubl_ns.smooth_k_train,
+                    "smooth_k_score": self.ubl_ns.smooth_k_score,
+                    "threshold": self.ubl_ns.threshold,
+                },
+                "ubl_5pts": {
+                    "trained": self.ubl_5pts.trained,
+                    "smooth_k_train": self.ubl_5pts.smooth_k_train,
+                    "smooth_k_score": self.ubl_5pts.smooth_k_score,
+                    "threshold": self.ubl_5pts.threshold,
+                },
+                "knn": {
+                    "ready": self.knn.ready,
+                    "k": self.knn.k,
+                    "ref_size": self.knn.ref_size,
+                    "tau_percentile": self.knn.tau_percentile,
+                    "tau": self.knn.tau,
+                },
+            },
             "lead_time_seconds": {
                 "mean": round(float(np.mean(lead_times)), 3) if lead_times else None,
                 "median": round(float(np.median(lead_times)), 3) if lead_times else None,
@@ -1037,6 +1223,12 @@ def reset():
         state.bmu_hits.clear()
         state.scored_by_phase.clear()
         state.online_updates_since_threshold_refresh = 0
+        # Reset comparison detectors.
+        state.ubl_ns = UBLDetector(name="ubl_ns", smooth_k_train=UBL_NS_TRAIN_SMOOTH_K, smooth_k_score=UBL_NS_SCORE_SMOOTH_K)
+        state.ubl_5pts = UBLDetector(
+            name="ubl_5pts", smooth_k_train=UBL_5PTS_TRAIN_SMOOTH_K, smooth_k_score=UBL_5PTS_SCORE_SMOOTH_K
+        )
+        state.knn = KNNDetector(k=KNN_K, ref_size=KNN_REF_SIZE, tau_percentile=KNN_TAU_PERCENTILE)
         state.snapshot_loaded_from = None
         snapshot_path = _effective_snapshot_path()
         if snapshot_path:
@@ -1101,6 +1293,13 @@ def config():
             "threshold_percentile": THRESHOLD_PERCENTILE,
             "anomaly_streak": ANOMALY_STREAK,
             "smooth_k": SMOOTH_K,
+            "ubl_ns_train_smooth_k": UBL_NS_TRAIN_SMOOTH_K,
+            "ubl_ns_score_smooth_k": UBL_NS_SCORE_SMOOTH_K,
+            "ubl_5pts_train_smooth_k": UBL_5PTS_TRAIN_SMOOTH_K,
+            "ubl_5pts_score_smooth_k": UBL_5PTS_SCORE_SMOOTH_K,
+            "knn_k": KNN_K,
+            "knn_ref_size": KNN_REF_SIZE,
+            "knn_tau_percentile": float(KNN_TAU_PERCENTILE),
             "cause_q": CAUSE_Q,
             "online_update_enabled": ONLINE_UPDATE_ENABLED,
             "threshold_recalc_enabled": THRESHOLD_RECALC_ENABLED,
