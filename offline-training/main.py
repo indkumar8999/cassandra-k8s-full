@@ -241,6 +241,12 @@ class LearnerState:
         if self.capacity_norm_max_cached is not None:
             return dict(self.capacity_norm_max_cached)
 
+        # In offline mode, skip Prometheus entirely and let normalization use observed maxima from samples
+        if getattr(self, "offline_mode", False):
+            print(f"PHASE:{self.phase} Offline mode: skipping Prometheus capacity queries (will use observed sample maxima)")
+            self.capacity_norm_max_cached = {}
+            return {}
+
         ns = TARGET_NAMESPACE
         pod_re = "cassandra-[0-9]+"
         pvc_re = "cassandra-data-cassandra-[0-9]+"
@@ -315,8 +321,8 @@ class LearnerState:
                 return None
             print(f"PHASE:{self.phase} Prometheus query result for '{query}': {result}")
             return float(result[0]["value"][1])
-        except Exception:
-            print(f"PHASE:{self.phase} Error querying Prometheus for '{query}': ")
+        except Exception as exc:
+            print(f"PHASE:{self.phase} Error querying Prometheus for '{query}': {exc}")
             return None
 
     def _collect_sample(self) -> Sample:

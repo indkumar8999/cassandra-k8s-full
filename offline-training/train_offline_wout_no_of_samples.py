@@ -13,9 +13,10 @@ import json
 import sys
 import time
 from pathlib import Path
-from typing import Dict, List
+from typing import Dict, List, Tuple
 
 import numpy as np
+import main as learner_main
 
 # Import implementation and config from main.py
 from main import (
@@ -27,7 +28,22 @@ from main import (
 )
 
 
-def _build_training_harness() -> LearnerState:
+def _stop_imported_runtime() -> None:
+    """Disable side-effect polling thread started by importing main.py."""
+    imported_state = getattr(learner_main, "state", None)
+    if imported_state is None:
+        return
+    if hasattr(imported_state, "running"):
+        imported_state.running = False
+    imported_thread = getattr(imported_state, "thread", None)
+    if imported_thread is not None and imported_thread.is_alive():
+        imported_thread.join(timeout=0.2)
+    query_pool = getattr(imported_state, "query_pool", None)
+    if query_pool is not None:
+        query_pool.shutdown(wait=False, cancel_futures=True)
+
+
+def _build_training_harness(offline_mode: bool = False) -> LearnerState:
     """Create a minimal LearnerState object without starting background threads."""
     state = object.__new__(LearnerState)
     state.phase = "offline"
@@ -45,6 +61,7 @@ def _build_training_harness() -> LearnerState:
     state.training_duration_sec = 0.0
     state.training_start_ts = None
     state.training_end_ts = None
+    state.offline_mode = offline_mode
     return state
 
 
@@ -64,9 +81,26 @@ def load_samples_from_json(samples_json_path: str) -> List[Dict[str, float]]:
     else:
         raise ValueError("Unsupported JSON format. Expected list or object with 'samples' list")
 
-    valid_samples = [s for s in samples if isinstance(s, dict) and s]
-    print(f"[LOAD] Loaded {len(valid_samples)} non-empty sample dictionaries from {path}")
-    return valid_samples
+    normalized_samples: List[Dict[str, float]] = []
+    dropped_records = 0
+    for record in samples:
+        if not isinstance(record, dict):
+            dropped_records += 1
+            continue
+        if "values" in record and isinstance(record["values"], dict):
+            values = record["values"]
+        else:
+            values = record
+        cleaned_values = {key: float(value) for key, value in values.items() if isinstance(value, (int, float))}
+        if not cleaned_values:
+            dropped_records += 1
+            continue
+        normalized_samples.append(cleaned_values)
+
+    print(f"[LOAD] Loaded {len(normalized_samples)} usable sample dictionaries from {path}")
+    if dropped_records:
+        print(f"[LOAD] Dropped {dropped_records} empty or invalid records")
+    return normalized_samples
 
 
 # === Data Normalization and Training ===
@@ -154,6 +188,11 @@ def main():
         default="som_trained_snapshot.json",
         help="Output filename (default: som_trained_snapshot.json)",
     )
+    parser.add_argument(
+        "--offline-mode",
+        action="store_true",
+        help="Skip Prometheus queries; use only observed sample maxima for normalization",
+    )
 
     args = parser.parse_args()
 
@@ -165,7 +204,8 @@ def main():
     print("=" * 80)
 
     try:
-        state = _build_training_harness()
+        _stop_imported_runtime()
+        state = _build_training_harness(offline_mode=args.offline_mode)
 
         # Load pre-collected metrics samples from JSON
         samples = load_samples_from_json(args.samples_json)
@@ -173,6 +213,9 @@ def main():
         if len(samples) == 0:
             print("[ERROR] No samples loaded; cannot train SOM")
             sys.exit(1)
+
+        if args.offline_mode:
+            print("[OFFLINE] Mode enabled: skipping Prometheus queries, using observed sample maxima")
 
         # Train SOM on all collected samples
         state.training_start_ts = time.time()
