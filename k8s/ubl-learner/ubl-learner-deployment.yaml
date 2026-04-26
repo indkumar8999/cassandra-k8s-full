@@ -18,13 +18,13 @@ spec:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
               - matchExpressions:
-                  - key: workload
+                  - key: kubernetes.io/hostname
                     operator: In
                     values:
-                      - ubl-learner
+                      - control-node
       containers:
         - name: learner
-          image: docker.io/aumpandya/cassandra-ubl-learner:v0.3.37
+          image: docker.io/aumpandya/cassandra-ubl-learner:0.1.1
           ports:
             - containerPort: 8100
               name: http

@@ -27,9 +27,8 @@ spec:
                   - key: kubernetes.io/hostname
                     operator: In
                     values:
-                      - aum-w1
-                      - aum-w2
-                      - aum-w3
+                      - worker-1
+                      - worker-2
           # With replicas=3, avoid landing on backup-w4 while all three primaries are Ready (spread is not enough to express that).
           preferredDuringSchedulingIgnoredDuringExecution:
             - weight: 100
@@ -38,9 +37,8 @@ spec:
                   - key: kubernetes.io/hostname
                     operator: In
                     values:
-                      - aum-w1
-                      - aum-w2
-                      - aum-w3
+                      - worker-1
+                      - worker-2
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             - labelSelector:

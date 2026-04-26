@@ -24,7 +24,7 @@ spec:
                       - control-node
       containers:
         - name: simulator
-          image: docker.io/aumpandya/cassandra-simulator:v0.3.37
+          image: docker.io/aumpandya/cassandra-simulator:0.1.1
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
