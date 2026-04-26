@@ -1,0 +1,47 @@
+{
+  "count": 3,
+  "items": [
+    {
+      "bmu": [
+        3,
+        1
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "normal",
+      "score_area": 42.669161113326794,
+      "streak": 3,
+      "threshold": 24.105166442794292,
+      "ts": 1776961784.8623986
+    },
+    {
+      "bmu": [
+        5,
+        3
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "normal",
+      "score_area": 40.29237955556461,
+      "streak": 4,
+      "threshold": 24.105166442794292,
+      "ts": 1776961785.4144797
+    },
+    {
+      "bmu": [
+        3,
+        5
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "normal",
+      "score_area": 30.85825600289439,
+      "streak": 5,
+      "threshold": 24.105166442794292,
+      "ts": 1776961785.9720762
+    }
+  ]
+}

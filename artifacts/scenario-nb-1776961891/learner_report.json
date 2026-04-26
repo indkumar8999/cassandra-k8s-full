@@ -1,0 +1,34 @@
+{
+  "alarm_count": 5,
+  "avg_score_latency_ms": 10.528,
+  "bmu_coverage_count": 62,
+  "bootstrap_collected_samples": 0,
+  "bootstrap_target_samples": 350,
+  "feature_order": [
+    "tier_a_cpu_usage_cores",
+    "tier_a_memory_working_set_bytes",
+    "tier_a_disk_io_bytes_per_sec"
+  ],
+  "last_error": null,
+  "lead_time_seconds": {
+    "mean": 48.304,
+    "median": 42.936,
+    "samples": 5
+  },
+  "phase": "cooldown",
+  "ready": true,
+  "score_stream_count": 134,
+  "scored_by_phase": {
+    "chaos": 55,
+    "cooldown": 52,
+    "load": 0,
+    "normal": 27
+  },
+  "threshold_percentile": 85.0,
+  "threshold_value": 24.105166442794292,
+  "total_samples_dropped_missing_tier_a": 0,
+  "total_samples_scored": 134,
+  "total_samples_seen": 134,
+  "trained": true,
+  "training_duration_sec": 0.0
+}

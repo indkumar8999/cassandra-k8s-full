@@ -1,0 +1,47 @@
+{
+  "count": 3,
+  "items": [
+    {
+      "bmu": [
+        24,
+        9
+      ],
+      "causes": [
+        "tier_a_disk_io_bytes_per_sec"
+      ],
+      "phase": "cooldown",
+      "score_area": 40.790097537968734,
+      "streak": 3,
+      "threshold": 33.27311447030489,
+      "ts": 1777232270.5232809
+    },
+    {
+      "bmu": [
+        22,
+        9
+      ],
+      "causes": [
+        "tier_a_disk_io_bytes_per_sec"
+      ],
+      "phase": "cooldown",
+      "score_area": 201.3776922748451,
+      "streak": 4,
+      "threshold": 33.27311447030489,
+      "ts": 1777232271.0720968
+    },
+    {
+      "bmu": [
+        22,
+        9
+      ],
+      "causes": [
+        "tier_a_disk_io_bytes_per_sec"
+      ],
+      "phase": "cooldown",
+      "score_area": 64.69611167954301,
+      "streak": 5,
+      "threshold": 33.27311447030489,
+      "ts": 1777232271.6593378
+    }
+  ]
+}
