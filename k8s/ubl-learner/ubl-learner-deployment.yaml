@@ -24,7 +24,7 @@ spec:
                       - control-node
       containers:
         - name: learner
-          image: docker.io/aumpandya/cassandra-ubl-learner:0.1.1
+          image: docker.io/indkumar8999/cassandra-ubl-learner:0.1.1
           ports:
             - containerPort: 8100
               name: http
