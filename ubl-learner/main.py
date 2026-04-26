@@ -111,6 +111,10 @@ PROM_QUERY_WORKERS = _env_int("PROM_QUERY_WORKERS", 1)
 PROM_QUERY_TIMEOUT_SEC = _env_float("PROM_QUERY_TIMEOUT_SEC", 3.0)
 THRESHOLD_RECALC_ENABLED = os.getenv("THRESHOLD_RECALC_ENABLED", "1") == "1"
 THRESHOLD_RECALC_EVERY_UPDATES = _env_int("THRESHOLD_RECALC_EVERY_UPDATES", 25)
+# NoSQLBench SLO enrichment for /score-stream (pull NB p95/p99 from Prometheus).
+NB_SLO_THRESHOLD_MS = _env_float("NB_SLO_THRESHOLD_MS", 200.0)
+NB_SLO_STEP_SEC = _env_int("NB_SLO_STEP_SEC", 15)
+NB_SLO_CACHE_TTL_SEC = _env_float("NB_SLO_CACHE_TTL_SEC", 10.0)
 # Path to JSON snapshot (same shape as GET /export/som-snapshot). Reloaded after POST /reset if set.
 UBL_SNAPSHOT_PATH = os.getenv("UBL_SNAPSHOT_PATH", "").strip()
 DEFAULT_SNAPSHOT_PATH = "/models/som_trained_snapshot.json"
@@ -152,6 +156,125 @@ TIER_A_AVG_FEATURES = [
     "tier_a_memory_working_set_bytes",
     "tier_a_disk_io_bytes_per_sec",
 ]
+
+
+def _bucket_floor(ts: float, step_sec: int) -> int:
+    step = max(1, int(step_sec))
+    return int(math.floor(float(ts) / step) * step)
+
+
+class _NoSQLBenchSLOCache:
+    """
+    Cache Prometheus query_range results so /score-stream can be enriched without
+    issuing many point queries (score-stream can contain thousands of items).
+    """
+
+    def __init__(self):
+        self.lock = threading.Lock()
+        self.fetched_at: float = 0.0
+        self.step_sec: int = int(NB_SLO_STEP_SEC)
+        self.start_bucket: int = 0
+        self.end_bucket: int = 0
+        self.p95_by_bucket: Dict[int, float] = {}
+        self.p99_by_bucket: Dict[int, float] = {}
+
+    def _query_range(self, promql: str, start_bucket: int, end_bucket: int, step_sec: int) -> Dict[int, float]:
+        try:
+            resp = requests.get(
+                f"{PROMETHEUS_BASE}/api/v1/query_range",
+                params={
+                    "query": promql,
+                    "start": str(int(start_bucket)),
+                    "end": str(int(end_bucket)),
+                    "step": f"{int(step_sec)}s",
+                },
+                timeout=max(1.0, float(PROM_QUERY_TIMEOUT_SEC)),
+            )
+            resp.raise_for_status()
+            payload = resp.json()
+            if payload.get("status") != "success":
+                return {}
+            results = ((payload.get("data") or {}).get("result") or [])
+            if not results:
+                return {}
+            values = results[0].get("values") or []
+            out: Dict[int, float] = {}
+            for pair in values:
+                if not isinstance(pair, list) or len(pair) < 2:
+                    continue
+                try:
+                    ts_i = int(float(pair[0]))
+                    val = float(pair[1])
+                except (TypeError, ValueError):
+                    continue
+                out[ts_i] = val
+            return out
+        except Exception:
+            return {}
+
+    def get_for_items(self, items: List[Dict]) -> Tuple[Dict[int, float], Dict[int, float], int]:
+        """
+        Returns (p95_by_bucket, p99_by_bucket, step_sec) for the time window covered by items.
+        Uses TTL-based caching to cap Prometheus query rate.
+        """
+        if not items:
+            return {}, {}, max(1, int(NB_SLO_STEP_SEC))
+
+        step_sec = max(1, int(NB_SLO_STEP_SEC))
+        ts_vals: List[float] = []
+        for it in items:
+            ts = it.get("ts") if isinstance(it, dict) else None
+            if ts is None:
+                continue
+            try:
+                ts_vals.append(float(ts))
+            except (TypeError, ValueError):
+                continue
+        if not ts_vals:
+            return {}, {}, step_sec
+
+        start_bucket = _bucket_floor(min(ts_vals), step_sec)
+        end_bucket = _bucket_floor(max(ts_vals), step_sec)
+        now = time.time()
+
+        with self.lock:
+            cache_fresh = (now - float(self.fetched_at)) <= float(NB_SLO_CACHE_TTL_SEC)
+            cache_covers = (
+                bool(self.p95_by_bucket)
+                and bool(self.p99_by_bucket)
+                and start_bucket >= int(self.start_bucket)
+                and end_bucket <= int(self.end_bucket)
+            )
+            cache_step_ok = int(self.step_sec) == int(step_sec)
+            if cache_fresh and cache_covers and cache_step_ok:
+                return dict(self.p95_by_bucket), dict(self.p99_by_bucket), step_sec
+
+        # Refresh outside lock (network).
+        p95 = self._query_range(
+            'max(nosqlbench_histostat_p95_ms{tag="execute"})',
+            start_bucket,
+            end_bucket,
+            step_sec,
+        )
+        p99 = self._query_range(
+            'max(nosqlbench_histostat_p99_ms{tag="execute"})',
+            start_bucket,
+            end_bucket,
+            step_sec,
+        )
+
+        with self.lock:
+            self.fetched_at = now
+            self.step_sec = step_sec
+            self.start_bucket = start_bucket
+            self.end_bucket = end_bucket
+            self.p95_by_bucket = p95
+            self.p99_by_bucket = p99
+
+        return dict(p95), dict(p99), step_sec
+
+
+_NB_SLO_CACHE = _NoSQLBenchSLOCache()
 
 
 @dataclass
@@ -807,6 +930,18 @@ def score_stream():
     with state.lock:
         data = list(state.score_stream)[-limit:]
     items = _to_builtin(data)
+
+    # Enrich with NoSQLBench p95/p99 and SLO violation flag.
+    # Note: do not hold the learner state lock while querying Prometheus.
+    p95_by_bucket: Dict[int, float] = {}
+    p99_by_bucket: Dict[int, float] = {}
+    step_sec = max(1, int(NB_SLO_STEP_SEC))
+    try:
+        dict_items = [it for it in items if isinstance(it, dict)]
+        p95_by_bucket, p99_by_bucket, step_sec = _NB_SLO_CACHE.get_for_items(dict_items)
+    except Exception:
+        p95_by_bucket, p99_by_bucket = {}, {}
+
     for item in items:
         if not isinstance(item, dict):
             continue
@@ -818,6 +953,23 @@ def score_stream():
         else:
             # Backfill for older/partial items without anomaly flag
             item.setdefault("diagnosis", "unknown")
+
+        # Align NB stats to the closest step bucket at/before item ts.
+        ts = item.get("ts")
+        p95_ms = None
+        p99_ms = None
+        try:
+            if ts is not None:
+                bucket = _bucket_floor(float(ts), step_sec)
+                p95_ms = p95_by_bucket.get(bucket)
+                p99_ms = p99_by_bucket.get(bucket)
+        except (TypeError, ValueError):
+            p95_ms = None
+            p99_ms = None
+
+        item["p95_ms"] = p95_ms
+        item["p99_ms"] = p99_ms
+        item["slo_violated"] = bool(p95_ms is not None and float(p95_ms) > float(NB_SLO_THRESHOLD_MS))
     return jsonify({"count": len(items), "items": items})
 
 
