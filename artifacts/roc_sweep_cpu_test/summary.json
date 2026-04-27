@@ -1,0 +1,227 @@
+[
+  {
+    "snapshot": "ubl-learner/som_trained_snapshot_32_by_32.json",
+    "snapshot_name": "som_trained_snapshot_32_by_32.json",
+    "auc": 0.7952327627579587,
+    "out_roc_png": "artifacts/roc_sweep_cpu_test/som_trained_snapshot_32_by_32.roc.png",
+    "out_scores_csv": "artifacts/roc_sweep_cpu_test/som_trained_snapshot_32_by_32.scores.csv",
+    "rows": 32,
+    "cols": 32,
+    "threshold": 29.484311345544334,
+    "feature_order": [
+      "tier_a_cpu_usage_cores",
+      "tier_a_memory_working_set_bytes",
+      "tier_a_disk_io_bytes_per_sec"
+    ]
+  },
+  {
+    "snapshot": "ubl-learner/som_trained_snapshot_threshold_90.json",
+    "snapshot_name": "som_trained_snapshot_threshold_90.json",
+    "auc": 0.7277235642297232,
+    "out_roc_png": "artifacts/roc_sweep_cpu_test/som_trained_snapshot_threshold_90.roc.png",
+    "out_scores_csv": "artifacts/roc_sweep_cpu_test/som_trained_snapshot_threshold_90.scores.csv",
+    "rows": 32,
+    "cols": 32,
+    "threshold": 36.818303217118036,
+    "feature_order": [
+      "tier_a_cpu_usage_cores",
+      "tier_a_memory_working_set_bytes",
+      "tier_a_disk_io_bytes_per_sec"
+    ]
+  },
+  {
+    "snapshot": "ubl-learner/som_trained_snapshot_threshold_80.json",
+    "snapshot_name": "som_trained_snapshot_threshold_80.json",
+    "auc": 0.5906254999200128,
+    "out_roc_png": "artifacts/roc_sweep_cpu_test/som_trained_snapshot_threshold_80.roc.png",
+    "out_scores_csv": "artifacts/roc_sweep_cpu_test/som_trained_snapshot_threshold_80.scores.csv",
+    "rows": 32,
+    "cols": 32,
+    "threshold": 32.80399714335836,
+    "feature_order": [
+      "tier_a_cpu_usage_cores",
+      "tier_a_memory_working_set_bytes",
+      "tier_a_disk_io_bytes_per_sec"
+    ]
+  },
+  {
+    "snapshot": "ubl-learner/som_trained_snapshot.json",
+    "snapshot_name": "som_trained_snapshot.json",
+    "auc": 0.574948008318669,
+    "out_roc_png": "artifacts/roc_sweep_cpu_test/som_trained_snapshot.roc.png",
+    "out_scores_csv": "artifacts/roc_sweep_cpu_test/som_trained_snapshot.scores.csv",
+    "rows": 32,
+    "cols": 32,
+    "threshold": 24.105166442794292,
+    "feature_order": [
+      "tier_a_cpu_usage_cores",
+      "tier_a_memory_working_set_bytes",
+      "tier_a_disk_io_bytes_per_sec"
+    ]
+  },
+  {
+    "snapshot": "ubl-learner/som_trained_snapshot_threshold_85.json",
+    "snapshot_name": "som_trained_snapshot_threshold_85.json",
+    "auc": 0.5599104143337066,
+    "out_roc_png": "artifacts/roc_sweep_cpu_test/som_trained_snapshot_threshold_85.roc.png",
+    "out_scores_csv": "artifacts/roc_sweep_cpu_test/som_trained_snapshot_threshold_85.scores.csv",
+    "rows": 32,
+    "cols": 32,
+    "threshold": 52.89575698395186,
+    "feature_order": [
+      "tier_a_cpu_usage_cores",
+      "tier_a_memory_working_set_bytes",
+      "tier_a_disk_io_bytes_per_sec"
+    ]
+  },
+  {
+    "snapshot": "ubl-learner/som_trained_snapshot_25_by_25.json",
+    "snapshot_name": "som_trained_snapshot_25_by_25.json",
+    "auc": 0.5063189889617661,
+    "out_roc_png": "artifacts/roc_sweep_cpu_test/som_trained_snapshot_25_by_25.roc.png",
+    "out_scores_csv": "artifacts/roc_sweep_cpu_test/som_trained_snapshot_25_by_25.scores.csv",
+    "rows": 25,
+    "cols": 25,
+    "threshold": 33.27311447030489,
+    "feature_order": [
+      "tier_a_cpu_usage_cores",
+      "tier_a_memory_working_set_bytes",
+      "tier_a_disk_io_bytes_per_sec"
+    ]
+  },
+  {
+    "snapshot": "ubl-learner/som_trained_snapshot_SOM_LR_4_9.json",
+    "snapshot_name": "som_trained_snapshot_SOM_LR_4_9.json",
+    "auc": 0.5,
+    "out_roc_png": "artifacts/roc_sweep_cpu_test/som_trained_snapshot_SOM_LR_4_9.roc.png",
+    "out_scores_csv": "artifacts/roc_sweep_cpu_test/som_trained_snapshot_SOM_LR_4_9.scores.csv",
+    "rows": 32,
+    "cols": 32,
+    "threshold": 7.206110570621678e+64,
+    "feature_order": [
+      "tier_a_cpu_usage_cores",
+      "tier_a_memory_working_set_bytes",
+      "tier_a_disk_io_bytes_per_sec"
+    ]
+  },
+  {
+    "snapshot": "ubl-learner/som_trained_snapshot_SOM_LR_7.json",
+    "snapshot_name": "som_trained_snapshot_SOM_LR_7.json",
+    "auc": 0.5,
+    "out_roc_png": "artifacts/roc_sweep_cpu_test/som_trained_snapshot_SOM_LR_7.roc.png",
+    "out_scores_csv": "artifacts/roc_sweep_cpu_test/som_trained_snapshot_SOM_LR_7.scores.csv",
+    "rows": 32,
+    "cols": 32,
+    "threshold": 4.847192544027065e+84,
+    "feature_order": [
+      "tier_a_cpu_usage_cores",
+      "tier_a_memory_working_set_bytes",
+      "tier_a_disk_io_bytes_per_sec"
+    ]
+  },
+  {
+    "snapshot": "ubl-learner/som_trained_snapshot_SOM_LR_9_1.json",
+    "snapshot_name": "som_trained_snapshot_SOM_LR_9_1.json",
+    "auc": 0.5,
+    "out_roc_png": "artifacts/roc_sweep_cpu_test/som_trained_snapshot_SOM_LR_9_1.roc.png",
+    "out_scores_csv": "artifacts/roc_sweep_cpu_test/som_trained_snapshot_SOM_LR_9_1.scores.csv",
+    "rows": 32,
+    "cols": 32,
+    "threshold": 4.32149691319274e+101,
+    "feature_order": [
+      "tier_a_cpu_usage_cores",
+      "tier_a_memory_working_set_bytes",
+      "tier_a_disk_io_bytes_per_sec"
+    ]
+  },
+  {
+    "snapshot": "ubl-learner/som_trained_snapshot_threshold_95.json",
+    "snapshot_name": "som_trained_snapshot_threshold_95.json",
+    "auc": 0.4855223164293714,
+    "out_roc_png": "artifacts/roc_sweep_cpu_test/som_trained_snapshot_threshold_95.roc.png",
+    "out_scores_csv": "artifacts/roc_sweep_cpu_test/som_trained_snapshot_threshold_95.scores.csv",
+    "rows": 32,
+    "cols": 32,
+    "threshold": 109.60545662378301,
+    "feature_order": [
+      "tier_a_cpu_usage_cores",
+      "tier_a_memory_working_set_bytes",
+      "tier_a_disk_io_bytes_per_sec"
+    ]
+  },
+  {
+    "snapshot": "ubl-learner/som_trained_snapshot_SOM_SIGMA_5.json",
+    "snapshot_name": "som_trained_snapshot_SOM_SIGMA_5.json",
+    "auc": 0.4261718125099984,
+    "out_roc_png": "artifacts/roc_sweep_cpu_test/som_trained_snapshot_SOM_SIGMA_5.roc.png",
+    "out_scores_csv": "artifacts/roc_sweep_cpu_test/som_trained_snapshot_SOM_SIGMA_5.scores.csv",
+    "rows": 32,
+    "cols": 32,
+    "threshold": 27.698606268268087,
+    "feature_order": [
+      "tier_a_cpu_usage_cores",
+      "tier_a_memory_working_set_bytes",
+      "tier_a_disk_io_bytes_per_sec"
+    ]
+  },
+  {
+    "snapshot": "ubl-learner/som_trained_snapshot_SOM_SIGMA_3.json",
+    "snapshot_name": "som_trained_snapshot_SOM_SIGMA_3.json",
+    "auc": 0.4186530155175172,
+    "out_roc_png": "artifacts/roc_sweep_cpu_test/som_trained_snapshot_SOM_SIGMA_3.roc.png",
+    "out_scores_csv": "artifacts/roc_sweep_cpu_test/som_trained_snapshot_SOM_SIGMA_3.scores.csv",
+    "rows": 32,
+    "cols": 32,
+    "threshold": 31.946610645217877,
+    "feature_order": [
+      "tier_a_cpu_usage_cores",
+      "tier_a_memory_working_set_bytes",
+      "tier_a_disk_io_bytes_per_sec"
+    ]
+  },
+  {
+    "snapshot": "ubl-learner/som_trained_snapshot_radius_4.json",
+    "snapshot_name": "som_trained_snapshot_radius_4.json",
+    "auc": 0.33634618461046234,
+    "out_roc_png": "artifacts/roc_sweep_cpu_test/som_trained_snapshot_radius_4.roc.png",
+    "out_scores_csv": "artifacts/roc_sweep_cpu_test/som_trained_snapshot_radius_4.scores.csv",
+    "rows": 32,
+    "cols": 32,
+    "threshold": 14.884030746790222,
+    "feature_order": [
+      "tier_a_cpu_usage_cores",
+      "tier_a_memory_working_set_bytes",
+      "tier_a_disk_io_bytes_per_sec"
+    ]
+  },
+  {
+    "snapshot": "ubl-learner/som_trained_snapshot_40_by_40.json",
+    "snapshot_name": "som_trained_snapshot_40_by_40.json",
+    "auc": 0.17837146056630937,
+    "out_roc_png": "artifacts/roc_sweep_cpu_test/som_trained_snapshot_40_by_40.roc.png",
+    "out_scores_csv": "artifacts/roc_sweep_cpu_test/som_trained_snapshot_40_by_40.scores.csv",
+    "rows": 40,
+    "cols": 40,
+    "threshold": 50.817260222824885,
+    "feature_order": [
+      "tier_a_cpu_usage_cores",
+      "tier_a_memory_working_set_bytes",
+      "tier_a_disk_io_bytes_per_sec"
+    ]
+  },
+  {
+    "snapshot": "ubl-learner/som_trained_snapshot_SOM_SIGMA_4.json",
+    "snapshot_name": "som_trained_snapshot_SOM_SIGMA_4.json",
+    "auc": 0.16381378979363304,
+    "out_roc_png": "artifacts/roc_sweep_cpu_test/som_trained_snapshot_SOM_SIGMA_4.roc.png",
+    "out_scores_csv": "artifacts/roc_sweep_cpu_test/som_trained_snapshot_SOM_SIGMA_4.scores.csv",
+    "rows": 32,
+    "cols": 32,
+    "threshold": 29.80908675487358,
+    "feature_order": [
+      "tier_a_cpu_usage_cores",
+      "tier_a_memory_working_set_bytes",
+      "tier_a_disk_io_bytes_per_sec"
+    ]
+  }
+]
