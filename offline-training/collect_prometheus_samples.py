@@ -9,9 +9,21 @@ raw samples to JSON for offline SOM training.
 import argparse
 import json
 import time
+import os
 from pathlib import Path
 from typing import Dict, List
 from concurrent.futures import ThreadPoolExecutor, as_completed
+def _env_float(name: str, default: float) -> float:
+    return float(os.getenv(name, str(default)))
+NB_SLO_THRESHOLD_MS = _env_float("NB_SLO_THRESHOLD_MS", 200.0)
+NB_SLO_P95_QUERY = os.getenv(
+    "NB_SLO_P95_QUERY",
+    'max(nosqlbench_histostat_p95_ms{tag="execute"})',
+).strip()
+NB_SLO_P99_QUERY = os.getenv(
+    "NB_SLO_P99_QUERY",
+    'max(nosqlbench_histostat_p99_ms{tag="execute"})',
+).strip()
 
 import main as learner_main
 from main import (
@@ -63,6 +75,10 @@ def fetch_metrics_samples(
     duration_sec: int,
     poll_interval: float,
     state: LearnerState,
+    collect_slo: bool = True,
+    slo_threshold_ms: float = NB_SLO_THRESHOLD_MS,
+    slo_p95_query: str = NB_SLO_P95_QUERY,
+    slo_p99_query: str = NB_SLO_P99_QUERY,
 ) -> List[Dict[str, object]]:
     """
     Poll Prometheus every poll_interval seconds for duration_sec.
@@ -82,11 +98,22 @@ def fetch_metrics_samples(
         for pod in CASSANDRA_PODS
         for base_name, template in TIER_A_NODE_QUERY_TEMPLATES.items()
     ]
-    max_workers = max(1, len(query_jobs))
+    slo_jobs: List[tuple] = []
+    if collect_slo:
+        if slo_p95_query:
+            slo_jobs.append(("__slo_p95__", slo_p95_query))
+        if slo_p99_query:
+            slo_jobs.append(("__slo_p99__", slo_p99_query))
+    all_jobs = query_jobs + slo_jobs
+    max_workers = max(1, len(all_jobs))
 
     print(f"[COLLECT] Starting metrics collection for {duration_sec}s (interval: {poll_interval}s)")
     print(f"[COLLECT] Prometheus: {learner_main.PROMETHEUS_BASE}")
     print(f"[COLLECT] Pods: {CASSANDRA_PODS}")
+    if collect_slo and slo_jobs:
+        print(f"[COLLECT] SLO: threshold={slo_threshold_ms}ms p95_query={slo_p95_query!r} p99_query={slo_p99_query!r}")
+    elif collect_slo:
+        print("[COLLECT] SLO: disabled (empty NB_SLO_P95_QUERY / NB_SLO_P99_QUERY)")
 
     tick_index = 0
     next_tick = start_time
@@ -108,24 +135,52 @@ def fetch_metrics_samples(
 
             future_to_key = {
                 executor.submit(state._query_prom, query): key
-                for key, query in query_jobs
+                for key, query in all_jobs
             }
+            slo_p95: object = None
+            slo_p99: object = None
             for future in as_completed(future_to_key):
                 key = future_to_key[future]
                 value = future.result()
+                if key == "__slo_p95__":
+                    slo_p95 = value
+                    if value is None:
+                        print("[COLLECT] Missing SLO metric: p95 (nosqlbench_histostat)")
+                    continue
+                if key == "__slo_p99__":
+                    slo_p99 = value
+                    if value is None:
+                        print("[COLLECT] Missing SLO metric: p99 (nosqlbench_histostat)")
+                    continue
                 if value is not None:
                     sample_dict[key] = value
                 else:
                     print(f"[COLLECT] Missing metric: {key}")
 
-            samples.append(
-                {
-                    "tick_index": tick_index,
-                    "ts": tick_started_at,
-                    "values": sample_dict,
-                    "metric_count": len(sample_dict),
+            record: Dict[str, object] = {
+                "tick_index": tick_index,
+                "ts": tick_started_at,
+                "values": sample_dict,
+                "metric_count": len(sample_dict),
+            }
+            if collect_slo and slo_jobs:
+                p95_f = float(slo_p95) if slo_p95 is not None else None
+                p99_f = float(slo_p99) if slo_p99 is not None else None
+                violated = bool(
+                    p95_f is not None
+                    and p95_f == p95_f
+                    and float(p95_f) > float(slo_threshold_ms)
+                )
+                record["slo"] = {
+                    "p95_ms": p95_f,
+                    "p99_ms": p99_f,
+                    "threshold_ms": float(slo_threshold_ms),
+                    "slo_violated": bool(violated),
+                    "p95_query": slo_p95_query,
+                    "p99_query": slo_p99_query,
                 }
-            )
+
+            samples.append(record)
             print(f"[COLLECT] Sample {len(samples)} @ tick {tick_index}: {len(sample_dict)} metrics collected")
 
             tick_index += 1
@@ -135,7 +190,11 @@ def fetch_metrics_samples(
     return samples
 
 
-def save_samples(samples: List[Dict[str, object]], output_path: Path) -> Path:
+def save_samples(
+    samples: List[Dict[str, object]],
+    output_path: Path,
+    slo_collection: Dict[str, object],
+) -> Path:
     """Persist collected Prometheus sample dictionaries to JSON."""
     output_path.parent.mkdir(parents=True, exist_ok=True)
     payload = {
@@ -143,6 +202,7 @@ def save_samples(samples: List[Dict[str, object]], output_path: Path) -> Path:
         "sample_count": len(samples),
         "duration_sec": len(samples) and samples[-1].get("ts", 0.0) - samples[0].get("ts", 0.0),
         "samples": samples,
+        "slo_collection": slo_collection,
     }
 
     with output_path.open("w", encoding="utf-8") as f:
@@ -179,6 +239,17 @@ def main() -> None:
         default="./artifacts/prometheus_samples.json",
         help="Output JSON path for collected samples (default: ./artifacts/prometheus_samples.json)",
     )
+    parser.add_argument(
+        "--no-slo",
+        action="store_true",
+        help="Do not scrape NoSQLBench p95/p99 or attach per-tick slo block",
+    )
+    parser.add_argument(
+        "--slo-threshold-ms",
+        type=float,
+        default=None,
+        help="Latency SLO threshold in ms for slo.slo_violated (default: NB_SLO_THRESHOLD_MS env or 200)",
+    )
 
     args = parser.parse_args()
 
@@ -193,12 +264,28 @@ def main() -> None:
     _stop_imported_runtime()
     learner_main.PROMETHEUS_BASE = args.prometheus_base
     state = _build_collection_harness()
-    samples = fetch_metrics_samples(args.duration_sec, args.poll_interval, state)
+    slo_thr = float(NB_SLO_THRESHOLD_MS if args.slo_threshold_ms is None else args.slo_threshold_ms)
+    samples = fetch_metrics_samples(
+        args.duration_sec,
+        args.poll_interval,
+        state,
+        collect_slo=not args.no_slo,
+        slo_threshold_ms=slo_thr,
+    )
 
     if not samples:
         raise RuntimeError("No samples collected; nothing to save")
 
-    save_samples(samples, Path(args.output_json))
+    save_samples(
+        samples,
+        Path(args.output_json),
+        slo_collection={
+            "enabled": not args.no_slo,
+            "threshold_ms": slo_thr,
+            "p95_query": NB_SLO_P95_QUERY,
+            "p99_query": NB_SLO_P99_QUERY,
+        },
+    )
 
 
 if __name__ == "__main__":

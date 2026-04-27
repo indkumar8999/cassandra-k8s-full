@@ -1,0 +1,4333 @@
+{
+  "collected_at_unix": 1777244090.5226986,
+  "sample_count": 180,
+  "duration_sec": 179.00003933906555,
+  "samples": [
+    {
+      "tick_index": 0,
+      "ts": 1777243910.5204182,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-0": 0.5606266428951967,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 73622.1393924541,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.40649117712928945,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1809276928.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 182313.93473756607,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1831825408.0,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1812807680.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 72448.22109457437,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.5881693576848357
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 1,
+      "ts": 1777243911.5205047,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-1": 0.4064911771292894,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 68534.01816078878,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.5238086370963767,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1812807680.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 71042.30540792024,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 182313.93473756607,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1809276928.0,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.576739897277927,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1831825408.0
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 2,
+      "ts": 1777243912.521979,
+      "values": {
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 67887.0610390909,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.5649251741606732,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 182313.93473756607,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1809276928.0,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1831825408.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.4064911771292894,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1812807680.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 69569.03188510632,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.5190343665595074
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 3,
+      "ts": 1777243913.5202734,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-0": 0.5145645422597717,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 67256.03882186834,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.37803221037694484,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1809276928.0,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.5531571495537642,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1812807680.0,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1831825408.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 68133.02014399783,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 169749.61953552833
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 4,
+      "ts": 1777243914.5202286,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-1": 0.39487131450553703,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.6590129020861673,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1809276928.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 87979.52696132613,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1824391168.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 68701.7893650354,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.5484864634932995,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1885298688.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 182930.50951080705
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 5,
+      "ts": 1777243915.520291,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-0": 0.579302570547774,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 72560.25695508486,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.35451312825128534,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.6590129020861673,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1809276928.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 87979.52696132613,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1885298688.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 164446.37306132895,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1824391168.0
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 6,
+      "ts": 1777243916.5203125,
+      "values": {
+        "tier_a_memory_working_set_bytes__cassandra-0": 1824391168.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.3473814714648411,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 71923.49817225119,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.6590129020861673,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1809276928.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 87979.52696132613,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.5746851359512464,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1885298688.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 161183.03730318428
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 7,
+      "ts": 1777243917.5202105,
+      "values": {
+        "tier_a_memory_working_set_bytes__cassandra-1": 1822879744.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.4883796858701807,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.6342068818285598,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1885298688.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.5700999911071418,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 71281.0028238064,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 165521.8141418593,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1824391168.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 81237.49931867316
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 8,
+      "ts": 1777243918.5200732,
+      "values": {
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 70644.88143715172,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1885298688.0,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.6400265402434181,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 82001.72898783002,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.4883796858701807,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 165521.8141418593,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1824391168.0,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1822879744.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.5653395590355967
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 9,
+      "ts": 1777243919.5201805,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-1": 0.4883796858701807,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.5608789603794105,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 70013.22182375014,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 76883.14969220568,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1824391168.0,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1822879744.0,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.6015108780734707,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1885298688.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 165521.8141418593
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 10,
+      "ts": 1777243920.5202734,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-2": 0.6380233343795501,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1824391168.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 69377.10043709548,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.5562615257828829,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.48837968587018066,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1885298688.0,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1822879744.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 81723.27093019929,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 165521.8141418593
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 11,
+      "ts": 1777243921.5205417,
+      "values": {
+        "tier_a_memory_working_set_bytes__cassandra-1": 1822879744.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 165521.8141418593,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.4883796858701807,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.5516394783645804,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1824391168.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 80965.16121835298,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1885298688.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 68734.60508865069,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.6322324576581381
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 12,
+      "ts": 1777243922.5203648,
+      "values": {
+        "tier_a_memory_working_set_bytes__cassandra-1": 1822879744.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.5772511107490005,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1885298688.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 165521.8141418593,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 73708.76748719205,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 68296.25889683249,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1824391168.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.4883796858701807,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.5740064439119658
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 13,
+      "ts": 1777243923.520526,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-0": 0.5719752532140643,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1824391168.0,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1885298688.0,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.5626430745195277,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 72234.35405467587,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 67657.79469751174,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1822879744.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.4371813383413129,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 164355.39350062178
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 14,
+      "ts": 1777243924.520457,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-2": 0.6359591809604561,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1822879744.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.4413485016810396,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 82608.18845376378,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1816891392.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 78841.26856283876,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1847959552.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 166068.68945856736,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.7109889826721296
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 15,
+      "ts": 1777243925.5203931,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-1": 0.4454781605507088,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 78103.58120513285,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.630571927202554,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 167773.40176942904,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 82608.18845376378,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1816891392.0,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1847959552.0,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1822879744.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.7109889826721296
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 16,
+      "ts": 1777243926.520298,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-0": 0.7109889826721296,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.44964532389043554,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 82608.18845376378,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.6252327739246331,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 169505.58175095922,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 77351.75049748103,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1822879744.0,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1816891392.0,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1847959552.0
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 17,
+      "ts": 1777243927.520334,
+      "values": {
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 173705.85092614562,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 76615.55191345364,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1847959552.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.7109889826721296,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1816891392.0,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1835757568.0,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.619861553660058,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 82608.18845376378,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.4272416204535927
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 18,
+      "ts": 1777243928.5204296,
+      "values": {
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 75874.14262155144,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 82608.18845376378,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.43098680244757276,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 175181.71681930003,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.6145224003821372,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.7109889826721296,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1835757568.0,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1847959552.0,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1816891392.0
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 19,
+      "ts": 1777243929.520351,
+      "values": {
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 76455.88426868504,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1835757568.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.6584899579644053,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 186918.71393712616,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.6091779026064407,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.4611986922760267,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1847959552.0,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1816891392.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 75118.5899797033
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 20,
+      "ts": 1777243930.52053,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-0": 0.6218671911447708,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.6038654718173982,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 186918.7139371261,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1835757568.0,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1816891392.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 71140.3831874011,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1847959552.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.4611986922760268,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 74375.69191412261
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 21,
+      "ts": 1777243931.5207636,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-0": 0.6163432673379696,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1816891392.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.4611986922760267,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.598408739588412,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 70519.55536297132,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1847959552.0,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1835757568.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 73621.628045953,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 186918.7139371261
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 22,
+      "ts": 1777243932.5204384,
+      "values": {
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 186918.71393712616,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1816891392.0,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1847959552.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 68977.34222438023,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1835757568.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.6109805475333123,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.5505084781271739,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 69910.92454884472,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.4611986922760267
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 23,
+      "ts": 1777243933.5202775,
+      "values": {
+        "tier_a_memory_working_set_bytes__cassandra-0": 1816891392.0,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1835757568.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.5532059411875827,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.46119869227602683,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 186918.7139371261,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 68279.45485772897,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1847959552.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 63251.79368666989,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.5022163854315587
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 24,
+      "ts": 1777243934.5202253,
+      "values": {
+        "tier_a_memory_working_set_bytes__cassandra-1": 1835757568.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 169719.65408223253,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1806450688.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.563693840698303,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 125291.70816697647,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 89507.67664909655,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.42037785159291774,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1815900160.0,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.6319076001464354
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 25,
+      "ts": 1777243935.5205283,
+      "values": {
+        "tier_a_memory_working_set_bytes__cassandra-2": 1806450688.0,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1815900160.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.563693840698303,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1835757568.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 125291.70816697647,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.4164470354972438,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.6319076001464354,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 89507.67664909655,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 168056.57145988054
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 26,
+      "ts": 1777243936.520559,
+      "values": {
+        "tier_a_memory_working_set_bytes__cassandra-1": 1835757568.0,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1815900160.0,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1806450688.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 89507.67664909655,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 124982.3298223775,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.41253186444075673,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 166408.32307301037,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.563693840698303,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.6162997555623175
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 27,
+      "ts": 1777243937.520336,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-2": 0.6162997555623175,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1806450688.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 124982.3298223775,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.494828355638825,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 89507.67664909655,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1841713152.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.563693840698303,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1815900160.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 195727.59719531532
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 28,
+      "ts": 1777243938.520553,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-1": 0.494828355638825,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1815900160.0,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1841713152.0,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1806450688.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 195727.59719531532,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.563693840698303,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 89507.67664909655,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 124982.3298223775,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.6162997555623175
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 29,
+      "ts": 1777243939.5203216,
+      "values": {
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 195727.59719531532,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.494828355638825,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.563693840698303,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1841713152.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 89507.67664909655,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 124982.3298223775,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.6162997555623175,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1815900160.0,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1806450688.0
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 30,
+      "ts": 1777243940.5201652,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-0": 0.563693840698303,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.494828355638825,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.6162997555623175,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 89507.67664909655,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1815900160.0,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1841713152.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 195727.59719531532,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 124982.3298223775,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1806450688.0
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 31,
+      "ts": 1777243941.5205715,
+      "values": {
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 195727.59719531532,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1841713152.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.5244048996138565,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.494828355638825,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.6162997555623175,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1806450688.0,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1815900160.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 84325.50551874118,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 124982.3298223775
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 32,
+      "ts": 1777243942.5204225,
+      "values": {
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 195727.59719531532,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1841713152.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 83707.79221900375,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.494828355638825,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.5196543844736833,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.6162997555623175,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1806450688.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 124982.3298223775,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1815900160.0
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 33,
+      "ts": 1777243943.520415,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-2": 0.5638321417563474,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.5149465386311763,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1841713152.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 83079.46099601503,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 146469.04407663117,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1806450688.0,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1815900160.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 118113.88803133272,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.5529292554219383
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 34,
+      "ts": 1777243944.5203643,
+      "values": {
+        "tier_a_memory_working_set_bytes__cassandra-2": 1806450688.0,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1941405696.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.5529292554219383,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1841713152.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 132857.94062047912,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.7982547532060601,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.5585773160392539,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 117445.48604128297,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 146469.04407663117
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 35,
+      "ts": 1777243945.520285,
+      "values": {
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 132857.94062047912,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 146469.04407663117,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1941405696.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.7982547532060601,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 129399.46696829647,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1841713152.0,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.5723424056314405,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.5529292554219383,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1806450688.0
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 36,
+      "ts": 1777243946.5204172,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-0": 0.7914160231154912,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1941405696.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 128721.55519383545,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.5671500134872233,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1841713152.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.5529292554219383,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1806450688.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 146469.04407663117,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 134248.70416213103
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 37,
+      "ts": 1777243947.5203323,
+      "values": {
+        "tier_a_memory_working_set_bytes__cassandra-2": 1806450688.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 115350.05147618923,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1851924480.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 159915.51261868142,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1941405696.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 135469.55097220064,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.7982522894576696,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.5194954276774365,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.6184576678843373
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 38,
+      "ts": 1777243948.5203607,
+      "values": {
+        "tier_a_memory_working_set_bytes__cassandra-1": 1851924480.0,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1941405696.0,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1806450688.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.5774296764862157,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.5092145954579885,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.8543202723260772,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 113113.79828389137,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 145600.18567850374,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 148360.0584457079
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 1637.154815,
+        "p99_ms": 1637.154815,
+        "threshold_ms": 200.0,
+        "slo_violated": true,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 39,
+      "ts": 1777243949.5200973,
+      "values": {
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 145600.18567850374,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1806450688.0,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1851924480.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 110824.79245218549,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.8543202723260772,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 146943.76861400015,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.5723246597958145,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.49848907224655625,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1941405696.0
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 1637.154815,
+        "p99_ms": 1637.154815,
+        "threshold_ms": 200.0,
+        "slo_violated": true,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 40,
+      "ts": 1777243950.5203862,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-1": 0.5673611683205926,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1806450688.0,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1851924480.0,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.48800707029263923,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 145514.66812049807,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1941405696.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 145600.18567850374,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.8543202723260772,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 108494.50194616028
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 1637.154815,
+        "p99_ms": 1637.154815,
+        "threshold_ms": 200.0,
+        "slo_violated": true,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 41,
+      "ts": 1777243951.5205307,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-0": 0.8543202723260772,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.4774827168156761,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 144102.64850938847,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 145600.18567850374,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1851924480.0,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1806450688.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.5622207703263963,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1941405696.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 106203.20252143663
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 1637.154815,
+        "p99_ms": 1637.154815,
+        "threshold_ms": 200.0,
+        "slo_violated": true,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 42,
+      "ts": 1777243952.5202963,
+      "values": {
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 145600.18567850374,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1806450688.0,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1941405696.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 103941.71980594363,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.5571764072996432,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.46675719360424384,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.8543202723260772,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 142656.46713349392,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1851924480.0
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 2024.079359,
+        "p99_ms": 2024.079359,
+        "threshold_ms": 200.0,
+        "slo_violated": true,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 43,
+      "ts": 1777243953.5204256,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-1": 0.5521674255766851,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1806450688.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 141237.33048805414,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1851924480.0,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1941405696.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.8543202723260772,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.48155230656367076,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 98841.81498476616,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 145600.18567850374
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 2024.079359,
+        "p99_ms": 2024.079359,
+        "threshold_ms": 200.0,
+        "slo_violated": true,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 44,
+      "ts": 1777243954.5204244,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-0": 0.8543202723260772,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1878786048.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.5470927357181079,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 139819.61724948036,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 212125.34139359026,
+        "tier_a_cpu_usage_cores__cassandra-2": 1.0057612818972947,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1941405696.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 145600.18567850374,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1851924480.0
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 2024.079359,
+        "p99_ms": 2024.079359,
+        "threshold_ms": 200.0,
+        "slo_violated": true,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 45,
+      "ts": 1777243955.520436,
+      "values": {
+        "tier_a_memory_working_set_bytes__cassandra-0": 1941405696.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 135364.2230121162,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 212125.34139359026,
+        "tier_a_cpu_usage_cores__cassandra-2": 1.0057612818972947,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.7975766119703611,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1851924480.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 138389.09334911226,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1878786048.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.5420180458595307
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 2024.079359,
+        "p99_ms": 2024.079359,
+        "threshold_ms": 200.0,
+        "slo_violated": true,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 46,
+      "ts": 1777243956.5203881,
+      "values": {
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 136979.9205517347,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1941405696.0,
+        "tier_a_cpu_usage_cores__cassandra-2": 1.0611245276591617,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.5369332470570122,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 229760.99626242876,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 134140.98238477195,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1878786048.0,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1851924480.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.7909059528554643
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 2024.079359,
+        "p99_ms": 2024.079359,
+        "threshold_ms": 200.0,
+        "slo_violated": true,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 47,
+      "ts": 1777243957.5204256,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-0": 0.7844472709914878,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1863569408.0,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1941405696.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 132969.20882883258,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 229760.99626242876,
+        "tier_a_cpu_usage_cores__cassandra-2": 1.0611245276591617,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 224028.48529822464,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1878786048.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.6257437803062044
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 2024.079359,
+        "p99_ms": 2024.079359,
+        "threshold_ms": 200.0,
+        "slo_violated": true,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 48,
+      "ts": 1777243958.5203707,
+      "values": {
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 224028.48529822464,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 121472.23893511976,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1863569408.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 229760.99626242876,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1878786048.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.6533324400023554,
+        "tier_a_cpu_usage_cores__cassandra-2": 1.0611245276591617,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.6257437803062044,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1941405696.0
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 2042.429439,
+        "p99_ms": 2042.429439,
+        "threshold_ms": 200.0,
+        "slo_violated": true,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 49,
+      "ts": 1777243959.5203633,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-0": 0.6467545209347361,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1941405696.0,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1878786048.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.6257437803062044,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1863569408.0,
+        "tier_a_cpu_usage_cores__cassandra-2": 1.0611245276591617,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 224028.48529822464,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 229760.99626242876,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 120258.57357687409
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 2042.429439,
+        "p99_ms": 2042.429439,
+        "threshold_ms": 200.0,
+        "slo_violated": true,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 50,
+      "ts": 1777243960.5200436,
+      "values": {
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 229760.99626242876,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.640077237530748,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1878786048.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 119068.84639137487,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1941405696.0,
+        "tier_a_cpu_usage_cores__cassandra-2": 1.0611245276591617,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.6257437803062044,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 224028.48529822464,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1863569408.0
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 2042.429439,
+        "p99_ms": 2042.429439,
+        "threshold_ms": 200.0,
+        "slo_violated": true,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 51,
+      "ts": 1777243961.5202415,
+      "values": {
+        "tier_a_memory_working_set_bytes__cassandra-1": 1863569408.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.63350594275222,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.986426740908209,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 235407.67452958215,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 212366.40592698965,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1878786048.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.6691331210656053,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1941405696.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 117880.316114513
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 2042.429439,
+        "p99_ms": 2042.429439,
+        "threshold_ms": 200.0,
+        "slo_violated": true,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 52,
+      "ts": 1777243962.5201564,
+      "values": {
+        "tier_a_memory_working_set_bytes__cassandra-0": 1941405696.0,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1878786048.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 210178.11622108304,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1863569408.0,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.9770088957971199,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.6633785665882312,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 233898.4982389512,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.6645878749090396,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 136896.76406300647
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 2042.429439,
+        "p99_ms": 2042.429439,
+        "threshold_ms": 200.0,
+        "slo_violated": true,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 53,
+      "ts": 1777243963.520202,
+      "values": {
+        "tier_a_memory_working_set_bytes__cassandra-1": 1863569408.0,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.9680679036030481,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 208096.57235448895,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.6505950570956924,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.6578205090930113,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1941405696.0,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1878786048.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 232436.4376959302,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 133962.7312234584
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 2042.429439,
+        "p99_ms": 2042.429439,
+        "threshold_ms": 200.0,
+        "slo_violated": true,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 54,
+      "ts": 1777243964.5204942,
+      "values": {
+        "tier_a_memory_working_set_bytes__cassandra-2": 1894989824.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 633030.819553647,
+        "tier_a_cpu_usage_cores__cassandra-2": 1.3846998989383814,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 516981.97949957795,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1863569408.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 1.409882900445461,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1913044992.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.6522680657972815,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 230983.211355586
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 2042.429439,
+        "p99_ms": 2042.429439,
+        "threshold_ms": 200.0,
+        "slo_violated": true,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 55,
+      "ts": 1777243965.5204802,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-1": 0.6465135113199074,
+        "tier_a_cpu_usage_cores__cassandra-0": 1.4098829004454612,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1913044992.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 229469.6179636166,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 516981.979499578,
+        "tier_a_cpu_usage_cores__cassandra-2": 1.3846998989383812,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1894989824.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 633030.8195536468,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1863569408.0
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 2042.429439,
+        "p99_ms": 2042.429439,
+        "threshold_ms": 200.0,
+        "slo_violated": true,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 56,
+      "ts": 1777243966.520126,
+      "values": {
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 633030.819553647,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1913044992.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.5840416210471525,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1863569408.0,
+        "tier_a_cpu_usage_cores__cassandra-2": 1.5211289950628673,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1894989824.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 1.4098829004454612,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 204629.74452806285,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 658866.2074458103
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 2042.429439,
+        "p99_ms": 2042.429439,
+        "threshold_ms": 200.0,
+        "slo_violated": true,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 57,
+      "ts": 1777243967.5201957,
+      "values": {
+        "tier_a_memory_working_set_bytes__cassandra-0": 1913044992.0,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1883418624.0,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1894989824.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 633030.819553647,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 664482.2523361561,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.8619620533238841,
+        "tier_a_cpu_usage_cores__cassandra-2": 1.5352598433890816,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 490083.8075326169,
+        "tier_a_cpu_usage_cores__cassandra-0": 1.4098829004454612
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 2042.429439,
+        "p99_ms": 2042.429439,
+        "threshold_ms": 200.0,
+        "slo_violated": true,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 58,
+      "ts": 1777243968.5205636,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-2": 1.5493765183468646,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1894989824.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 670109.5631139448,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1913044992.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 1.409882900445461,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1883418624.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.8551965144553588,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 487318.1019404897,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 633030.819553647
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 2042.429439,
+        "p99_ms": 2042.429439,
+        "threshold_ms": 200.0,
+        "slo_violated": true,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 59,
+      "ts": 1777243969.5204682,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-2": 1.6800514319432687,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1883418624.0,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1894989824.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 484427.6901843889,
+        "tier_a_cpu_usage_cores__cassandra-0": 1.409882900445461,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 722026.9971591752,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1913044992.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 633030.819553647,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.8481606243832963
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 2042.429439,
+        "p99_ms": 2042.429439,
+        "threshold_ms": 200.0,
+        "slo_violated": true,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 60,
+      "ts": 1777243970.520242,
+      "values": {
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 633030.819553647,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1883418624.0,
+        "tier_a_cpu_usage_cores__cassandra-2": 1.680051431943269,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 722026.9971591752,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1894989824.0,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1913044992.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.8416248840377779,
+        "tier_a_cpu_usage_cores__cassandra-0": 1.4098829004454612,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 481750.6645310875
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 2042.429439,
+        "p99_ms": 2042.429439,
+        "threshold_ms": 200.0,
+        "slo_violated": true,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 61,
+      "ts": 1777243971.5204473,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-1": 0.9125608457978671,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1894989824.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 633030.819553647,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1913044992.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 1.409882900445461,
+        "tier_a_cpu_usage_cores__cassandra-2": 1.680051431943269,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1883418624.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 516454.92447148,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 722026.9971591751
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 2042.429439,
+        "p99_ms": 2042.429439,
+        "threshold_ms": 200.0,
+        "slo_violated": true,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 62,
+      "ts": 1777243972.520556,
+      "values": {
+        "tier_a_memory_working_set_bytes__cassandra-1": 1883418624.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 668459.1106035423,
+        "tier_a_cpu_usage_cores__cassandra-2": 1.5452520681332955,
+        "tier_a_cpu_usage_cores__cassandra-0": 1.4098829004454612,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1894989824.0,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1913044992.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.9039930298599157,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 512850.4482889925,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 633030.819553647
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 2042.429439,
+        "p99_ms": 2042.429439,
+        "threshold_ms": 200.0,
+        "slo_violated": true,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 63,
+      "ts": 1777243973.5204265,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-2": 1.531588940965321,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.8185232270173096,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 587927.361055769,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1894989824.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 1.3087655265675417,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1913044992.0,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1883418624.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 457211.6117574952,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 662938.8257564623
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 2035.941375,
+        "p99_ms": 2035.941375,
+        "threshold_ms": 200.0,
+        "slo_violated": true,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 64,
+      "ts": 1777243974.520494,
+      "values": {
+        "tier_a_memory_working_set_bytes__cassandra-2": 2004275200.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 1472584.7928789833,
+        "tier_a_cpu_usage_cores__cassandra-0": 1.4580774899438527,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1913044992.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.8013736921320003,
+        "tier_a_cpu_usage_cores__cassandra-2": 1.9209342332024173,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1883418624.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 672404.962661419,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 447894.05573139514
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 1637.154815,
+        "p99_ms": 1637.154815,
+        "threshold_ms": 200.0,
+        "slo_violated": true,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 65,
+      "ts": 1777243975.5205226,
+      "values": {
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 1419880.2799050882,
+        "tier_a_cpu_usage_cores__cassandra-0": 1.4438905228077026,
+        "tier_a_cpu_usage_cores__cassandra-2": 1.8070786906904468,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1883418624.0,
+        "tier_a_memory_working_set_bytes__cassandra-2": 2004275200.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.7840029826896384,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 438323.4071371817,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 665740.6935171047,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1913044992.0
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 1637.154815,
+        "p99_ms": 1637.154815,
+        "threshold_ms": 200.0,
+        "slo_violated": true,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 66,
+      "ts": 1777243976.5203872,
+      "values": {
+        "tier_a_memory_working_set_bytes__cassandra-1": 1883418624.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 487959.1388974323,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1913044992.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 659344.5647407167,
+        "tier_a_cpu_usage_cores__cassandra-2": 1.7935415791870197,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.8126179379916354,
+        "tier_a_memory_working_set_bytes__cassandra-2": 2004275200.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 1.4303270063757776,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 1413607.4571319018
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 1637.154815,
+        "p99_ms": 1637.154815,
+        "threshold_ms": 200.0,
+        "slo_violated": true,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 67,
+      "ts": 1777243977.5204237,
+      "values": {
+        "tier_a_memory_working_set_bytes__cassandra-1": 2027376640.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 779406.067939413,
+        "tier_a_memory_working_set_bytes__cassandra-2": 2004275200.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 4551620.910704521,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 1407104.2041343944,
+        "tier_a_cpu_usage_cores__cassandra-2": 1.7794651956216585,
+        "tier_a_cpu_usage_cores__cassandra-0": 1.670999744042099,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1913044992.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 1.6426895853342314
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 1637.154815,
+        "p99_ms": 1637.154815,
+        "threshold_ms": 200.0,
+        "slo_violated": true,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 68,
+      "ts": 1777243978.520209,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-0": 1.497129317435191,
+        "tier_a_memory_working_set_bytes__cassandra-2": 2004275200.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 1400831.3813612077,
+        "tier_a_cpu_usage_cores__cassandra-1": 1.7656004176052775,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1913044992.0,
+        "tier_a_cpu_usage_cores__cassandra-2": 1.7658036367193233,
+        "tier_a_memory_working_set_bytes__cassandra-1": 2027376640.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 698563.9185209848,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 4913148.928865908
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 1637.154815,
+        "p99_ms": 1637.154815,
+        "threshold_ms": 200.0,
+        "slo_violated": true,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 69,
+      "ts": 1777243979.5203319,
+      "values": {
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 4913148.928865908,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1913044992.0,
+        "tier_a_cpu_usage_cores__cassandra-2": 1.7520591128843828,
+        "tier_a_cpu_usage_cores__cassandra-0": 1.4661440881287828,
+        "tier_a_memory_working_set_bytes__cassandra-1": 2027376640.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 1.7656004176052775,
+        "tier_a_memory_working_set_bytes__cassandra-2": 2004275200.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 1394347.3308823938,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 684124.9158254485
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 1637.154815,
+        "p99_ms": 1637.154815,
+        "threshold_ms": 200.0,
+        "slo_violated": true,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 70,
+      "ts": 1777243980.5203788,
+      "values": {
+        "tier_a_memory_working_set_bytes__cassandra-0": 1913044992.0,
+        "tier_a_memory_working_set_bytes__cassandra-2": 2004275200.0,
+        "tier_a_cpu_usage_cores__cassandra-2": 1.968756984320724,
+        "tier_a_cpu_usage_cores__cassandra-0": 1.4350662734758421,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 4913148.928865909,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 669729.1436769047,
+        "tier_a_cpu_usage_cores__cassandra-1": 1.7656004176052775,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 1458222.9815211797,
+        "tier_a_memory_working_set_bytes__cassandra-1": 2027376640.0
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 1637.154815,
+        "p99_ms": 1637.154815,
+        "threshold_ms": 200.0,
+        "slo_violated": true,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 71,
+      "ts": 1777243981.5205052,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-0": 1.4029391582288597,
+        "tier_a_memory_working_set_bytes__cassandra-1": 2027376640.0,
+        "tier_a_cpu_usage_cores__cassandra-2": 1.9490260771787447,
+        "tier_a_cpu_usage_cores__cassandra-1": 1.6454674358394628,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 1449909.779623861,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 654540.8115001628,
+        "tier_a_memory_working_set_bytes__cassandra-2": 2004275200.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 4559968.953099871,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1913044992.0
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 1637.154815,
+        "p99_ms": 1637.154815,
+        "threshold_ms": 200.0,
+        "slo_violated": true,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 72,
+      "ts": 1777243982.5204375,
+      "values": {
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 4517407.622198997,
+        "tier_a_memory_working_set_bytes__cassandra-2": 2004275200.0,
+        "tier_a_cpu_usage_cores__cassandra-2": 1.9312457540127785,
+        "tier_a_cpu_usage_cores__cassandra-1": 1.6307867287000832,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 1442434.2197428122,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 640908.7790151555,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1913044992.0,
+        "tier_a_memory_working_set_bytes__cassandra-1": 2027376640.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 1.3733118473382708
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 1637.154815,
+        "p99_ms": 1637.154815,
+        "threshold_ms": 200.0,
+        "slo_violated": true,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 73,
+      "ts": 1777243983.5202248,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-0": 1.3430055772397722,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 5102927.584782521,
+        "tier_a_cpu_usage_cores__cassandra-1": 1.747770353111005,
+        "tier_a_memory_working_set_bytes__cassandra-2": 2004275200.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 1434650.4708180414,
+        "tier_a_cpu_usage_cores__cassandra-2": 1.9127152062406534,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 626642.6985075896,
+        "tier_a_memory_working_set_bytes__cassandra-1": 2027376640.0,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1913044992.0
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 1637.154815,
+        "p99_ms": 1637.154815,
+        "threshold_ms": 200.0,
+        "slo_violated": true,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 74,
+      "ts": 1777243984.5201814,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-2": 2.359724187917953,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 2333691.6374362,
+        "tier_a_cpu_usage_cores__cassandra-1": 1.7319412608465576,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 2091864.235816314,
+        "tier_a_cpu_usage_cores__cassandra-0": 2.242060028235841,
+        "tier_a_memory_working_set_bytes__cassandra-2": 2097782784.0,
+        "tier_a_memory_working_set_bytes__cassandra-0": 2024308736.0,
+        "tier_a_memory_working_set_bytes__cassandra-1": 2027376640.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 5055895.717516925
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 1637.154815,
+        "p99_ms": 1637.154815,
+        "threshold_ms": 200.0,
+        "slo_violated": true,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 75,
+      "ts": 1777243985.5205245,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-0": 2.242060028235841,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 2091864.2358163144,
+        "tier_a_memory_working_set_bytes__cassandra-1": 2027376640.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 5010642.941253617,
+        "tier_a_cpu_usage_cores__cassandra-2": 2.369499248936176,
+        "tier_a_cpu_usage_cores__cassandra-1": 1.7164070242223306,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 2606088.986613859,
+        "tier_a_memory_working_set_bytes__cassandra-0": 2024308736.0,
+        "tier_a_memory_working_set_bytes__cassandra-2": 2097782784.0
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 1637.154815,
+        "p99_ms": 1637.154815,
+        "threshold_ms": 200.0,
+        "slo_violated": true,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 76,
+      "ts": 1777243986.5202482,
+      "values": {
+        "tier_a_memory_working_set_bytes__cassandra-1": 2027376640.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 2.4823513480982786,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 4965937.577606398,
+        "tier_a_memory_working_set_bytes__cassandra-2": 2097782784.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 1.7009348624697285,
+        "tier_a_memory_working_set_bytes__cassandra-0": 2024308736.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 2633656.3575061937,
+        "tier_a_cpu_usage_cores__cassandra-2": 2.3918258466557276,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 2398623.8832193986
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 1637.154815,
+        "p99_ms": 1637.154815,
+        "threshold_ms": 200.0,
+        "slo_violated": true,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 77,
+      "ts": 1777243987.5202174,
+      "values": {
+        "tier_a_memory_working_set_bytes__cassandra-0": 2024308736.0,
+        "tier_a_cpu_usage_cores__cassandra-2": 2.609376080741362,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 2398623.8832193986,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1920118784.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 2902514.185900799,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 5838014.335108181,
+        "tier_a_cpu_usage_cores__cassandra-0": 2.482351348098279,
+        "tier_a_memory_working_set_bytes__cassandra-2": 2097782784.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 2.0182466674437247
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 1637.154815,
+        "p99_ms": 1637.154815,
+        "threshold_ms": 200.0,
+        "slo_violated": true,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 78,
+      "ts": 1777243988.52032,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-0": 2.4823513480982786,
+        "tier_a_memory_working_set_bytes__cassandra-2": 2097782784.0,
+        "tier_a_cpu_usage_cores__cassandra-2": 2.609376080741362,
+        "tier_a_cpu_usage_cores__cassandra-1": 2.0182466674437247,
+        "tier_a_memory_working_set_bytes__cassandra-0": 2024308736.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 2902514.185900799,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 2398623.8832193986,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1920118784.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 5838014.335108181
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 1637.154815,
+        "p99_ms": 1637.154815,
+        "threshold_ms": 200.0,
+        "slo_violated": true,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 79,
+      "ts": 1777243989.5204856,
+      "values": {
+        "tier_a_memory_working_set_bytes__cassandra-1": 1920118784.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 2.482351348098279,
+        "tier_a_cpu_usage_cores__cassandra-2": 2.609376080741362,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 2398623.8832193986,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 2902514.185900799,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 5838014.335108181,
+        "tier_a_cpu_usage_cores__cassandra-1": 2.0182466674437247,
+        "tier_a_memory_working_set_bytes__cassandra-0": 2024308736.0,
+        "tier_a_memory_working_set_bytes__cassandra-2": 2097782784.0
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 1637.154815,
+        "p99_ms": 1637.154815,
+        "threshold_ms": 200.0,
+        "slo_violated": true,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 80,
+      "ts": 1777243990.5203893,
+      "values": {
+        "tier_a_memory_working_set_bytes__cassandra-1": 1920118784.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 5324863.83767087,
+        "tier_a_cpu_usage_cores__cassandra-0": 2.482351348098279,
+        "tier_a_cpu_usage_cores__cassandra-1": 1.8414717774083613,
+        "tier_a_cpu_usage_cores__cassandra-2": 2.393099736615702,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 2635203.22400917,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 2398623.8832193986,
+        "tier_a_memory_working_set_bytes__cassandra-0": 2024308736.0,
+        "tier_a_memory_working_set_bytes__cassandra-2": 2097782784.0
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 1637.154815,
+        "p99_ms": 1637.154815,
+        "threshold_ms": 200.0,
+        "slo_violated": true,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 81,
+      "ts": 1777243991.5202534,
+      "values": {
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 6016934.823781649,
+        "tier_a_memory_working_set_bytes__cassandra-2": 2097782784.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 2.6172162919240085,
+        "tier_a_cpu_usage_cores__cassandra-2": 2.371086024149477,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 2832972.7078520544,
+        "tier_a_memory_working_set_bytes__cassandra-0": 2024308736.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 2607994.9471264547,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1920118784.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 1.957759988808601
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 1637.154815,
+        "p99_ms": 1637.154815,
+        "threshold_ms": 200.0,
+        "slo_violated": true,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 82,
+      "ts": 1777243992.5204067,
+      "values": {
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 2639806.565793301,
+        "tier_a_cpu_usage_cores__cassandra-2": 2.348871171163256,
+        "tier_a_cpu_usage_cores__cassandra-0": 2.3970836612392503,
+        "tier_a_memory_working_set_bytes__cassandra-0": 2024308736.0,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1920118784.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 2580427.576234121,
+        "tier_a_memory_working_set_bytes__cassandra-2": 2097782784.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 1.9416800234205236,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 5970197.590163572
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 1637.154815,
+        "p99_ms": 1637.154815,
+        "threshold_ms": 200.0,
+        "slo_violated": true,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 83,
+      "ts": 1777243993.520081,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-1": 1.9256806189812843,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 5923694.276633674,
+        "tier_a_cpu_usage_cores__cassandra-2": 2.4484891916745077,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 2327282.107709463,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1920118784.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 3023269.108215782,
+        "tier_a_memory_working_set_bytes__cassandra-0": 2024308736.0,
+        "tier_a_memory_working_set_bytes__cassandra-2": 2097782784.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 2.147099643827313
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 1637.154815,
+        "p99_ms": 1637.154815,
+        "threshold_ms": 200.0,
+        "slo_violated": true,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 84,
+      "ts": 1777243994.5204678,
+      "values": {
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 7651803.762898025,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1920118784.0,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1908232192.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 2.7413437153811837,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 4386758.0364488335,
+        "tier_a_cpu_usage_cores__cassandra-1": 2.1961314205180713,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1937727488.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 4378904.843837763,
+        "tier_a_cpu_usage_cores__cassandra-2": 2.805485315861268
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 1637.154815,
+        "p99_ms": 1637.154815,
+        "threshold_ms": 200.0,
+        "slo_violated": true,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 85,
+      "ts": 1777243995.5201797,
+      "values": {
+        "tier_a_memory_working_set_bytes__cassandra-1": 1920118784.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 7565827.3933064025,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 4386758.0364488335,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1908232192.0,
+        "tier_a_cpu_usage_cores__cassandra-2": 2.8054853158612674,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1937727488.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 2.7413437153811837,
+        "tier_a_cpu_usage_cores__cassandra-1": 2.1737974738095196,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 4378904.843837763
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 192.765951,
+        "p99_ms": 302.940159,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 86,
+      "ts": 1777243996.5203273,
+      "values": {
+        "tier_a_memory_working_set_bytes__cassandra-0": 1908232192.0,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1937727488.0,
+        "tier_a_cpu_usage_cores__cassandra-2": 2.8054853158612674,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 4378904.843837763,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 7481045.139959108,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1920118784.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 2.7413437153811837,
+        "tier_a_cpu_usage_cores__cassandra-1": 2.1517527116699036,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 4386758.0364488335
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 192.765951,
+        "p99_ms": 302.940159,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 87,
+      "ts": 1777243997.52037,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-0": 2.7413437153811837,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 4386758.0364488335,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1908232192.0,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1937727488.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 4378904.843837763,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1933115392.0,
+        "tier_a_cpu_usage_cores__cassandra-2": 2.805485315861268,
+        "tier_a_cpu_usage_cores__cassandra-1": 2.5260305463668042,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 8802438.495916868
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 192.765951,
+        "p99_ms": 302.940159,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 88,
+      "ts": 1777243998.520498,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-0": 2.7413437153811837,
+        "tier_a_cpu_usage_cores__cassandra-1": 2.3565547334752357,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 4386758.0364488335,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1908232192.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 4378904.843837763,
+        "tier_a_cpu_usage_cores__cassandra-2": 2.8054853158612674,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1933115392.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 8262393.017683711,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1937727488.0
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 192.765951,
+        "p99_ms": 302.940159,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 89,
+      "ts": 1777243999.5201864,
+      "values": {
+        "tier_a_memory_working_set_bytes__cassandra-2": 1937727488.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 4104443.522819446,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1933115392.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 8199132.94053201,
+        "tier_a_cpu_usage_cores__cassandra-1": 2.3363533638802143,
+        "tier_a_cpu_usage_cores__cassandra-0": 2.7413437153811837,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1908232192.0,
+        "tier_a_cpu_usage_cores__cassandra-2": 2.60442608002451,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 4378904.843837763
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 192.765951,
+        "p99_ms": 302.940159,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 90,
+      "ts": 1777244000.5202947,
+      "values": {
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 4378904.843837763,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 8136752.348067623,
+        "tier_a_cpu_usage_cores__cassandra-1": 2.3170002939849836,
+        "tier_a_cpu_usage_cores__cassandra-0": 2.7413437153811837,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1933115392.0,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1908232192.0,
+        "tier_a_cpu_usage_cores__cassandra-2": 2.581681196300893,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1937727488.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 4071976.0563508086
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 192.765951,
+        "p99_ms": 302.940159,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 91,
+      "ts": 1777244001.520665,
+      "values": {
+        "tier_a_memory_working_set_bytes__cassandra-2": 1937727488.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 2.8737249276755445,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 4039800.5051651066,
+        "tier_a_cpu_usage_cores__cassandra-1": 2.2972132102898595,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 5138618.390260877,
+        "tier_a_cpu_usage_cores__cassandra-2": 2.558728702076756,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1933115392.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 8073932.0132595785,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1908232192.0
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 192.765951,
+        "p99_ms": 302.940159,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 92,
+      "ts": 1777244002.5202293,
+      "values": {
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 8601448.8074342,
+        "tier_a_cpu_usage_cores__cassandra-2": 2.535476326018536,
+        "tier_a_cpu_usage_cores__cassandra-0": 2.8737249276755445,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 4006684.338067726,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1933115392.0,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1908232192.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 5138618.390260877,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1937727488.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 2.2358958966585054
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 192.765951,
+        "p99_ms": 302.940159,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 93,
+      "ts": 1777244003.5200384,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-1": 2.2358958966585054,
+        "tier_a_cpu_usage_cores__cassandra-0": 2.7465496344975238,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 5512655.625549862,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 3974995.3123535817,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1908232192.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 8601448.8074342,
+        "tier_a_cpu_usage_cores__cassandra-2": 2.512408492627444,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1937727488.0,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1933115392.0
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 192.765951,
+        "p99_ms": 302.940159,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 94,
+      "ts": 1777244004.5205872,
+      "values": {
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 9230257.149722755,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1910939648.0,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1933213696.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 2.999253354941155,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 5977083.707718692,
+        "tier_a_cpu_usage_cores__cassandra-1": 2.3933591023537133,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1933115392.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 6413745.3553793365,
+        "tier_a_cpu_usage_cores__cassandra-2": 2.8814066302360457
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 109.576191,
+        "p99_ms": 204.406783,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 95,
+      "ts": 1777244005.5205815,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-0": 2.999253354941155,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 5977083.707718692,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 6413745.3553793365,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1910939648.0,
+        "tier_a_cpu_usage_cores__cassandra-2": 2.8814066302360457,
+        "tier_a_cpu_usage_cores__cassandra-1": 2.369681128480972,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1933213696.0,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1933115392.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 9134113.942558577
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 109.576191,
+        "p99_ms": 204.406783,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 96,
+      "ts": 1777244006.5205994,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-1": 2.346517893170681,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1933213696.0,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1933115392.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 2.999253354941155,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 9041988.381563552,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 5977083.707718691,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1910939648.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 6413745.3553793365,
+        "tier_a_cpu_usage_cores__cassandra-2": 2.8814066302360457
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 109.576191,
+        "p99_ms": 204.406783,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 97,
+      "ts": 1777244007.5202353,
+      "values": {
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 12237435.363535352,
+        "tier_a_cpu_usage_cores__cassandra-2": 2.9333459583283985,
+        "tier_a_cpu_usage_cores__cassandra-0": 2.999253354941155,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1910939648.0,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1933213696.0,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1935368192.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 2.6988213344962,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 6413745.3553793365,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 6651000.419021778
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 109.576191,
+        "p99_ms": 204.406783,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 98,
+      "ts": 1777244008.520341,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-2": 2.9333459583283985,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1933213696.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 2.999253354941155,
+        "tier_a_cpu_usage_cores__cassandra-1": 2.6988213344962,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1935368192.0,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1910939648.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 6413745.3553793365,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 6651000.419021778,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 12237435.36353535
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 109.576191,
+        "p99_ms": 204.406783,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 99,
+      "ts": 1777244009.5202405,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-0": 2.999253354941155,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 6413745.3553793365,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1910939648.0,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1935368192.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 2.6988213344962,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 6651000.419021778,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 12237435.363535352,
+        "tier_a_cpu_usage_cores__cassandra-2": 2.9333459583283985,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1933213696.0
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 109.576191,
+        "p99_ms": 204.406783,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 100,
+      "ts": 1777244010.5204885,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-0": 2.7599200868236524,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1935368192.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 2.6988213344962,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 6651000.419021778,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1933213696.0,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1910939648.0,
+        "tier_a_cpu_usage_cores__cassandra-2": 2.9333459583283985,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 5898424.20626631,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 12237435.363535352
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 109.576191,
+        "p99_ms": 204.406783,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 101,
+      "ts": 1777244011.5203974,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-2": 2.9333459583283985,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 6651000.419021778,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1933213696.0,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1910939648.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 2.7340164861373033,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1935368192.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 5843905.656511284,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 13121492.200020047,
+        "tier_a_cpu_usage_cores__cassandra-1": 2.6720952453782294
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 109.576191,
+        "p99_ms": 204.406783,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 102,
+      "ts": 1777244012.5205066,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-1": 2.6720952453782294,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 13121492.200020045,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1910939648.0,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1933213696.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 6651000.419021778,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 5792824.729597954,
+        "tier_a_cpu_usage_cores__cassandra-0": 2.7102381808740623,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1935368192.0,
+        "tier_a_cpu_usage_cores__cassandra-2": 2.9333459583283985
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 109.576191,
+        "p99_ms": 204.406783,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 103,
+      "ts": 1777244013.5205283,
+      "values": {
+        "tier_a_memory_working_set_bytes__cassandra-2": 1933213696.0,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1910939648.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 2.464026334079161,
+        "tier_a_cpu_usage_cores__cassandra-0": 2.4724828466709816,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1935368192.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 5285433.562720031,
+        "tier_a_cpu_usage_cores__cassandra-2": 2.933345958328399,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 6651000.419021778,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 12307899.947017405
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 109.576191,
+        "p99_ms": 204.406783,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 104,
+      "ts": 1777244014.5205655,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-2": 2.780432755008218,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1935368192.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 2.8696154780353487,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1917399040.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 12217160.308569975,
+        "tier_a_cpu_usage_cores__cassandra-1": 2.440482912591694,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1940586496.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 6426878.838471834,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 5833763.733329052
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 109.576191,
+        "p99_ms": 204.406783,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 105,
+      "ts": 1777244015.520478,
+      "values": {
+        "tier_a_memory_working_set_bytes__cassandra-2": 1940586496.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 6091611.676278453,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 5833763.733329052,
+        "tier_a_cpu_usage_cores__cassandra-2": 2.460690011977726,
+        "tier_a_cpu_usage_cores__cassandra-1": 2.416751143732327,
+        "tier_a_cpu_usage_cores__cassandra-0": 2.8696154780353487,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 12124306.16993583,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1917399040.0,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1935368192.0
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 109.576191,
+        "p99_ms": 204.406783,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 106,
+      "ts": 1777244016.5203683,
+      "values": {
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 12029889.139859324,
+        "tier_a_cpu_usage_cores__cassandra-0": 2.8696154780353487,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1935368192.0,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1940586496.0,
+        "tier_a_cpu_usage_cores__cassandra-2": 2.4819445318518807,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 5833763.733329052,
+        "tier_a_cpu_usage_cores__cassandra-1": 2.3923366156498242,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 6148611.223983686,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1917399040.0
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 109.576191,
+        "p99_ms": 204.406783,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 107,
+      "ts": 1777244017.5205033,
+      "values": {
+        "tier_a_memory_working_set_bytes__cassandra-1": 1927507968.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 5683829.793609037,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1917399040.0,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1940586496.0,
+        "tier_a_cpu_usage_cores__cassandra-2": 2.28224093298562,
+        "tier_a_cpu_usage_cores__cassandra-1": 2.18362184482623,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 20372000.497816667,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 5794803.90282139,
+        "tier_a_cpu_usage_cores__cassandra-0": 2.5825536111016474
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 109.576191,
+        "p99_ms": 204.406783,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 108,
+      "ts": 1777244018.52033,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-1": 2.10939324191399,
+        "tier_a_cpu_usage_cores__cassandra-2": 2.2783350015188164,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1940586496.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 5680638.76674857,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 5850737.816363544,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1917399040.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 2.606073602501932,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 20703581.872208755,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1927507968.0
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 109.576191,
+        "p99_ms": 204.406783,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 109,
+      "ts": 1777244019.5205584,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-0": 2.6288461860324954,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 6084782.845249176,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1927507968.0,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1917399040.0,
+        "tier_a_cpu_usage_cores__cassandra-2": 2.428011359717283,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 20703581.872208755,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1940586496.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 2.1093932419139896,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 5906060.126477305
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 109.576191,
+        "p99_ms": 204.406783,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 110,
+      "ts": 1777244020.5204551,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-1": 2.1093932419139896,
+        "tier_a_cpu_usage_cores__cassandra-2": 2.4035689664801803,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1917399040.0,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1927507968.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 2.652763237863569,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 5961827.239084441,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 20703581.872208755,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1940586496.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 5765988.883887362
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 109.576191,
+        "p99_ms": 204.406783,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 111,
+      "ts": 1777244021.5202627,
+      "values": {
+        "tier_a_memory_working_set_bytes__cassandra-0": 1917399040.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 2.1093932419139896,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 20703581.872208755,
+        "tier_a_cpu_usage_cores__cassandra-2": 2.104566499468443,
+        "tier_a_cpu_usage_cores__cassandra-0": 2.472539493369616,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 5765988.883887362,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1927507968.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 5638510.551517836,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1940586496.0
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 109.576191,
+        "p99_ms": 204.406783,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 112,
+      "ts": 1777244022.5203726,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-0": 2.6079604567646997,
+        "tier_a_cpu_usage_cores__cassandra-1": 2.1093932419139896,
+        "tier_a_cpu_usage_cores__cassandra-2": 2.104566499468443,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1940586496.0,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1917399040.0,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1927507968.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 5960769.957969449,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 20703581.87220876,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 5765988.883887362
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 109.576191,
+        "p99_ms": 204.406783,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 113,
+      "ts": 1777244023.5205212,
+      "values": {
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 20703581.872208755,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 5765988.883887362,
+        "tier_a_cpu_usage_cores__cassandra-2": 2.104566499468443,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1917399040.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 2.1093932419139896,
+        "tier_a_cpu_usage_cores__cassandra-0": 2.585841855120142,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1927507968.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 5908227.663439294,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1940586496.0
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 109.576191,
+        "p99_ms": 204.406783,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 114,
+      "ts": 1777244024.520634,
+      "values": {
+        "tier_a_memory_working_set_bytes__cassandra-1": 1927507968.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 20703581.872208755,
+        "tier_a_cpu_usage_cores__cassandra-1": 2.10939324191399,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1944367104.0,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1921454080.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 9255364.529683355,
+        "tier_a_cpu_usage_cores__cassandra-0": 2.1690533693148573,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 6496495.633006571,
+        "tier_a_cpu_usage_cores__cassandra-2": 2.3434747070853126
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 109.576191,
+        "p99_ms": 204.406783,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 115,
+      "ts": 1777244025.5203822,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-0": 2.1690533693148573,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1921454080.0,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1927507968.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 20703581.872208755,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 6496495.633006571,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1944367104.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 2.1093932419139896,
+        "tier_a_cpu_usage_cores__cassandra-2": 2.3434747070853126,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 9255364.529683355
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 109.576191,
+        "p99_ms": 204.406783,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 116,
+      "ts": 1777244026.5201633,
+      "values": {
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 6056145.119580237,
+        "tier_a_cpu_usage_cores__cassandra-2": 2.1773707710417627,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 20703581.872208755,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1921454080.0,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1944367104.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 2.1093932419139896,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1927507968.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 2.1690533693148573,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 9255364.529683355
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 109.576191,
+        "p99_ms": 204.406783,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 117,
+      "ts": 1777244027.5203624,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-1": 2.1093932419139896,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1927507968.0,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1921454080.0,
+        "tier_a_cpu_usage_cores__cassandra-2": 2.156465022246624,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 6000668.460554153,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1944367104.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 20703581.872208755,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 9255364.529683355,
+        "tier_a_cpu_usage_cores__cassandra-0": 2.1690533693148573
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 109.576191,
+        "p99_ms": 204.406783,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 118,
+      "ts": 1777244028.520164,
+      "values": {
+        "tier_a_memory_working_set_bytes__cassandra-0": 1921454080.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 23849742.158522606,
+        "tier_a_cpu_usage_cores__cassandra-2": 2.1364209431761125,
+        "tier_a_cpu_usage_cores__cassandra-1": 1.9885963545546275,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1927507968.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 9255364.529683355,
+        "tier_a_cpu_usage_cores__cassandra-0": 2.1690533693148573,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 5946769.079088613,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1944367104.0
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 109.576191,
+        "p99_ms": 204.406783,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 119,
+      "ts": 1777244029.5203428,
+      "values": {
+        "tier_a_memory_working_set_bytes__cassandra-2": 1944367104.0,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1927507968.0,
+        "tier_a_cpu_usage_cores__cassandra-2": 1.9732967631712515,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 23849742.158522606,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1921454080.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 2.1690533693148573,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 5477025.550849149,
+        "tier_a_cpu_usage_cores__cassandra-1": 1.9885963545546277,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 9255364.529683355
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 109.576191,
+        "p99_ms": 204.406783,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 120,
+      "ts": 1777244030.520467,
+      "values": {
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 9255364.529683355,
+        "tier_a_cpu_usage_cores__cassandra-0": 2.1690533693148573,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 5370158.197686192,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 24848880.69293558,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1921454080.0,
+        "tier_a_cpu_usage_cores__cassandra-2": 1.934121677651142,
+        "tier_a_cpu_usage_cores__cassandra-1": 1.6693076200969308,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1944367104.0,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1927507968.0
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 109.576191,
+        "p99_ms": 204.406783,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 121,
+      "ts": 1777244031.5205805,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-1": 1.8012285764043092,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1944367104.0,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1921454080.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 9255364.529683355,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 26985798.25838951,
+        "tier_a_cpu_usage_cores__cassandra-0": 2.1690533693148573,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1927507968.0,
+        "tier_a_cpu_usage_cores__cassandra-2": 1.8946731867485394,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 5260692.246270031
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 109.576191,
+        "p99_ms": 204.406783,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 122,
+      "ts": 1777244032.5201712,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-2": 1.8560839699052014,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 5153824.893107072,
+        "tier_a_cpu_usage_cores__cassandra-0": 2.1690533693148573,
+        "tier_a_cpu_usage_cores__cassandra-1": 1.6465081315287522,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1921454080.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 24831225.181461927,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 9255364.529683355,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1944367104.0,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1927507968.0
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 109.576191,
+        "p99_ms": 204.406783,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 123,
+      "ts": 1777244033.520391,
+      "values": {
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 22478056.45568113,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1927507968.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 2.1690533693148573,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 5222615.137525989,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1921454080.0,
+        "tier_a_cpu_usage_cores__cassandra-2": 1.748744988748647,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1944367104.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 1.4988738786475262,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 9255364.529683355
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 109.576191,
+        "p99_ms": 204.406783,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 124,
+      "ts": 1777244034.5201414,
+      "values": {
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 4640007.878395004,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1921454080.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 1.771817097980695,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1905373184.0,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1927507968.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 1.4690035047554881,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 8196487.847242998,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 22028293.151374638,
+        "tier_a_cpu_usage_cores__cassandra-2": 1.8134743898529677
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 109.576191,
+        "p99_ms": 204.406783,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 125,
+      "ts": 1777244035.5206497,
+      "values": {
+        "tier_a_memory_working_set_bytes__cassandra-2": 1905373184.0,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1921454080.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 1.4647465243856166,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1927507968.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 8536062.962177148,
+        "tier_a_cpu_usage_cores__cassandra-2": 1.8134743898529677,
+        "tier_a_cpu_usage_cores__cassandra-1": 1.438472680385435,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 21570883.870894935,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 4640007.878395004
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 109.576191,
+        "p99_ms": 204.406783,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 126,
+      "ts": 1777244036.5201929,
+      "values": {
+        "tier_a_memory_working_set_bytes__cassandra-2": 1905373184.0,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1927507968.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 1.40854226554085,
+        "tier_a_cpu_usage_cores__cassandra-0": 1.4630677253065238,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 21122469.856501363,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 4640007.878395004,
+        "tier_a_cpu_usage_cores__cassandra-2": 1.8134743898529677,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 8541943.448053153,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1921454080.0
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 109.576191,
+        "p99_ms": 204.406783,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 127,
+      "ts": 1777244037.5202482,
+      "values": {
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 4076306.384606017,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1921454080.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 17417487.895299144,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1905373184.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 7739413.013329117,
+        "tier_a_cpu_usage_cores__cassandra-1": 1.3669367339077172,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1950187520.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 1.335449611156908,
+        "tier_a_cpu_usage_cores__cassandra-2": 1.6583212164348096
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 109.576191,
+        "p99_ms": 204.406783,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 128,
+      "ts": 1777244038.520296,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-1": 1.3669367339077172,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 17417487.895299144,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 4076306.384606017,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1950187520.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 8314148.41558066,
+        "tier_a_cpu_usage_cores__cassandra-2": 1.6583212164348096,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1921454080.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 1.422360871510179,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1905373184.0
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 109.576191,
+        "p99_ms": 204.406783,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 129,
+      "ts": 1777244039.520276,
+      "values": {
+        "tier_a_memory_working_set_bytes__cassandra-0": 1921454080.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 1.393661968712122,
+        "tier_a_cpu_usage_cores__cassandra-1": 1.3669367339077172,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1950187520.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 17417487.895299144,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 8146234.561610028,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1905373184.0,
+        "tier_a_cpu_usage_cores__cassandra-2": 1.6583212164348096,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 4076306.384606017
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 109.576191,
+        "p99_ms": 204.406783,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 130,
+      "ts": 1777244040.520164,
+      "values": {
+        "tier_a_memory_working_set_bytes__cassandra-0": 1921454080.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 7978151.780220915,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1950187520.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 4076306.384606017,
+        "tier_a_cpu_usage_cores__cassandra-2": 1.6583212164348096,
+        "tier_a_cpu_usage_cores__cassandra-0": 1.3644712500395013,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 17417487.895299144,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1905373184.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 1.3669367339077172
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 109.576191,
+        "p99_ms": 204.406783,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 131,
+      "ts": 1777244041.520431,
+      "values": {
+        "tier_a_memory_working_set_bytes__cassandra-2": 1905373184.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 1.33594592931482,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1950187520.0,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1921454080.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 4076306.384606017,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 7805845.813369764,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 17417487.895299144,
+        "tier_a_cpu_usage_cores__cassandra-1": 1.3669367339077172,
+        "tier_a_cpu_usage_cores__cassandra-2": 1.6583212164348096
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 109.576191,
+        "p99_ms": 204.406783,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 132,
+      "ts": 1777244042.520113,
+      "values": {
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 17417487.895299144,
+        "tier_a_cpu_usage_cores__cassandra-0": 1.3048458078350706,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1905373184.0,
+        "tier_a_cpu_usage_cores__cassandra-2": 1.6583212164348096,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1921454080.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 4076306.384606017,
+        "tier_a_cpu_usage_cores__cassandra-1": 1.3669367339077172,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 7626613.8223608695,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1950187520.0
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 109.576191,
+        "p99_ms": 204.406783,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 133,
+      "ts": 1777244043.5203984,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-2": 1.6583212164348096,
+        "tier_a_cpu_usage_cores__cassandra-1": 1.0578495384582103,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 19023454.77708752,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 7466639.557058869,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1950187520.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 4076306.384606017,
+        "tier_a_cpu_usage_cores__cassandra-0": 1.2772751885139533,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1905373184.0,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1921454080.0
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 109.576191,
+        "p99_ms": 204.406783,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 134,
+      "ts": 1777244044.5202706,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-0": 1.3627941831257795,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1950187520.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 19023454.777087517,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1881456640.0,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1918062592.0,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.9827777561019898,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 6607165.435920021,
+        "tier_a_cpu_usage_cores__cassandra-1": 1.0578495384582103,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 1907328.2443353957
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 109.576191,
+        "p99_ms": 204.406783,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 135,
+      "ts": 1777244045.5201278,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-0": 1.3627941831257795,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1918062592.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 1.0578495384582103,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 6607165.435920021,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.9894315141265915,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 1917094.8342267545,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1881456640.0,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1950187520.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 19023454.777087517
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 109.576191,
+        "p99_ms": 204.406783,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 136,
+      "ts": 1777244046.520189,
+      "values": {
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 6607165.435920021,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 2006672.6225167443,
+        "tier_a_cpu_usage_cores__cassandra-1": 1.0578495384582103,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1918062592.0,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1881456640.0,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1950187520.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 19023454.777087517,
+        "tier_a_cpu_usage_cores__cassandra-0": 1.3627941831257795,
+        "tier_a_cpu_usage_cores__cassandra-2": 1.0506018635793493
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 109.576191,
+        "p99_ms": 204.406783,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 137,
+      "ts": 1777244047.52028,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-2": 1.0506018635793493,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1918062592.0,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1926651904.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 13550543.446669227,
+        "tier_a_cpu_usage_cores__cassandra-0": 1.3627941831257795,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1881456640.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.5886617192744528,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 6607165.435920021,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 2006672.6225167443
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 109.576191,
+        "p99_ms": 204.406783,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 138,
+      "ts": 1777244048.5202665,
+      "values": {
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 13675341.566443238,
+        "tier_a_cpu_usage_cores__cassandra-2": 1.0506018635793493,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1918062592.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 1.1648639944446977,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 2006672.6225167443,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1881456640.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.593565334958114,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1926651904.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 6351236.9314980935
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 109.576191,
+        "p99_ms": 204.406783,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 139,
+      "ts": 1777244049.5206773,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-0": 1.1648639944446977,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1881456640.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 1198520.5403708345,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 14835303.311076004,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.8068163480180749,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.6392357836351006,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1918062592.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 6351236.9314980935,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1926651904.0
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 109.576191,
+        "p99_ms": 204.406783,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 140,
+      "ts": 1777244050.520451,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-0": 1.1648639944446977,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 6351236.931498094,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.8068163480180748,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.595963094931688,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 13737304.269268095,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1881456640.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 1198520.5403708345,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1926651904.0,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1918062592.0
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 109.576191,
+        "p99_ms": 201.375743,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 141,
+      "ts": 1777244051.5201573,
+      "values": {
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 13610885.394691825,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 6351236.9314980935,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.8068163480180749,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 1198520.5403708345,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1926651904.0,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1918062592.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 1.1648639944446977,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1881456640.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.5908825953155499
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 105.594879,
+        "p99_ms": 201.375743,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 142,
+      "ts": 1777244052.5205462,
+      "values": {
+        "tier_a_memory_working_set_bytes__cassandra-2": 1918062592.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 1.1648639944446977,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 13488830.090737022,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.8068163480180748,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 6351236.931498094,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 1198520.5403708345,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1881456640.0,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1926651904.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.5860919888109708
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 105.594879,
+        "p99_ms": 201.375743,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 143,
+      "ts": 1777244053.5205345,
+      "values": {
+        "tier_a_memory_working_set_bytes__cassandra-1": 1926651904.0,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1918062592.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 13364780.011640977,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1881456640.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 6231966.998206893,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.8068163480180748,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.5812227672252911,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.8089398308346947,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 1198520.5403708345
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 105.594879,
+        "p99_ms": 201.375743,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 144,
+      "ts": 1777244054.5205693,
+      "values": {
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 1198520.5403708345,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1926651904.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.7444873059430739,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1918062592.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 13239233.851189,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 5613209.319612992,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1881456640.0,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.8068163480180748,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.5763289784267673
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 105.594879,
+        "p99_ms": 201.375743,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 145,
+      "ts": 1777244055.5202425,
+      "values": {
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 13114560.404861316,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1881456640.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 1198520.5403708345,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.729801569734206,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.8068163480180748,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1918062592.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 5501860.816731878,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.5713860552025555,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1926651904.0
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 189.284351,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 146,
+      "ts": 1777244056.5205247,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-1": 0.5665168336168758,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 5392504.632987802,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 12989886.958533634,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.7151745177859129,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1918062592.0,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1881456640.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 1110778.208224811,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1926651904.0,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.7485532556609615
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 189.284351,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 147,
+      "ts": 1777244057.5202558,
+      "values": {
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 1100720.1308588884,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1881456640.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 5281930.920882203,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.7004154262513262,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1918062592.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.616475787127367,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 11878368.329033546,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.7417867403611602,
+        "tier_a_memory_working_set_bytes__cassandra-1": 2008780800.0
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 189.284351,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 148,
+      "ts": 1777244058.5204124,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-0": 0.5191231956899403,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1918062592.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 5729413.275800159,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 4568767.004554595,
+        "tier_a_memory_working_set_bytes__cassandra-1": 2008780800.0,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.6760142808764432,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1881456640.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.4973797818963373,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 1003622.2347025783
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 189.284351,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 149,
+      "ts": 1777244059.5203571,
+      "values": {
+        "tier_a_memory_working_set_bytes__cassandra-0": 1881456640.0,
+        "tier_a_memory_working_set_bytes__cassandra-1": 2008780800.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.4973797818963373,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 5607280.801527765,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.6626480233776104,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 4568767.004554595,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1918062592.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 983886.5964711385,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.5079261430678345
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 150,
+      "ts": 1777244060.520457,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-0": 0.4971368571258646,
+        "tier_a_memory_working_set_bytes__cassandra-1": 2008780800.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 4568767.004554595,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 964071.0568703408,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.6490666148526396,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.4973797818963373,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1918062592.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 5484419.178155236,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1881456640.0
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 151,
+      "ts": 1777244061.520091,
+      "values": {
+        "tier_a_memory_working_set_bytes__cassandra-0": 1881456640.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.48608307387786065,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 944215.5665848639,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1918062592.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 5364595.676033264,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 4568767.004554595,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.6357541451103413,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.4973797818963373,
+        "tier_a_memory_working_set_bytes__cassandra-1": 2008780800.0
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 152,
+      "ts": 1777244062.5204334,
+      "values": {
+        "tier_a_memory_working_set_bytes__cassandra-0": 1881456640.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.47493010414009396,
+        "tier_a_memory_working_set_bytes__cassandra-1": 2008780800.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 129373.10769064838,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 4561682.267999711,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 5242098.627210801,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.5096594623608465,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1918062592.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.4621348489542467
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 153,
+      "ts": 1777244063.5203507,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-0": 0.46400856954510705,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1918062592.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.4584055840924768,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 4560931.122484689,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 5121302.926288649,
+        "tier_a_memory_working_set_bytes__cassandra-1": 2008780800.0,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.49855449536481045,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 126584.10477643443,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1881456640.0
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 154,
+      "ts": 1777244064.5202186,
+      "values": {
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 4560173.182688626,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1896538112.0,
+        "tier_a_memory_working_set_bytes__cassandra-1": 2008780800.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.4546237414783757,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.6979112621639924,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1931100160.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 4937643.480906304,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 325068.6350973031,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.6217128901260787
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 155,
+      "ts": 1777244065.5201037,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-0": 0.6217128901260787,
+        "tier_a_memory_working_set_bytes__cassandra-1": 2008780800.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.435742309596866,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 325068.6350973031,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 74753.67091591346,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1896538112.0,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1931100160.0,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.6979112621639924,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 4937643.480906304
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 156,
+      "ts": 1777244066.5205226,
+      "values": {
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 4937643.480906304,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.6979112621639924,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1896538112.0,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1931100160.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.4319604669827649,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.6217128901260787,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 325068.6350973031,
+        "tier_a_memory_working_set_bytes__cassandra-1": 2008780800.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 74001.77048077525
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 157,
+      "ts": 1777244067.5204124,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-0": 0.5984285778905301,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.6979112621639925,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 325068.6350973031,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1896538112.0,
+        "tier_a_memory_working_set_bytes__cassandra-1": 2013904896.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 109629.92802425715,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 2788429.183177564,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.48965059576066305,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1931100160.0
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 158,
+      "ts": 1777244068.5203605,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-2": 0.6979112621639924,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 513603.67127445486,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.6099124111361218,
+        "tier_a_memory_working_set_bytes__cassandra-1": 2013904896.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 325068.6350973031,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1896538112.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.48965059576066305,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1931100160.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 109629.92802425715
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 159,
+      "ts": 1777244069.5201654,
+      "values": {
+        "tier_a_memory_working_set_bytes__cassandra-2": 1931100160.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 109629.92802425715,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.48965059576066305,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 325068.6350973031,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1896538112.0,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.6979112621639924,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.6099124111361218,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 513603.6712744548,
+        "tier_a_memory_working_set_bytes__cassandra-1": 2013904896.0
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 160,
+      "ts": 1777244070.520446,
+      "values": {
+        "tier_a_memory_working_set_bytes__cassandra-1": 2013904896.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 513603.6712744549,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 109629.92802425715,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.6979112621639925,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.48965059576066305,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1931100160.0,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1896538112.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 325068.6350973031,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.6099124111361218
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 161,
+      "ts": 1777244071.520471,
+      "values": {
+        "tier_a_memory_working_set_bytes__cassandra-0": 1896538112.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.6099124111361218,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.6979112621639924,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 109629.92802425715,
+        "tier_a_memory_working_set_bytes__cassandra-1": 2013904896.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.48965059576066305,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 325068.6350973031,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 513603.6712744548,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1931100160.0
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 162,
+      "ts": 1777244072.5205567,
+      "values": {
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 260645.5380618201,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.6099124111361218,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 513603.67127445486,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 109629.92802425715,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.48965059576066305,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1896538112.0,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.5481312510310918,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1931100160.0,
+        "tier_a_memory_working_set_bytes__cassandra-1": 2013904896.0
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 163,
+      "ts": 1777244073.5206156,
+      "values": {
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 513603.67127445486,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 109629.92802425715,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.48965059576066305,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1896538112.0,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.5481312510310918,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.6099124111361218,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 260645.5380618201,
+        "tier_a_memory_working_set_bytes__cassandra-1": 2013904896.0,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1931100160.0
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 164,
+      "ts": 1777244074.5201664,
+      "values": {
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 410996.7566992026,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.6740921933451348,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1901375488.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.43993939039288465,
+        "tier_a_memory_working_set_bytes__cassandra-1": 2013904896.0,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1883467776.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.6896526224742687,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 102119.0330109917,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 416559.88210043707
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 165,
+      "ts": 1777244075.5205774,
+      "values": {
+        "tier_a_memory_working_set_bytes__cassandra-1": 2013904896.0,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1883467776.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 112463.10166110695,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 458300.7752390336,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.6896526224742687,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1901375488.0,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.6353524716294177,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 410996.7566992026,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.39999117729004846
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 166,
+      "ts": 1777244076.5201857,
+      "values": {
+        "tier_a_memory_working_set_bytes__cassandra-0": 1883467776.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.36444141222841214,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.6353524716294174,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 410996.7566992026,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 98800.83084097499,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 458300.7752390335,
+        "tier_a_memory_working_set_bytes__cassandra-1": 2013904896.0,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1901375488.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.6896526224742687
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 167,
+      "ts": 1777244077.5201008,
+      "values": {
+        "tier_a_memory_working_set_bytes__cassandra-0": 1883467776.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 144324.67837078182,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1892057088.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 458300.7752390336,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 410996.7566992026,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.6353524716294177,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1901375488.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.6896526224742687,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.36999557235695146
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 168,
+      "ts": 1777244078.5201948,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-0": 0.6896526224742687,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 410996.7566992026,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 144324.67837078182,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1901375488.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 458300.7752390335,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1892057088.0,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1883467776.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.36999557235695146,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.6353524716294177
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 169,
+      "ts": 1777244079.5202498,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-1": 0.36999557235695146,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.6353524716294177,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1883467776.0,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1892057088.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 458300.7752390336,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 144324.67837078182,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1901375488.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 410996.7566992026,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.6896526224742687
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 170,
+      "ts": 1777244080.5205686,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-2": 0.6353524716294175,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1883467776.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.36999557235695146,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1892057088.0,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1901375488.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 144324.67837078182,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 410996.7566992026,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.6896526224742687,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 458300.7752390336
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 171,
+      "ts": 1777244081.5204935,
+      "values": {
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 144324.67837078182,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.36999557235695146,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1901375488.0,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.6353524716294175,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1883467776.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 497232.6014917856,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.6938032375384434,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 458300.7752390335,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1892057088.0
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 172,
+      "ts": 1777244082.520473,
+      "values": {
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 458300.7752390335,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1883467776.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.36999557235695146,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1901375488.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.6494026380338347,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1892057088.0,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.6353524716294175,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 549718.5189197971,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 144324.67837078182
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 173,
+      "ts": 1777244083.5205114,
+      "values": {
+        "tier_a_memory_working_set_bytes__cassandra-0": 1883467776.0,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1892057088.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.6472135612539534,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 547829.3322526622,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 144324.67837078182,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.6353524716294177,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1901375488.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.36999557235695146,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 458300.7752390336
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 174,
+      "ts": 1777244084.5202997,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-0": 0.5937373644950721,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 144324.67837078182,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1901375488.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 426034.0342459122,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.5912301768404955,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1892057088.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 438807.8545302003,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1869295616.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.36999557235695146
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 175,
+      "ts": 1777244085.5205195,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-0": 0.5937373644950721,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.5868900170899759,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1892057088.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.36999557235695146,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 438807.85453020036,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 144324.67837078182,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1901375488.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 422860.06491342984,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1869295616.0
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 176,
+      "ts": 1777244086.5202384,
+      "values": {
+        "tier_a_memory_working_set_bytes__cassandra-1": 1892057088.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 134096.7200316401,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 438807.8545302003,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.5816551986424167,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.34393959054748224,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.5937373644950721,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1901375488.0,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1869295616.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 418950.0462510835
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 177,
+      "ts": 1777244087.520204,
+      "values": {
+        "tier_a_memory_working_set_bytes__cassandra-2": 1901375488.0,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.5937373644950721,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1869295616.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 438807.8545302003,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.36662770538931977,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1890267136.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 124433.51550535191,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 379634.021495743,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.5264152047368623
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 178,
+      "ts": 1777244088.5201209,
+      "values": {
+        "tier_a_cpu_usage_cores__cassandra-0": 0.5937373644950721,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.5161119054886053,
+        "tier_a_memory_working_set_bytes__cassandra-1": 1890267136.0,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1869295616.0,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1901375488.0,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 438807.8545302003,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 372003.31358801306,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.3635945037003324,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 123241.75814201427
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    },
+    {
+      "tick_index": 179,
+      "ts": 1777244089.5204575,
+      "values": {
+        "tier_a_memory_working_set_bytes__cassandra-1": 1890267136.0,
+        "tier_a_memory_working_set_bytes__cassandra-2": 1901375488.0,
+        "tier_a_cpu_usage_cores__cassandra-1": 0.3606311354836641,
+        "tier_a_cpu_usage_cores__cassandra-0": 0.5937373644950721,
+        "tier_a_disk_io_bytes_per_sec__cassandra-0": 438807.8545302003,
+        "tier_a_disk_io_bytes_per_sec__cassandra-1": 122072.66683463598,
+        "tier_a_cpu_usage_cores__cassandra-2": 0.6048809899335106,
+        "tier_a_disk_io_bytes_per_sec__cassandra-2": 509594.8148076136,
+        "tier_a_memory_working_set_bytes__cassandra-0": 1869295616.0
+      },
+      "metric_count": 9,
+      "slo": {
+        "p95_ms": 103.927807,
+        "p99_ms": 110.321663,
+        "threshold_ms": 200.0,
+        "slo_violated": false,
+        "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+        "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+      }
+    }
+  ],
+  "slo_collection": {
+    "enabled": true,
+    "threshold_ms": 200.0,
+    "p95_query": "max(nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+    "p99_query": "max(nosqlbench_histostat_p99_ms{tag=\"execute\"})"
+  }
+}
