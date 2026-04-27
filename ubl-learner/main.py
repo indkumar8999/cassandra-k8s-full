@@ -120,6 +120,7 @@ NB_SLO_CACHE_TTL_SEC = _env_float("NB_SLO_CACHE_TTL_SEC", 10.0)
 # Path to JSON snapshot (same shape as GET /export/som-snapshot). Reloaded after POST /reset if set.
 UBL_SNAPSHOT_PATH = os.getenv("UBL_SNAPSHOT_PATH", "").strip()
 DEFAULT_SNAPSHOT_PATH = "/models/som_trained_snapshot.json"
+USE_TRAINED_SNAPSHOT = False
 
 
 def _effective_snapshot_path() -> str:
@@ -390,14 +391,17 @@ class LearnerState:
         self.query_pool = ThreadPoolExecutor(max_workers=max(1, PROM_QUERY_WORKERS))
         self.running = True
         self.snapshot_loaded_from: Optional[str] = None
-        snapshot_path = _effective_snapshot_path()
-        if snapshot_path:
-            if os.path.isfile(snapshot_path):
-                if self._apply_som_snapshot_unlocked(snapshot_path):
-                    self.snapshot_loaded_from = snapshot_path
-            else:
-                self.last_error = f"Snapshot path configured but file missing: {snapshot_path}"
-                print(f"[SNAPSHOT] {self.last_error}")
+        if USE_TRAINED_SNAPSHOT:
+            snapshot_path = _effective_snapshot_path()
+            if snapshot_path:
+                if os.path.isfile(snapshot_path):
+                    if self._apply_som_snapshot_unlocked(snapshot_path):
+                        self.snapshot_loaded_from = snapshot_path
+                else:
+                    self.last_error = f"Snapshot path configured but file missing: {snapshot_path}"
+                    print(f"[SNAPSHOT] {self.last_error}")
+        else:
+            print("[SNAPSHOT] USE_TRAINED_SNAPSHOT=0, skipping pretrained snapshot load; bootstrap training required")
         self.thread = threading.Thread(target=self._poll_loop, daemon=True)
         self.thread.start()
 
@@ -1124,6 +1128,7 @@ def status():
                 "trained": state.trained,
                 "ready": state.ready,
                 "phase": state.phase,
+                "use_trained_snapshot": USE_TRAINED_SNAPSHOT,
                 "snapshot_loaded_from": state.snapshot_loaded_from,
                 "bootstrap_collected_samples": len(state.bootstrap_samples),
                 "bootstrap_valid_samples": valid_bootstrap_samples,
@@ -1290,13 +1295,14 @@ def reset():
         state.online_updates_since_threshold_refresh = 0
         state.knn_anomaly_count = 0
         state.snapshot_loaded_from = None
-        snapshot_path = _effective_snapshot_path()
-        if snapshot_path:
-            if os.path.isfile(snapshot_path):
-                if state._apply_som_snapshot_unlocked(snapshot_path):
-                    state.snapshot_loaded_from = snapshot_path
-            else:
-                state.last_error = f"Snapshot path configured but file missing: {snapshot_path}"
+        if USE_TRAINED_SNAPSHOT:
+            snapshot_path = _effective_snapshot_path()
+            if snapshot_path:
+                if os.path.isfile(snapshot_path):
+                    if state._apply_som_snapshot_unlocked(snapshot_path):
+                        state.snapshot_loaded_from = snapshot_path
+                else:
+                    state.last_error = f"Snapshot path configured but file missing: {snapshot_path}"
     return jsonify({"message": "learner reset"})
 
 
@@ -1398,6 +1404,7 @@ def config():
             "prom_query_timeout_sec": PROM_QUERY_TIMEOUT_SEC,
             "tier_a_features": TIER_A_FEATURES,
             "tier_a_feature_count": tier_a_feature_count,
+            "use_trained_snapshot": USE_TRAINED_SNAPSHOT,
             "ubl_snapshot_path": _effective_snapshot_path() or None,
         }
     )
