@@ -1,0 +1,1446 @@
+{
+  "count": 101,
+  "items": [
+    {
+      "bmu": [
+        29,
+        31
+      ],
+      "causes": [
+        "tier_a_memory_working_set_bytes",
+        "tier_a_disk_io_bytes_per_sec"
+      ],
+      "phase": "normal",
+      "score_area": 158.22737106320494,
+      "streak": 3,
+      "threshold": 24.105166442794292,
+      "ts": 1777252683.096939
+    },
+    {
+      "bmu": [
+        29,
+        31
+      ],
+      "causes": [
+        "tier_a_memory_working_set_bytes",
+        "tier_a_disk_io_bytes_per_sec",
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "normal",
+      "score_area": 50.85990623520476,
+      "streak": 4,
+      "threshold": 24.105166442794292,
+      "ts": 1777252683.6495068
+    },
+    {
+      "bmu": [
+        31,
+        2
+      ],
+      "causes": [
+        "tier_a_memory_working_set_bytes",
+        "tier_a_disk_io_bytes_per_sec"
+      ],
+      "phase": "normal",
+      "score_area": 67.66480424849615,
+      "streak": 3,
+      "threshold": 24.105166442794292,
+      "ts": 1777252694.8268507
+    },
+    {
+      "bmu": [
+        29,
+        1
+      ],
+      "causes": [
+        "tier_a_disk_io_bytes_per_sec",
+        "tier_a_memory_working_set_bytes"
+      ],
+      "phase": "chaos",
+      "score_area": 33.600178464836965,
+      "streak": 3,
+      "threshold": 24.105166442794292,
+      "ts": 1777252699.7845047
+    },
+    {
+      "bmu": [
+        29,
+        1
+      ],
+      "causes": [
+        "tier_a_disk_io_bytes_per_sec",
+        "tier_a_memory_working_set_bytes"
+      ],
+      "phase": "chaos",
+      "score_area": 33.600178464836965,
+      "streak": 4,
+      "threshold": 24.105166442794292,
+      "ts": 1777252700.3245459
+    },
+    {
+      "bmu": [
+        29,
+        1
+      ],
+      "causes": [
+        "tier_a_disk_io_bytes_per_sec",
+        "tier_a_memory_working_set_bytes"
+      ],
+      "phase": "chaos",
+      "score_area": 33.600178464836965,
+      "streak": 5,
+      "threshold": 24.105166442794292,
+      "ts": 1777252700.8653986
+    },
+    {
+      "bmu": [
+        9,
+        31
+      ],
+      "causes": [
+        "tier_a_disk_io_bytes_per_sec",
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 115.08154892989168,
+      "streak": 6,
+      "threshold": 24.105166442794292,
+      "ts": 1777252701.405091
+    },
+    {
+      "bmu": [
+        9,
+        31
+      ],
+      "causes": [
+        "tier_a_disk_io_bytes_per_sec",
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 115.08154892989168,
+      "streak": 7,
+      "threshold": 24.105166442794292,
+      "ts": 1777252701.9492824
+    },
+    {
+      "bmu": [
+        9,
+        31
+      ],
+      "causes": [
+        "tier_a_disk_io_bytes_per_sec",
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 115.08154892989168,
+      "streak": 8,
+      "threshold": 24.105166442794292,
+      "ts": 1777252702.4906435
+    },
+    {
+      "bmu": [
+        9,
+        31
+      ],
+      "causes": [
+        "tier_a_disk_io_bytes_per_sec",
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 115.08154892989168,
+      "streak": 9,
+      "threshold": 24.105166442794292,
+      "ts": 1777252703.0316858
+    },
+    {
+      "bmu": [
+        9,
+        31
+      ],
+      "causes": [
+        "tier_a_disk_io_bytes_per_sec",
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 115.08154892989168,
+      "streak": 10,
+      "threshold": 24.105166442794292,
+      "ts": 1777252703.5705442
+    },
+    {
+      "bmu": [
+        9,
+        31
+      ],
+      "causes": [
+        "tier_a_disk_io_bytes_per_sec",
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 115.08154892989168,
+      "streak": 11,
+      "threshold": 24.105166442794292,
+      "ts": 1777252704.1108115
+    },
+    {
+      "bmu": [
+        9,
+        31
+      ],
+      "causes": [
+        "tier_a_disk_io_bytes_per_sec",
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 115.08154892989168,
+      "streak": 12,
+      "threshold": 24.105166442794292,
+      "ts": 1777252704.6488416
+    },
+    {
+      "bmu": [
+        9,
+        31
+      ],
+      "causes": [
+        "tier_a_disk_io_bytes_per_sec",
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 115.08154892989168,
+      "streak": 13,
+      "threshold": 24.105166442794292,
+      "ts": 1777252705.504581
+    },
+    {
+      "bmu": [
+        3,
+        28
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 125.88513093602053,
+      "streak": 14,
+      "threshold": 24.105166442794292,
+      "ts": 1777252706.0452983
+    },
+    {
+      "bmu": [
+        3,
+        28
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 125.88513093602053,
+      "streak": 15,
+      "threshold": 24.105166442794292,
+      "ts": 1777252706.5882347
+    },
+    {
+      "bmu": [
+        3,
+        28
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 125.88513093602053,
+      "streak": 16,
+      "threshold": 24.105166442794292,
+      "ts": 1777252707.1299987
+    },
+    {
+      "bmu": [
+        26,
+        0
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 265.72484259058416,
+      "streak": 17,
+      "threshold": 24.105166442794292,
+      "ts": 1777252707.6711934
+    },
+    {
+      "bmu": [
+        26,
+        0
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 265.72484259058416,
+      "streak": 18,
+      "threshold": 24.105166442794292,
+      "ts": 1777252708.214364
+    },
+    {
+      "bmu": [
+        9,
+        31
+      ],
+      "causes": [
+        "tier_a_disk_io_bytes_per_sec",
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 115.08154892989168,
+      "streak": 19,
+      "threshold": 24.105166442794292,
+      "ts": 1777252708.7518916
+    },
+    {
+      "bmu": [
+        9,
+        31
+      ],
+      "causes": [
+        "tier_a_disk_io_bytes_per_sec",
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 115.08154892989168,
+      "streak": 20,
+      "threshold": 24.105166442794292,
+      "ts": 1777252709.2914572
+    },
+    {
+      "bmu": [
+        9,
+        31
+      ],
+      "causes": [
+        "tier_a_disk_io_bytes_per_sec",
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 115.08154892989168,
+      "streak": 21,
+      "threshold": 24.105166442794292,
+      "ts": 1777252709.8357706
+    },
+    {
+      "bmu": [
+        9,
+        31
+      ],
+      "causes": [
+        "tier_a_disk_io_bytes_per_sec",
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 115.08154892989168,
+      "streak": 22,
+      "threshold": 24.105166442794292,
+      "ts": 1777252710.3783228
+    },
+    {
+      "bmu": [
+        9,
+        31
+      ],
+      "causes": [
+        "tier_a_disk_io_bytes_per_sec",
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 115.08154892989168,
+      "streak": 23,
+      "threshold": 24.105166442794292,
+      "ts": 1777252710.9171662
+    },
+    {
+      "bmu": [
+        9,
+        31
+      ],
+      "causes": [
+        "tier_a_disk_io_bytes_per_sec",
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 115.08154892989168,
+      "streak": 24,
+      "threshold": 24.105166442794292,
+      "ts": 1777252711.5099847
+    },
+    {
+      "bmu": [
+        9,
+        31
+      ],
+      "causes": [
+        "tier_a_disk_io_bytes_per_sec",
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 115.08154892989168,
+      "streak": 25,
+      "threshold": 24.105166442794292,
+      "ts": 1777252712.0475047
+    },
+    {
+      "bmu": [
+        9,
+        31
+      ],
+      "causes": [
+        "tier_a_disk_io_bytes_per_sec",
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 115.08154892989168,
+      "streak": 26,
+      "threshold": 24.105166442794292,
+      "ts": 1777252712.5868697
+    },
+    {
+      "bmu": [
+        29,
+        1
+      ],
+      "causes": [
+        "tier_a_disk_io_bytes_per_sec",
+        "tier_a_memory_working_set_bytes"
+      ],
+      "phase": "chaos",
+      "score_area": 33.600178464836965,
+      "streak": 27,
+      "threshold": 24.105166442794292,
+      "ts": 1777252713.1282992
+    },
+    {
+      "bmu": [
+        28,
+        3
+      ],
+      "causes": [
+        "tier_a_memory_working_set_bytes",
+        "tier_a_disk_io_bytes_per_sec"
+      ],
+      "phase": "chaos",
+      "score_area": 29.326388640774738,
+      "streak": 28,
+      "threshold": 24.105166442794292,
+      "ts": 1777252713.6674836
+    },
+    {
+      "bmu": [
+        11,
+        29
+      ],
+      "causes": [
+        "tier_a_memory_working_set_bytes"
+      ],
+      "phase": "chaos",
+      "score_area": 192.94203595843334,
+      "streak": 3,
+      "threshold": 24.105166442794292,
+      "ts": 1777252717.4414053
+    },
+    {
+      "bmu": [
+        11,
+        29
+      ],
+      "causes": [
+        "tier_a_memory_working_set_bytes"
+      ],
+      "phase": "chaos",
+      "score_area": 192.94203595843334,
+      "streak": 4,
+      "threshold": 24.105166442794292,
+      "ts": 1777252717.9817243
+    },
+    {
+      "bmu": [
+        20,
+        3
+      ],
+      "causes": [
+        "tier_a_disk_io_bytes_per_sec",
+        "tier_a_memory_working_set_bytes"
+      ],
+      "phase": "chaos",
+      "score_area": 142.34590182726043,
+      "streak": 5,
+      "threshold": 24.105166442794292,
+      "ts": 1777252718.5406134
+    },
+    {
+      "bmu": [
+        3,
+        28
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 125.88513093602053,
+      "streak": 6,
+      "threshold": 24.105166442794292,
+      "ts": 1777252719.0779538
+    },
+    {
+      "bmu": [
+        3,
+        28
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 125.88513093602053,
+      "streak": 7,
+      "threshold": 24.105166442794292,
+      "ts": 1777252719.6155434
+    },
+    {
+      "bmu": [
+        3,
+        28
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 125.88513093602053,
+      "streak": 8,
+      "threshold": 24.105166442794292,
+      "ts": 1777252720.1546712
+    },
+    {
+      "bmu": [
+        3,
+        28
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 125.88513093602053,
+      "streak": 9,
+      "threshold": 24.105166442794292,
+      "ts": 1777252720.693685
+    },
+    {
+      "bmu": [
+        3,
+        28
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 125.88513093602053,
+      "streak": 10,
+      "threshold": 24.105166442794292,
+      "ts": 1777252721.2320461
+    },
+    {
+      "bmu": [
+        3,
+        28
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 125.88513093602053,
+      "streak": 11,
+      "threshold": 24.105166442794292,
+      "ts": 1777252721.7678378
+    },
+    {
+      "bmu": [
+        3,
+        28
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 125.88513093602053,
+      "streak": 12,
+      "threshold": 24.105166442794292,
+      "ts": 1777252722.3112879
+    },
+    {
+      "bmu": [
+        20,
+        3
+      ],
+      "causes": [
+        "tier_a_disk_io_bytes_per_sec",
+        "tier_a_memory_working_set_bytes"
+      ],
+      "phase": "chaos",
+      "score_area": 142.34590182726043,
+      "streak": 13,
+      "threshold": 24.105166442794292,
+      "ts": 1777252722.8523066
+    },
+    {
+      "bmu": [
+        11,
+        29
+      ],
+      "causes": [
+        "tier_a_memory_working_set_bytes"
+      ],
+      "phase": "chaos",
+      "score_area": 192.94203595843334,
+      "streak": 14,
+      "threshold": 24.105166442794292,
+      "ts": 1777252723.3925173
+    },
+    {
+      "bmu": [
+        19,
+        31
+      ],
+      "causes": [
+        "tier_a_memory_working_set_bytes"
+      ],
+      "phase": "chaos",
+      "score_area": 113.47019117316353,
+      "streak": 3,
+      "threshold": 24.105166442794292,
+      "ts": 1777252725.559819
+    },
+    {
+      "bmu": [
+        19,
+        31
+      ],
+      "causes": [
+        "tier_a_memory_working_set_bytes"
+      ],
+      "phase": "chaos",
+      "score_area": 113.47019117316353,
+      "streak": 4,
+      "threshold": 24.105166442794292,
+      "ts": 1777252726.101488
+    },
+    {
+      "bmu": [
+        10,
+        31
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 257.48517022441297,
+      "streak": 3,
+      "threshold": 24.105166442794292,
+      "ts": 1777252733.7777
+    },
+    {
+      "bmu": [
+        10,
+        31
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 257.48517022441297,
+      "streak": 4,
+      "threshold": 24.105166442794292,
+      "ts": 1777252734.322111
+    },
+    {
+      "bmu": [
+        10,
+        31
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 257.48517022441297,
+      "streak": 5,
+      "threshold": 24.105166442794292,
+      "ts": 1777252734.8649347
+    },
+    {
+      "bmu": [
+        10,
+        31
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 257.48517022441297,
+      "streak": 6,
+      "threshold": 24.105166442794292,
+      "ts": 1777252735.4084241
+    },
+    {
+      "bmu": [
+        10,
+        31
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 257.48517022441297,
+      "streak": 7,
+      "threshold": 24.105166442794292,
+      "ts": 1777252735.9490616
+    },
+    {
+      "bmu": [
+        10,
+        31
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 257.48517022441297,
+      "streak": 8,
+      "threshold": 24.105166442794292,
+      "ts": 1777252736.4861073
+    },
+    {
+      "bmu": [
+        10,
+        31
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 257.48517022441297,
+      "streak": 9,
+      "threshold": 24.105166442794292,
+      "ts": 1777252737.0243986
+    },
+    {
+      "bmu": [
+        10,
+        31
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 257.48517022441297,
+      "streak": 10,
+      "threshold": 24.105166442794292,
+      "ts": 1777252737.5626514
+    },
+    {
+      "bmu": [
+        10,
+        31
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 257.48517022441297,
+      "streak": 11,
+      "threshold": 24.105166442794292,
+      "ts": 1777252738.1023247
+    },
+    {
+      "bmu": [
+        10,
+        31
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 257.48517022441297,
+      "streak": 12,
+      "threshold": 24.105166442794292,
+      "ts": 1777252738.6399293
+    },
+    {
+      "bmu": [
+        10,
+        31
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 257.48517022441297,
+      "streak": 13,
+      "threshold": 24.105166442794292,
+      "ts": 1777252739.1834285
+    },
+    {
+      "bmu": [
+        10,
+        31
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 257.48517022441297,
+      "streak": 14,
+      "threshold": 24.105166442794292,
+      "ts": 1777252739.7223103
+    },
+    {
+      "bmu": [
+        10,
+        31
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 257.48517022441297,
+      "streak": 15,
+      "threshold": 24.105166442794292,
+      "ts": 1777252740.261459
+    },
+    {
+      "bmu": [
+        10,
+        31
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 257.48517022441297,
+      "streak": 16,
+      "threshold": 24.105166442794292,
+      "ts": 1777252740.798099
+    },
+    {
+      "bmu": [
+        10,
+        31
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 257.48517022441297,
+      "streak": 17,
+      "threshold": 24.105166442794292,
+      "ts": 1777252741.3395684
+    },
+    {
+      "bmu": [
+        10,
+        31
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 257.48517022441297,
+      "streak": 18,
+      "threshold": 24.105166442794292,
+      "ts": 1777252741.8790948
+    },
+    {
+      "bmu": [
+        10,
+        31
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 257.48517022441297,
+      "streak": 19,
+      "threshold": 24.105166442794292,
+      "ts": 1777252742.418206
+    },
+    {
+      "bmu": [
+        10,
+        31
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 257.48517022441297,
+      "streak": 20,
+      "threshold": 24.105166442794292,
+      "ts": 1777252742.9596727
+    },
+    {
+      "bmu": [
+        10,
+        31
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 257.48517022441297,
+      "streak": 21,
+      "threshold": 24.105166442794292,
+      "ts": 1777252743.4993618
+    },
+    {
+      "bmu": [
+        10,
+        31
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 257.48517022441297,
+      "streak": 22,
+      "threshold": 24.105166442794292,
+      "ts": 1777252744.0375183
+    },
+    {
+      "bmu": [
+        10,
+        31
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 257.48517022441297,
+      "streak": 23,
+      "threshold": 24.105166442794292,
+      "ts": 1777252744.5758648
+    },
+    {
+      "bmu": [
+        10,
+        31
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 257.48517022441297,
+      "streak": 24,
+      "threshold": 24.105166442794292,
+      "ts": 1777252745.1724994
+    },
+    {
+      "bmu": [
+        10,
+        31
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 257.48517022441297,
+      "streak": 25,
+      "threshold": 24.105166442794292,
+      "ts": 1777252745.7116122
+    },
+    {
+      "bmu": [
+        10,
+        31
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 257.48517022441297,
+      "streak": 26,
+      "threshold": 24.105166442794292,
+      "ts": 1777252746.2532847
+    },
+    {
+      "bmu": [
+        10,
+        31
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 257.48517022441297,
+      "streak": 27,
+      "threshold": 24.105166442794292,
+      "ts": 1777252746.7903368
+    },
+    {
+      "bmu": [
+        10,
+        31
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 257.48517022441297,
+      "streak": 28,
+      "threshold": 24.105166442794292,
+      "ts": 1777252747.3315144
+    },
+    {
+      "bmu": [
+        10,
+        31
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 257.48517022441297,
+      "streak": 29,
+      "threshold": 24.105166442794292,
+      "ts": 1777252747.8689473
+    },
+    {
+      "bmu": [
+        10,
+        31
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 257.48517022441297,
+      "streak": 30,
+      "threshold": 24.105166442794292,
+      "ts": 1777252748.4077172
+    },
+    {
+      "bmu": [
+        10,
+        31
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 257.48517022441297,
+      "streak": 31,
+      "threshold": 24.105166442794292,
+      "ts": 1777252748.9507747
+    },
+    {
+      "bmu": [
+        10,
+        31
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 257.48517022441297,
+      "streak": 32,
+      "threshold": 24.105166442794292,
+      "ts": 1777252749.4879806
+    },
+    {
+      "bmu": [
+        10,
+        31
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 257.48517022441297,
+      "streak": 33,
+      "threshold": 24.105166442794292,
+      "ts": 1777252750.0273943
+    },
+    {
+      "bmu": [
+        10,
+        31
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 257.48517022441297,
+      "streak": 34,
+      "threshold": 24.105166442794292,
+      "ts": 1777252750.564019
+    },
+    {
+      "bmu": [
+        10,
+        31
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 257.48517022441297,
+      "streak": 35,
+      "threshold": 24.105166442794292,
+      "ts": 1777252751.101586
+    },
+    {
+      "bmu": [
+        10,
+        31
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 257.48517022441297,
+      "streak": 36,
+      "threshold": 24.105166442794292,
+      "ts": 1777252751.6436882
+    },
+    {
+      "bmu": [
+        10,
+        31
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 257.48517022441297,
+      "streak": 37,
+      "threshold": 24.105166442794292,
+      "ts": 1777252752.1819987
+    },
+    {
+      "bmu": [
+        10,
+        31
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 257.48517022441297,
+      "streak": 38,
+      "threshold": 24.105166442794292,
+      "ts": 1777252752.7223186
+    },
+    {
+      "bmu": [
+        10,
+        31
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 257.48517022441297,
+      "streak": 39,
+      "threshold": 24.105166442794292,
+      "ts": 1777252753.2609167
+    },
+    {
+      "bmu": [
+        10,
+        31
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 257.48517022441297,
+      "streak": 40,
+      "threshold": 24.105166442794292,
+      "ts": 1777252753.7987225
+    },
+    {
+      "bmu": [
+        10,
+        31
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 257.48517022441297,
+      "streak": 41,
+      "threshold": 24.105166442794292,
+      "ts": 1777252754.3425047
+    },
+    {
+      "bmu": [
+        10,
+        31
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 257.48517022441297,
+      "streak": 42,
+      "threshold": 24.105166442794292,
+      "ts": 1777252754.8807902
+    },
+    {
+      "bmu": [
+        10,
+        31
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 257.48517022441297,
+      "streak": 43,
+      "threshold": 24.105166442794292,
+      "ts": 1777252755.4230454
+    },
+    {
+      "bmu": [
+        10,
+        31
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 257.48517022441297,
+      "streak": 44,
+      "threshold": 24.105166442794292,
+      "ts": 1777252755.9653888
+    },
+    {
+      "bmu": [
+        10,
+        31
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 257.48517022441297,
+      "streak": 45,
+      "threshold": 24.105166442794292,
+      "ts": 1777252756.5026462
+    },
+    {
+      "bmu": [
+        10,
+        31
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 257.48517022441297,
+      "streak": 46,
+      "threshold": 24.105166442794292,
+      "ts": 1777252757.0470665
+    },
+    {
+      "bmu": [
+        10,
+        31
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 257.48517022441297,
+      "streak": 47,
+      "threshold": 24.105166442794292,
+      "ts": 1777252757.6450586
+    },
+    {
+      "bmu": [
+        10,
+        31
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 257.48517022441297,
+      "streak": 48,
+      "threshold": 24.105166442794292,
+      "ts": 1777252758.1826732
+    },
+    {
+      "bmu": [
+        10,
+        31
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "cooldown",
+      "score_area": 257.48517022441297,
+      "streak": 49,
+      "threshold": 24.105166442794292,
+      "ts": 1777252758.7232084
+    },
+    {
+      "bmu": [
+        10,
+        31
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "cooldown",
+      "score_area": 86.13666245903123,
+      "streak": 50,
+      "threshold": 24.105166442794292,
+      "ts": 1777252759.2814415
+    },
+    {
+      "bmu": [
+        10,
+        31
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "cooldown",
+      "score_area": 28.663640867284055,
+      "streak": 51,
+      "threshold": 24.105166442794292,
+      "ts": 1777252759.8449585
+    },
+    {
+      "bmu": [
+        10,
+        29
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "cooldown",
+      "score_area": 155.29579053811432,
+      "streak": 3,
+      "threshold": 24.105166442794292,
+      "ts": 1777252773.9132574
+    },
+    {
+      "bmu": [
+        10,
+        29
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "cooldown",
+      "score_area": 50.11002139062803,
+      "streak": 4,
+      "threshold": 24.105166442794292,
+      "ts": 1777252774.4731455
+    },
+    {
+      "bmu": [
+        6,
+        31
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "cooldown",
+      "score_area": 237.90327300298503,
+      "streak": 3,
+      "threshold": 24.105166442794292,
+      "ts": 1777252778.3709655
+    },
+    {
+      "bmu": [
+        6,
+        31
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "cooldown",
+      "score_area": 76.40251851970663,
+      "streak": 4,
+      "threshold": 24.105166442794292,
+      "ts": 1777252778.9297931
+    },
+    {
+      "bmu": [
+        7,
+        27
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "cooldown",
+      "score_area": 84.4119605693157,
+      "streak": 3,
+      "threshold": 24.105166442794292,
+      "ts": 1777252782.8163054
+    },
+    {
+      "bmu": [
+        7,
+        27
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "cooldown",
+      "score_area": 27.199205730797466,
+      "streak": 4,
+      "threshold": 24.105166442794292,
+      "ts": 1777252783.3749595
+    },
+    {
+      "bmu": [
+        5,
+        27
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "cooldown",
+      "score_area": 191.01980181144015,
+      "streak": 3,
+      "threshold": 24.105166442794292,
+      "ts": 1777252787.278418
+    },
+    {
+      "bmu": [
+        8,
+        24
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "cooldown",
+      "score_area": 315.7869786184254,
+      "streak": 4,
+      "threshold": 24.105166442794292,
+      "ts": 1777252787.8328862
+    },
+    {
+      "bmu": [
+        6,
+        24
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "cooldown",
+      "score_area": 273.40230814652995,
+      "streak": 5,
+      "threshold": 24.105166442794292,
+      "ts": 1777252788.3995879
+    }
+  ]
+}
