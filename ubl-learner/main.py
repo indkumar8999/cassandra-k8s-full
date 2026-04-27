@@ -97,6 +97,8 @@ SOM_LR = _env_float("SOM_LR", 0.7)
 SOM_SIGMA = _env_float("SOM_SIGMA", 4.0)
 TRAIN_EPOCHS = _env_int("TRAIN_EPOCHS", 10)
 THRESHOLD_PERCENTILE = _env_float("THRESHOLD_PERCENTILE", 85.0)
+KNN_K = _env_int("KNN_K", 5)
+KNN_TAU_PERCENTILE = _env_float("KNN_TAU_PERCENTILE", 95.0)
 ANOMALY_STREAK = _env_int("ANOMALY_STREAK", 3)
 SMOOTH_K = _env_int("SMOOTH_K", 5)
 CAUSE_Q = _env_int("CAUSE_Q", 5)
@@ -348,10 +350,24 @@ class LearnerState:
         self.capacity_norm_max_cached: Optional[Dict[str, float]] = None
         self.capacity_norm_max_cached_at: Optional[float] = None
         self.feature_order: List[str] = []
+        # Legacy SOM fields map to the smoothed model for backward compatibility.
         self.som: Optional[SOM] = None
         self.area_map: Optional[np.ndarray] = None
         self.threshold: float = 0.0
+        self.som_smoothed: Optional[SOM] = None
+        self.area_map_smoothed: Optional[np.ndarray] = None
+        self.threshold_smoothed: float = 0.0
+        self.som_nosmooth: Optional[SOM] = None
+        self.area_map_nosmooth: Optional[np.ndarray] = None
+        self.threshold_nosmooth: float = 0.0
+        self.knn_ref_vectors: Optional[np.ndarray] = None
+        self.knn_k: int = int(KNN_K)
+        self.knn_tau: float = 0.0
+        self.knn_tau_percentile: float = float(KNN_TAU_PERCENTILE)
         self.anomaly_streak = 0
+        self.anomaly_streak_smoothed = 0
+        self.anomaly_streak_nosmooth = 0
+        self.anomaly_streak_knn = 0
         self.score_stream = deque(maxlen=MAX_SCORE_STREAM)
         self.alarms = deque(maxlen=MAX_ALARMS)
         self.last_error: Optional[str] = None
@@ -362,6 +378,9 @@ class LearnerState:
         self.total_samples_scored = 0
         self.score_latency_ms = deque(maxlen=MAX_SCORE_STREAM)
         self.bmu_hits = Counter()
+        self.bmu_hits_smoothed = Counter()
+        self.bmu_hits_nosmooth = Counter()
+        self.knn_anomaly_count = 0
         self.scored_by_phase = Counter()
         self.dropped_missing_tier_a = 0
         self.dropped_missing_tier_b = 0
@@ -381,6 +400,12 @@ class LearnerState:
                 print(f"[SNAPSHOT] {self.last_error}")
         self.thread = threading.Thread(target=self._poll_loop, daemon=True)
         self.thread.start()
+
+    def _sync_legacy_model_aliases(self) -> None:
+        """Keep legacy fields pointed at the smoothed model."""
+        self.som = self.som_smoothed
+        self.area_map = self.area_map_smoothed
+        self.threshold = float(self.threshold_smoothed)
 
     def _apply_som_snapshot_unlocked(self, path: str) -> bool:
         """
@@ -437,13 +462,54 @@ class LearnerState:
                 print(f"[SNAPSHOT] {self.last_error}")
                 return False
 
-        som = SOM(rows, cols, dims, SOM_LR, SOM_SIGMA, radius=2)
-        som.weights = weights
-        self.som = som
-        self.area_map = area_map
+        som_sm = SOM(rows, cols, dims, SOM_LR, SOM_SIGMA, radius=2)
+        som_sm.weights = weights.copy()
+        som_ns = SOM(rows, cols, dims, SOM_LR, SOM_SIGMA, radius=2)
+        som_ns.weights = weights.copy()
+
+        self.som_smoothed = som_sm
+        self.area_map_smoothed = area_map.copy()
+        self.threshold_smoothed = float(data["threshold"])
+        self.som_nosmooth = som_ns
+        self.area_map_nosmooth = area_map.copy()
+        self.threshold_nosmooth = float(data["threshold"])
+        self._sync_legacy_model_aliases()
         self.feature_order = list(feature_order)
         self.norm_max = {k: float(norm_max[k]) for k in feature_order}
-        self.threshold = float(data["threshold"])
+        self.anomaly_streak = 0
+        self.anomaly_streak_smoothed = 0
+        self.anomaly_streak_nosmooth = 0
+        self.anomaly_streak_knn = 0
+
+        # Optional embedded kNN snapshot payload.
+        knn_obj = data.get("knn") if isinstance(data.get("knn"), dict) else None
+        if knn_obj is not None:
+            try:
+                feature_order_knn = list(knn_obj.get("feature_order", []))
+                if feature_order_knn != TIER_A_AVG_FEATURES:
+                    raise ValueError(
+                        f"snapshot knn feature_order mismatch: expected {TIER_A_AVG_FEATURES}, got {feature_order_knn}"
+                    )
+                ref_vectors = np.asarray(knn_obj["ref_vectors"], dtype=np.float64)
+                if ref_vectors.ndim != 2 or ref_vectors.shape[1] != len(TIER_A_AVG_FEATURES):
+                    raise ValueError(f"snapshot knn ref_vectors shape {ref_vectors.shape}")
+                self.knn_ref_vectors = ref_vectors
+                self.knn_k = int(knn_obj.get("k", KNN_K))
+                self.knn_tau = float(knn_obj.get("tau", 0.0))
+                self.knn_tau_percentile = float(knn_obj.get("tau_percentile", KNN_TAU_PERCENTILE))
+            except Exception as ex:
+                self.knn_ref_vectors = None
+                self.knn_k = int(KNN_K)
+                self.knn_tau = 0.0
+                self.knn_tau_percentile = float(KNN_TAU_PERCENTILE)
+                print(f"[SNAPSHOT] Ignoring invalid kNN snapshot payload: {ex}")
+        else:
+            self.knn_ref_vectors = None
+            self.knn_k = int(KNN_K)
+            self.knn_tau = 0.0
+            self.knn_tau_percentile = float(KNN_TAU_PERCENTILE)
+
+        self.knn_anomaly_count = 0
         if hasattr(self, "kfold_metrics"):
             delattr(self, "kfold_metrics")
         self.bootstrap_samples.clear()
@@ -638,22 +704,47 @@ class LearnerState:
         return np.array(smoothed, dtype=np.float64)
 
     def _refresh_threshold(self):
-        if self.area_map is None:
+        if self.area_map_smoothed is None:
             return
-        self.threshold = float(np.percentile(self.area_map.flatten(), THRESHOLD_PERCENTILE))
+        self.threshold_smoothed = float(np.percentile(self.area_map_smoothed.flatten(), THRESHOLD_PERCENTILE))
+        self._sync_legacy_model_aliases()
 
-    def _cause_ranking(self, bmu_r: int, bmu_c: int) -> List[str]:
-        if self.area_map is None or self.som is None:
+    def _threshold_for_area_map(self, area_map: np.ndarray) -> float:
+        return float(np.percentile(area_map.flatten(), THRESHOLD_PERCENTILE))
+
+    def _knn_score(self, vec: np.ndarray) -> Optional[float]:
+        if self.knn_ref_vectors is None:
+            return None
+        distances = np.linalg.norm(self.knn_ref_vectors - vec.reshape(1, -1), axis=1)
+        n = int(distances.shape[0])
+        if n <= 0:
+            return None
+        kk = min(max(1, int(self.knn_k)), n)
+        return float(np.partition(distances, kk - 1)[kk - 1])
+
+    def _cause_ranking(
+        self,
+        bmu_r: int,
+        bmu_c: int,
+        *,
+        som: Optional[SOM] = None,
+        area_map: Optional[np.ndarray] = None,
+        threshold: Optional[float] = None,
+    ) -> List[str]:
+        som_model = som if som is not None else self.som_smoothed
+        area_model = area_map if area_map is not None else self.area_map_smoothed
+        threshold_model = float(threshold if threshold is not None else self.threshold_smoothed)
+        if area_model is None or som_model is None:
             return []
-        max_radius = max(self.som.rows, self.som.cols)
+        max_radius = max(som_model.rows, som_model.cols)
         normal_neighbors: List[Tuple[int, int]] = []
 
         for radius in range(1, max_radius + 1):
-            for r in range(max(0, bmu_r - radius), min(self.som.rows, bmu_r + radius + 1)):
-                for c in range(max(0, bmu_c - radius), min(self.som.cols, bmu_c + radius + 1)):
+            for r in range(max(0, bmu_r - radius), min(som_model.rows, bmu_r + radius + 1)):
+                for c in range(max(0, bmu_c - radius), min(som_model.cols, bmu_c + radius + 1)):
                     if abs(r - bmu_r) + abs(c - bmu_c) > radius:
                         continue
-                    if self.area_map[r, c] < self.threshold:
+                    if area_model[r, c] < threshold_model:
                         normal_neighbors.append((r, c))
                     if len(normal_neighbors) >= CAUSE_Q:
                         break
@@ -665,14 +756,56 @@ class LearnerState:
         if not normal_neighbors:
             return []
 
-        anomaly_vec = self.som.weights[bmu_r, bmu_c]
+        anomaly_vec = som_model.weights[bmu_r, bmu_c]
         votes = Counter()
         for nr, nc in normal_neighbors:
-            diffs = np.abs(anomaly_vec - self.som.weights[nr, nc])
+            diffs = np.abs(anomaly_vec - som_model.weights[nr, nc])
             top_idx = int(np.argmax(diffs))
             votes[self.feature_order[top_idx]] += 1
 
         return [name for name, _ in votes.most_common()]
+
+    def _train_single_som(self, train_data_norm: np.ndarray) -> Tuple[SOM, np.ndarray, List[Dict[str, float]], int]:
+        k = 3
+        if len(train_data_norm) < 2:
+            som = SOM(SOM_ROWS, SOM_COLS, train_data_norm.shape[1], SOM_LR, SOM_SIGMA, radius=2)
+            som.train(train_data_norm.copy(), TRAIN_EPOCHS)
+            return som, som.area_map(), [], 0
+
+        n_splits = min(k, len(train_data_norm))
+        if n_splits < 2:
+            som = SOM(SOM_ROWS, SOM_COLS, train_data_norm.shape[1], SOM_LR, SOM_SIGMA, radius=2)
+            som.train(train_data_norm.copy(), TRAIN_EPOCHS)
+            return som, som.area_map(), [], 0
+
+        kf = KFold(n_splits=n_splits, shuffle=True, random_state=42)
+        fold_metrics: List[Dict[str, float]] = []
+        som_models = []
+
+        for fold, (train_idx, test_idx) in enumerate(kf.split(train_data_norm)):
+            X_train, X_val = train_data_norm[train_idx], train_data_norm[test_idx]
+            som = SOM(SOM_ROWS, SOM_COLS, X_train.shape[1], SOM_LR, SOM_SIGMA, radius=2)
+            som.train(X_train.copy(), TRAIN_EPOCHS)
+            area_map = som.area_map()
+            val_areas = []
+            for vec in X_val:
+                bmu_r, bmu_c = som.bmu(vec)
+                val_areas.append(area_map[bmu_r, bmu_c])
+            sum_area = float(np.sum(val_areas)) if val_areas else float("inf")
+            fold_metrics.append(
+                {
+                    "fold": float(fold + 1),
+                    "sum_area": sum_area,
+                    "mean_area": float(np.mean(val_areas)) if val_areas else 0.0,
+                    "std_area": float(np.std(val_areas)) if val_areas else 0.0,
+                    "min_area": float(np.min(val_areas)) if val_areas else 0.0,
+                    "max_area": float(np.max(val_areas)) if val_areas else 0.0,
+                }
+            )
+            som_models.append({"model": som, "area_map": area_map, "sum_area": sum_area})
+
+        best_idx = int(np.argmin([m["sum_area"] for m in som_models]))
+        return som_models[best_idx]["model"], som_models[best_idx]["area_map"], fold_metrics, best_idx
 
     def _train(self):
         valid = [s for s in self.bootstrap_samples if s.quality_valid]
@@ -693,53 +826,53 @@ class LearnerState:
             return
 
         train_data = np.array(train_rows)
-        train_data = self._apply_training_smoothing(train_data)
+        train_data_smoothed = self._apply_training_smoothing(train_data)
         observed_max = {name: float(max(train_data[:, idx].max(), 1e-9)) for idx, name in enumerate(self.feature_order)}
         capacity_max = self._capacity_norm_max()
         self.norm_max = {
             name: float(max(capacity_max.get(name, observed_max.get(name, 1e-9)), 1e-9))
             for name in self.feature_order
         }
-        train_data_norm = (train_data / np.array([self.norm_max[f] for f in self.feature_order])) * 100.0
+        denom = np.array([self.norm_max[f] for f in self.feature_order], dtype=np.float64)
+        train_data_norm_nosmooth = (train_data / denom) * 100.0
+        train_data_norm_smoothed = (train_data_smoothed / denom) * 100.0
 
-        # K-Fold Cross Validation (k=3) and best SOM selection by min sum of validation BMU areas
-        k = 3
-        kf = KFold(n_splits=k, shuffle=True, random_state=42)
-        fold_metrics = []
-        som_models = []
-        for fold, (train_idx, test_idx) in enumerate(kf.split(train_data_norm)):
-            X_train, X_val = train_data_norm[train_idx], train_data_norm[test_idx]
-            som = SOM(SOM_ROWS, SOM_COLS, X_train.shape[1], SOM_LR, SOM_SIGMA, radius=2)
-            som.train(X_train.copy(), TRAIN_EPOCHS)
-            area_map = som.area_map()
-            # For each validation sample, get BMU and area value
-            val_areas = []
-            for vec in X_val:
-                bmu_r, bmu_c = som.bmu(vec)
-                val_areas.append(area_map[bmu_r, bmu_c])
-            sum_area = float(np.sum(val_areas)) if val_areas else float('inf')
-            fold_metrics.append({
-                "fold": fold+1,
-                "sum_area": sum_area,
-                "mean_area": float(np.mean(val_areas)) if val_areas else 0.0,
-                "std_area": float(np.std(val_areas)) if val_areas else 0.0,
-                "min_area": float(np.min(val_areas)) if val_areas else 0.0,
-                "max_area": float(np.max(val_areas)) if val_areas else 0.0,
-            })
-            som_models.append({
-                "model": som,
-                "area_map": area_map,
-                "sum_area": sum_area
-            })
+        som_ns, area_ns, metrics_ns, best_idx_ns = self._train_single_som(train_data_norm_nosmooth)
+        som_sm, area_sm, metrics_sm, best_idx_sm = self._train_single_som(train_data_norm_smoothed)
 
-        self.kfold_metrics = fold_metrics
-        # Select the SOM with the minimum sum_area on its validation set
-        best_idx = int(np.argmin([m["sum_area"] for m in som_models]))
-        best_som = som_models[best_idx]["model"]
-        best_area_map = som_models[best_idx]["area_map"]
-        self.som = best_som
-        self.area_map = best_area_map
-        self._refresh_threshold()
+        self.som_nosmooth = som_ns
+        self.area_map_nosmooth = area_ns
+        self.threshold_nosmooth = self._threshold_for_area_map(area_ns)
+
+        self.som_smoothed = som_sm
+        self.area_map_smoothed = area_sm
+        self.threshold_smoothed = self._threshold_for_area_map(area_sm)
+        self._sync_legacy_model_aliases()
+
+        self.knn_ref_vectors = train_data_norm_nosmooth.copy()
+        self.knn_k = int(max(1, int(KNN_K)))
+        knn_scores_train = []
+        for vec in train_data_norm_nosmooth:
+            knn_scores_train.append(self._knn_score(vec))
+        knn_scores_arr = np.asarray([s for s in knn_scores_train if s is not None], dtype=np.float64)
+        self.knn_tau_percentile = float(KNN_TAU_PERCENTILE)
+        if knn_scores_arr.size > 0:
+            self.knn_tau = float(np.percentile(knn_scores_arr, self.knn_tau_percentile))
+        else:
+            self.knn_tau = 0.0
+        self.anomaly_streak_knn = 0
+        self.knn_anomaly_count = 0
+
+        self.kfold_metrics = {
+            "nosmooth": {
+                "selected_fold_index": int(best_idx_ns),
+                "folds": metrics_ns,
+            },
+            "smoothed": {
+                "selected_fold_index": int(best_idx_sm),
+                "folds": metrics_sm,
+            },
+        }
         self.trained = True
         self.ready = True
         self.training_end_ts = time.time()
@@ -750,7 +883,12 @@ class LearnerState:
         _publish_demo_event_metric("alarm_detected", source="ubl-learner", run_label="learner", ts=payload.get("ts"))
 
     def _score_sample(self, sample: Sample, smooth_history: List[np.ndarray]):
-        if self.som is None or self.area_map is None:
+        if (
+            self.som_nosmooth is None
+            or self.area_map_nosmooth is None
+            or self.som_smoothed is None
+            or self.area_map_smoothed is None
+        ):
             print(f"[SCORE SAMPLE] PHASE:{self.phase} Cannot score sample, model not ready.")
             return
 
@@ -763,15 +901,61 @@ class LearnerState:
             print(f"[SCORE SAMPLE] PHASE:{self.phase} Sample missing required features {missing}, dropping sample.")
             return
 
-        vec = self._moving_avg(smooth_history, vec)
-        bmu_r, bmu_c = self.som.bmu(vec)
-        area_value = float(self.area_map[bmu_r, bmu_c])
-        is_anomaly = area_value >= self.threshold
-        self.anomaly_streak = self.anomaly_streak + 1 if is_anomaly else 0
-        causes = self._cause_ranking(bmu_r, bmu_c) if is_anomaly else []
+        vec_nosmooth = vec.copy()
+        vec_smoothed = self._moving_avg(smooth_history, vec)
+
+        bmu_ns_r, bmu_ns_c = self.som_nosmooth.bmu(vec_nosmooth)
+        area_ns = float(self.area_map_nosmooth[bmu_ns_r, bmu_ns_c])
+        is_anomaly_ns = area_ns >= self.threshold_nosmooth
+        self.anomaly_streak_nosmooth = self.anomaly_streak_nosmooth + 1 if is_anomaly_ns else 0
+        causes_ns = (
+            self._cause_ranking(
+                bmu_ns_r,
+                bmu_ns_c,
+                som=self.som_nosmooth,
+                area_map=self.area_map_nosmooth,
+                threshold=self.threshold_nosmooth,
+            )
+            if is_anomaly_ns
+            else []
+        )
+
+        bmu_sm_r, bmu_sm_c = self.som_smoothed.bmu(vec_smoothed)
+        area_sm = float(self.area_map_smoothed[bmu_sm_r, bmu_sm_c])
+        is_anomaly_sm = area_sm >= self.threshold_smoothed
+        self.anomaly_streak_smoothed = self.anomaly_streak_smoothed + 1 if is_anomaly_sm else 0
+        causes_sm = (
+            self._cause_ranking(
+                bmu_sm_r,
+                bmu_sm_c,
+                som=self.som_smoothed,
+                area_map=self.area_map_smoothed,
+                threshold=self.threshold_smoothed,
+            )
+            if is_anomaly_sm
+            else []
+        )
+
+        # Keep legacy top-level values mapped to smoothed behavior.
+        self.anomaly_streak = self.anomaly_streak_smoothed
+
+        knn_score = self._knn_score(vec_nosmooth)
+        if knn_score is None:
+            is_anomaly_knn = False
+            knn_score_value = None
+            self.anomaly_streak_knn = 0
+        else:
+            is_anomaly_knn = bool(knn_score >= float(self.knn_tau))
+            knn_score_value = float(knn_score)
+            self.anomaly_streak_knn = self.anomaly_streak_knn + 1 if is_anomaly_knn else 0
+            if is_anomaly_knn:
+                self.knn_anomaly_count += 1
         if ONLINE_UPDATE_ENABLED and self.phase != "chaos":
-            self.som.train_step(vec)
-            self.area_map = self.som.area_map()
+            self.som_nosmooth.train_step(vec_nosmooth)
+            self.area_map_nosmooth = self.som_nosmooth.area_map()
+            self.som_smoothed.train_step(vec_smoothed)
+            self.area_map_smoothed = self.som_smoothed.area_map()
+            self._sync_legacy_model_aliases()
             # if THRESHOLD_RECALC_ENABLED:
             #     self.online_updates_since_threshold_refresh += 1
             #     if self.online_updates_since_threshold_refresh >= max(1, THRESHOLD_RECALC_EVERY_UPDATES):
@@ -782,33 +966,65 @@ class LearnerState:
         self.score_latency_ms.append(score_latency)
         self.total_samples_scored += 1
         self.scored_by_phase[self.phase] += 1
-        self.bmu_hits[f"{bmu_r},{bmu_c}"] += 1
+        self.bmu_hits_nosmooth[f"{bmu_ns_r},{bmu_ns_c}"] += 1
+        self.bmu_hits_smoothed[f"{bmu_sm_r},{bmu_sm_c}"] += 1
+        self.bmu_hits = self.bmu_hits_smoothed
 
         event = {
             "ts": sample.ts,
             "phase": self.phase,
-            "score_area": area_value,
-            "threshold": self.threshold,
-            "diagnosis": "abnormal" if is_anomaly else "normal",
+            "score_area": area_sm,
+            "threshold": self.threshold_smoothed,
+            "diagnosis": "abnormal" if is_anomaly_sm else "normal",
             "streak": self.anomaly_streak,
-            "bmu": [bmu_r, bmu_c],
-            "input_vector": vec.tolist(),
-            "causes": causes,
+            "bmu": [bmu_sm_r, bmu_sm_c],
+            "input_vector": vec_smoothed.tolist(),
+            "causes": causes_sm,
+            "som_nosmooth": {
+                "score_area": area_ns,
+                "threshold": self.threshold_nosmooth,
+                "is_anomaly": bool(is_anomaly_ns),
+                "diagnosis": "abnormal" if is_anomaly_ns else "normal",
+                "streak": self.anomaly_streak_nosmooth,
+                "bmu": [bmu_ns_r, bmu_ns_c],
+                "input_vector": vec_nosmooth.tolist(),
+                "causes": causes_ns,
+            },
+            "som_smoothed": {
+                "score_area": area_sm,
+                "threshold": self.threshold_smoothed,
+                "is_anomaly": bool(is_anomaly_sm),
+                "diagnosis": "abnormal" if is_anomaly_sm else "normal",
+                "streak": self.anomaly_streak_smoothed,
+                "bmu": [bmu_sm_r, bmu_sm_c],
+                "input_vector": vec_smoothed.tolist(),
+                "causes": causes_sm,
+            },
+            "knn": {
+                "score_knn_kth": knn_score_value,
+                "tau": float(self.knn_tau),
+                "tau_percentile": float(self.knn_tau_percentile),
+                "k": int(self.knn_k),
+                "ref_size": int(self.knn_ref_vectors.shape[0]) if self.knn_ref_vectors is not None else 0,
+                "is_anomaly": bool(is_anomaly_knn),
+                "diagnosis": "abnormal" if is_anomaly_knn else "normal",
+                "streak": self.anomaly_streak_knn,
+            },
             "quality_valid": sample.quality_valid,
             "missing_required": sample.missing_required,
             "missing_tier_b": sample.missing_tier_b,
             "score_latency_ms": round(score_latency, 3),
         }
         self.score_stream.append(event)
-        if self.anomaly_streak >= ANOMALY_STREAK:
+        if self.anomaly_streak_smoothed >= ANOMALY_STREAK:
             self._record_alarm(
                 {
                     "ts": sample.ts,
                     "phase": self.phase,
-                    "score_area": area_value,
-                    "threshold": self.threshold,
-                    "bmu": [bmu_r, bmu_c],
-                    "causes": causes,
+                    "score_area": area_sm,
+                    "threshold": self.threshold_smoothed,
+                    "bmu": [bmu_sm_r, bmu_sm_c],
+                    "causes": causes_sm,
                     "streak": self.anomaly_streak,
                 }
             )
@@ -833,7 +1049,8 @@ class LearnerState:
 
     def report(self) -> Dict:
         avg_score_latency = float(np.mean(self.score_latency_ms)) if self.score_latency_ms else 0.0
-        bmu_coverage = len(self.bmu_hits)
+        bmu_coverage_smoothed = len(self.bmu_hits_smoothed)
+        bmu_coverage_nosmooth = len(self.bmu_hits_nosmooth)
         alarms = list(self.alarms)
         stream = list(self.score_stream)
         lead_times = []
@@ -861,10 +1078,22 @@ class LearnerState:
             "alarm_count": len(alarms),
             "score_stream_count": len(stream),
             "avg_score_latency_ms": round(avg_score_latency, 3),
-            "bmu_coverage_count": bmu_coverage,
+            "bmu_coverage_count": bmu_coverage_smoothed,
+            "bmu_coverage_count_smoothed": bmu_coverage_smoothed,
+            "bmu_coverage_count_nosmooth": bmu_coverage_nosmooth,
             "feature_order": self.feature_order,
             "threshold_percentile": THRESHOLD_PERCENTILE,
-            "threshold_value": self.threshold,
+            "threshold_value": self.threshold_smoothed,
+            "threshold_value_smoothed": self.threshold_smoothed,
+            "threshold_value_nosmooth": self.threshold_nosmooth,
+            "knn": {
+                "enabled": self.knn_ref_vectors is not None,
+                "k": int(self.knn_k),
+                "tau": float(self.knn_tau),
+                "tau_percentile": float(self.knn_tau_percentile),
+                "ref_size": int(self.knn_ref_vectors.shape[0]) if self.knn_ref_vectors is not None else 0,
+                "anomaly_count": int(self.knn_anomaly_count),
+            },
             "lead_time_seconds": {
                 "mean": round(float(np.mean(lead_times)), 3) if lead_times else None,
                 "median": round(float(np.median(lead_times)), 3) if lead_times else None,
@@ -900,7 +1129,14 @@ def status():
                 "bootstrap_valid_samples": valid_bootstrap_samples,
                 "bootstrap_target_samples": BOOTSTRAP_SAMPLES,
                 "training_duration_sec": round(state.training_duration_sec, 3),
-                "threshold": state.threshold,
+                "threshold": state.threshold_smoothed,
+                "threshold_smoothed": state.threshold_smoothed,
+                "threshold_nosmooth": state.threshold_nosmooth,
+                "knn_enabled": state.knn_ref_vectors is not None,
+                "knn_k": int(state.knn_k),
+                "knn_tau": float(state.knn_tau),
+                "knn_tau_percentile": float(state.knn_tau_percentile),
+                "knn_ref_size": int(state.knn_ref_vectors.shape[0]) if state.knn_ref_vectors is not None else 0,
                 "threshold_percentile": THRESHOLD_PERCENTILE,
                 "tier_a_min_coverage": TIER_A_MIN_COVERAGE,
                 "last_tier_a_coverage": state.last_tier_a_coverage,
@@ -1020,7 +1256,20 @@ def reset():
         state.som = None
         state.area_map = None
         state.threshold = 0.0
+        state.som_smoothed = None
+        state.area_map_smoothed = None
+        state.threshold_smoothed = 0.0
+        state.som_nosmooth = None
+        state.area_map_nosmooth = None
+        state.threshold_nosmooth = 0.0
+        state.knn_ref_vectors = None
+        state.knn_k = int(KNN_K)
+        state.knn_tau = 0.0
+        state.knn_tau_percentile = float(KNN_TAU_PERCENTILE)
         state.anomaly_streak = 0
+        state.anomaly_streak_smoothed = 0
+        state.anomaly_streak_nosmooth = 0
+        state.anomaly_streak_knn = 0
         state.score_stream.clear()
         state.alarms.clear()
         state.last_error = None
@@ -1035,8 +1284,11 @@ def reset():
         state.last_tier_a_coverage = {}
         state.score_latency_ms.clear()
         state.bmu_hits.clear()
+        state.bmu_hits_smoothed.clear()
+        state.bmu_hits_nosmooth.clear()
         state.scored_by_phase.clear()
         state.online_updates_since_threshold_refresh = 0
+        state.knn_anomaly_count = 0
         state.snapshot_loaded_from = None
         snapshot_path = _effective_snapshot_path()
         if snapshot_path:
@@ -1058,14 +1310,21 @@ def report():
 def export_som_snapshot():
     """Read-only export of trained SOM weights and area map for offline artifacts / plots."""
     with state.lock:
-        if state.som is None or state.area_map is None:
+        if state.som_smoothed is None or state.area_map_smoothed is None:
             return jsonify({"error": "SOM not trained", "trained": state.trained}), 503
-        som = state.som
-        area_np = state.area_map
+        som = state.som_smoothed
+        area_np = state.area_map_smoothed
         feature_order = list(state.feature_order)
         norm_max = dict(state.norm_max)
-        threshold = float(state.threshold)
+        threshold = float(state.threshold_smoothed)
         kfold_metrics = getattr(state, "kfold_metrics", None)
+        som_ns = state.som_nosmooth
+        area_ns = state.area_map_nosmooth
+        threshold_ns = float(state.threshold_nosmooth)
+        knn_k = int(state.knn_k)
+        knn_tau = float(state.knn_tau)
+        knn_tau_percentile = float(state.knn_tau_percentile)
+        knn_ref_vectors = state.knn_ref_vectors.copy() if state.knn_ref_vectors is not None else None
     # Avoid holding state.lock during large .tolist() / JSON encode (reduces stalls and flaky clients).
     payload = {
         "som_rows": som.rows,
@@ -1076,7 +1335,34 @@ def export_som_snapshot():
         "threshold_percentile": float(THRESHOLD_PERCENTILE),
         "weights": som.weights.tolist(),
         "area_map": area_np.tolist(),
+        "som_smoothed": {
+            "som_rows": som.rows,
+            "som_cols": som.cols,
+            "feature_order": feature_order,
+            "norm_max": norm_max,
+            "threshold": threshold,
+            "weights": som.weights.tolist(),
+            "area_map": area_np.tolist(),
+        },
+        "knn": {
+            "feature_order": feature_order,
+            "norm_max": norm_max,
+            "k": knn_k,
+            "tau": knn_tau,
+            "tau_percentile": knn_tau_percentile,
+            "ref_vectors": knn_ref_vectors.tolist() if knn_ref_vectors is not None else [],
+        },
     }
+    if som_ns is not None and area_ns is not None:
+        payload["som_nosmooth"] = {
+            "som_rows": som_ns.rows,
+            "som_cols": som_ns.cols,
+            "feature_order": feature_order,
+            "norm_max": norm_max,
+            "threshold": threshold_ns,
+            "weights": som_ns.weights.tolist(),
+            "area_map": area_ns.tolist(),
+        }
     if kfold_metrics is not None:
         payload["kfold_metrics"] = kfold_metrics
     body = json.dumps(_to_builtin(payload))
@@ -1099,8 +1385,11 @@ def config():
             "som_sigma": SOM_SIGMA,
             "train_epochs": TRAIN_EPOCHS,
             "threshold_percentile": THRESHOLD_PERCENTILE,
+            "knn_k": KNN_K,
+            "knn_tau_percentile": KNN_TAU_PERCENTILE,
             "anomaly_streak": ANOMALY_STREAK,
             "smooth_k": SMOOTH_K,
+            "dual_som_models": True,
             "cause_q": CAUSE_Q,
             "online_update_enabled": ONLINE_UPDATE_ENABLED,
             "threshold_recalc_enabled": THRESHOLD_RECALC_ENABLED,
