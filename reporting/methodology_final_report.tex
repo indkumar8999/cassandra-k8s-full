@@ -1,0 +1,576 @@
+%==============================================================================
+%  Methodology — Final Report (standalone compilable)
+%  Compile: pdflatex methodology_final_report.tex
+%==============================================================================
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{placeins}
+\usepackage{needspace}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
+
+% [H] placement for algorithm floats; load before algorithm2e
+\usepackage{float}
+
+% Pseudocode (requires etoolbox; standard on TeX Live)
+\usepackage[ruled,vlined,linesnumbered]{algorithm2e}
+\DontPrintSemicolon
+\SetKwInput{KwData}{Input}
+\SetKwInput{KwResult}{Output}
+\SetKw{KwTo}{to}
+\SetKw{KwAnd}{and}
+
+\title{\textbf{Methodology}\\[0.35em]
+\large Unsupervised Behaviour Learning (UBL) with Self-Organizing Maps\\
+for Cassandra Anomaly Detection, Stress Testing, and Mitigation}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+%------------------------------------------------------------------------------
+\section{Methodology}
+\label{sec:methodology}
+
+This section documents the end-to-end methodology used to train, deploy, evaluate, and demonstrate an online anomaly-detection pipeline for a distributed Apache Cassandra cluster under controlled stress and fault injection. The narrative is organised to mirror the operational flow: \emph{model} $\rightarrow$ \emph{platform} $\rightarrow$ \emph{stress and SLO instrumentation} $\rightarrow$ \emph{mitigation} $\rightarrow$ \emph{evaluation metrics}.
+
+%==============================================================================
+\subsection{SOM Setup}
+\label{subsec:som-setup}
+
+The core detector is a \emph{Self-Organizing Map} (SOM) used as a compact nonlinear manifold model of ``normal'' system behaviour under representative operating conditions. Observations are represented as low-dimensional feature vectors derived from time-aligned infrastructure metrics (Tier~A: compute, memory, and storage I/O signals aggregated across Cassandra replicas). The SOM produces a Best Matching Unit (BMU) index for each observation and a scalar anomaly score derived from the map's local geometry (``area'' around the BMU). Thresholding and temporal logic convert scores into alarms suitable for operational dashboards and mitigation experiments.
+
+%------------------------------------------------------------------------------
+\subsubsection{SOM Architecture Setup}
+\label{subsubsec:som-arch}
+
+\paragraph{Topology and representation.}
+The SOM is a rectangular lattice of neurons arranged in $R \times C$ cells. Each neuron $n_{r,c}$ holds a weight vector $\mathbf{w}_{r,c} \in \mathbb{R}^D$ of the same dimension $D$ as the input feature vector $\mathbf{x}(t)$ at time $t$. Neighbourhood structure is the 4-connectivity grid (north, south, east, west), used to define local neighbourhoods for training updates and for computing a local ``roughness'' map after training.
+
+\paragraph{Input features (Tier~A, aggregated).}
+Let there be $K$ Cassandra replicas indexed by $k \in \{1,\ldots,K\}$. For each sampling instant $t$, the system collects a set of scalar metrics per replica (examples: CPU usage in cores, memory working set in bytes, disk read/write throughput in bytes per second). These are aggregated into a cluster-level feature vector by averaging across replicas:
+\begin{equation}
+  x_j(t) \;=\; \frac{1}{K}\sum_{k=1}^{K} \tilde{x}_{j,k}(t),
+  \qquad j=1,\ldots,D,
+\end{equation}
+where $\tilde{x}_{j,k}(t)$ denotes the $j$-th metric on replica $k$. The dimension $D$ is fixed by the metric contract (here $D{=}3$ for the triple averaged over replicas). This aggregation reduces per-node noise while preserving cluster-wide stress signatures.
+
+\paragraph{Normalisation.}
+Each feature channel is scaled to a bounded range using a per-channel maximum observed during training (capacity-style normalisation). Let $\mathrm{cap}_j > 0$ denote the scaling reference for channel $j$. The normalised vector $\mathbf{z}(t) \in [0,100]^D$ is
+\begin{equation}
+  z_j(t) \;=\; 100 \cdot \frac{x_j(t)}{\max\{\mathrm{cap}_j,\epsilon\}},
+\end{equation}
+with a small numerical floor $\epsilon$ to avoid division by zero. The same $\mathrm{cap}_j$ values are frozen after training for live inference so that scores remain comparable across runs.
+
+\paragraph{BMU and anomaly score.}
+Given $\mathbf{z}(t)$, the BMU is
+\begin{equation}
+  (r^\star,c^\star) \;=\; \arg\min_{(r,c)} \|\mathbf{z}(t)-\mathbf{w}_{r,c}\|_2 .
+\end{equation}
+A local ``area'' map $A_{r,c}$ quantifies how much the BMU neighbourhood disagrees with its neighbours (sum of absolute weight differences along edges). The anomaly score $s(t)$ is taken as $A_{r^\star,c^\star}$ (or an equivalent monotone transform of the same quantity), so that unusually ``rough'' regions of the trained map correspond to unusual operating states.
+
+\paragraph{Operational variants.}
+Two scoring variants are used in evaluation:
+\begin{itemize}[leftmargin=*]
+  \item \textbf{UBL--NS (no smoothing):} $s_{\mathrm{NS}}(t)$ is computed directly from $\mathbf{z}(t)$.
+  \item \textbf{UBL--5PtS (5-point smoothing):} $\mathbf{z}'(t)$ is a moving average of the last $K{=}5$ normalised vectors; $s_{\mathrm{5PtS}}(t)$ is computed from $\mathbf{z}'(t)$. Smoothing suppresses single-sample telemetry spikes that are not sustained across multiple polls.
+\end{itemize}
+
+%------------------------------------------------------------------------------
+\subsubsection{Algorithm}
+\label{subsubsec:som-algorithm}
+
+\paragraph{Training (offline bootstrap).}
+Training uses a finite multiset of normal-phase samples $\{\mathbf{z}(t_i)\}_{i=1}^{N}$ collected while the cluster is under a controlled baseline workload (mixed read/write baseline) and before deliberate anomaly injection. Training proceeds for $E$ epochs with learning rate $\eta$ and neighbourhood width $\sigma$.
+
+\begin{algorithm}[H]
+\caption{Offline SOM training (batch, random shuffle per epoch)}
+\label{alg:som-train}
+\KwData{Normalised samples $\{\mathbf{z}_i\}_{i=1}^{N}$; lattice size $R{\times}C$; hyperparameters $\eta,\sigma$, neighbourhood radius $h$ (integer cell steps)}
+\KwResult{Trained weights $\{\mathbf{w}_{r,c}\}$; area map $\{A_{r,c}\}$; normalisation caps $\{\mathrm{cap}_j\}$}
+\BlankLine
+Initialise each $\mathbf{w}_{r,c}$ randomly in $[0,100]^D$\;
+\For{$e = 1$ \KwTo $E$}{
+  Randomly permute the training indices\;
+  \ForEach{sample $\mathbf{z}$ in the permuted order}{
+    Compute BMU $(r^\star,c^\star)$ by minimising $\|\mathbf{z}-\mathbf{w}_{r,c}\|_2$\;
+    \ForEach{neuron $(r,c)$ within squared distance $\le h^2$ from $(r^\star,c^\star)$}{
+      Compute neighbourhood kernel $g_{r,c}$ (Gaussian in grid distance)\;
+      Update $\mathbf{w}_{r,c} \leftarrow \mathbf{w}_{r,c} + \eta\, g_{r,c}\,(\mathbf{z}-\mathbf{w}_{r,c})$\;
+    }
+  }
+}
+Compute area map $A_{r,c}$ from final weights using 4-neighbour edge differences\;
+\Return{$\{\mathbf{w}_{r,c}\}$, $\{A_{r,c}\}$, $\{\mathrm{cap}_j\}$}\;
+\end{algorithm}
+
+\paragraph{Online scoring (live inference).}
+At each poll instant $t$, the system obtains $\mathbf{x}(t)$, forms $\mathbf{z}(t)$ (or $\mathbf{z}'(t)$ for the smoothed variant), computes $(r^\star,c^\star)$ and $s(t)$, and compares $s(t)$ to a threshold $\tau$.
+
+\begin{algorithm}[H]
+\caption{Live inference with streak-based alarming}
+\label{alg:som-live}
+\KwData{Trained weights; caps $\mathrm{cap}_j$; threshold $\tau$; streak length $L$; optional online threshold refresh policy}
+\KwResult{Score stream; alarms with timestamps and ranked causes}
+\BlankLine
+\While{monitoring is active}{
+  Poll metrics; build $\mathbf{x}(t)$; normalise to $\mathbf{z}(t)$ (or smoothed $\mathbf{z}'(t)$)\;
+  Compute BMU and score $s(t)$\;
+  Optionally refresh $\tau$ from a running score distribution (controlled cadence)\;
+  \eIf{$s(t) \ge \tau$}{
+    increment streak counter\;
+    \If{streak $\ge L$}{
+      emit alarm at time $t$ with phase tag and cause list\;
+    }
+  }{
+    reset streak counter\;
+  }
+}
+\end{algorithm}
+
+\paragraph{Cause inference (post-score).}
+When an alarm fires, the system ranks candidate contributing metrics by comparing the current normalised vector to a reference ``normal'' profile (e.g., historical norms or the BMU weight vector), and returns the top-$Q$ contributors as human-readable hints.
+
+%------------------------------------------------------------------------------
+\subsubsection{Hyper Parameters}
+\label{subsubsec:som-hyper}
+
+Table~\ref{tab:som-hyper} lists the principal hyperparameters, their roles, and practical guidance. The guiding principle is to balance \emph{expressiveness} (enough neurons to separate operating modes) against \emph{data sufficiency} (enough independent samples per neuron) and \emph{stability} (threshold and streak logic).
+
+\begin{table}[htbp]
+\centering
+\caption{SOM and decision hyperparameters (representative symbols; values are set per deployment).}
+\label{tab:som-hyper}
+\begin{tabular}{@{}p{3.2cm}p{2.0cm}p{9.0cm}@{}}
+\toprule
+\textbf{Symbol / name} & \textbf{Typical role} & \textbf{Meaning and importance} \\
+\midrule
+$R,C$ & lattice shape & Larger maps can represent more modes but need more training data and increase score variance unless regularised by training schedule. \\
+$\eta$ & learning rate & Too large: unstable weights and poor generalisation; too small: underfitting / long training. Often decayed implicitly by using a moderate fixed $\eta$ with enough epochs. \\
+$\sigma$ & neighbourhood width & Controls how ``global'' early updates are. Larger $\sigma$ encourages topology preservation; smaller $\sigma$ sharpens local specialisation. \\
+$h$ & integer neighbourhood radius & Hard cap on grid distance for updates; prevents excessive compute on large maps. \\
+$E$ & training epochs & More epochs improve fit up to a point; beyond that, risk overfitting to bootstrap noise unless bootstrap diversity is high. \\
+$P$ & score percentile for $\tau$ & Sets operating trade-off: higher percentile $\Rightarrow$ fewer alarms (higher precision, lower recall) if scores are stationary; must be validated under real telemetry noise. \\
+$L$ & alarm streak length & Debounces alarms: requires $L$ consecutive threshold crossings, reducing single-poll glitches at the cost of detection delay. \\
+$K$ (smooth) & moving-average window & For UBL--5PtS, $K{=}5$ attenuates high-frequency noise in Tier~A signals; critical when Prometheus scrape cadence is comparable to fault dynamics. \\
+$Q$ & cause list length & Larger $Q$ helps triage but can overwhelm operators; $Q{\in}[3,7]$ is typical. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Missing and invalid samples.}
+If mandatory Tier~A signals are absent at a poll (scrape gap, pod restart, query failure), the sample is marked invalid and \emph{must not} be silently imputed to zero; such samples are excluded from training updates and from scoring to avoid false structure in the model.
+
+%------------------------------------------------------------------------------
+\subsubsection{Training Process}
+\label{subsubsec:som-train-process}
+
+\paragraph{Objective.}
+Training produces a manifold summary of normal behaviour and a geometric anomaly score function suitable for streaming operation. Training is deliberately performed under a \emph{baseline workload} so that the map encodes healthy cluster dynamics (including baseline client latency behaviour), not the anomaly regimes used later for evaluation.
+
+\paragraph{Data collection window.}
+Training samples are collected over a wall-clock window long enough to:
+\begin{enumerate}[leftmargin=*]
+  \item observe representative CPU, memory, and disk utilisation under baseline load;
+  \item cover at least several Prometheus scrape intervals so temporal artefacts average out;
+  \item populate the normalisation caps with stable maxima (avoid caps dominated by a single transient spike unless that transient is considered ``normal capacity'' for the lab).
+\end{enumerate}
+
+\paragraph{Bootstrap termination.}
+Readiness is defined by a minimum count of valid training samples and successful construction of the map (weights initialised, trained, area map computed, threshold derived). If training cannot reach readiness within a bounded timeout, the run is considered failed for reporting purposes (prevents reporting on partially trained models).
+
+\paragraph{Threshold calibration.}
+After training, scores are computed on the bootstrap set (or on a held-out portion if a split is used). The threshold $\tau$ is set as a high percentile $P$ of those scores, encoding the assumption that most bootstrap time is ``normal''. The percentile should be chosen to meet target false-alarm rates under baseline-only replay, then validated under stress.
+
+\paragraph{Persistence and reproducibility.}
+The trained artefact bundle includes: lattice dimensions; learned weights; area map; feature order; normalisation caps; chosen threshold; training timestamps; and summary counters (samples seen, dropped invalid samples). This enables offline replication of live scoring for ablation studies.
+
+%------------------------------------------------------------------------------
+\subsubsection{Live Inference}
+\label{subsubsec:live-inference}
+
+\paragraph{Streaming loop.}
+In live operation, the learner executes a periodic loop aligned to Prometheus scrape cadence (poll interval $\Delta t$). Each iteration:
+\begin{enumerate}[leftmargin=*]
+  \item query Prometheus instant vectors for Tier~A metrics for each Cassandra replica;
+  \item aggregate to $\mathbf{x}(t)$;
+  \item normalise using frozen caps;
+  \item optionally apply moving-average smoothing (UBL--5PtS);
+  \item compute BMU and score $s(t)$;
+  \item update optional online statistics (for threshold maintenance, if enabled);
+  \item apply streak logic against $\tau$;
+  \item append bounded retention buffers for scores and alarms (bounded deque semantics for UI/API stability).
+\end{enumerate}
+
+\paragraph{Phase tagging.}
+Each scored sample and alarm is tagged with the learner \emph{phase} (\texttt{normal}, \texttt{load}, \texttt{chaos}, \texttt{cooldown}) driven by the orchestration state machine. Phase tags are essential for separating baseline drift from anomaly windows in evaluation.
+
+\paragraph{Operational latency.}
+End-to-end detection latency includes: Prometheus scrape delay, PromQL evaluation time, network RTT, Python processing, and alarm debounce ($L$). Reported ``scoring latency'' should be interpreted as client-side processing time, not full control-loop latency to mitigation actuation.
+
+%------------------------------------------------------------------------------
+\subsubsection{Cause Inference Process}
+\label{subsubsec:cause-inference}
+
+\paragraph{Goal.}
+When an alarm triggers, operators need a compact explanation in the native units of observability (which metric channels deviated). Cause inference is a \emph{post-hoc attribution} step: it does not change the score, but ranks contributors.
+
+\paragraph{Method (conceptual).}
+Let $\mathbf{z}(t)$ be the normalised observation and $\mathbf{v}$ a reference vector (e.g., the BMU weight $\mathbf{w}_{r^\star,c^\star}$ or a long-run median profile). Rank channels $j$ by absolute deviation $|z_j(t)-v_j|$, optionally weighted by channel reliability (variance, missingness rate). Return the top-$Q$ channel names with their deviations and directions (high vs low).
+
+\paragraph{Interpretation caveats.}
+\begin{itemize}[leftmargin=*]
+  \item Causes are \emph{correlational}: a high-ranked disk metric may reflect compaction, client write amplification, or OS page cache effects.
+  \item Aggregation across replicas can hide single-node hotspots; if hotspot detection is required, rank per-replica deviations before aggregation.
+\end{itemize}
+
+%==============================================================================
+\subsection{Architecture Setup}
+\label{subsec:arch-setup}
+
+%------------------------------------------------------------------------------
+\subsubsection{SOM Architecture Setup}
+\label{subsubsec:arch-som}
+
+The SOM learner is deployed as a stateless(ish) microservice behind a ClusterIP Service: it exposes health, training status, phase control, score stream, alarms, and a metrics endpoint for Prometheus scraping. It reads telemetry from the in-cluster Prometheus (or a reachable Prometheus base URL), not directly from node agents, preserving a clean separation of concerns: \emph{collection/scrape} vs \emph{model inference}.
+
+%------------------------------------------------------------------------------
+\subsubsection{K3S and Kubernetes Setup}
+\label{subsubsec:k3s}
+
+\paragraph{k3s role.}
+k3s is used as a lightweight CNCF-compliant Kubernetes distribution suitable for lab clusters on constrained VMs. It provides the standard control plane API (scheduling, controllers) and CNI-based pod networking, while reducing operational overhead compared to full kubeadm clusters.
+
+\paragraph{Cluster shape.}
+The lab topology uses one control-plane node and multiple worker nodes. Worker count must be sufficient to place at least three Cassandra replicas on distinct hosts for realistic failure domains.
+
+\paragraph{kubeconfig and access.}
+Administrators interact via \texttt{kubectl} using a kubeconfig whose server endpoint matches the control-plane API address (not loopback unless port-forwarded). For laptop-driven orchestration, reliable port-forwards or VPN routes are required because the orchestrator uses HTTP to Services.
+
+\paragraph{Storage implications.}
+Default lab storage classes (e.g., local-path on k3s) bind volumes to nodes. StatefulSets with persistent volumes therefore interact with scheduling: a pod may become unschedulable if node affinity and volume topology disagree. Operational playbooks must include PVC lifecycle steps when node labels or placement constraints change.
+
+%------------------------------------------------------------------------------
+\subsubsection{Node Architecture}
+\label{subsubsec:node-arch}
+
+\paragraph{Control plane node.}
+Hosts Kubernetes control components and \emph{non-data-plane} services that are convenient to co-locate with the API server (e.g., chaos control plane, monitoring stack depending on pinning policy). Pinning monitoring to a dedicated node reduces interference with Cassandra workers.
+
+\paragraph{Worker nodes.}
+Host Cassandra StatefulSet pods, NoSQLBench job pods, and optionally simulator pods. Anti-affinity or explicit hostname lists are used to spread Cassandra replicas across workers.
+
+\paragraph{Network.}
+Pod-to-pod traffic uses cluster DNS names. Cassandra uses a headless service for per-pod DNS ($\texttt{cassandra-0.cassandra.\dots}$) while clients may target a non-headless service for load-balanced first contact.
+
+%------------------------------------------------------------------------------
+\subsubsection{Monitoring Setup: Prometheus and Grafana}
+\label{subsubsec:monitoring}
+
+\paragraph{Prometheus Operator stack.}
+Monitoring is deployed via Helm chart \texttt{kube-prometheus-stack}, which installs Prometheus, Alertmanager, Grafana, ServiceMonitors/PodMonitors CRDs, and default kubelet/cAdvisor scrapes. This provides a unified metrics plane for both infrastructure (CPU/memory/disk/network) and application metrics (JMX exporters, learner metrics, simulator metrics).
+
+\paragraph{PodMonitors.}
+Application components expose Prometheus text on \texttt{/metrics} (or a dedicated port). PodMonitors select pods by labels and scrape on an interval (e.g., 15s). This is the mechanism by which NoSQLBench histostat exporter sidecars become first-class Prometheus series without embedding a Prometheus client inside Cassandra itself.
+
+\paragraph{Grafana.}
+Grafana is provisioned with a lab dashboard that overlays:
+\begin{itemize}[leftmargin=*]
+  \item per-pod CPU/memory/network time series (container metrics),
+  \item client-side latency percentiles from stress tools (where available),
+  \item scenario markers (load profile switches) as annotations.
+\end{itemize}
+
+\paragraph{Retention and cardinality.}
+Stress tests can increase series cardinality (per-job labels). Dashboards should aggregate (\texttt{max}, \texttt{sum by}) to keep queries readable. Prometheus retention must be long enough to capture an entire experiment window for offline evaluation exports.
+
+%==============================================================================
+\subsection{Stress Injector Setup}
+\label{subsec:stress}
+
+%------------------------------------------------------------------------------
+\subsubsection{Stress Injector Architecture Setup}
+\label{subsubsec:stress-arch}
+
+\paragraph{Purpose.}
+The stress injector is a control-plane service that translates high-level experiment profiles into concrete cluster actions: primarily \emph{ephemeral Kubernetes Jobs} that run NoSQLBench (NB5) against Cassandra, plus optional auxiliary faults (CPU burn inside a Cassandra container, network policies, StatefulSet replica scaling).
+
+\paragraph{End-to-end NoSQLBench path (conceptual).}
+\begin{enumerate}[leftmargin=*]
+  \item \textbf{Orchestration command:} an operator script triggers an experiment timeline: reset $\rightarrow$ baseline training window $\rightarrow$ chaos window $\rightarrow$ cooldown. It drives three APIs: simulator load level, learner phase, and stress injector profile start/stop.
+  \item \textbf{Profile dispatch:} the injector receives a profile name and parameters (duration, threads, parallelism, replication factor). It maps the profile to a NoSQLBench \emph{scenario document} (YAML) that defines schema creation, ramp-up, and main workload phases.
+  \item \textbf{Parallelism model:} parallelism is expressed as $J$ independent Jobs (distinct pods). Each Job runs an isolated NB process with its own thread pool, multiplying client-side concurrency and TCP connection diversity.
+  \item \textbf{Keyspace isolation:} each Job uses a distinct keyspace token derived from its Job name to avoid cross-job schema collisions while still hitting the same physical cluster.
+  \item \textbf{Cassandra contact:} NB is configured with a \texttt{hosts=} contact list. The default lab configuration uses a stable DNS service name that selects Cassandra pods; the CQL driver discovers the full ring topology after the first contact.
+  \item \textbf{Optional Prometheus push:} NB can be configured to push client metrics to a metrics sink (VictoriaMetrics-compatible import or Pushgateway-style endpoints). This path is orthogonal to histostats-on-PVC.
+  \item \textbf{Histostats durability path:} when enabled, each Job pod mounts a shared PVC path. NB writes HDR histogram statistics to \texttt{hdrstats.csv} under a per-job directory on a fixed interval. A lightweight \emph{sidecar} container in the same pod reads the CSV and serves Prometheus exposition format on \texttt{/metrics}.
+  \item \textbf{Prometheus scrape:} a PodMonitor selects NB Job pods by label and scrapes the sidecar port periodically, ingesting \texttt{nosqlbench\_histostat\_p95\_ms} and \texttt{nosqlbench\_histostat\_p99\_ms} time series (tagged by operation tag, job name, profile).
+  \item \textbf{Grafana visualisation:} dashboard panels query these series (typically \texttt{max by (job)} with \texttt{tag="execute"}) to show client latency percentiles aligned in time with infrastructure saturation panels.
+  \item \textbf{Ephemeral completion:} Jobs are configured with no retries and a post-finish TTL so completed pods do not accumulate indefinitely. The PVC retains histostat files for post-run inspection even after pods disappear.
+\end{enumerate}
+
+\paragraph{Why sidecar + PVC.}
+NoSQLBench histostats are file-oriented time series logs. Kubernetes pod logs alone are insufficient for reliable post-run analysis under churn. Persisting \texttt{hdrstats.csv} on a PVC decouples durability from pod lifetime, while the sidecar decouples \emph{Prometheus exposition} from the NB Java process.
+
+%------------------------------------------------------------------------------
+\subsubsection{How do we inject faults}
+\label{subsubsec:faults}
+
+Fault injection is split into two families:
+
+\paragraph{(A) Load faults via NoSQLBench.}
+These are not ``bit flips''; they are sustained CQL workloads that change partition access patterns, payload sizes, and write/read ratios. Examples include: mixed baseline, write-only concurrency spikes, wide-row compaction pressure, and large-blob inserts.
+
+\paragraph{(B) Infrastructure faults outside NB.}
+Examples include:
+\begin{itemize}[leftmargin=*]
+  \item \textbf{CPU starvation inside a Cassandra pod:} execute a tight computational loop inside the Cassandra container for a bounded duration to reduce available CPU for compaction, flushing, and request handling without changing CQL workload parameters.
+  \item \textbf{Replica count manipulation:} temporarily scale the Cassandra StatefulSet to fewer replicas to create a capacity bottleneck, then restore.
+  \item \textbf{Network impairment:} apply Kubernetes NetworkPolicies or traffic shaping (if used in a given profile) to increase latency/packet loss between namespaces or pods.
+\end{itemize}
+
+Faults are orchestrated with explicit start/stop boundaries so evaluation can align alarms to a known chaos window.
+
+%------------------------------------------------------------------------------
+\subsubsection{SLO Metrics setup}
+\label{subsubsec:slo}
+
+\paragraph{Definition.}
+Service-level objectives (SLOs) for the lab are expressed on \emph{client-side} latency percentiles for the execute path (e.g., $p_{95}$ and $p_{99}$ in milliseconds). These are preferred over raw CPU metrics as an externally meaningful ``user pain'' proxy.
+
+\paragraph{Acquisition paths.}
+Two complementary acquisition modes exist:
+\begin{enumerate}[leftmargin=*]
+  \item \textbf{Pull (recommended for Prometheus):} NB histostats CSV $\rightarrow$ sidecar exporter $\rightarrow$ \texttt{/metrics} $\rightarrow$ Prometheus scrape $\rightarrow$ Grafana.
+  \item \textbf{Push (optional):} NB built-in reporter pushes time series to a metrics sink; useful when scrape targets are short-lived and push is operationally simpler. Push endpoints must accept the exposition format NB emits in the deployed version.
+\end{enumerate}
+
+\paragraph{SLO violation rule (instantaneous).}
+At time $t$, let $p_{95}(t)$ be the scraped $p_{95}$ in ms. Given threshold $\theta$, an instantaneous violation indicator is
+\begin{equation}
+  V(t) = \mathbb{I}\big[p_{95}(t) > \theta\big].
+\end{equation}
+Operational evaluation often uses a \emph{pending window} $W$: an alarm at $t_a$ is treated as a true positive if a violation occurs within $(t_a, t_a+W]$ (lead-time semantics).
+
+%------------------------------------------------------------------------------
+\subsubsection{Stress Profiles}
+\label{subsubsec:profiles}
+
+Stress profiles are reproducible bundles of: (i) NB scenario YAML, (ii) default thread counts, (iii) parallelism, (iv) payload distributions, and (v) optional non-NB faults. Table~\ref{tab:profiles} summarises the profiles used in the lab narrative.
+
+% Flush deferred floats so this block cannot land under/over later headings; [H] pins the table in the vertical list (requires \usepackage{float}).
+\FloatBarrier
+% If the remainder of the page is too short, start the table on a fresh page (avoids ``Float too large'' / run-in with the next subsection).
+\Needspace{26\baselineskip}
+\begin{table}[H]
+\begin{minipage}{\linewidth}
+\centering
+\renewcommand{\arraystretch}{1.15}
+\caption{Representative stress profiles (conceptual mapping).}
+\label{tab:profiles}
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{4.0cm}>{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Profile} & \textbf{Induced behaviour (Cassandra perspective)} \\
+\midrule
+Baseline mixed &
+Creates RF=3 keyspace and table; generates random partition/clustering keys in a bounded hash space; executes 50/50 inserts and single-partition reads at LOCAL\_ONE-like consistency; measures normal latency spread. \\
+Short CPU spike &
+Runs the same baseline CQL load while one Cassandra node executes a CPU burn-in loop for a short wall interval; isolates CPU scheduling effects from workload-shape changes. \\
+CPU pressure (write spike) &
+Write-only high-rate inserts across a large hash space with many client threads across multiple parallel jobs; stresses coordinator/replica CPU and write paths. \\
+Disk pressure (large payloads) &
+Insert-only workload with large binary payloads (hundreds of KiB per row) and high concurrency; stresses memtable growth, flush frequency, and disk write bandwidth. \\
+Compaction pressure (concentrated keys) &
+Insert-only workload concentrated in a smaller partition key space with very few clustering values; increases overlap across SSTables and amplifies compaction read/write amplification. \\
+\bottomrule
+\end{tabularx}
+\renewcommand{\arraystretch}{1}
+\end{minipage}
+\end{table}
+\FloatBarrier
+
+%==============================================================================
+\subsection{Mitigation}
+\label{subsec:mitigation}
+
+\paragraph{Goal.}
+Demonstrate a closed-loop response: when the system detects sustained stress/fault conditions, increase Cassandra capacity (scale out), wait for recovery signals, then scale back in.
+
+\paragraph{Actuation mechanism.}
+Mitigation uses Kubernetes API scaling of the Cassandra StatefulSet replica count (e.g., $3 \rightarrow 4 \rightarrow 3$). This is demo-grade: it does not replace production procedures (bootstrap, repair, decommission) but is sufficient to show scheduling of a new replica on spare worker capacity.
+
+\paragraph{Triggering policy (two-channel).}
+A mitigation daemon can scale out on either:
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Learner alarms:} require a streak of consecutive chaos-phase alarms in chronological order after a watch start timestamp (reduces false scaling on stale alarms retained in bounded buffers).
+  \item \textbf{Prometheus SLO signal:} require the PromQL-defined SLO signal to remain in a ``bad'' band for a sustained interval before scaling out (reduces flapping).
+\end{itemize}
+
+\paragraph{Scale-in gating (hysteresis).}
+Scale-in waits until the PromQL SLO signal remains in an ``OK'' band for a sustained window (hysteresis), preventing immediate scale-down while the cluster is still unstable.
+
+\paragraph{Operational prerequisites.}
+A spare worker node (or allocatable capacity) must exist so the new StatefulSet ordinal can schedule; otherwise scale-out stalls in Pending. Port-forward paths must expose Prometheus query API to the mitigation script if it runs off-cluster.
+
+%==============================================================================
+\subsection{Evaluation}
+\label{subsec:evaluation}
+
+This subsection defines the counting semantics used in experiment reports. Let:
+\begin{itemize}[leftmargin=*]
+  \item $t^{\mathrm{chaos}}_{\mathrm{start}}$ and $t^{\mathrm{chaos}}_{\mathrm{stop}}$ bound the injected anomaly window (fault start/stop).
+  \item Each learner alarm is an event with timestamp $t^{\mathrm{alarm}}$.
+  \item SLO breach events have timestamps $\{t^{\mathrm{slo}}_m\}$ derived from client latency thresholds (possibly smoothed by scrape cadence).
+  \item $W$ denotes a pending/lead-time window (seconds), aligned with offline ROC plots such as ``CPU ROC ($W{=}10$s)''.
+\end{itemize}
+
+\subsubsection*{Alarm--SLO alignment for true/false positives}
+
+\paragraph{True positive count (\texttt{Ntp}).}
+An alarm at time $t^{\mathrm{alarm}}$ counts as a true positive if a genuine anomaly effect (operationalised as an SLO breach) occurs within the forward window $(t^{\mathrm{alarm}}, t^{\mathrm{alarm}}+W]$:
+\begin{equation}
+  \exists\, t^{\mathrm{slo}} \in (t^{\mathrm{alarm}}, t^{\mathrm{alarm}}+W] \;\text{ such that the breach definition holds at } t^{\mathrm{slo}}.
+\end{equation}
+This matches the narrative ``alarm raised; anomaly happens within window.''
+
+\paragraph{False positive count (\texttt{Nfp}).}
+An alarm counts as a false positive if \emph{no} qualifying SLO breach occurs within $(t^{\mathrm{alarm}}, t^{\mathrm{alarm}}+W]$:
+\begin{equation}
+  \nexists\, t^{\mathrm{slo}} \in (t^{\mathrm{alarm}}, t^{\mathrm{alarm}}+W] \text{ satisfying the breach condition.}
+\end{equation}
+This matches ``alarm raised; anomaly does not happen within window.''
+
+\paragraph{False negative count (\texttt{Nfn}).}
+A false negative corresponds to an SLO breach event without a preceding alarm in the allowed lead window. Concretely, for a breach at $t^{\mathrm{slo}}$, there should have existed an alarm $t^{\mathrm{alarm}}$ such that $t^{\mathrm{alarm}} < t^{\mathrm{slo}} \le t^{\mathrm{alarm}}+W$. If no such alarm exists, count one false negative:
+\begin{equation}
+  \text{\texttt{Nfn}} \mathrel{+}= 1 \quad \text{for breaches lacking qualifying prior alarms.}
+\end{equation}
+This matches ``anomaly happens; no prior alarm raised'' when ``prior'' is interpreted in the lead-time sense above.
+
+\paragraph{True negative count (\texttt{Ntn}).}
+During normal operation intervals (outside the forward influence of alarms and outside labelled anomaly windows), the system should remain quiet. Operationally, \texttt{Ntn} counts time buckets or evaluation ticks where neither an alarm nor a breach condition is present, depending on the evaluation discretisation. This matches ``normal period; no prior alarm raised'' when the evaluation frame is defined as pre-alarm normalcy.
+
+\subsubsection*{Lead time}
+
+\paragraph{Definition.}
+For a matched alarm--breach pair, \emph{lead time} quantifies how early the alarm precedes the SLO breach. Let $t^{\mathrm{alarm}}$ be the first alarm in a cluster of alarms that precedes a breach at $t^{\mathrm{slo}}$ within window $W$. Lead time is
+\begin{equation}
+  \mathrm{LT} = t^{\mathrm{slo}} - t^{\mathrm{alarm}}.
+\end{equation}
+The user-facing definition ``first SLO breach timestamp minus first alarm timestamp'' corresponds to pairing the earliest breach in the post-alarm window with the triggering alarm (policy choices exist if multiple breaches occur).
+
+\subsubsection*{ROC/AUC and accuracy (offline)}
+
+\paragraph{ROC.}
+Receiver Operating Characteristic curves sweep a score threshold $\tau$ and plot TPR vs FPR at each threshold using tick-level (or sample-level) labels derived from the pending breach definition within window $W$.
+
+\paragraph{AUC.}
+Area Under the Curve summarises ranking quality across thresholds; it is threshold-free unlike accuracy.
+
+\paragraph{Accuracy.}
+Accuracy requires a single chosen threshold \emph{and} class prevalence; it cannot be inferred from an ROC curve alone without specifying both.
+
+\subsubsection*{Run-level reporting vs tick-level ROC}
+
+Run-level summaries that count alarms inside a global chaos window (fault start/stop) are useful for operational acceptance gates but are \emph{not} identical to ROC-based definitions unless alarms and breaches are discretised consistently. Reports should explicitly state which definition is used for each table.
+
+%==============================================================================
+\section{Limitations and Challenges}
+\label{sec:limitations}
+
+This section records practical obstacles encountered while standing up the lab cluster, designing reproducible stress, and closing the loop to SLO-oriented mitigation. The intent is not to criticise individual tools but to document \emph{where} friction arose so future work can budget time and choose platforms accordingly.
+
+%------------------------------------------------------------------------------
+\subsection{Infrastructure and setup challenges}
+\label{subsec:challenges-infra}
+
+\paragraph{Early Multipass-based topology.}
+Initial experiments used Multipass VMs on a single physical machine. That topology is attractive for zero-cloud cost and fast iteration, but it concentrates CPU, memory, disk I/O, and network on one host. Contention between the Kubernetes control plane, three Cassandra replicas, monitoring, and stress clients made it difficult to attribute latency spikes to Cassandra behaviour versus hypervisor scheduling. The lesson is qualitative: single-host labs are fine for wiring and demos, but saturated-node effects can dominate results unless resource ceilings are explicitly modelled.
+
+\paragraph{Remote control plane access and CoreDNS (Tailscale).}
+When \texttt{kubectl} was driven from a laptop through Tailscale into a home-lab API server, intermittent failures appeared around in-cluster DNS resolution and service discovery. In several cases the failure mode matched a \emph{split-path} problem: the API server was reachable, but UDP/TCP paths needed by CoreDNS or NodePort/ClusterIP routing were blocked or deprioritised by a host or upstream firewall. Symptomatically, pods could schedule yet client Jobs could not resolve \texttt{cassandra.\dots.svc.cluster.local}, or port-forwards would flap. Mitigations in principle include opening the exact ports required by the CNI and kube-proxy path, using \texttt{kubectl} from a bastion inside the same L2/L3 domain as workers, or replacing fragile NAT hairpins with explicit VPN routes. Diagnosis time is substantial because the surface spans OS firewall, cloud security groups (if any), and Kubernetes network policy.
+
+\paragraph{Cloud (AWS) versus lab economics.}
+A fully managed or self-managed cluster on AWS would align networking and DNS with well-documented defaults and reduce ``mystery firewall'' incidents. The trade-off is lead time (accounts, IAM, VPC design, node groups, storage classes) and recurring cost for long-running fault experiments. For a student or research lab with bursty usage, that overhead pushed the project toward an institutional compute offering instead.
+
+\paragraph{Migration to VCL (Virtual Computing Lab).}
+The final platform was VCL: institutional VMs with clearer network expectations than ad-hoc home routing. Even on VCL, however, \emph{not all} friction disappeared. University-managed images often ship restrictive default firewall policies and conservative outbound rules. Opening NodePorts, LoadBalancer ranges (if used), or Prometheus scrape paths required explicit tickets or self-service rule changes. Similarly, inbound SSH versus in-cluster east-west traffic are governed differently; a rule that allows SSH does not imply pod-to-pod CQL works.
+
+\paragraph{CoreDNS and service discovery on VCL.}
+After baseline connectivity was established, residual issues still appeared around DNS caching TTLs, upstream resolver forwarding, and occasional timeouts when the control plane was under load during simultaneous Job churn and StatefulSet rolling events. Operational workarounds included lengthening client driver timeouts during bootstrap, ensuring headless service endpoints were populated before stress start, and verifying that \texttt{ndots} and search-path behaviour in pod resolv.conf matched driver expectations. These are ``paper cuts'' individually but compound across a scripted experiment matrix.
+
+\paragraph{Pod affinity and anti-affinity.}
+The methodology calls for spreading Cassandra across workers and optionally pinning observability away from data nodes. Expressing that intent in Kubernetes requires careful affinity/anti-affinity rules: \emph{required} rules can make pods unschedulable when the cluster is temporarily smaller than the fault domain count; \emph{preferred} rules allow scheduling but may violate the pedagogical layout. Tuning weights, topology keys, and zone/host labels to match the actual VCL inventory was iterative. StatefulSet ordinals plus hostname-based anti-affinity is standard, yet label drift (e.g., after node replacement) forces playbook updates.
+
+\paragraph{Persistent volume hygiene and node disk pressure.}
+Repeated stress runs create SSTables, commitlogs, histostat files, and completed Job logs. Even with TTLs on Jobs, PVCs and hostPath-style provisioners can retain data bound to nodes. Local SSD or small root volumes fill quickly under sustained write-heavy profiles, which in turn triggers kubelet eviction, image garbage collection, and flaky scrapes. A recurring operational task was \emph{deliberate} PVC cleanup between runs: delete bound claims where safe, truncate known directories, or recycle nodes. Without that discipline, ``mysterious'' slowdowns in later runs were often plain disk exhaustion rather than algorithmic regression.
+
+%------------------------------------------------------------------------------
+\subsection{Resource behaviour and stress challenges}
+\label{subsec:challenges-stress}
+
+\paragraph{Orthogonality of resource stress.}
+Many experiments aim to stress \emph{one} resource channel at a time---for example, push disk I/O while keeping CPU and memory near baseline---so that learner alarms can be attributed to a single family of metrics. Client tools and profile names (\emph{write-heavy}, \emph{disk-oriented}) suggest such isolation, but a sustained CQL write path does not cooperate: the same operations simultaneously consume coordinator and replica CPU (parse, serialize, compress, checksum), grow memtables and buffers in memory, append the commitlog, flush SSTables to disk, and later drive compaction with additional read/write amplification. Workload tuning alone rarely decouples those effects enough for clean ablations. \emph{Isolating} a channel for UBL sensitivity studies therefore required deliberate instrumentation---for example synthetic CPU burn inside a container, cgroup memory limits, or block-device throttling---alongside or instead of relying on stress parameters alone.
+
+\paragraph{Short-lived CPU spikes.}
+Inducing a CPU spike visible at Prometheus scrape resolution (e.g., tens of seconds cadence) but short enough to qualify as a ``brief'' anomaly is surprisingly finicky. Too short a burn may not register as a sustained elevation in scraped container CPU; too long overlaps the learner's detection horizon and begins to resemble a sustained overload that triggers alarms for the ``right'' but experimentally confounding reason. Tuning duration, parallelism, and placement relative to scrape alignment became an empirical loop rather than a one-line parameter.
+
+\paragraph{Memory footprint monotonicity after startup.}
+Under Kubernetes, Cassandra's JVM requests memory from the OS and the cgroup controller accounts resident set size conservatively. Observed behaviour matched a well-known pattern: application-reported heap may plateau, while cgroup memory metrics remain high after warmup because pages are not returned to the host at fine granularity, and off-heap/direct buffers add pressure. That complicates ``memory stress'' narratives: a post-startup plateau can look like a leak when it is retention policy. Interpreting UBL alarms on memory channels therefore required comparing against GC logs, heap dumps (when feasible), and known Cassandra memory pools rather than raw RSS alone.
+
+\paragraph{Baseline variability and false alarm pressure.}
+Even during nominally stable baseline windows, CPU and I/O time series exhibit spikes from garbage collection pauses, minor/major compactions, and periodic background tasks. UBL, being unsupervised and driven by distance-to-manifold scores, can flag these as excursions if the SOM's normal model is too tight or the streak debouncer is too short. This is a methodological limitation: \emph{operational normality} for Cassandra includes bursty housekeeping. Separating ``interesting'' stress from housekeeping motivated longer baselines, score smoothing, and evaluation windows $W$ that tolerate brief benign spikes.
+
+%------------------------------------------------------------------------------
+\subsection{Metrics and mitigation challenges}
+\label{subsec:challenges-metrics-mitigation}
+
+\paragraph{SLO signal extraction from cassandra-stress logs.}
+An early approach derived p95/p99 style SLO proxies by scraping or parsing \texttt{cassandra-stress} textual output from ephemeral Job pods. Problems stacked quickly: stress tools emit high-volume logs; multiple threads interleave lines; pods restart and lose local log history; regex parsers are brittle across version strings and locale formatting. End-to-end latency from log ship to metric availability was high enough to lag alarms and distort lead-time studies.
+
+\paragraph{NoSQLBench as the cleaner path.}
+Switching client-side latency reporting to NoSQLBench's structured outputs (notably CSV-oriented histostat series exposed via a metrics sidecar) reduced parsing complexity and improved alignment with Prometheus scrape models. The conceptual point is that \emph{first-class metrics} beat \emph{log archaeology} for closed-loop experiments.
+
+\paragraph{Cold-start latency after scale-out.}
+Even when mitigation correctly detects sustained SLO violation and increases StatefulSet replicas, a new Cassandra pod is not immediately queryable. Bootstrapping, JVM warmup, gossip convergence, and readiness probes routinely consumed on the order of twenty seconds in lab conditions (exact timing depends on image, CPU, and IO). Kubernetes does not provide a native ``hot standby'' CQL replica that instantaneously absorbs load; capacity appears as a schedulable pod that must join the ring. Therefore mitigation experiments must either (a) bake cooldown and evaluation delays into timelines, or (b) treat post-scale SLO recovery as a two-phase phenomenon: \emph{scheduling} plus \emph{service readiness}.
+
+\paragraph{Implication for evaluation.}
+Lead time and \texttt{Ntp}/\texttt{Nfn} definitions assume timestamps for alarms and breaches are comparable and well clock-synchronised. Mitigation scripts that poll Prometheus with coarse intervals can miss sub-minute recovery dynamics, overstating violation duration or understating recovery. Reporting should state scrape cadence and probe semantics alongside mitigation outcomes.
+
+%------------------------------------------------------------------------------
+\section*{Appendix: notation summary}
+\begin{tabular}{@{}ll@{}}
+\toprule
+Symbol & Meaning \\
+\midrule
+$\mathbf{x}(t)$ & raw aggregated Tier~A feature vector at time $t$ \\
+$\mathbf{z}(t)$ & normalised feature vector \\
+$(r^\star,c^\star)$ & BMU coordinates \\
+$s(t)$ & anomaly score (area-map based) \\
+$\tau$ & alarm threshold on $s(t)$ \\
+$L$ & streak length for debouncing \\
+$W$ & pending/lead-time evaluation window \\
+$\theta$ & SLO latency threshold (ms) \\
+\bottomrule
+\end{tabular}
+
+\end{document}

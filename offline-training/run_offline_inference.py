@@ -186,6 +186,26 @@ def roc_from_scores(
     return {"points": out_pts, "score_min": s_min, "score_max": s_max}
 
 
+def auc_from_roc_points(points: List[Dict[str, Any]]) -> Optional[float]:
+    xy: List[Tuple[float, float]] = []
+    for p in points:
+        if not isinstance(p, dict):
+            continue
+        if "fpr" not in p or "tpr" not in p:
+            continue
+        xy.append((float(p["fpr"]), float(p["tpr"])))
+    if not xy:
+        return None
+    xy.append((0.0, 0.0))
+    xy.append((1.0, 1.0))
+    xy = sorted(set(xy), key=lambda t: (t[0], t[1]))
+    auc = 0.0
+    for (x0, y0), (x1, y1) in zip(xy[:-1], xy[1:]):
+        dx = max(0.0, float(x1 - x0))
+        auc += dx * (float(y0) + float(y1)) / 2.0
+    return float(max(0.0, min(1.0, auc)))
+
+
 def lead_times_for_threshold(
     ts_list: List[float],
     violation_ts_list: List[float],
@@ -233,10 +253,16 @@ def main() -> None:
         help="Path to samples JSON (list or {samples: [...]})",
     )
     parser.add_argument(
-        "--som-snapshot",
+        "--som-snapshot-5pts",
         type=Path,
         default=Path("../ubl-learner/som_trained_snapshot.json"),
-        help="Pretrained SOM snapshot JSON",
+        help="Pretrained SOM snapshot JSON for UBL-5PtS",
+    )
+    parser.add_argument(
+        "--som-snapshot-ns",
+        type=Path,
+        default=None,
+        help="Optional SOM snapshot JSON for UBL-NS (defaults to --som-snapshot-5pts)",
     )
     parser.add_argument(
         "--knn-snapshot",
@@ -277,7 +303,9 @@ def main() -> None:
         print("[ERROR] No samples", file=sys.stderr)
         sys.exit(1)
 
-    weights, area_map, som_threshold, som_norm_max, _fo = load_som_snapshot(args.som_snapshot)
+    som_ns_path = args.som_snapshot_ns if args.som_snapshot_ns is not None else args.som_snapshot_5pts
+    weights_5, area_map_5, som_threshold_5, som_norm_max_5, _fo5 = load_som_snapshot(args.som_snapshot_5pts)
+    weights_ns, area_map_ns, som_threshold_ns, som_norm_max_ns, _fons = load_som_snapshot(som_ns_path)
     X_ref, knn_k, knn_tau, knn_tau_pct, knn_norm_max = load_knn_snapshot(args.knn_snapshot)
 
     history_5: deque = deque(maxlen=max(1, int(args.ubl_smooth_k)))
@@ -295,16 +323,17 @@ def main() -> None:
             continue
         vals_f = {k: float(v) for k, v in values.items() if isinstance(v, (int, float))}
         raw = avg_features(vals_f, pods)
-        vec_som = normalize(raw, som_norm_max, TIER_A_AVG_FEATURES)
+        vec_som_ns = normalize(raw, som_norm_max_ns, TIER_A_AVG_FEATURES)
+        vec_som_5 = normalize(raw, som_norm_max_5, TIER_A_AVG_FEATURES)
         vec_knn = normalize(raw, knn_norm_max, TIER_A_AVG_FEATURES)
 
-        vec_ns = vec_som.copy()
-        vec_5 = moving_avg(history_5, vec_som, int(args.ubl_smooth_k))
+        vec_ns = vec_som_ns.copy()
+        vec_5 = moving_avg(history_5, vec_som_5, int(args.ubl_smooth_k))
 
-        br, bc = som_bmu(weights, vec_ns)
-        area_ns = float(area_map[br, bc])
-        br5, bc5 = som_bmu(weights, vec_5)
-        area_5 = float(area_map[br5, bc5])
+        br, bc = som_bmu(weights_ns, vec_ns)
+        area_ns = float(area_map_ns[br, bc])
+        br5, bc5 = som_bmu(weights_5, vec_5)
+        area_5 = float(area_map_5[br5, bc5])
 
         s_knn = knn_score(vec_knn, X_ref, knn_k)
 
@@ -328,7 +357,8 @@ def main() -> None:
             {
                 "tick_index": rec.get("tick_index"),
                 "ts": float(ts),
-                "input_vector_som_norm": vec_som.tolist(),
+                "input_vector_som_ns_norm": vec_som_ns.tolist(),
+                "input_vector_som_5pts_norm": vec_som_5.tolist(),
                 "input_vector_knn_norm": vec_knn.tolist(),
                 "slo": (
                     None
@@ -342,15 +372,15 @@ def main() -> None:
                 ),
                 "ubl_ns": {
                     "score_area": area_ns,
-                    "threshold": som_threshold,
-                    "is_anomaly": bool(area_ns >= som_threshold),
+                    "threshold": som_threshold_ns,
+                    "is_anomaly": bool(area_ns >= som_threshold_ns),
                     "bmu": [br, bc],
                 },
                 "ubl_5pts": {
                     "smooth_k": int(args.ubl_smooth_k),
                     "score_area": area_5,
-                    "threshold": som_threshold,
-                    "is_anomaly": bool(area_5 >= som_threshold),
+                    "threshold": som_threshold_5,
+                    "is_anomaly": bool(area_5 >= som_threshold_5),
                     "bmu": [br5, bc5],
                 },
                 "knn": {
@@ -370,6 +400,12 @@ def main() -> None:
     if any(slo_violated_list):
         pending_truth = build_pending_truth(ts_list, slo_violated_list, float(args.pending_window_sec))
         violation_ts_list = [ts for ts, v in zip(ts_list, slo_violated_list) if v]
+        roc_ns = roc_from_scores(ubl_ns_scores, pending_truth, points=int(args.roc_points))
+        roc_5 = roc_from_scores(ubl_5_scores, pending_truth, points=int(args.roc_points))
+        roc_knn = roc_from_scores(knn_scores, pending_truth, points=int(args.roc_points))
+        roc_ns["auc"] = auc_from_roc_points(list(roc_ns.get("points") or []))
+        roc_5["auc"] = auc_from_roc_points(list(roc_5.get("points") or []))
+        roc_knn["auc"] = auc_from_roc_points(list(roc_knn.get("points") or []))
         evaluation = {
             "pending_window_sec": float(args.pending_window_sec),
             "ground_truth": {
@@ -378,16 +414,16 @@ def main() -> None:
                 "pending_positive_count": int(sum(1 for v in pending_truth if v)),
             },
             "roc": {
-                "ubl_ns": roc_from_scores(ubl_ns_scores, pending_truth, points=int(args.roc_points)),
-                "ubl_5pts": roc_from_scores(ubl_5_scores, pending_truth, points=int(args.roc_points)),
-                "knn": roc_from_scores(knn_scores, pending_truth, points=int(args.roc_points)),
+                "ubl_ns": roc_ns,
+                "ubl_5pts": roc_5,
+                "knn": roc_knn,
             },
             "lead_time": {
                 "ubl_ns@som_threshold": lead_times_for_threshold(
-                    ts_list, violation_ts_list, ubl_ns_scores, float(som_threshold), float(args.pending_window_sec)
+                    ts_list, violation_ts_list, ubl_ns_scores, float(som_threshold_ns), float(args.pending_window_sec)
                 ),
                 "ubl_5pts@som_threshold": lead_times_for_threshold(
-                    ts_list, violation_ts_list, ubl_5_scores, float(som_threshold), float(args.pending_window_sec)
+                    ts_list, violation_ts_list, ubl_5_scores, float(som_threshold_5), float(args.pending_window_sec)
                 ),
                 "knn@tau": lead_times_for_threshold(
                     ts_list, violation_ts_list, knn_scores, float(knn_tau), float(args.pending_window_sec)
@@ -397,7 +433,8 @@ def main() -> None:
 
     payload = {
         "samples_source": str(args.samples_json),
-        "som_snapshot": str(args.som_snapshot),
+        "som_snapshot_5pts": str(args.som_snapshot_5pts),
+        "som_snapshot_ns": str(som_ns_path),
         "knn_snapshot": str(args.knn_snapshot),
         "count": len(rows_out),
         "items": rows_out,
