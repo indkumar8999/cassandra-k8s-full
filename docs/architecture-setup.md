@@ -21,7 +21,7 @@ The narrative matches the project report (LaTeX source: `reporting/ADS_Project_f
 | UBL learner | `k8s/ubl-learner/*.yaml` | Image, env from ConfigMap, node affinity |
 | Stress / NB control plane | `k8s/chaos-injector/*.yaml` | Image, `PROMPUSH_URL`, NB image/jar env, RBAC, scenario ConfigMaps, histostat PVC |
 | Orchestrator job template | `k8s/orchestrator/` | Orchestrator image, ConfigMap defaults |
-| Prometheus / Grafana / VM | `monitoring/kube-prometheus-stack-values.yaml` | Scrape intervals, NodePorts, `extraManifests` (Pushgateway, VictoriaMetrics), node selectors |
+| Prometheus / Grafana | `monitoring/kube-prometheus-stack-values.yaml` | Scrape intervals, NodePorts, `extraManifests` (Pushgateway), node selectors |
 | Scrape wiring | `monitoring/*podmonitor*.yaml`, `monitoring/cassandra-*.yaml` | Which pods expose `/metrics` or JMX |
 | Strict deploy + checks | `scripts/deploy_strict_order.sh`, `Makefile`, `scripts/demo_preflight.sh` | Order of apply, preflight assumptions |
 | Custom images | `simulator/`, `ubl-learner/`, `chaos-injector/`, `orchestrator/` Dockerfiles | Service code |
@@ -34,14 +34,14 @@ The architecture supports:
 1. **Multi-node Cassandra** on Kubernetes with stable DNS identities (StatefulSet + headless Service).
 2. **Prometheus-compatible scraping** of containers (cAdvisor/kubelet path), Cassandra JMX, and app `/metrics` (learner, chaos, simulator, NoSQLBench histostat sidecars).
 3. **UBL learner** reading Tier-A series from Prometheus and exposing scores/alarms over HTTP.
-4. **Chaos injector** creating short-lived Jobs (NoSQLBench and legacy paths), pushing client metrics to VictoriaMetrics, and persisting histostats where configured.
+4. **Chaos injector** creating short-lived Jobs (NoSQLBench and legacy paths) and persisting histostats where configured. Metrics are scraped by **Prometheus** (either directly from exporters/sidecars, or via Pushgateway).
 5. **Optional closed loop** to scale Cassandra from scripts (see `docs/mitigation.md`).
 
 ## High-level topology
 
 ### Intended lab shape (report: VCL / k3s)
 
-- **One control-oriented node** (`control-node` in manifests): Kubernetes control plane (on k3s this colocates server/agent), **monitoring stack** (Prometheus Operator, Grafana, Alertmanager, kube-state-metrics, node-exporter, Pushgateway, VictoriaMetrics-NB), **control services** (UBL learner, chaos injector, optional simulator) and **ephemeral stress Jobs** scheduled where cluster capacity allows.
+- **One control-oriented node** (`control-node` in manifests): Kubernetes control plane (on k3s this colocates server/agent), **monitoring stack** (Prometheus Operator, Grafana, Alertmanager, kube-state-metrics, node-exporter, Pushgateway), **control services** (UBL learner, chaos injector, optional simulator) and **ephemeral stress Jobs** scheduled where cluster capacity allows.
 - **Multiple workers** (`worker-1`, `worker-2`, …): **Cassandra** StatefulSet pods, anti-affinity across hostnames.
 
 This separation keeps heavy CQL and compaction work off the same node that runs Prometheus query fan-out and Grafana, at least in the **pedagogical** layout. Your real node names **must** match `kubectl get nodes`; all `nodeAffinity` / `nodeSelector` blocks are literal hostnames.
@@ -101,7 +101,7 @@ Applying **`kubectl apply -f k8s/chaos-injector/`** installs, in dependency orde
 | `nosqlbench-histostats-exporter-configmap.yaml` | Sidecar exporter config for histostat CSV → Prometheus text |
 | `nosqlbench-histostats-pvc.yaml` | Shared PVC name referenced by NB Jobs for histostat persistence |
 | `university-profile-configmap.yaml` | Legacy cassandra-stress user profile (also created from repo file by `Makefile` during `deploy-mvp`) |
-| `chaos-injector-deployment.yaml` | Control service on **8200**, `PROMPUSH_URL` (VictoriaMetrics rewrite), `NOSQLBENCH_*` env, histostat toggles |
+| `chaos-injector-deployment.yaml` | Control service on **8200**, `PROMPUSH_URL` (Pushgateway), `NOSQLBENCH_*` env, histostat toggles |
 | `chaos-injector-service.yaml` | ClusterIP API |
 
 **Changing stress behavior:** most edits are in **`chaos-injector/main.py`** and **`k8s/chaos-injector/chaos-nosqlbench-scenarios-configmap.yaml`**, then rebuild/push the chaos image.
@@ -129,8 +129,12 @@ Important knobs in **`monitoring/kube-prometheus-stack-values.yaml`** (read this
 - **Scrape cadence:** `prometheus.prometheusSpec.scrapeInterval` and `evaluationInterval` are set to **1s** for lab responsiveness (higher load than production defaults).
 - **Grafana:** NodePort **32000**, default admin password in values (change for real use).
 - **Prometheus:** NodePort **32090**.
-- **Grafana extra datasource:** `VictoriaMetrics-NB` points at `http://victoria-metrics-nb.monitoring.svc:8428` — **NoSQLBench push** metrics are queried here; default Prometheus does not `remote_read` from VM (comment in values explains Explore behavior).
-- **`extraManifests`:** in-chart objects for **Pushgateway** (Deployment + Service + ServiceMonitor, `honorLabels: true`) and **VictoriaMetrics** single-node (`victoria-metrics-nb`) for NB HTTP push ingest.
+- **`extraManifests`:** in-chart objects for **Pushgateway** (Deployment + Service + ServiceMonitor, `honorLabels: true`).
+
+**Prometheus-only note:** this repo assumes **Prometheus** is the only metrics backend. For NoSQLBench or other short-lived Jobs, prefer:
+
+- export metrics via a sidecar and scrape with a `PodMonitor`/`ServiceMonitor`, and/or
+- push transient metrics to **Pushgateway**, which Prometheus then scrapes.
 
 ### After Helm: Cassandra JMX and PodMonitors
 
@@ -170,7 +174,6 @@ Without the NoSQLBench PodMonitor, **histostat sidecar** series may not appear i
 |-------|----------------|
 | Grafana | NodePort **32000** on a node where the Service routes, or port-forward to Grafana pod |
 | Prometheus | NodePort **32090**, or port-forward |
-| VictoriaMetrics NB | ClusterIP **8428** — Grafana datasource or `kubectl port-forward svc/victoria-metrics-nb` |
 | Learner / chaos / simulator | ClusterIP — **port-forward** `8100` / `8200` / `8080` |
 
 ## Metrics and control-plane data flow
@@ -183,18 +186,17 @@ flowchart LR
   end
   subgraph control [control-node]
     P[Prometheus]
-    VM[VictoriaMetrics-NB]
     G[Grafana]
     L[UBL learner]
     X[Chaos injector]
   end
   C -->|cAdvisor kubelet| P
   J -->|histostat sidecar PodMonitor| P
-  J -->|HTTP push OpenMetrics| VM
   X -->|creates Jobs| J
   L -->|PromQL instant queries| P
   G -->|datasource| P
-  G -->|datasource NB| VM
+  J -.->|optional push| PG[Pushgateway]
+  PG -->|scraped| P
 ```
 
 ## Image build, tag, and manifest wiring
@@ -342,7 +344,7 @@ The following summarizes **Section: Limitations and Challenges** in `reporting/A
 **cassandra-stress log parsing (deprecated path)**
 
 - Early SLO proxies parsed **stress text logs** → brittle, high volume, lost on pod restart, bad lead-time alignment.
-- **NoSQLBench + histostats + metrics sidecar (+ Victoria push)** is the maintained “first-class metrics” path (see `docs/stress-setup.md`).
+- **NoSQLBench + histostats + metrics sidecar** is the maintained “first-class metrics” path (see `docs/stress-setup.md`).
 
 ### Mitigation and evaluation challenges
 
