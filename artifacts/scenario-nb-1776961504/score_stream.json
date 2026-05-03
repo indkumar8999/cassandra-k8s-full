@@ -1,0 +1,1796 @@
+{
+  "count": 81,
+  "items": [
+    {
+      "bmu": [
+        1,
+        3
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        28.079474650026036,
+        74.5355733235677,
+        0.6069284833860008
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 15.295728916408041,
+      "score_latency_ms": 18.38,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961504.9593225
+    },
+    {
+      "bmu": [
+        1,
+        3
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        27.928253208007597,
+        74.5355733235677,
+        0.5322379070765793
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 6.017124589037774,
+      "score_latency_ms": 14.914,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961505.5129018
+    },
+    {
+      "bmu": [
+        1,
+        3
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        28.181542136276978,
+        74.53535970052083,
+        0.46240493478325434
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 2.372810350862432,
+      "score_latency_ms": 22.866,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961506.0645216
+    },
+    {
+      "bmu": [
+        1,
+        3
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        28.43483106454636,
+        74.53514607747395,
+        0.3925719624899295
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 0.8935500574094719,
+      "score_latency_ms": 15.898,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961506.6245136
+    },
+    {
+      "bmu": [
+        3,
+        3
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "diagnosis": "abnormal",
+      "input_vector": [
+        28.839341434834182,
+        74.53493245442708,
+        0.397429566506026
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 69.35580440091037,
+      "score_latency_ms": 29.706,
+      "streak": 1,
+      "threshold": 24.105166442794292,
+      "ts": 1776961507.1794555
+    },
+    {
+      "bmu": [
+        3,
+        3
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        29.243851805122006,
+        74.5347188313802,
+        0.4022871705221226
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 22.300734612618704,
+      "score_latency_ms": 14.71,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961507.7460134
+    },
+    {
+      "bmu": [
+        3,
+        3
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        29.648362175409837,
+        74.53450520833333,
+        0.40714477453821907
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 7.152970412029574,
+      "score_latency_ms": 16.098,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961508.30326
+    },
+    {
+      "bmu": [
+        3,
+        3
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        29.491352544024977,
+        74.53450520833333,
+        0.40521204840160746
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 2.2770585588292347,
+      "score_latency_ms": 15.972,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961508.8559759
+    },
+    {
+      "bmu": [
+        3,
+        3
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        29.549953148356213,
+        74.53450520833333,
+        0.40405343803721977
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 0.7321389157654079,
+      "score_latency_ms": 16.602,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961509.442232
+    },
+    {
+      "bmu": [
+        3,
+        4
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        29.608553752687442,
+        74.53450520833333,
+        0.4028948276728322
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 0.2744402765770592,
+      "score_latency_ms": 21.892,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961509.9974043
+    },
+    {
+      "bmu": [
+        2,
+        3
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        29.563064005625613,
+        74.53450520833333,
+        0.3996251254604336
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 0.12852584753043,
+      "score_latency_ms": 17.178,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961510.5603335
+    },
+    {
+      "bmu": [
+        1,
+        4
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        29.429229020425602,
+        74.53450520833333,
+        0.3956906629530706
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 2.5385606279652295,
+      "score_latency_ms": 17.186,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961511.1191065
+    },
+    {
+      "bmu": [
+        0,
+        3
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        29.23662953770248,
+        74.53450520833333,
+        0.3909866298298408
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 1.4562748170005284,
+      "score_latency_ms": 26.689,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961511.6753418
+    },
+    {
+      "bmu": [
+        0,
+        2
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        28.798889534480224,
+        74.53450520833333,
+        0.3851016551092209
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 9.405569748294303,
+      "score_latency_ms": 22.123,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961512.2806494
+    },
+    {
+      "bmu": [
+        1,
+        1
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores",
+        "tier_a_disk_io_bytes_per_sec"
+      ],
+      "diagnosis": "abnormal",
+      "input_vector": [
+        28.7431046975154,
+        74.69984944661458,
+        0.38114114759487694
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 36.46973633812687,
+      "score_latency_ms": 16.32,
+      "streak": 1,
+      "threshold": 24.105166442794292,
+      "ts": 1776961512.845194
+    },
+    {
+      "bmu": [
+        1,
+        1
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        28.784794199118306,
+        74.86519368489583,
+        0.3791579133831885
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 11.721503757531682,
+      "score_latency_ms": 18.778,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961513.3972983
+    },
+    {
+      "bmu": [
+        0,
+        1
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        29.00555712432015,
+        75.03053792317708,
+        0.3769692824799186
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 1.3151453998433054,
+      "score_latency_ms": 16.856,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961513.9572196
+    },
+    {
+      "bmu": [
+        2,
+        1
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        29.434497046528595,
+        75.19588216145833,
+        0.37735992643617133
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 3.781915181061916,
+      "score_latency_ms": 14.595,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961514.5119178
+    },
+    {
+      "bmu": [
+        2,
+        0
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        29.885424777243895,
+        75.36122639973958,
+        0.37803481684942924
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 8.812663741563307,
+      "score_latency_ms": 15.558,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961515.0664978
+    },
+    {
+      "bmu": [
+        2,
+        0
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        29.946786545894106,
+        75.36122639973958,
+        0.3766624394258528
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 2.8339704226480924,
+      "score_latency_ms": 17.13,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961515.6211324
+    },
+    {
+      "bmu": [
+        3,
+        0
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        30.333046178390124,
+        75.36679077148438,
+        0.3803755404382465
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 4.614505243231912,
+      "score_latency_ms": 15.853,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961516.1816583
+    },
+    {
+      "bmu": [
+        3,
+        0
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        30.62857762542539,
+        75.37235514322917,
+        0.384958798437186
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 1.4759485437501807,
+      "score_latency_ms": 15.865,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961516.7393994
+    },
+    {
+      "bmu": [
+        4,
+        0
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        30.931706204362037,
+        75.37791951497397,
+        0.38966507832908126
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 4.858683331183176,
+      "score_latency_ms": 17.814,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961517.2975252
+    },
+    {
+      "bmu": [
+        4,
+        1
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        31.24237725957486,
+        75.38348388671876,
+        0.39449393758913764
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 9.758022203367705,
+      "score_latency_ms": 14.827,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961517.8561306
+    },
+    {
+      "bmu": [
+        5,
+        0
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        31.560659110595346,
+        75.38904825846355,
+        0.39944559747975233
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 13.495476137553908,
+      "score_latency_ms": 16.525,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961518.4136026
+    },
+    {
+      "bmu": [
+        4,
+        0
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        31.444211764930863,
+        75.38904825846355,
+        0.39728453081522747
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 0.19315002489534688,
+      "score_latency_ms": 17.363,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961518.9703853
+    },
+    {
+      "bmu": [
+        3,
+        1
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        31.31619537702669,
+        75.38904825846355,
+        0.3950047674939989
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 1.0198672064007657,
+      "score_latency_ms": 14.943,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961519.5254204
+    },
+    {
+      "bmu": [
+        2,
+        1
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        31.176609946882838,
+        75.38904825846355,
+        0.39260630751606673
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 1.0811792111876415,
+      "score_latency_ms": 15.639,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961520.0810242
+    },
+    {
+      "bmu": [
+        2,
+        1
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        31.159027277206235,
+        75.38904825846355,
+        0.39102419209795836
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 0.3476388344520713,
+      "score_latency_ms": 15.666,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961520.6341724
+    },
+    {
+      "bmu": [
+        0,
+        1
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        30.90609022045632,
+        75.38904825846355,
+        0.38567110688419876
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 3.7636903451292087,
+      "score_latency_ms": 28.474,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961521.1978927
+    },
+    {
+      "bmu": [
+        0,
+        1
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        30.76450670727973,
+        75.38904825846355,
+        0.38246737171895784
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 1.211356102388197,
+      "score_latency_ms": 17.673,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961521.766401
+    },
+    {
+      "bmu": [
+        0,
+        2
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        30.62953505971538,
+        75.38904825846355,
+        0.379370362530851
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 0.5987278050627518,
+      "score_latency_ms": 15.544,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961522.3228445
+    },
+    {
+      "bmu": [
+        2,
+        3
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        30.905304445080866,
+        75.2889404296875,
+        0.3859209298978136
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 3.964886181591981,
+      "score_latency_ms": 15.539,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961522.8748324
+    },
+    {
+      "bmu": [
+        3,
+        2
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        31.059071069979087,
+        75.18883260091145,
+        0.39165515270495244
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 1.0208837520816825,
+      "score_latency_ms": 15.85,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961523.4271975
+    },
+    {
+      "bmu": [
+        4,
+        2
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        31.334491011851856,
+        75.08872477213541,
+        0.40173130098009835
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 1.4639726017071246,
+      "score_latency_ms": 16.501,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961523.9864752
+    },
+    {
+      "bmu": [
+        5,
+        2
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        31.469329066292705,
+        74.98861694335936,
+        0.41205181734657803
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 10.853912766698599,
+      "score_latency_ms": 15.303,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961524.5452478
+    },
+    {
+      "bmu": [
+        5,
+        2
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        31.609124297360985,
+        74.88850911458333,
+        0.4223843043926275
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 3.485280802502138,
+      "score_latency_ms": 16.286,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961525.0996926
+    },
+    {
+      "bmu": [
+        3,
+        3
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        31.180834786454863,
+        74.88850911458333,
+        0.42112038428313714
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 1.753944083212104,
+      "score_latency_ms": 15.309,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961525.654638
+    },
+    {
+      "bmu": [
+        2,
+        4
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        30.74253791811667,
+        74.88850911458333,
+        0.41973407731051965
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 1.6872154677938376,
+      "score_latency_ms": 22.018,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961526.2074602
+    },
+    {
+      "bmu": [
+        0,
+        4
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        30.316937363268305,
+        74.88850911458333,
+        0.4161861434146511
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 1.961613271221152,
+      "score_latency_ms": 45.72,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961526.767734
+    },
+    {
+      "bmu": [
+        1,
+        5
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        30.019408965149136,
+        74.88850911458333,
+        0.4121631015352306
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 7.142221023338252,
+      "score_latency_ms": 15.453,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961527.352537
+    },
+    {
+      "bmu": [
+        1,
+        5
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        29.70520987101661,
+        74.88850911458333,
+        0.4079104512702438
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 2.3154878939723367,
+      "score_latency_ms": 15.526,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961527.906491
+    },
+    {
+      "bmu": [
+        1,
+        5
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        29.54327669082669,
+        74.88850911458333,
+        0.4054967411258546
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 0.7774653251639274,
+      "score_latency_ms": 16.18,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961528.460223
+    },
+    {
+      "bmu": [
+        1,
+        5
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        29.374626221874728,
+        74.88850911458333,
+        0.4029745660923173
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 0.2739229500367008,
+      "score_latency_ms": 16.518,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961529.0160167
+    },
+    {
+      "bmu": [
+        1,
+        5
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        29.29029165134515,
+        74.88850911458333,
+        0.401813261586258
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 0.11001373943847004,
+      "score_latency_ms": 17.731,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961529.5699959
+    },
+    {
+      "bmu": [
+        1,
+        5
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        29.206817805242157,
+        74.88850911458333,
+        0.40066356183614793
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 0.049334539228381824,
+      "score_latency_ms": 15.874,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961530.126185
+    },
+    {
+      "bmu": [
+        1,
+        5
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        28.92795892020742,
+        74.88850911458333,
+        0.39720765966073673
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 0.027341250694134234,
+      "score_latency_ms": 16.263,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961530.679008
+    },
+    {
+      "bmu": [
+        1,
+        5
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        28.636447762044998,
+        74.88850911458333,
+        0.3936010411772223
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 0.036555287711747375,
+      "score_latency_ms": 18.627,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961531.2381535
+    },
+    {
+      "bmu": [
+        1,
+        5
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        28.152945035471078,
+        74.88850911458333,
+        0.3910523871501301
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 0.045506583672837386,
+      "score_latency_ms": 15.931,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961531.7966795
+    },
+    {
+      "bmu": [
+        1,
+        5
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        27.65892522500561,
+        74.88850911458333,
+        0.3883432903991522
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 0.06662969391588724,
+      "score_latency_ms": 14.689,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961532.3522
+    },
+    {
+      "bmu": [
+        1,
+        5
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        27.437901459410362,
+        74.80565388997395,
+        0.39239441589666557
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 0.07981486804391491,
+      "score_latency_ms": 17.762,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961532.9046135
+    },
+    {
+      "bmu": [
+        1,
+        5
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        27.096946356708475,
+        74.72279866536458,
+        0.39650164827126533
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 0.06916052550122154,
+      "score_latency_ms": 24.65,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961533.463848
+    },
+    {
+      "bmu": [
+        1,
+        5
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        26.652152318984328,
+        74.6399434407552,
+        0.39580271946690837
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 0.07225422167675871,
+      "score_latency_ms": 15.579,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961534.030987
+    },
+    {
+      "bmu": [
+        1,
+        5
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        26.107657258305505,
+        74.55708821614583,
+        0.3935308042165553
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 0.08363251879943451,
+      "score_latency_ms": 15.876,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961534.588874
+    },
+    {
+      "bmu": [
+        1,
+        5
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        25.576804532231073,
+        74.47423299153645,
+        0.391384377682924
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 0.0990725908608685,
+      "score_latency_ms": 15.746,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961535.146649
+    },
+    {
+      "bmu": [
+        1,
+        5
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        24.77611065463977,
+        74.47423299153645,
+        0.3824433505998199
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 0.10660518326092366,
+      "score_latency_ms": 16.214,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961535.7064385
+    },
+    {
+      "bmu": [
+        1,
+        5
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        24.626376265240133,
+        74.48464965820312,
+        0.40297374566285704
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 0.12644996674793696,
+      "score_latency_ms": 16.399,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961536.263186
+    },
+    {
+      "bmu": [
+        1,
+        5
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        24.724314797880645,
+        74.4950663248698,
+        0.43254308996209756
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 0.08097826640810324,
+      "score_latency_ms": 17.781,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961536.8196902
+    },
+    {
+      "bmu": [
+        1,
+        7
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "diagnosis": "abnormal",
+      "input_vector": [
+        25.130670568081445,
+        74.50548299153647,
+        0.4628583080031873
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 70.92281237622835,
+      "score_latency_ms": 15.751,
+      "streak": 1,
+      "threshold": 24.105166442794292,
+      "ts": 1776961537.3810928
+    },
+    {
+      "bmu": [
+        1,
+        7
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        25.550589945755945,
+        74.51589965820314,
+        0.4934382807748577
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 22.784779511458478,
+      "score_latency_ms": 18.044,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961537.9426656
+    },
+    {
+      "bmu": [
+        1,
+        7
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        26.123033840746558,
+        74.5263163248698,
+        0.5262472183490999
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 7.300907970616099,
+      "score_latency_ms": 16.187,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961538.5013032
+    },
+    {
+      "bmu": [
+        1,
+        8
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        26.41436238198248,
+        74.5263163248698,
+        0.538651344714159
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 1.550922707927068,
+      "score_latency_ms": 16.363,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961539.0582073
+    },
+    {
+      "bmu": [
+        1,
+        9
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        26.580883947885933,
+        74.5263163248698,
+        0.5470566263041453
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 22.63259034951124,
+      "score_latency_ms": 16.69,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961539.611512
+    },
+    {
+      "bmu": [
+        1,
+        9
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        26.850046147581402,
+        74.5263163248698,
+        0.554687089103636
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 7.279508475324328,
+      "score_latency_ms": 15.699,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961540.1681206
+    },
+    {
+      "bmu": [
+        1,
+        9
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        26.808158121212227,
+        74.5263163248698,
+        0.5580970083918455
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 2.3293967479860664,
+      "score_latency_ms": 17.926,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961540.7213128
+    },
+    {
+      "bmu": [
+        1,
+        7
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        26.597810764729797,
+        74.5263163248698,
+        0.5591355331843059
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 1.488958881765316,
+      "score_latency_ms": 16.514,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961541.2804022
+    },
+    {
+      "bmu": [
+        1,
+        5
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        26.32009970414674,
+        74.5263163248698,
+        0.5531807121088239
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 5.307269491601815,
+      "score_latency_ms": 15.576,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961541.8348649
+    },
+    {
+      "bmu": [
+        2,
+        5
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        26.023333940848726,
+        74.5263163248698,
+        0.5469660305034802
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 1.244550148898313,
+      "score_latency_ms": 18.119,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961542.3888063
+    },
+    {
+      "bmu": [
+        2,
+        7
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        26.26402970782299,
+        74.5269775390625,
+        0.5646428819685358
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 1.3613488841002197,
+      "score_latency_ms": 16.673,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961542.950686
+    },
+    {
+      "bmu": [
+        1,
+        9
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        26.806831831610737,
+        74.5276387532552,
+        0.5864044583506984
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 1.2038224639868063,
+      "score_latency_ms": 15.352,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961543.5056293
+    },
+    {
+      "bmu": [
+        1,
+        11
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "diagnosis": "abnormal",
+      "input_vector": [
+        27.258978072965277,
+        74.52829996744791,
+        0.603277320178462
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 62.770219913717256,
+      "score_latency_ms": 16.178,
+      "streak": 1,
+      "threshold": 24.105166442794292,
+      "ts": 1776961544.061722
+    },
+    {
+      "bmu": [
+        3,
+        4
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        27.599133530803943,
+        74.52896118164061,
+        0.6178812988358702
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 10.850868997918408,
+      "score_latency_ms": 14.773,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961544.6173036
+    },
+    {
+      "bmu": [
+        2,
+        3
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        27.962370238759142,
+        74.52962239583333,
+        0.6326015197213676
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 7.582750309908201,
+      "score_latency_ms": 16.509,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961545.1700087
+    },
+    {
+      "bmu": [
+        2,
+        4
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        27.679168716030198,
+        74.52962239583333,
+        0.6239102787826342
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 0.5120415893797646,
+      "score_latency_ms": 17.692,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961545.7309608
+    },
+    {
+      "bmu": [
+        1,
+        4
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        27.605164822091144,
+        74.52883911132812,
+        0.6131805373927527
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 1.4545923769674838,
+      "score_latency_ms": 16.357,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961546.2911835
+    },
+    {
+      "bmu": [
+        2,
+        3
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        27.651339538396428,
+        74.52805582682292,
+        0.607747170303704
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 0.8775382517664863,
+      "score_latency_ms": 17.559,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961546.8478315
+    },
+    {
+      "bmu": [
+        3,
+        3
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        27.689072333644674,
+        74.52727254231772,
+        0.6017284162138135
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 0.5263743734885636,
+      "score_latency_ms": 22.184,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961547.4064791
+    },
+    {
+      "bmu": [
+        2,
+        2
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        27.722783064923533,
+        74.52648925781251,
+        0.5957755959887849
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 0.7987426394573579,
+      "score_latency_ms": 15.827,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961547.9699712
+    },
+    {
+      "bmu": [
+        3,
+        5
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        27.607857458582988,
+        74.5257059733073,
+        0.5925441552453116
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 1.3178070904842203,
+      "score_latency_ms": 15.511,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961548.5310752
+    },
+    {
+      "bmu": [
+        1,
+        11
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        27.28250150231072,
+        74.5257059733073,
+        0.5912667572317802
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 20.181519053105365,
+      "score_latency_ms": 16.137,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961549.082287
+    },
+    {
+      "bmu": [
+        1,
+        6
+      ],
+      "causes": [],
+      "diagnosis": "normal",
+      "input_vector": [
+        27.06788598667104,
+        74.5257059733073,
+        0.5915441009227568
+      ],
+      "missing_required": [],
+      "missing_tier_b": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 2.113241506543869,
+      "score_latency_ms": 21.713,
+      "streak": 0,
+      "threshold": 24.105166442794292,
+      "ts": 1776961549.6369007
+    }
+  ]
+}

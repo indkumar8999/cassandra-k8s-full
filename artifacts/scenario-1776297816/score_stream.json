@@ -1,0 +1,7967 @@
+{
+  "count": 493,
+  "items": [
+    {
+      "bmu": [
+        20,
+        23
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-2",
+        "tier_a_disk_write_bytes_per_sec__cassandra-1"
+      ],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 134.33793826338206,
+      "score_latency_ms": 6.985,
+      "streak": 1,
+      "threshold": 113.23424740336117,
+      "ts": 1776298026.4213562
+    },
+    {
+      "bmu": [
+        20,
+        23
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 44.614195357915406,
+      "score_latency_ms": 5.011,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298027.040485
+    },
+    {
+      "bmu": [
+        20,
+        23
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 15.8410358309602,
+      "score_latency_ms": 4.997,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298027.684174
+    },
+    {
+      "bmu": [
+        20,
+        23
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 5.621477798492331,
+      "score_latency_ms": 5.231,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298028.267283
+    },
+    {
+      "bmu": [
+        20,
+        23
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 2.0263091921510927,
+      "score_latency_ms": 5.229,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298028.845193
+    },
+    {
+      "bmu": [
+        17,
+        24
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 14.24562600542694,
+      "score_latency_ms": 7.458,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298029.4364502
+    },
+    {
+      "bmu": [
+        16,
+        25
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 16.614334051987676,
+      "score_latency_ms": 5.147,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298030.0218363
+    },
+    {
+      "bmu": [
+        15,
+        26
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 18.704113441170268,
+      "score_latency_ms": 5.178,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298030.6052878
+    },
+    {
+      "bmu": [
+        14,
+        27
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 20.03157860755814,
+      "score_latency_ms": 5.064,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298031.2059858
+    },
+    {
+      "bmu": [
+        14,
+        29
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 23.239375655423572,
+      "score_latency_ms": 5.172,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298031.8012009
+    },
+    {
+      "bmu": [
+        14,
+        30
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 14.576748225454946,
+      "score_latency_ms": 5.224,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298032.4129682
+    },
+    {
+      "bmu": [
+        12,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 16.760940910885015,
+      "score_latency_ms": 5.184,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298033.000274
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 12.146190300081502,
+      "score_latency_ms": 5.428,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298033.6183548
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 4.430838825104552,
+      "score_latency_ms": 5.104,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298034.1979792
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 2.602852404371627,
+      "score_latency_ms": 5.386,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298034.7826798
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 1.9687633613967979,
+      "score_latency_ms": 5.462,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298035.3982472
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 2.476639106468328,
+      "score_latency_ms": 5.559,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298035.976804
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 2.5650724637899582,
+      "score_latency_ms": 5.218,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298036.574135
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 2.482499325002401,
+      "score_latency_ms": 5.072,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298037.1631165
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 2.382437723725687,
+      "score_latency_ms": 5.078,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298037.743813
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 2.350004438049817,
+      "score_latency_ms": 5.173,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298038.329428
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 1.7440741203580288,
+      "score_latency_ms": 5.17,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298038.9630945
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 1.5253337003000187,
+      "score_latency_ms": 5.196,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298039.565827
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 1.0192552613596284,
+      "score_latency_ms": 5.799,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298040.1502194
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 1.1521848886905754,
+      "score_latency_ms": 5.219,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298040.7372608
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 1.4487183010882223,
+      "score_latency_ms": 5.035,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298041.3099468
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 1.675240695795738,
+      "score_latency_ms": 5.029,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298041.8866765
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 1.3848644276944029,
+      "score_latency_ms": 5.111,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298042.4760761
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 1.009008638680081,
+      "score_latency_ms": 5.078,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298043.0565236
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 0.841019972396591,
+      "score_latency_ms": 5.093,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298043.639009
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 1.0064607510406827,
+      "score_latency_ms": 5.105,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298044.2499835
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 1.1175814464496039,
+      "score_latency_ms": 5.717,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298044.835985
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 1.3174819319225186,
+      "score_latency_ms": 5.088,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298045.420314
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 1.2108131432703058,
+      "score_latency_ms": 5.313,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298046.0143683
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 0.8316608588392,
+      "score_latency_ms": 5.206,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298046.6206532
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 0.6489387279928067,
+      "score_latency_ms": 5.014,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298047.2284982
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 0.7459283588829511,
+      "score_latency_ms": 5.147,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298047.8139908
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 0.9153017262885719,
+      "score_latency_ms": 5.149,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298048.4084535
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 1.027676859025238,
+      "score_latency_ms": 5.322,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298049.059405
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 1.2850055635248836,
+      "score_latency_ms": 5.14,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298049.7017093
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 1.554443813401333,
+      "score_latency_ms": 5.146,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298050.2829518
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 1.951671404965861,
+      "score_latency_ms": 5.085,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298050.8659382
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 1.9614911162936153,
+      "score_latency_ms": 5.043,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298051.4698057
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 1.9954186435159258,
+      "score_latency_ms": 5.07,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298052.040573
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 1.8046409316428296,
+      "score_latency_ms": 5.284,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298052.6389356
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 1.1537553042919182,
+      "score_latency_ms": 5.258,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298053.233679
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 1.0759861602838843,
+      "score_latency_ms": 5.197,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298053.8619466
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 0.7104387991652956,
+      "score_latency_ms": 5.084,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298054.4365177
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 1.0827221083130603,
+      "score_latency_ms": 5.198,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298055.0230954
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 1.3489995500999594,
+      "score_latency_ms": 5.582,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298055.6393602
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 1.8743011146635222,
+      "score_latency_ms": 6.783,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298056.2754984
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "normal",
+      "quality_valid": true,
+      "score_area": 1.9859326023565256,
+      "score_latency_ms": 5.134,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298056.8977716
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 1.9878492562539272,
+      "score_latency_ms": 5.215,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298057.5314586
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 1.4474716672736,
+      "score_latency_ms": 5.103,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298058.110378
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 1.1056935866023885,
+      "score_latency_ms": 5.151,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298058.7361999
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 0.5476045881391229,
+      "score_latency_ms": 5.447,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298059.370504
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 0.44206302804562725,
+      "score_latency_ms": 4.954,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298059.9551053
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 0.43708222146254627,
+      "score_latency_ms": 6.075,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298060.5428984
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 0.9663287517819441,
+      "score_latency_ms": 6.083,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298061.1583161
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 1.3051944165406333,
+      "score_latency_ms": 5.489,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298061.7536473
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 2.2089394447676174,
+      "score_latency_ms": 5.277,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298062.3821812
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 2.356847176297153,
+      "score_latency_ms": 4.96,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298062.9737031
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 2.857041662590893,
+      "score_latency_ms": 5.143,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298063.5593302
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 2.9836050155041924,
+      "score_latency_ms": 5.145,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298064.1408145
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 3.028345134516707,
+      "score_latency_ms": 5.505,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298064.7600682
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 3.1543529090278373,
+      "score_latency_ms": 5.299,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298065.4373639
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 3.9598937658235744,
+      "score_latency_ms": 5.129,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298066.067377
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 3.931516220249115,
+      "score_latency_ms": 7.263,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298066.6738012
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 5.221820331894538,
+      "score_latency_ms": 5.224,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298067.2947595
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 5.8415641643826,
+      "score_latency_ms": 6.473,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298067.887509
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 5.034314426838984,
+      "score_latency_ms": 5.252,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298068.5012617
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 4.302014742090565,
+      "score_latency_ms": 7.157,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298069.118772
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 3.836937190383452,
+      "score_latency_ms": 5.22,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298069.786897
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 3.6627562050181286,
+      "score_latency_ms": 5.236,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298070.4958458
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 3.8040627775191425,
+      "score_latency_ms": 5.03,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298071.0866325
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 3.573193101311924,
+      "score_latency_ms": 5.274,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298071.6780915
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 3.8826436846574754,
+      "score_latency_ms": 5.236,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298072.2567465
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 4.21908651992632,
+      "score_latency_ms": 5.325,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298072.8758748
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 2.540027772960089,
+      "score_latency_ms": 4.95,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298073.5085113
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 2.2232159585679447,
+      "score_latency_ms": 6.6,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298074.11565
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 2.3263991227258582,
+      "score_latency_ms": 5.219,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298074.7018025
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 2.8594026064890627,
+      "score_latency_ms": 5.075,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298075.2790444
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 3.2675481743282617,
+      "score_latency_ms": 5.189,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298075.8601756
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 3.6455537312322344,
+      "score_latency_ms": 6.28,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298076.5297477
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 5.660080975440489,
+      "score_latency_ms": 5.287,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298077.1332657
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 6.773367541659719,
+      "score_latency_ms": 5.015,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298077.7109652
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 6.6277219534810925,
+      "score_latency_ms": 6.123,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298078.2880177
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 6.221226637183461,
+      "score_latency_ms": 6.821,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298078.9451594
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 6.4110073722303795,
+      "score_latency_ms": 6.036,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298079.6420944
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 6.903152711217656,
+      "score_latency_ms": 7.894,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298080.2277966
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 7.7718305759584325,
+      "score_latency_ms": 7.114,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298080.8241403
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 9.682476909352358,
+      "score_latency_ms": 4.967,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298081.406494
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 10.965116615383193,
+      "score_latency_ms": 5.808,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298081.9831877
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 11.2920884381095,
+      "score_latency_ms": 6.36,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298082.6589413
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 8.952406080355496,
+      "score_latency_ms": 5.1,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298083.2418814
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 6.91915492115602,
+      "score_latency_ms": 5.362,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298083.8602774
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 5.034275359510566,
+      "score_latency_ms": 5.003,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298084.434697
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 5.391712207137534,
+      "score_latency_ms": 5.462,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298085.0587044
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 6.107453710355395,
+      "score_latency_ms": 5.164,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298085.6856124
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 6.137473408907129,
+      "score_latency_ms": 7.184,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298086.3015966
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 6.15826939623094,
+      "score_latency_ms": 5.168,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298086.9250567
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 5.531066858801111,
+      "score_latency_ms": 5.132,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298087.5975301
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 3.6126459433670046,
+      "score_latency_ms": 5.097,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298088.2138972
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 2.5148169082053666,
+      "score_latency_ms": 5.34,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298088.8244529
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 1.572960304413586,
+      "score_latency_ms": 5.113,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298089.4453962
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 1.1926669559699157,
+      "score_latency_ms": 5.16,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298090.028202
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 1.3053852623142443,
+      "score_latency_ms": 9.635,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298090.6782486
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 1.2146352378682161,
+      "score_latency_ms": 5.263,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298091.2725875
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 2.195017644159967,
+      "score_latency_ms": 7.742,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298091.861498
+    },
+    {
+      "bmu": [
+        11,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 3.1393615377473685,
+      "score_latency_ms": 5.239,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298092.4498165
+    },
+    {
+      "bmu": [
+        0,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 13.668987621700918,
+      "score_latency_ms": 5.294,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298093.0533032
+    },
+    {
+      "bmu": [
+        0,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 12408777632887.906,
+      "score_latency_ms": 7.85,
+      "streak": 1,
+      "threshold": 113.23424740336117,
+      "ts": 1776298093.6943927
+    },
+    {
+      "bmu": [
+        0,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 22340345432462.246,
+      "score_latency_ms": 7.463,
+      "streak": 2,
+      "threshold": 113.23424740336117,
+      "ts": 1776298094.292863
+    },
+    {
+      "bmu": [
+        0,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 27316216307795.766,
+      "score_latency_ms": 14.161,
+      "streak": 3,
+      "threshold": 113.23424740336117,
+      "ts": 1776298094.9095001
+    },
+    {
+      "bmu": [
+        0,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 29450893682050.367,
+      "score_latency_ms": 11.126,
+      "streak": 4,
+      "threshold": 113.23424740336117,
+      "ts": 1776298095.542062
+    },
+    {
+      "bmu": [
+        0,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 30297696505570.242,
+      "score_latency_ms": 9.012,
+      "streak": 5,
+      "threshold": 113.23424740336117,
+      "ts": 1776298096.165816
+    },
+    {
+      "bmu": [
+        0,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 18209324777080.637,
+      "score_latency_ms": 9.148,
+      "streak": 6,
+      "threshold": 113.23424740336117,
+      "ts": 1776298096.778173
+    },
+    {
+      "bmu": [
+        0,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 8395217552680.981,
+      "score_latency_ms": 7.483,
+      "streak": 7,
+      "threshold": 113.23424740336117,
+      "ts": 1776298097.3635435
+    },
+    {
+      "bmu": [
+        0,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 3461446059239.158,
+      "score_latency_ms": 7.392,
+      "streak": 8,
+      "threshold": 113.23424740336117,
+      "ts": 1776298097.9648502
+    },
+    {
+      "bmu": [
+        0,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 1341604630406.935,
+      "score_latency_ms": 10.036,
+      "streak": 9,
+      "threshold": 113.23424740336117,
+      "ts": 1776298098.5463972
+    },
+    {
+      "bmu": [
+        0,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 499961942629.43524,
+      "score_latency_ms": 8.152,
+      "streak": 10,
+      "threshold": 113.23424740336117,
+      "ts": 1776298099.2202797
+    },
+    {
+      "bmu": [
+        0,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 181332161775.66608,
+      "score_latency_ms": 7.368,
+      "streak": 11,
+      "threshold": 113.23424740336117,
+      "ts": 1776298099.8008766
+    },
+    {
+      "bmu": [
+        0,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 64477760612.46541,
+      "score_latency_ms": 7.592,
+      "streak": 12,
+      "threshold": 113.23424740336117,
+      "ts": 1776298100.4113882
+    },
+    {
+      "bmu": [
+        0,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 22583811447.24773,
+      "score_latency_ms": 7.402,
+      "streak": 13,
+      "threshold": 113.23424740336117,
+      "ts": 1776298101.0179062
+    },
+    {
+      "bmu": [
+        0,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 7817077847.687767,
+      "score_latency_ms": 8.363,
+      "streak": 14,
+      "threshold": 113.23424740336117,
+      "ts": 1776298101.620269
+    },
+    {
+      "bmu": [
+        0,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 2680143544.614724,
+      "score_latency_ms": 7.427,
+      "streak": 15,
+      "threshold": 113.23424740336117,
+      "ts": 1776298102.214532
+    },
+    {
+      "bmu": [
+        4,
+        4
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 160022271131499.38,
+      "score_latency_ms": 8.147,
+      "streak": 16,
+      "threshold": 113.23424740336117,
+      "ts": 1776298102.8374262
+    },
+    {
+      "bmu": [
+        1,
+        7
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 287838618665109.75,
+      "score_latency_ms": 9.78,
+      "streak": 17,
+      "threshold": 113.23424740336117,
+      "ts": 1776298103.4304118
+    },
+    {
+      "bmu": [
+        3,
+        8
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 308320623328069.3,
+      "score_latency_ms": 8.47,
+      "streak": 18,
+      "threshold": 113.23424740336117,
+      "ts": 1776298104.0310555
+    },
+    {
+      "bmu": [
+        7,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 417447090166560.8,
+      "score_latency_ms": 12.378,
+      "streak": 19,
+      "threshold": 113.23424740336117,
+      "ts": 1776298104.6369345
+    },
+    {
+      "bmu": [
+        5,
+        10
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 319175844037561.0,
+      "score_latency_ms": 8.819,
+      "streak": 20,
+      "threshold": 113.23424740336117,
+      "ts": 1776298105.22729
+    },
+    {
+      "bmu": [
+        8,
+        9
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 247823275340505.62,
+      "score_latency_ms": 9.131,
+      "streak": 21,
+      "threshold": 113.23424740336117,
+      "ts": 1776298105.822596
+    },
+    {
+      "bmu": [
+        8,
+        9
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 79684287024745.88,
+      "score_latency_ms": 9.34,
+      "streak": 22,
+      "threshold": 113.23424740336117,
+      "ts": 1776298106.4790359
+    },
+    {
+      "bmu": [
+        8,
+        9
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 25621425549790.67,
+      "score_latency_ms": 9.167,
+      "streak": 23,
+      "threshold": 113.23424740336117,
+      "ts": 1776298107.0759327
+    },
+    {
+      "bmu": [
+        8,
+        9
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 8238229539529.311,
+      "score_latency_ms": 11.114,
+      "streak": 24,
+      "threshold": 113.23424740336117,
+      "ts": 1776298107.751556
+    },
+    {
+      "bmu": [
+        8,
+        9
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 2648893435462.1426,
+      "score_latency_ms": 8.932,
+      "streak": 25,
+      "threshold": 113.23424740336117,
+      "ts": 1776298108.361767
+    },
+    {
+      "bmu": [
+        6,
+        4
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 87328901919490.53,
+      "score_latency_ms": 11.683,
+      "streak": 26,
+      "threshold": 113.23424740336117,
+      "ts": 1776298109.0041509
+    },
+    {
+      "bmu": [
+        0,
+        8
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 80607923383562.22,
+      "score_latency_ms": 9.747,
+      "streak": 27,
+      "threshold": 113.23424740336117,
+      "ts": 1776298109.6582906
+    },
+    {
+      "bmu": [
+        0,
+        3
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 117140896356238.17,
+      "score_latency_ms": 7.915,
+      "streak": 28,
+      "threshold": 113.23424740336117,
+      "ts": 1776298110.329843
+    },
+    {
+      "bmu": [
+        0,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 50364750871508.96,
+      "score_latency_ms": 7.578,
+      "streak": 29,
+      "threshold": 113.23424740336117,
+      "ts": 1776298110.9110315
+    },
+    {
+      "bmu": [
+        0,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 19512047986870.86,
+      "score_latency_ms": 7.286,
+      "streak": 30,
+      "threshold": 113.23424740336117,
+      "ts": 1776298111.4872305
+    },
+    {
+      "bmu": [
+        0,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 14455540121977.117,
+      "score_latency_ms": 7.474,
+      "streak": 31,
+      "threshold": 113.23424740336117,
+      "ts": 1776298112.13056
+    },
+    {
+      "bmu": [
+        0,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 12507376759608.533,
+      "score_latency_ms": 7.504,
+      "streak": 32,
+      "threshold": 113.23424740336117,
+      "ts": 1776298112.7736216
+    },
+    {
+      "bmu": [
+        0,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 9276501909907.93,
+      "score_latency_ms": 7.42,
+      "streak": 33,
+      "threshold": 113.23424740336117,
+      "ts": 1776298113.3637476
+    },
+    {
+      "bmu": [
+        2,
+        3
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 111411395884257.38,
+      "score_latency_ms": 9.459,
+      "streak": 34,
+      "threshold": 113.23424740336117,
+      "ts": 1776298114.039896
+    },
+    {
+      "bmu": [
+        5,
+        3
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 161898748524273.22,
+      "score_latency_ms": 8.467,
+      "streak": 35,
+      "threshold": 113.23424740336117,
+      "ts": 1776298114.618693
+    },
+    {
+      "bmu": [
+        6,
+        5
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 158537388741726.44,
+      "score_latency_ms": 8.848,
+      "streak": 36,
+      "threshold": 113.23424740336117,
+      "ts": 1776298115.2249587
+    },
+    {
+      "bmu": [
+        7,
+        7
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 153104902382824.78,
+      "score_latency_ms": 8.93,
+      "streak": 37,
+      "threshold": 113.23424740336117,
+      "ts": 1776298115.8604681
+    },
+    {
+      "bmu": [
+        7,
+        7
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 49228850557342.31,
+      "score_latency_ms": 11.994,
+      "streak": 38,
+      "threshold": 113.23424740336117,
+      "ts": 1776298116.4916756
+    },
+    {
+      "bmu": [
+        10,
+        7
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 92870821489020.11,
+      "score_latency_ms": 9.366,
+      "streak": 39,
+      "threshold": 113.23424740336117,
+      "ts": 1776298117.1904778
+    },
+    {
+      "bmu": [
+        11,
+        9
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 113994094362980.2,
+      "score_latency_ms": 16.838,
+      "streak": 40,
+      "threshold": 113.23424740336117,
+      "ts": 1776298117.9204617
+    },
+    {
+      "bmu": [
+        13,
+        8
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 116211939387150.02,
+      "score_latency_ms": 9.637,
+      "streak": 41,
+      "threshold": 113.23424740336117,
+      "ts": 1776298118.5306823
+    },
+    {
+      "bmu": [
+        14,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 179684861589911.2,
+      "score_latency_ms": 10.914,
+      "streak": 42,
+      "threshold": 113.23424740336117,
+      "ts": 1776298119.1589255
+    },
+    {
+      "bmu": [
+        13,
+        7
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 20934900976808.266,
+      "score_latency_ms": 15.769,
+      "streak": 43,
+      "threshold": 113.23424740336117,
+      "ts": 1776298119.8190348
+    },
+    {
+      "bmu": [
+        13,
+        7
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 105611180120160.77,
+      "score_latency_ms": 9.891,
+      "streak": 44,
+      "threshold": 113.23424740336117,
+      "ts": 1776298120.4228334
+    },
+    {
+      "bmu": [
+        13,
+        7
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 162707924359458.9,
+      "score_latency_ms": 9.843,
+      "streak": 45,
+      "threshold": 113.23424740336117,
+      "ts": 1776298121.032568
+    },
+    {
+      "bmu": [
+        13,
+        7
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 190952738645589.12,
+      "score_latency_ms": 9.286,
+      "streak": 46,
+      "threshold": 113.23424740336117,
+      "ts": 1776298121.6315799
+    },
+    {
+      "bmu": [
+        13,
+        7
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 203019187559066.88,
+      "score_latency_ms": 9.558,
+      "streak": 47,
+      "threshold": 113.23424740336117,
+      "ts": 1776298122.236174
+    },
+    {
+      "bmu": [
+        13,
+        7
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 215628162257704.62,
+      "score_latency_ms": 9.168,
+      "streak": 48,
+      "threshold": 113.23424740336117,
+      "ts": 1776298122.8780842
+    },
+    {
+      "bmu": [
+        13,
+        7
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 125228501175224.88,
+      "score_latency_ms": 9.351,
+      "streak": 49,
+      "threshold": 113.23424740336117,
+      "ts": 1776298123.5025618
+    },
+    {
+      "bmu": [
+        13,
+        7
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 68554370726746.23,
+      "score_latency_ms": 10.418,
+      "streak": 50,
+      "threshold": 113.23424740336117,
+      "ts": 1776298124.1299188
+    },
+    {
+      "bmu": [
+        13,
+        7
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 41287447237531.766,
+      "score_latency_ms": 9.347,
+      "streak": 51,
+      "threshold": 113.23424740336117,
+      "ts": 1776298124.7429497
+    },
+    {
+      "bmu": [
+        13,
+        7
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 29030901302479.363,
+      "score_latency_ms": 9.243,
+      "streak": 52,
+      "threshold": 113.23424740336117,
+      "ts": 1776298125.3486187
+    },
+    {
+      "bmu": [
+        13,
+        7
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 15778060288664.459,
+      "score_latency_ms": 9.522,
+      "streak": 53,
+      "threshold": 113.23424740336117,
+      "ts": 1776298125.9937747
+    },
+    {
+      "bmu": [
+        13,
+        7
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 8558751179317.539,
+      "score_latency_ms": 9.399,
+      "streak": 54,
+      "threshold": 113.23424740336117,
+      "ts": 1776298126.587257
+    },
+    {
+      "bmu": [
+        13,
+        7
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 3797610470030.473,
+      "score_latency_ms": 10.956,
+      "streak": 55,
+      "threshold": 113.23424740336117,
+      "ts": 1776298127.240588
+    },
+    {
+      "bmu": [
+        13,
+        7
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 1534768540451.387,
+      "score_latency_ms": 9.607,
+      "streak": 56,
+      "threshold": 113.23424740336117,
+      "ts": 1776298127.8754296
+    },
+    {
+      "bmu": [
+        13,
+        7
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 12221759664472.41,
+      "score_latency_ms": 9.383,
+      "streak": 57,
+      "threshold": 113.23424740336117,
+      "ts": 1776298128.4969368
+    },
+    {
+      "bmu": [
+        13,
+        7
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 29683086842374.324,
+      "score_latency_ms": 11.273,
+      "streak": 58,
+      "threshold": 113.23424740336117,
+      "ts": 1776298129.0943408
+    },
+    {
+      "bmu": [
+        13,
+        7
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 39505065067751.984,
+      "score_latency_ms": 9.135,
+      "streak": 59,
+      "threshold": 113.23424740336117,
+      "ts": 1776298129.694587
+    },
+    {
+      "bmu": [
+        13,
+        7
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 43925447910299.0,
+      "score_latency_ms": 11.288,
+      "streak": 60,
+      "threshold": 113.23424740336117,
+      "ts": 1776298130.323512
+    },
+    {
+      "bmu": [
+        13,
+        7
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 62337267069310.484,
+      "score_latency_ms": 12.034,
+      "streak": 61,
+      "threshold": 113.23424740336117,
+      "ts": 1776298130.9558985
+    },
+    {
+      "bmu": [
+        13,
+        7
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 54419965440308.53,
+      "score_latency_ms": 9.37,
+      "streak": 62,
+      "threshold": 113.23424740336117,
+      "ts": 1776298131.5396044
+    },
+    {
+      "bmu": [
+        13,
+        7
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 37335848149920.266,
+      "score_latency_ms": 11.341,
+      "streak": 63,
+      "threshold": 113.23424740336117,
+      "ts": 1776298132.1377728
+    },
+    {
+      "bmu": [
+        13,
+        7
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 27685003981115.33,
+      "score_latency_ms": 9.108,
+      "streak": 64,
+      "threshold": 113.23424740336117,
+      "ts": 1776298132.7346492
+    },
+    {
+      "bmu": [
+        13,
+        7
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 34976879194250.504,
+      "score_latency_ms": 9.573,
+      "streak": 65,
+      "threshold": 113.23424740336117,
+      "ts": 1776298133.3227806
+    },
+    {
+      "bmu": [
+        13,
+        7
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 23240844450439.008,
+      "score_latency_ms": 9.907,
+      "streak": 66,
+      "threshold": 113.23424740336117,
+      "ts": 1776298133.9224553
+    },
+    {
+      "bmu": [
+        13,
+        7
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 21952153989392.535,
+      "score_latency_ms": 9.35,
+      "streak": 67,
+      "threshold": 113.23424740336117,
+      "ts": 1776298134.550927
+    },
+    {
+      "bmu": [
+        16,
+        7
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 81772421624730.0,
+      "score_latency_ms": 12.396,
+      "streak": 68,
+      "threshold": 113.23424740336117,
+      "ts": 1776298135.158796
+    },
+    {
+      "bmu": [
+        8,
+        9
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 518492355905469.06,
+      "score_latency_ms": 9.311,
+      "streak": 69,
+      "threshold": 113.23424740336117,
+      "ts": 1776298135.7561615
+    },
+    {
+      "bmu": [
+        6,
+        9
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 949030044119756.0,
+      "score_latency_ms": 11.76,
+      "streak": 70,
+      "threshold": 113.23424740336117,
+      "ts": 1776298136.3935199
+    },
+    {
+      "bmu": [
+        6,
+        10
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 489782752541465.1,
+      "score_latency_ms": 12.387,
+      "streak": 71,
+      "threshold": 113.23424740336117,
+      "ts": 1776298137.0363998
+    },
+    {
+      "bmu": [
+        9,
+        9
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 87954214648479.53,
+      "score_latency_ms": 9.324,
+      "streak": 72,
+      "threshold": 113.23424740336117,
+      "ts": 1776298137.6238124
+    },
+    {
+      "bmu": [
+        10,
+        5
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 137531241848670.28,
+      "score_latency_ms": 9.209,
+      "streak": 73,
+      "threshold": 113.23424740336117,
+      "ts": 1776298138.249895
+    },
+    {
+      "bmu": [
+        18,
+        7
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 113049240005037.36,
+      "score_latency_ms": 9.71,
+      "streak": 74,
+      "threshold": 113.23424740336117,
+      "ts": 1776298138.849232
+    },
+    {
+      "bmu": [
+        18,
+        7
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 40429055183922.805,
+      "score_latency_ms": 9.227,
+      "streak": 75,
+      "threshold": 113.23424740336117,
+      "ts": 1776298139.4659998
+    },
+    {
+      "bmu": [
+        13,
+        4
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 82199669131563.34,
+      "score_latency_ms": 9.306,
+      "streak": 76,
+      "threshold": 113.23424740336117,
+      "ts": 1776298140.2042348
+    },
+    {
+      "bmu": [
+        8,
+        5
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 86985254962886.94,
+      "score_latency_ms": 8.665,
+      "streak": 77,
+      "threshold": 113.23424740336117,
+      "ts": 1776298140.8171186
+    },
+    {
+      "bmu": [
+        7,
+        11
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 132534115821098.38,
+      "score_latency_ms": 9.075,
+      "streak": 78,
+      "threshold": 113.23424740336117,
+      "ts": 1776298141.4127452
+    },
+    {
+      "bmu": [
+        4,
+        12
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 1020696289046945.9,
+      "score_latency_ms": 8.848,
+      "streak": 79,
+      "threshold": 113.23424740336117,
+      "ts": 1776298141.9897985
+    },
+    {
+      "bmu": [
+        4,
+        12
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 328191353091266.56,
+      "score_latency_ms": 8.735,
+      "streak": 80,
+      "threshold": 113.23424740336117,
+      "ts": 1776298142.5886507
+    },
+    {
+      "bmu": [
+        4,
+        12
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 105525576412596.97,
+      "score_latency_ms": 10.796,
+      "streak": 81,
+      "threshold": 113.23424740336117,
+      "ts": 1776298143.234004
+    },
+    {
+      "bmu": [
+        4,
+        12
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 33930349390145.5,
+      "score_latency_ms": 8.688,
+      "streak": 82,
+      "threshold": 113.23424740336117,
+      "ts": 1776298143.8573494
+    },
+    {
+      "bmu": [
+        2,
+        14
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 486458610588516.9,
+      "score_latency_ms": 8.73,
+      "streak": 83,
+      "threshold": 113.23424740336117,
+      "ts": 1776298144.4431634
+    },
+    {
+      "bmu": [
+        3,
+        16
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 551375144545892.25,
+      "score_latency_ms": 8.557,
+      "streak": 84,
+      "threshold": 113.23424740336117,
+      "ts": 1776298145.0335026
+    },
+    {
+      "bmu": [
+        3,
+        17
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 435950760933376.56,
+      "score_latency_ms": 8.687,
+      "streak": 85,
+      "threshold": 113.23424740336117,
+      "ts": 1776298145.6382542
+    },
+    {
+      "bmu": [
+        2,
+        18
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 501058672262963.25,
+      "score_latency_ms": 10.941,
+      "streak": 86,
+      "threshold": 113.23424740336117,
+      "ts": 1776298146.3427286
+    },
+    {
+      "bmu": [
+        0,
+        18
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 363940208519169.9,
+      "score_latency_ms": 8.488,
+      "streak": 87,
+      "threshold": 113.23424740336117,
+      "ts": 1776298147.0092056
+    },
+    {
+      "bmu": [
+        0,
+        19
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 248329254540091.53,
+      "score_latency_ms": 13.596,
+      "streak": 88,
+      "threshold": 113.23424740336117,
+      "ts": 1776298147.6733503
+    },
+    {
+      "bmu": [
+        4,
+        20
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 429687249747656.44,
+      "score_latency_ms": 10.396,
+      "streak": 89,
+      "threshold": 113.23424740336117,
+      "ts": 1776298148.3701322
+    },
+    {
+      "bmu": [
+        3,
+        19
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 29844301742110.617,
+      "score_latency_ms": 8.609,
+      "streak": 90,
+      "threshold": 113.23424740336117,
+      "ts": 1776298148.9518912
+    },
+    {
+      "bmu": [
+        4,
+        22
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 486967408709511.25,
+      "score_latency_ms": 8.924,
+      "streak": 91,
+      "threshold": 113.23424740336117,
+      "ts": 1776298149.5710397
+    },
+    {
+      "bmu": [
+        5,
+        23
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 596978108621440.6,
+      "score_latency_ms": 9.083,
+      "streak": 92,
+      "threshold": 113.23424740336117,
+      "ts": 1776298150.2101934
+    },
+    {
+      "bmu": [
+        1,
+        24
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 755631710050739.8,
+      "score_latency_ms": 8.389,
+      "streak": 93,
+      "threshold": 113.23424740336117,
+      "ts": 1776298150.8061633
+    },
+    {
+      "bmu": [
+        5,
+        25
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 562128863451625.6,
+      "score_latency_ms": 8.639,
+      "streak": 94,
+      "threshold": 113.23424740336117,
+      "ts": 1776298151.4441483
+    },
+    {
+      "bmu": [
+        8,
+        22
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 539467510789424.06,
+      "score_latency_ms": 9.537,
+      "streak": 95,
+      "threshold": 113.23424740336117,
+      "ts": 1776298152.0566535
+    },
+    {
+      "bmu": [
+        3,
+        18
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 180584756722422.2,
+      "score_latency_ms": 9.008,
+      "streak": 96,
+      "threshold": 113.23424740336117,
+      "ts": 1776298152.6785188
+    },
+    {
+      "bmu": [
+        4,
+        13
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 237628571270123.0,
+      "score_latency_ms": 8.64,
+      "streak": 97,
+      "threshold": 113.23424740336117,
+      "ts": 1776298153.293185
+    },
+    {
+      "bmu": [
+        8,
+        11
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 312982852104096.9,
+      "score_latency_ms": 9.317,
+      "streak": 98,
+      "threshold": 113.23424740336117,
+      "ts": 1776298153.8967786
+    },
+    {
+      "bmu": [
+        12,
+        11
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 281032931723062.06,
+      "score_latency_ms": 10.117,
+      "streak": 99,
+      "threshold": 113.23424740336117,
+      "ts": 1776298154.4927125
+    },
+    {
+      "bmu": [
+        14,
+        12
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 154331516478472.9,
+      "score_latency_ms": 11.478,
+      "streak": 100,
+      "threshold": 113.23424740336117,
+      "ts": 1776298155.086645
+    },
+    {
+      "bmu": [
+        14,
+        12
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 49623252049825.24,
+      "score_latency_ms": 10.965,
+      "streak": 101,
+      "threshold": 113.23424740336117,
+      "ts": 1776298155.6807742
+    },
+    {
+      "bmu": [
+        14,
+        12
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 15955698487186.84,
+      "score_latency_ms": 11.044,
+      "streak": 102,
+      "threshold": 113.23424740336117,
+      "ts": 1776298156.4058125
+    },
+    {
+      "bmu": [
+        14,
+        12
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 5130343210043.495,
+      "score_latency_ms": 9.725,
+      "streak": 103,
+      "threshold": 113.23424740336117,
+      "ts": 1776298156.990454
+    },
+    {
+      "bmu": [
+        14,
+        12
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 1649593809634.206,
+      "score_latency_ms": 10.95,
+      "streak": 104,
+      "threshold": 113.23424740336117,
+      "ts": 1776298157.6684418
+    },
+    {
+      "bmu": [
+        14,
+        12
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 530405009056.3271,
+      "score_latency_ms": 14.505,
+      "streak": 105,
+      "threshold": 113.23424740336117,
+      "ts": 1776298158.3584538
+    },
+    {
+      "bmu": [
+        14,
+        12
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 170544695299.7369,
+      "score_latency_ms": 9.651,
+      "streak": 106,
+      "threshold": 113.23424740336117,
+      "ts": 1776298158.9823883
+    },
+    {
+      "bmu": [
+        14,
+        12
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 54836384647.539856,
+      "score_latency_ms": 9.688,
+      "streak": 107,
+      "threshold": 113.23424740336117,
+      "ts": 1776298159.5637455
+    },
+    {
+      "bmu": [
+        14,
+        12
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 17631912128.11819,
+      "score_latency_ms": 9.47,
+      "streak": 108,
+      "threshold": 113.23424740336117,
+      "ts": 1776298160.158742
+    },
+    {
+      "bmu": [
+        14,
+        12
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 5669307475.473532,
+      "score_latency_ms": 9.543,
+      "streak": 109,
+      "threshold": 113.23424740336117,
+      "ts": 1776298160.7412608
+    },
+    {
+      "bmu": [
+        7,
+        14
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 201711152874024.25,
+      "score_latency_ms": 12.639,
+      "streak": 110,
+      "threshold": 113.23424740336117,
+      "ts": 1776298161.3836389
+    },
+    {
+      "bmu": [
+        4,
+        8
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 120824979820708.66,
+      "score_latency_ms": 8.96,
+      "streak": 111,
+      "threshold": 113.23424740336117,
+      "ts": 1776298162.0011065
+    },
+    {
+      "bmu": [
+        4,
+        16
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 266357706764109.6,
+      "score_latency_ms": 9.429,
+      "streak": 112,
+      "threshold": 113.23424740336117,
+      "ts": 1776298162.6005695
+    },
+    {
+      "bmu": [
+        5,
+        20
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 239352545157666.1,
+      "score_latency_ms": 9.068,
+      "streak": 113,
+      "threshold": 113.23424740336117,
+      "ts": 1776298163.2089393
+    },
+    {
+      "bmu": [
+        0,
+        22
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 177252537438771.75,
+      "score_latency_ms": 8.453,
+      "streak": 114,
+      "threshold": 113.23424740336117,
+      "ts": 1776298163.802176
+    },
+    {
+      "bmu": [
+        0,
+        25
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 270185752675591.75,
+      "score_latency_ms": 8.315,
+      "streak": 115,
+      "threshold": 113.23424740336117,
+      "ts": 1776298164.4867523
+    },
+    {
+      "bmu": [
+        8,
+        27
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 1575729224871013.0,
+      "score_latency_ms": 8.647,
+      "streak": 116,
+      "threshold": 113.23424740336117,
+      "ts": 1776298165.0676596
+    },
+    {
+      "bmu": [
+        10,
+        28
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 1524795894933208.8,
+      "score_latency_ms": 9.09,
+      "streak": 117,
+      "threshold": 113.23424740336117,
+      "ts": 1776298165.6637824
+    },
+    {
+      "bmu": [
+        5,
+        31
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 673324323191601.6,
+      "score_latency_ms": 13.854,
+      "streak": 118,
+      "threshold": 113.23424740336117,
+      "ts": 1776298166.3242598
+    },
+    {
+      "bmu": [
+        15,
+        22
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 2464213418645005.5,
+      "score_latency_ms": 10.014,
+      "streak": 119,
+      "threshold": 113.23424740336117,
+      "ts": 1776298166.9256444
+    },
+    {
+      "bmu": [
+        17,
+        25
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 1218224286885224.2,
+      "score_latency_ms": 11.916,
+      "streak": 120,
+      "threshold": 113.23424740336117,
+      "ts": 1776298167.5401347
+    },
+    {
+      "bmu": [
+        19,
+        27
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 793529313690661.8,
+      "score_latency_ms": 9.316,
+      "streak": 121,
+      "threshold": 113.23424740336117,
+      "ts": 1776298168.1315527
+    },
+    {
+      "bmu": [
+        21,
+        30
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 659629407075383.5,
+      "score_latency_ms": 8.485,
+      "streak": 122,
+      "threshold": 113.23424740336117,
+      "ts": 1776298168.7320578
+    },
+    {
+      "bmu": [
+        25,
+        23
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 519271568297102.75,
+      "score_latency_ms": 9.772,
+      "streak": 123,
+      "threshold": 113.23424740336117,
+      "ts": 1776298169.44367
+    },
+    {
+      "bmu": [
+        31,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 23619141572057.08,
+      "score_latency_ms": 7.47,
+      "streak": 124,
+      "threshold": 113.23424740336117,
+      "ts": 1776298170.0694675
+    },
+    {
+      "bmu": [
+        31,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 8166247909774.482,
+      "score_latency_ms": 7.954,
+      "streak": 125,
+      "threshold": 113.23424740336117,
+      "ts": 1776298170.6788523
+    },
+    {
+      "bmu": [
+        31,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 2797296564605.367,
+      "score_latency_ms": 7.261,
+      "streak": 126,
+      "threshold": 113.23424740336117,
+      "ts": 1776298171.262629
+    },
+    {
+      "bmu": [
+        31,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 950897966860.1306,
+      "score_latency_ms": 7.551,
+      "streak": 127,
+      "threshold": 113.23424740336117,
+      "ts": 1776298171.851594
+    },
+    {
+      "bmu": [
+        31,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 321187936474.6012,
+      "score_latency_ms": 10.515,
+      "streak": 128,
+      "threshold": 113.23424740336117,
+      "ts": 1776298172.531372
+    },
+    {
+      "bmu": [
+        31,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 107905513114.75507,
+      "score_latency_ms": 7.279,
+      "streak": 129,
+      "threshold": 113.23424740336117,
+      "ts": 1776298173.1200542
+    },
+    {
+      "bmu": [
+        31,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 36085124195.97442,
+      "score_latency_ms": 7.62,
+      "streak": 130,
+      "threshold": 113.23424740336117,
+      "ts": 1776298173.7742774
+    },
+    {
+      "bmu": [
+        31,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 12019554366.098583,
+      "score_latency_ms": 10.925,
+      "streak": 131,
+      "threshold": 113.23424740336117,
+      "ts": 1776298174.3758526
+    },
+    {
+      "bmu": [
+        31,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 3989786673.5781074,
+      "score_latency_ms": 7.386,
+      "streak": 132,
+      "threshold": 113.23424740336117,
+      "ts": 1776298174.9624484
+    },
+    {
+      "bmu": [
+        31,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 1320380503.4616404,
+      "score_latency_ms": 7.343,
+      "streak": 133,
+      "threshold": 113.23424740336117,
+      "ts": 1776298175.5929327
+    },
+    {
+      "bmu": [
+        31,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 435806094.27042437,
+      "score_latency_ms": 11.501,
+      "streak": 134,
+      "threshold": 113.23424740336117,
+      "ts": 1776298176.2185678
+    },
+    {
+      "bmu": [
+        31,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 143504246.80866054,
+      "score_latency_ms": 7.533,
+      "streak": 135,
+      "threshold": 113.23424740336117,
+      "ts": 1776298176.8534057
+    },
+    {
+      "bmu": [
+        31,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 47154861.07184711,
+      "score_latency_ms": 10.251,
+      "streak": 136,
+      "threshold": 113.23424740336117,
+      "ts": 1776298177.549545
+    },
+    {
+      "bmu": [
+        31,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 15465913.010135021,
+      "score_latency_ms": 7.389,
+      "streak": 137,
+      "threshold": 113.23424740336117,
+      "ts": 1776298178.1303406
+    },
+    {
+      "bmu": [
+        31,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 5064027.60999608,
+      "score_latency_ms": 7.397,
+      "streak": 138,
+      "threshold": 113.23424740336117,
+      "ts": 1776298178.7368572
+    },
+    {
+      "bmu": [
+        31,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 1655621.7949058618,
+      "score_latency_ms": 7.562,
+      "streak": 139,
+      "threshold": 113.23424740336117,
+      "ts": 1776298179.3443024
+    },
+    {
+      "bmu": [
+        31,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 540548.5001048046,
+      "score_latency_ms": 7.493,
+      "streak": 140,
+      "threshold": 113.23424740336117,
+      "ts": 1776298179.9317164
+    },
+    {
+      "bmu": [
+        31,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 176268.0268297922,
+      "score_latency_ms": 14.076,
+      "streak": 141,
+      "threshold": 113.23424740336117,
+      "ts": 1776298180.6014671
+    },
+    {
+      "bmu": [
+        31,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 57415.64769448413,
+      "score_latency_ms": 7.372,
+      "streak": 142,
+      "threshold": 113.23424740336117,
+      "ts": 1776298181.2123733
+    },
+    {
+      "bmu": [
+        31,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 18683.36876953992,
+      "score_latency_ms": 7.41,
+      "streak": 143,
+      "threshold": 113.23424740336117,
+      "ts": 1776298181.8005478
+    },
+    {
+      "bmu": [
+        31,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 6075.227334439594,
+      "score_latency_ms": 8.871,
+      "streak": 144,
+      "threshold": 113.23424740336117,
+      "ts": 1776298182.3886113
+    },
+    {
+      "bmu": [
+        31,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 1974.6834798942728,
+      "score_latency_ms": 9.178,
+      "streak": 145,
+      "threshold": 113.23424740336117,
+      "ts": 1776298182.9941294
+    },
+    {
+      "bmu": [
+        31,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 642.2865128358255,
+      "score_latency_ms": 8.673,
+      "streak": 146,
+      "threshold": 113.23424740336117,
+      "ts": 1776298183.6399343
+    },
+    {
+      "bmu": [
+        31,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 209.95264297110097,
+      "score_latency_ms": 7.221,
+      "streak": 147,
+      "threshold": 113.23424740336117,
+      "ts": 1776298184.226569
+    },
+    {
+      "bmu": [
+        31,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 69.63383464464079,
+      "score_latency_ms": 5.155,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298184.808005
+    },
+    {
+      "bmu": [
+        31,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 23.463853006990192,
+      "score_latency_ms": 8.461,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298185.5205197
+    },
+    {
+      "bmu": [
+        31,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 18.480930998597056,
+      "score_latency_ms": 6.034,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298186.1221857
+    },
+    {
+      "bmu": [
+        31,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 20.2991942149932,
+      "score_latency_ms": 5.177,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298186.7424061
+    },
+    {
+      "bmu": [
+        31,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 22.267575594987637,
+      "score_latency_ms": 5.091,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298187.320102
+    },
+    {
+      "bmu": [
+        31,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 23.123374359542154,
+      "score_latency_ms": 9.477,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298187.9334211
+    },
+    {
+      "bmu": [
+        31,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 23.547002669688986,
+      "score_latency_ms": 7.179,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298188.5564091
+    },
+    {
+      "bmu": [
+        31,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 13.122490817259731,
+      "score_latency_ms": 6.618,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298189.2393003
+    },
+    {
+      "bmu": [
+        31,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 6.600171197461502,
+      "score_latency_ms": 5.122,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298189.8226771
+    },
+    {
+      "bmu": [
+        31,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 4.136180652847722,
+      "score_latency_ms": 5.358,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298190.4265387
+    },
+    {
+      "bmu": [
+        31,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 3.238323335055696,
+      "score_latency_ms": 5.156,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298191.0024524
+    },
+    {
+      "bmu": [
+        31,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 2.910120230933841,
+      "score_latency_ms": 7.947,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298191.6209707
+    },
+    {
+      "bmu": [
+        31,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 3.110180797223529,
+      "score_latency_ms": 5.087,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298192.2006679
+    },
+    {
+      "bmu": [
+        30,
+        2
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-2"
+      ],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 302.77649654232977,
+      "score_latency_ms": 5.474,
+      "streak": 1,
+      "threshold": 113.23424740336117,
+      "ts": 1776298192.8196971
+    },
+    {
+      "bmu": [
+        30,
+        2
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 97.47090828800118,
+      "score_latency_ms": 4.986,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298193.3942988
+    },
+    {
+      "bmu": [
+        30,
+        2
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 31.950958570654166,
+      "score_latency_ms": 5.09,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298193.979115
+    },
+    {
+      "bmu": [
+        30,
+        2
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 13.726155064791154,
+      "score_latency_ms": 6.677,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298194.597204
+    },
+    {
+      "bmu": [
+        30,
+        2
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 8.554368984359881,
+      "score_latency_ms": 5.981,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298195.1834583
+    },
+    {
+      "bmu": [
+        30,
+        2
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 7.337171809300389,
+      "score_latency_ms": 5.28,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298195.8184955
+    },
+    {
+      "bmu": [
+        30,
+        2
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 6.986749553456363,
+      "score_latency_ms": 7.082,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298196.4578023
+    },
+    {
+      "bmu": [
+        30,
+        2
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 7.1726961240850216,
+      "score_latency_ms": 5.148,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298197.0684984
+    },
+    {
+      "bmu": [
+        30,
+        2
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 7.256461010172229,
+      "score_latency_ms": 10.015,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298197.6605673
+    },
+    {
+      "bmu": [
+        30,
+        2
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 7.420119043714097,
+      "score_latency_ms": 5.084,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298198.2974875
+    },
+    {
+      "bmu": [
+        28,
+        0
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-2"
+      ],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 673.1644006693601,
+      "score_latency_ms": 5.319,
+      "streak": 1,
+      "threshold": 113.23424740336117,
+      "ts": 1776298198.9654605
+    },
+    {
+      "bmu": [
+        28,
+        0
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-2"
+      ],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 216.48432902961753,
+      "score_latency_ms": 5.057,
+      "streak": 2,
+      "threshold": 113.23424740336117,
+      "ts": 1776298199.635138
+    },
+    {
+      "bmu": [
+        28,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 71.1746184719611,
+      "score_latency_ms": 5.197,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298200.2250454
+    },
+    {
+      "bmu": [
+        28,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 26.54127143569933,
+      "score_latency_ms": 6.333,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298200.8661013
+    },
+    {
+      "bmu": [
+        28,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 12.66980377429239,
+      "score_latency_ms": 5.041,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298201.4474514
+    },
+    {
+      "bmu": [
+        29,
+        1
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 17.41055772844527,
+      "score_latency_ms": 5.071,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298202.0253735
+    },
+    {
+      "bmu": [
+        30,
+        4
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-2"
+      ],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 8050.0086151690175,
+      "score_latency_ms": 5.063,
+      "streak": 1,
+      "threshold": 113.23424740336117,
+      "ts": 1776298202.6045165
+    },
+    {
+      "bmu": [
+        31,
+        4
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-2"
+      ],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 1401.3726803660586,
+      "score_latency_ms": 5.127,
+      "streak": 2,
+      "threshold": 113.23424740336117,
+      "ts": 1776298203.194134
+    },
+    {
+      "bmu": [
+        29,
+        2
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 14.291875289281913,
+      "score_latency_ms": 5.412,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298203.8618758
+    },
+    {
+      "bmu": [
+        27,
+        0
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-2"
+      ],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 3504.237934310805,
+      "score_latency_ms": 5.071,
+      "streak": 1,
+      "threshold": 113.23424740336117,
+      "ts": 1776298204.4696615
+    },
+    {
+      "bmu": [
+        27,
+        0
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-2"
+      ],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 1126.8195931119355,
+      "score_latency_ms": 6.245,
+      "streak": 2,
+      "threshold": 113.23424740336117,
+      "ts": 1776298205.0591874
+    },
+    {
+      "bmu": [
+        27,
+        0
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-2"
+      ],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 365.81028904222455,
+      "score_latency_ms": 5.077,
+      "streak": 3,
+      "threshold": 113.23424740336117,
+      "ts": 1776298205.6485176
+    },
+    {
+      "bmu": [
+        27,
+        0
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-2"
+      ],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 121.05285065729764,
+      "score_latency_ms": 5.842,
+      "streak": 4,
+      "threshold": 113.23424740336117,
+      "ts": 1776298206.3000307
+    },
+    {
+      "bmu": [
+        27,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 42.75227326073155,
+      "score_latency_ms": 9.091,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298206.9701905
+    },
+    {
+      "bmu": [
+        27,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 16.10453901360715,
+      "score_latency_ms": 5.061,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298207.5924716
+    },
+    {
+      "bmu": [
+        27,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 7.171649830393017,
+      "score_latency_ms": 6.861,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298208.1850386
+    },
+    {
+      "bmu": [
+        27,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 3.4373373479545157,
+      "score_latency_ms": 5.567,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298208.788467
+    },
+    {
+      "bmu": [
+        31,
+        4
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 86.4948495109829,
+      "score_latency_ms": 5.34,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298209.4119122
+    },
+    {
+      "bmu": [
+        31,
+        4
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 27.768877138732723,
+      "score_latency_ms": 5.034,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298210.0331533
+    },
+    {
+      "bmu": [
+        31,
+        5
+      ],
+      "causes": [
+        "tier_a_disk_read_bytes_per_sec__cassandra-1"
+      ],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 25997.295277970123,
+      "score_latency_ms": 5.372,
+      "streak": 1,
+      "threshold": 113.23424740336117,
+      "ts": 1776298210.6258585
+    },
+    {
+      "bmu": [
+        31,
+        5
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-2",
+        "tier_a_disk_read_bytes_per_sec__cassandra-1"
+      ],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 8360.55419192545,
+      "score_latency_ms": 5.05,
+      "streak": 2,
+      "threshold": 113.23424740336117,
+      "ts": 1776298211.220342
+    },
+    {
+      "bmu": [
+        28,
+        4
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-2"
+      ],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 996.5252995296466,
+      "score_latency_ms": 7.738,
+      "streak": 3,
+      "threshold": 113.23424740336117,
+      "ts": 1776298211.8097658
+    },
+    {
+      "bmu": [
+        26,
+        0
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-2"
+      ],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 2468.966956681353,
+      "score_latency_ms": 5.495,
+      "streak": 4,
+      "threshold": 113.23424740336117,
+      "ts": 1776298212.4245427
+    },
+    {
+      "bmu": [
+        26,
+        0
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-2"
+      ],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 794.1289812862957,
+      "score_latency_ms": 5.54,
+      "streak": 5,
+      "threshold": 113.23424740336117,
+      "ts": 1776298213.037799
+    },
+    {
+      "bmu": [
+        26,
+        0
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-2"
+      ],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 258.0877666584984,
+      "score_latency_ms": 5.663,
+      "streak": 6,
+      "threshold": 113.23424740336117,
+      "ts": 1776298213.6390238
+    },
+    {
+      "bmu": [
+        26,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 87.84645557446258,
+      "score_latency_ms": 5.116,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298214.2107148
+    },
+    {
+      "bmu": [
+        26,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 33.652848990483086,
+      "score_latency_ms": 5.114,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298214.7929227
+    },
+    {
+      "bmu": [
+        29,
+        5
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-2"
+      ],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 6854.179229401606,
+      "score_latency_ms": 5.172,
+      "streak": 1,
+      "threshold": 113.23424740336117,
+      "ts": 1776298215.3903897
+    },
+    {
+      "bmu": [
+        31,
+        5
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-2"
+      ],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 365.67905229653957,
+      "score_latency_ms": 5.852,
+      "streak": 2,
+      "threshold": 113.23424740336117,
+      "ts": 1776298216.047743
+    },
+    {
+      "bmu": [
+        31,
+        5
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-2"
+      ],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 118.75991202998081,
+      "score_latency_ms": 5.81,
+      "streak": 3,
+      "threshold": 113.23424740336117,
+      "ts": 1776298216.6292453
+    },
+    {
+      "bmu": [
+        31,
+        5
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 42.47711136766529,
+      "score_latency_ms": 5.001,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298217.2133546
+    },
+    {
+      "bmu": [
+        31,
+        5
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 19.161078862383434,
+      "score_latency_ms": 5.255,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298217.7952988
+    },
+    {
+      "bmu": [
+        29,
+        5
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 86.85234429599191,
+      "score_latency_ms": 5.587,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298218.3766515
+    },
+    {
+      "bmu": [
+        29,
+        1
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 68.52716383911464,
+      "score_latency_ms": 5.279,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298218.9727123
+    },
+    {
+      "bmu": [
+        26,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 70.27866296703183,
+      "score_latency_ms": 5.062,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298219.5574903
+    },
+    {
+      "bmu": [
+        25,
+        0
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-2"
+      ],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 12984.416048884877,
+      "score_latency_ms": 6.745,
+      "streak": 1,
+      "threshold": 113.23424740336117,
+      "ts": 1776298220.182238
+    },
+    {
+      "bmu": [
+        25,
+        0
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-2"
+      ],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 4175.9660665994425,
+      "score_latency_ms": 5.341,
+      "streak": 2,
+      "threshold": 113.23424740336117,
+      "ts": 1776298220.7765443
+    },
+    {
+      "bmu": [
+        27,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 17.75754033111005,
+      "score_latency_ms": 5.184,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298221.3557048
+    },
+    {
+      "bmu": [
+        30,
+        2
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 49.2251216647203,
+      "score_latency_ms": 5.682,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298221.986988
+    },
+    {
+      "bmu": [
+        31,
+        5
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 45.8583891155901,
+      "score_latency_ms": 5.168,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298222.5855565
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-2"
+      ],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 1158.9828080463487,
+      "score_latency_ms": 5.078,
+      "streak": 1,
+      "threshold": 113.23424740336117,
+      "ts": 1776298223.2715628
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-2"
+      ],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 373.28845152188035,
+      "score_latency_ms": 5.189,
+      "streak": 2,
+      "threshold": 113.23424740336117,
+      "ts": 1776298223.8481793
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-2"
+      ],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 121.87005272384692,
+      "score_latency_ms": 5.094,
+      "streak": 3,
+      "threshold": 113.23424740336117,
+      "ts": 1776298224.4306855
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 41.51821447808611,
+      "score_latency_ms": 5.173,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298225.0210702
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 22.27159506983039,
+      "score_latency_ms": 5.017,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298225.5941951
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 17.904013846744526,
+      "score_latency_ms": 7.122,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298226.2348251
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 16.302588722743227,
+      "score_latency_ms": 5.219,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298226.8343854
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 16.13810281151115,
+      "score_latency_ms": 4.933,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298227.419395
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 16.180362874169106,
+      "score_latency_ms": 5.536,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298228.011606
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 9.47569386332323,
+      "score_latency_ms": 4.985,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298228.6254542
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 5.4031841918444545,
+      "score_latency_ms": 6.145,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298229.323214
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 3.8259850997576788,
+      "score_latency_ms": 5.027,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298229.970013
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 3.366105030641529,
+      "score_latency_ms": 5.295,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298230.5546236
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 9.77159445669885,
+      "score_latency_ms": 5.174,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298231.144008
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 13.667496739231975,
+      "score_latency_ms": 6.08,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298231.7721794
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 15.438972229153038,
+      "score_latency_ms": 5.442,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298232.4268985
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 15.653665361979746,
+      "score_latency_ms": 6.847,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298233.0197499
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 15.632704121630752,
+      "score_latency_ms": 5.136,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298233.6369967
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 9.347134682711584,
+      "score_latency_ms": 6.834,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298234.2726712
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 5.1036259708321285,
+      "score_latency_ms": 5.074,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298234.8658762
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 4.061727686616135,
+      "score_latency_ms": 5.495,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298235.5013564
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 2.4390894287647065,
+      "score_latency_ms": 5.288,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298236.0982482
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "load",
+      "quality_valid": true,
+      "score_area": 1.9566844945758286,
+      "score_latency_ms": 5.382,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298236.7627668
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 1.8429418099857433,
+      "score_latency_ms": 0.137,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298237.409847
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 1.8429418099857433,
+      "score_latency_ms": 0.206,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298238.0718267
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 1.8429418099857433,
+      "score_latency_ms": 0.159,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298238.764696
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 1.8429418099857433,
+      "score_latency_ms": 0.146,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298239.4239273
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 1.8429418099857433,
+      "score_latency_ms": 0.136,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298240.004949
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 1.8429418099857433,
+      "score_latency_ms": 0.136,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298240.586863
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 1.8429418099857433,
+      "score_latency_ms": 0.135,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298241.2000313
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 1.8429418099857433,
+      "score_latency_ms": 0.134,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298241.8243804
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 1.8429418099857433,
+      "score_latency_ms": 0.134,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298242.4572258
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 1.8429418099857433,
+      "score_latency_ms": 0.136,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298243.0366168
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 1.8429418099857433,
+      "score_latency_ms": 0.142,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298243.7074084
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 1.8429418099857433,
+      "score_latency_ms": 0.21,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298244.2889879
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 1.8429418099857433,
+      "score_latency_ms": 0.197,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298244.8854392
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 1.8429418099857433,
+      "score_latency_ms": 0.13,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298245.5196116
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 1.8429418099857433,
+      "score_latency_ms": 0.136,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298246.1149502
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 1.8429418099857433,
+      "score_latency_ms": 0.139,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298246.716859
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 1.8429418099857433,
+      "score_latency_ms": 0.134,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298247.2968962
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 1.8429418099857433,
+      "score_latency_ms": 0.136,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298247.8710597
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 1.8429418099857433,
+      "score_latency_ms": 0.161,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298248.552746
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 1.8429418099857433,
+      "score_latency_ms": 0.143,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298249.1946213
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 1.8429418099857433,
+      "score_latency_ms": 0.134,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298249.7989733
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 1.8429418099857433,
+      "score_latency_ms": 0.245,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298250.41474
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 1.8429418099857433,
+      "score_latency_ms": 0.184,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298250.9963078
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 1.8429418099857433,
+      "score_latency_ms": 0.138,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298251.5960386
+    },
+    {
+      "bmu": [
+        30,
+        7
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 5.569925907148719,
+      "score_latency_ms": 0.135,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298252.1689897
+    },
+    {
+      "bmu": [
+        31,
+        4
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 7.085130366067432,
+      "score_latency_ms": 0.179,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298252.747338
+    },
+    {
+      "bmu": [
+        29,
+        7
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 10.30642658610911,
+      "score_latency_ms": 0.136,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298253.33068
+    },
+    {
+      "bmu": [
+        29,
+        7
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 10.30642658610911,
+      "score_latency_ms": 0.137,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298253.9486809
+    },
+    {
+      "bmu": [
+        29,
+        7
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 10.30642658610911,
+      "score_latency_ms": 0.195,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298254.53985
+    },
+    {
+      "bmu": [
+        29,
+        4
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 16.62694631152149,
+      "score_latency_ms": 0.138,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298255.1219075
+    },
+    {
+      "bmu": [
+        29,
+        4
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 16.62694631152149,
+      "score_latency_ms": 0.151,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298255.7291307
+    },
+    {
+      "bmu": [
+        29,
+        4
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 16.62694631152149,
+      "score_latency_ms": 0.163,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298256.3601034
+    },
+    {
+      "bmu": [
+        29,
+        4
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 16.62694631152149,
+      "score_latency_ms": 0.133,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298256.9411173
+    },
+    {
+      "bmu": [
+        28,
+        5
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 19.645228134323517,
+      "score_latency_ms": 0.132,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298257.5167787
+    },
+    {
+      "bmu": [
+        28,
+        4
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 31.085381706112443,
+      "score_latency_ms": 0.139,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298258.0919044
+    },
+    {
+      "bmu": [
+        28,
+        4
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 31.085381706112443,
+      "score_latency_ms": 0.127,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298258.729904
+    },
+    {
+      "bmu": [
+        28,
+        5
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 19.645228134323517,
+      "score_latency_ms": 0.139,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298259.3632603
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 1.8429418099857433,
+      "score_latency_ms": 0.133,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298259.9716525
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 1.8429418099857433,
+      "score_latency_ms": 0.143,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298260.5779371
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 1.8429418099857433,
+      "score_latency_ms": 0.133,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298261.1560855
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 1.8429418099857433,
+      "score_latency_ms": 0.136,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298261.7948236
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 1.8429418099857433,
+      "score_latency_ms": 0.138,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298262.3788128
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 1.8429418099857433,
+      "score_latency_ms": 0.133,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298262.9625273
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 1.8429418099857433,
+      "score_latency_ms": 0.132,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298263.5356271
+    },
+    {
+      "bmu": [
+        29,
+        4
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 16.62694631152149,
+      "score_latency_ms": 0.138,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298264.1127079
+    },
+    {
+      "bmu": [
+        29,
+        4
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 16.62694631152149,
+      "score_latency_ms": 0.134,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298264.7860117
+    },
+    {
+      "bmu": [
+        29,
+        4
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 16.62694631152149,
+      "score_latency_ms": 0.134,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298265.3714957
+    },
+    {
+      "bmu": [
+        29,
+        7
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 10.30642658610911,
+      "score_latency_ms": 0.136,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298265.9432368
+    },
+    {
+      "bmu": [
+        31,
+        8
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 25.023302022926217,
+      "score_latency_ms": 0.129,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298266.5411088
+    },
+    {
+      "bmu": [
+        31,
+        8
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 25.023302022926217,
+      "score_latency_ms": 0.132,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298267.1614852
+    },
+    {
+      "bmu": [
+        31,
+        8
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 25.023302022926217,
+      "score_latency_ms": 0.134,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298267.8079302
+    },
+    {
+      "bmu": [
+        30,
+        7
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 5.569925907148719,
+      "score_latency_ms": 0.135,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298268.3980622
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 1.8429418099857433,
+      "score_latency_ms": 0.134,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298268.9930243
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 1.8429418099857433,
+      "score_latency_ms": 0.188,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298269.596039
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 1.8429418099857433,
+      "score_latency_ms": 0.133,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298270.2051418
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 1.8429418099857433,
+      "score_latency_ms": 0.141,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298270.8457973
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 1.8429418099857433,
+      "score_latency_ms": 0.136,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298271.4484189
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 1.8429418099857433,
+      "score_latency_ms": 0.131,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298272.02657
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 1.8429418099857433,
+      "score_latency_ms": 0.203,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298272.6086335
+    },
+    {
+      "bmu": [
+        30,
+        7
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 5.569925907148719,
+      "score_latency_ms": 0.142,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298273.1930225
+    },
+    {
+      "bmu": [
+        29,
+        7
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 10.30642658610911,
+      "score_latency_ms": 0.133,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298273.8143675
+    },
+    {
+      "bmu": [
+        29,
+        7
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 10.30642658610911,
+      "score_latency_ms": 0.14,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298274.4141355
+    },
+    {
+      "bmu": [
+        29,
+        4
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 16.62694631152149,
+      "score_latency_ms": 0.153,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298275.0021546
+    },
+    {
+      "bmu": [
+        29,
+        4
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 16.62694631152149,
+      "score_latency_ms": 0.136,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298275.6873288
+    },
+    {
+      "bmu": [
+        29,
+        7
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 10.30642658610911,
+      "score_latency_ms": 0.285,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298276.3243408
+    },
+    {
+      "bmu": [
+        31,
+        8
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 25.023302022926217,
+      "score_latency_ms": 0.141,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298276.9368742
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 1.8429418099857433,
+      "score_latency_ms": 0.134,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298277.5211535
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 1.8429418099857433,
+      "score_latency_ms": 0.141,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298278.0948615
+    },
+    {
+      "bmu": [
+        29,
+        4
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 16.62694631152149,
+      "score_latency_ms": 0.137,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298278.6968694
+    },
+    {
+      "bmu": [
+        28,
+        5
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 19.645228134323517,
+      "score_latency_ms": 0.137,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298279.2929065
+    },
+    {
+      "bmu": [
+        28,
+        4
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 31.085381706112443,
+      "score_latency_ms": 0.134,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298279.9083922
+    },
+    {
+      "bmu": [
+        28,
+        4
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 31.085381706112443,
+      "score_latency_ms": 0.153,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298280.5176983
+    },
+    {
+      "bmu": [
+        28,
+        4
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 31.085381706112443,
+      "score_latency_ms": 0.134,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298281.0944548
+    },
+    {
+      "bmu": [
+        28,
+        4
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 31.085381706112443,
+      "score_latency_ms": 0.136,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298281.7159317
+    },
+    {
+      "bmu": [
+        28,
+        4
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 31.085381706112443,
+      "score_latency_ms": 0.136,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298282.2881014
+    },
+    {
+      "bmu": [
+        28,
+        4
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 31.085381706112443,
+      "score_latency_ms": 0.132,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298282.9139514
+    },
+    {
+      "bmu": [
+        28,
+        4
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 31.085381706112443,
+      "score_latency_ms": 0.141,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298283.5062058
+    },
+    {
+      "bmu": [
+        28,
+        4
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 31.085381706112443,
+      "score_latency_ms": 0.199,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298284.0829284
+    },
+    {
+      "bmu": [
+        28,
+        4
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 31.085381706112443,
+      "score_latency_ms": 0.125,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298284.685471
+    },
+    {
+      "bmu": [
+        28,
+        4
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 31.085381706112443,
+      "score_latency_ms": 0.135,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298285.2563229
+    },
+    {
+      "bmu": [
+        28,
+        5
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 19.645228134323517,
+      "score_latency_ms": 0.222,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298285.8656425
+    },
+    {
+      "bmu": [
+        28,
+        5
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 19.645228134323517,
+      "score_latency_ms": 0.229,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298286.5071452
+    },
+    {
+      "bmu": [
+        28,
+        5
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 19.645228134323517,
+      "score_latency_ms": 0.177,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298287.1031501
+    },
+    {
+      "bmu": [
+        28,
+        5
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 19.645228134323517,
+      "score_latency_ms": 0.137,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298287.678264
+    },
+    {
+      "bmu": [
+        28,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 15.975282030199935,
+      "score_latency_ms": 0.139,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298288.2547224
+    },
+    {
+      "bmu": [
+        28,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 15.975282030199935,
+      "score_latency_ms": 0.183,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298288.8816473
+    },
+    {
+      "bmu": [
+        28,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 15.975282030199935,
+      "score_latency_ms": 0.141,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298289.5571277
+    },
+    {
+      "bmu": [
+        29,
+        4
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 16.62694631152149,
+      "score_latency_ms": 0.14,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298290.2007709
+    },
+    {
+      "bmu": [
+        29,
+        4
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 16.62694631152149,
+      "score_latency_ms": 0.137,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298290.7891026
+    },
+    {
+      "bmu": [
+        29,
+        4
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 16.62694631152149,
+      "score_latency_ms": 0.136,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298291.4045997
+    },
+    {
+      "bmu": [
+        29,
+        4
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 16.62694631152149,
+      "score_latency_ms": 0.137,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298292.0504794
+    },
+    {
+      "bmu": [
+        29,
+        4
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 16.62694631152149,
+      "score_latency_ms": 0.138,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298292.632516
+    },
+    {
+      "bmu": [
+        29,
+        4
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 16.62694631152149,
+      "score_latency_ms": 0.138,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298293.2160904
+    },
+    {
+      "bmu": [
+        29,
+        4
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 16.62694631152149,
+      "score_latency_ms": 0.139,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298293.8393226
+    },
+    {
+      "bmu": [
+        29,
+        4
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 16.62694631152149,
+      "score_latency_ms": 0.135,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298294.4195716
+    },
+    {
+      "bmu": [
+        29,
+        4
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 16.62694631152149,
+      "score_latency_ms": 0.136,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298295.0085666
+    },
+    {
+      "bmu": [
+        29,
+        7
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 10.30642658610911,
+      "score_latency_ms": 0.176,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298295.6035502
+    },
+    {
+      "bmu": [
+        31,
+        8
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 25.023302022926217,
+      "score_latency_ms": 0.194,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298296.220424
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "chaos",
+      "quality_valid": true,
+      "score_area": 1.8429418099857433,
+      "score_latency_ms": 0.134,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298296.8988023
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 1.8429418099857433,
+      "score_latency_ms": 7.134,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298297.5260208
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 51.93491348533708,
+      "score_latency_ms": 5.114,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298298.122008
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 32.44769279236816,
+      "score_latency_ms": 5.113,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298298.7263336
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 15.461293682484746,
+      "score_latency_ms": 5.204,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298299.336722
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 6.64130473613551,
+      "score_latency_ms": 5.578,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298299.9165118
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 2.787031247788797,
+      "score_latency_ms": 5.119,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298300.5106053
+    },
+    {
+      "bmu": [
+        31,
+        6
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 1.2403814993999038,
+      "score_latency_ms": 5.786,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298301.1422267
+    },
+    {
+      "bmu": [
+        29,
+        1
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-1"
+      ],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 223.0803635372865,
+      "score_latency_ms": 5.351,
+      "streak": 1,
+      "threshold": 113.23424740336117,
+      "ts": 1776298301.7716596
+    },
+    {
+      "bmu": [
+        28,
+        0
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-1"
+      ],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 124.78392734490188,
+      "score_latency_ms": 6.559,
+      "streak": 2,
+      "threshold": 113.23424740336117,
+      "ts": 1776298302.3630128
+    },
+    {
+      "bmu": [
+        26,
+        0
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-2",
+        "tier_a_disk_write_bytes_per_sec__cassandra-1"
+      ],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 178.76363645347473,
+      "score_latency_ms": 5.113,
+      "streak": 3,
+      "threshold": 113.23424740336117,
+      "ts": 1776298302.9856262
+    },
+    {
+      "bmu": [
+        25,
+        0
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-2"
+      ],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 143.26854745060612,
+      "score_latency_ms": 5.174,
+      "streak": 4,
+      "threshold": 113.23424740336117,
+      "ts": 1776298303.5811968
+    },
+    {
+      "bmu": [
+        24,
+        0
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-2"
+      ],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 120916.2317368153,
+      "score_latency_ms": 5.165,
+      "streak": 5,
+      "threshold": 113.23424740336117,
+      "ts": 1776298304.2002597
+    },
+    {
+      "bmu": [
+        24,
+        0
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-2",
+        "tier_a_disk_write_bytes_per_sec__cassandra-1"
+      ],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 38881.489865982854,
+      "score_latency_ms": 5.338,
+      "streak": 6,
+      "threshold": 113.23424740336117,
+      "ts": 1776298304.7950711
+    },
+    {
+      "bmu": [
+        24,
+        0
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-1"
+      ],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 12505.325646445646,
+      "score_latency_ms": 7.09,
+      "streak": 7,
+      "threshold": 113.23424740336117,
+      "ts": 1776298305.3993418
+    },
+    {
+      "bmu": [
+        24,
+        0
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-1"
+      ],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 4026.388221557736,
+      "score_latency_ms": 5.259,
+      "streak": 8,
+      "threshold": 113.23424740336117,
+      "ts": 1776298305.9890435
+    },
+    {
+      "bmu": [
+        24,
+        0
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 1300.43861884255,
+      "score_latency_ms": 5.195,
+      "streak": 9,
+      "threshold": 113.23424740336117,
+      "ts": 1776298306.5913603
+    },
+    {
+      "bmu": [
+        24,
+        0
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 422.78206497092316,
+      "score_latency_ms": 5.162,
+      "streak": 10,
+      "threshold": 113.23424740336117,
+      "ts": 1776298307.1761982
+    },
+    {
+      "bmu": [
+        24,
+        0
+      ],
+      "causes": [
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "is_anomaly": true,
+      "missing_required": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 140.25164765075996,
+      "score_latency_ms": 5.466,
+      "streak": 11,
+      "threshold": 113.23424740336117,
+      "ts": 1776298307.769571
+    },
+    {
+      "bmu": [
+        24,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 49.03306573114909,
+      "score_latency_ms": 4.964,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298308.412602
+    },
+    {
+      "bmu": [
+        24,
+        0
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 18.78488589728847,
+      "score_latency_ms": 6.249,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298309.0470939
+    },
+    {
+      "bmu": [
+        26,
+        2
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 31.031792536248112,
+      "score_latency_ms": 7.182,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298309.6259856
+    },
+    {
+      "bmu": [
+        26,
+        2
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 11.094325670634865,
+      "score_latency_ms": 4.998,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298310.2000215
+    },
+    {
+      "bmu": [
+        26,
+        2
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 9.299926361178567,
+      "score_latency_ms": 5.2,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298310.8092046
+    },
+    {
+      "bmu": [
+        26,
+        2
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 9.431322479321535,
+      "score_latency_ms": 4.976,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298311.3893266
+    },
+    {
+      "bmu": [
+        26,
+        2
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 9.914223051631652,
+      "score_latency_ms": 5.072,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298311.9747553
+    },
+    {
+      "bmu": [
+        26,
+        2
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 10.230542802088728,
+      "score_latency_ms": 4.963,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298312.5550704
+    },
+    {
+      "bmu": [
+        26,
+        2
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 5.5172412850248955,
+      "score_latency_ms": 5.091,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298313.1504612
+    },
+    {
+      "bmu": [
+        26,
+        2
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 2.790883747475852,
+      "score_latency_ms": 5.928,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298313.7701888
+    },
+    {
+      "bmu": [
+        26,
+        2
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 1.912005030479601,
+      "score_latency_ms": 5.053,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298314.4503844
+    },
+    {
+      "bmu": [
+        26,
+        2
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 1.6555975276264496,
+      "score_latency_ms": 6.417,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298315.0547957
+    },
+    {
+      "bmu": [
+        26,
+        2
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 2.3413680566700568,
+      "score_latency_ms": 5.275,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298315.6554635
+    },
+    {
+      "bmu": [
+        26,
+        2
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 3.3036633190637668,
+      "score_latency_ms": 7.779,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298316.306396
+    },
+    {
+      "bmu": [
+        26,
+        2
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 4.156013680565756,
+      "score_latency_ms": 5.153,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298316.8966024
+    },
+    {
+      "bmu": [
+        26,
+        2
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 5.81772522190651,
+      "score_latency_ms": 5.122,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298317.5053144
+    },
+    {
+      "bmu": [
+        26,
+        2
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 6.772741151497071,
+      "score_latency_ms": 5.154,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298318.131001
+    },
+    {
+      "bmu": [
+        26,
+        2
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 6.472038100814206,
+      "score_latency_ms": 7.537,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298318.744481
+    },
+    {
+      "bmu": [
+        26,
+        2
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 5.4939738067328125,
+      "score_latency_ms": 5.082,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298319.396416
+    },
+    {
+      "bmu": [
+        26,
+        2
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 3.9226926431970814,
+      "score_latency_ms": 5.232,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298320.044531
+    },
+    {
+      "bmu": [
+        26,
+        2
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 5.2515122699693535,
+      "score_latency_ms": 5.682,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298320.7198813
+    },
+    {
+      "bmu": [
+        26,
+        2
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 7.63907525940445,
+      "score_latency_ms": 5.267,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298321.3007536
+    },
+    {
+      "bmu": [
+        26,
+        2
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 10.785277940736833,
+      "score_latency_ms": 5.051,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298321.894942
+    },
+    {
+      "bmu": [
+        26,
+        2
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 11.827939110651855,
+      "score_latency_ms": 5.164,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298322.501584
+    },
+    {
+      "bmu": [
+        26,
+        2
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 11.820759157652219,
+      "score_latency_ms": 5.139,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298323.085542
+    },
+    {
+      "bmu": [
+        26,
+        2
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 9.656595289130067,
+      "score_latency_ms": 5.114,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298323.674592
+    },
+    {
+      "bmu": [
+        26,
+        2
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 9.353542927194127,
+      "score_latency_ms": 5.051,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298324.25738
+    },
+    {
+      "bmu": [
+        26,
+        2
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 8.888287985573726,
+      "score_latency_ms": 5.056,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298324.8611941
+    },
+    {
+      "bmu": [
+        26,
+        2
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 8.746512531115997,
+      "score_latency_ms": 5.365,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298325.463403
+    },
+    {
+      "bmu": [
+        26,
+        2
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 8.2631292973754,
+      "score_latency_ms": 5.204,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298326.0589132
+    },
+    {
+      "bmu": [
+        26,
+        2
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 7.848546984958688,
+      "score_latency_ms": 5.331,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298326.713702
+    },
+    {
+      "bmu": [
+        26,
+        2
+      ],
+      "causes": [],
+      "is_anomaly": false,
+      "missing_required": [],
+      "phase": "cooldown",
+      "quality_valid": true,
+      "score_area": 6.76466545707072,
+      "score_latency_ms": 14.843,
+      "streak": 0,
+      "threshold": 113.23424740336117,
+      "ts": 1776298327.3589585
+    }
+  ]
+}

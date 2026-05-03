@@ -1,0 +1,5 @@
+{"ts_utc":"2026-04-23T06:42:36Z","event":"run_started","detail":"mode=chaos_alarm daemon=0 max=4 baseline=3 consecutive_chaos=3"}
+{"ts_utc":"2026-04-23T06:42:36Z","event":"cycle_started","detail":"cycle=1 mode=chaos_alarm watch_start_ts=1776926556.7206557"}
+{"ts_utc":"2026-04-23T06:54:04Z","event":"scale_out_signal","detail":"reason=chaos_alarm consecutive=3 cycle=1"}
+{"ts_utc":"2026-04-23T06:54:04Z","event":"scale_up","detail":"to=4 cycle=1"}
+{"ts_utc":"2026-04-23T06:56:49Z","event":"rollout_up_complete","detail":"replicas=4 cycle=1"}

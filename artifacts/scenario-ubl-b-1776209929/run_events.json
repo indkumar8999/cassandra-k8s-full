@@ -1,0 +1,187 @@
+{
+  "events": [
+    {
+      "ts": 1776209929.935467,
+      "ts_iso": "2026-04-14T23:38:49Z",
+      "event": "run_start",
+      "payload": {
+        "run_id": "scenario-ubl-b-1776209929",
+        "profile": "high",
+        "fault_profile": "bottleneck-like"
+      }
+    },
+    {
+      "ts": 1776209929.957193,
+      "ts_iso": "2026-04-14T23:38:49Z",
+      "event": "health_check",
+      "payload": {
+        "simulator": {
+          "profile": "medium",
+          "running": true,
+          "status": "up"
+        },
+        "learner": {
+          "status": "up"
+        },
+        "chaos": {
+          "active_fault_count": 0,
+          "status": "up"
+        }
+      }
+    },
+    {
+      "ts": 1776209930.011564,
+      "ts_iso": "2026-04-14T23:38:50Z",
+      "event": "bootstrap_wait_start",
+      "payload": {
+        "timeout_sec": 900
+      }
+    },
+    {
+      "ts": 1776210186.75826,
+      "ts_iso": "2026-04-14T23:43:06Z",
+      "event": "learner_ready",
+      "payload": {
+        "bootstrap_collected_samples": 124,
+        "bootstrap_target_samples": 120,
+        "bootstrap_valid_samples": 120,
+        "last_error": null,
+        "phase": "normal",
+        "ready": true,
+        "threshold": 166.3913086235914,
+        "threshold_percentile": 85.0,
+        "trained": true,
+        "training_duration_sec": 0.095
+      }
+    },
+    {
+      "ts": 1776210186.758343,
+      "ts_iso": "2026-04-14T23:43:06Z",
+      "event": "bootstrap_wait_end",
+      "payload": {}
+    },
+    {
+      "ts": 1776210186.758376,
+      "ts_iso": "2026-04-14T23:43:06Z",
+      "event": "phase_start",
+      "payload": {
+        "phase": "normal",
+        "duration_sec": 45
+      }
+    },
+    {
+      "ts": 1776210231.76239,
+      "ts_iso": "2026-04-14T23:43:51Z",
+      "event": "phase_end",
+      "payload": {
+        "phase": "normal"
+      }
+    },
+    {
+      "ts": 1776210231.775994,
+      "ts_iso": "2026-04-14T23:43:51Z",
+      "event": "phase_start",
+      "payload": {
+        "phase": "load",
+        "duration_sec": 45
+      }
+    },
+    {
+      "ts": 1776210276.781376,
+      "ts_iso": "2026-04-14T23:44:36Z",
+      "event": "phase_end",
+      "payload": {
+        "phase": "load"
+      }
+    },
+    {
+      "ts": 1776210276.80775,
+      "ts_iso": "2026-04-14T23:44:36Z",
+      "event": "fault_start",
+      "payload": {
+        "fault": {
+          "command_start_ts": 1776210276.876422,
+          "command_stop_ts": null,
+          "extra": null,
+          "params": {
+            "new_replicas": 2,
+            "original_replicas": 3
+          },
+          "profile": "bottleneck-like",
+          "started_at": 1776210276.8764215,
+          "status": "running",
+          "target": "statefulset/cassandra",
+          "verified_start_ts": 1776210276.8764222,
+          "verified_stop_ts": null
+        },
+        "message": "fault started"
+      }
+    },
+    {
+      "ts": 1776210276.807795,
+      "ts_iso": "2026-04-14T23:44:36Z",
+      "event": "phase_start",
+      "payload": {
+        "phase": "chaos",
+        "duration_sec": 300
+      }
+    },
+    {
+      "ts": 1776210576.814096,
+      "ts_iso": "2026-04-14T23:49:36Z",
+      "event": "phase_end",
+      "payload": {
+        "phase": "chaos"
+      }
+    },
+    {
+      "ts": 1776210576.827958,
+      "ts_iso": "2026-04-14T23:49:36Z",
+      "event": "fault_stop",
+      "payload": {
+        "fault": {
+          "command_start_ts": 1776210276.876422,
+          "command_stop_ts": 1776210576.8956041,
+          "extra": null,
+          "params": {
+            "new_replicas": 2,
+            "original_replicas": 3
+          },
+          "profile": "bottleneck-like",
+          "started_at": 1776210276.8764215,
+          "status": "stopped",
+          "target": "statefulset/cassandra",
+          "verified_start_ts": 1776210276.8764222,
+          "verified_stop_ts": 1776210576.8956053
+        },
+        "message": "fault stopped"
+      }
+    },
+    {
+      "ts": 1776210576.839446,
+      "ts_iso": "2026-04-14T23:49:36Z",
+      "event": "phase_start",
+      "payload": {
+        "phase": "cooldown",
+        "duration_sec": 30
+      }
+    },
+    {
+      "ts": 1776210606.841589,
+      "ts_iso": "2026-04-14T23:50:06Z",
+      "event": "phase_end",
+      "payload": {
+        "phase": "cooldown"
+      }
+    },
+    {
+      "ts": 1776210606.975873,
+      "ts_iso": "2026-04-14T23:50:06Z",
+      "event": "run_complete",
+      "payload": {
+        "run_dir": "artifacts/scenario-ubl-b-1776209929",
+        "alarm_count": 0
+      }
+    }
+  ]
+}

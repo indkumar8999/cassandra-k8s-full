@@ -1,0 +1,412 @@
+# NoSQLBench 5 workload snippets for chaos-injector /start_nosqlbench.
+# Mount as a volume at /scenarios in Job pods (see chaos-injector main.py).
+# Uses driver=cql (same family as upstream cql-starter examples).
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: chaos-nosqlbench-scenarios
+  namespace: cassandra-lab
+data:
+  baseline_normal.yaml: |
+    description: |
+      Balanced read/write baseline (cassandra-stress baseline-normal analogue).
+    scenarios:
+      default:
+        schema: run driver=cql tags==block:schema threads==1 cycles==UNDEF
+        rampup: run driver=cql tags==block:rampup cycles===TEMPLATE(rampup-cycles,2000) threads=auto
+        main: run driver=cql tags==block:"main-.*" cycles===TEMPLATE(main-cycles,1000000) threads=auto
+    bindings:
+      pk: Hash(); Mod(1000000); ToString();
+      ck: Hash(); Mod(1000000); ToString();
+      payload: Hash(); ToString();
+      time: ElapsedNanoTime(); Mul(1000); ToJavaInstant();
+      ts: ElapsedNanoTime(); Mul(1000);
+    blocks:
+      schema:
+        params:
+          prepared: false
+        ops:
+          ks: |
+            create keyspace if not exists <<keyspace:starter>>
+            WITH replication = {'class': 'SimpleStrategy', 'replication_factor': '<<rf:3>>'};
+          tb: |
+            create table if not exists <<keyspace:starter>>.<<table:nbbase>> (
+              pk text,
+              ck text,
+              payload text,
+              time timestamp,
+              primary key (pk, ck)
+            ) WITH CLUSTERING ORDER BY (ck ASC);
+      rampup:
+        params:
+          cl: LOCAL_ONE
+          idempotent: true
+        ops:
+          ins: |
+            insert into <<keyspace:starter>>.<<table:nbbase>> (pk, ck, payload, time)
+            values ({pk}, {ck}, {payload}, {time}) USING TIMESTAMP {ts};
+      main-read:
+        params:
+          ratio: TEMPLATE(read_ratio,5)
+          cl: LOCAL_ONE
+        ops:
+          sel: |
+            select * from <<keyspace:starter>>.<<table:nbbase>> where pk={pk} limit 1;
+      main-write:
+        params:
+          ratio: TEMPLATE(write_ratio,5)
+          cl: LOCAL_ONE
+          idempotent: true
+        ops:
+          ins: |
+            insert into <<keyspace:starter>>.<<table:nbbase>> (pk, ck, payload, time)
+            values ({pk}, {ck}, {payload}, {time}) USING TIMESTAMP {ts};
+
+  hot_partition.yaml: |
+    description: |
+      Writes to a single partition key (hot partition), analogous to cassandra-stress hot-partition recipe.
+    scenarios:
+      default:
+        schema: run driver=cql tags==block:schema threads==1 cycles==UNDEF
+        rampup: run driver=cql tags==block:rampup cycles===TEMPLATE(rampup-cycles,2000) threads=auto
+        main: run driver=cql tags==block:main-write cycles===TEMPLATE(main-cycles,1000000) threads=auto
+    bindings:
+      pk: FixedValue('HOT');
+      ck: Hash(); Mod(100000000); ToString();
+      payload: Hash(); ToString();
+      time: ElapsedNanoTime(); Mul(1000); ToJavaInstant();
+      ts: ElapsedNanoTime(); Mul(1000);
+    blocks:
+      schema:
+        params:
+          prepared: false
+        ops:
+          ks: |
+            create keyspace if not exists <<keyspace:starter>>
+            WITH replication = {'class': 'SimpleStrategy', 'replication_factor': '<<rf:3>>'};
+          tb: |
+            create table if not exists <<keyspace:starter>>.<<table:hot>> (
+              pk text,
+              ck text,
+              payload text,
+              time timestamp,
+              primary key (pk, ck)
+            ) WITH CLUSTERING ORDER BY (ck ASC);
+      rampup:
+        params:
+          cl: LOCAL_ONE
+          idempotent: true
+        ops:
+          ins: |
+            insert into <<keyspace:starter>>.<<table:hot>> (pk, ck, payload, time)
+            values ({pk}, {ck}, {payload}, {time}) USING TIMESTAMP {ts};
+      main-write:
+        params:
+          cl: LOCAL_ONE
+          idempotent: true
+        ops:
+          ins: |
+            insert into <<keyspace:starter>>.<<table:hot>> (pk, ck, payload, time)
+            values ({pk}, {ck}, {payload}, {time}) USING TIMESTAMP {ts};
+
+  compaction_pressure.yaml: |
+    description: |
+      Wide rows / larger payloads to increase compaction pressure (analogous to cassandra-stress n=8 size=2048).
+    scenarios:
+      default:
+        schema: run driver=cql tags==block:schema threads==1 cycles==UNDEF
+        rampup: run driver=cql tags==block:rampup cycles===TEMPLATE(rampup-cycles,5000) threads=auto
+        main: run driver=cql tags==block:main-write cycles===TEMPLATE(main-cycles,2000000) threads=auto
+    bindings:
+      pk: Hash(); Mod(100000); ToString();
+      c1: Hash(); Mod(8); ToString();
+      payload: NumberNameToString();
+      time: ElapsedNanoTime(); Mul(1000); ToJavaInstant();
+      ts: ElapsedNanoTime(); Mul(1000);
+    blocks:
+      schema:
+        params:
+          prepared: false
+        ops:
+          ks: |
+            create keyspace if not exists <<keyspace:starter>>
+            WITH replication = {'class': 'SimpleStrategy', 'replication_factor': '<<rf:3>>'};
+          tb: |
+            create table if not exists <<keyspace:starter>>.<<table:compact>> (
+              pk text,
+              c1 text,
+              payload text,
+              time timestamp,
+              primary key (pk, c1)
+            );
+      rampup:
+        params:
+          cl: LOCAL_ONE
+          idempotent: true
+        ops:
+          ins: |
+            insert into <<keyspace:starter>>.<<table:compact>> (pk, c1, payload, time)
+            values ({pk}, {c1}, {payload}, {time}) USING TIMESTAMP {ts};
+      main-write:
+        params:
+          cl: LOCAL_ONE
+          idempotent: true
+        ops:
+          ins: |
+            insert into <<keyspace:starter>>.<<table:compact>> (pk, c1, payload, time)
+            values ({pk}, {c1}, {payload}, {time}) USING TIMESTAMP {ts};
+
+  concurrency_spike.yaml: |
+    description: |
+      Sustained write-heavy load (analogous to cassandra-stress concurrency spike).
+    scenarios:
+      default:
+        schema: run driver=cql tags==block:schema threads==1 cycles==UNDEF
+        rampup: run driver=cql tags==block:rampup cycles===TEMPLATE(rampup-cycles,5000) threads=auto
+        main: run driver=cql tags==block:main-write cycles===TEMPLATE(main-cycles,5000000) threads=auto
+    bindings:
+      pk: Hash(); Mod(5000000); ToString();
+      ck: Hash(); Mod(1000000); ToString();
+      payload: Hash(); ToString();
+      time: ElapsedNanoTime(); Mul(1000); ToJavaInstant();
+      ts: ElapsedNanoTime(); Mul(1000);
+    blocks:
+      schema:
+        params:
+          prepared: false
+        ops:
+          ks: |
+            create keyspace if not exists <<keyspace:starter>>
+            WITH replication = {'class': 'SimpleStrategy', 'replication_factor': '<<rf:3>>'};
+          tb: |
+            create table if not exists <<keyspace:starter>>.<<table:spike>> (
+              pk text,
+              ck text,
+              payload text,
+              time timestamp,
+              primary key (pk, ck)
+            ) WITH CLUSTERING ORDER BY (ck ASC);
+      rampup:
+        params:
+          cl: LOCAL_ONE
+          idempotent: true
+        ops:
+          ins: |
+            insert into <<keyspace:starter>>.<<table:spike>> (pk, ck, payload, time)
+            values ({pk}, {ck}, {payload}, {time}) USING TIMESTAMP {ts};
+      main-write:
+        params:
+          cl: LOCAL_ONE
+          idempotent: true
+        ops:
+          ins: |
+            insert into <<keyspace:starter>>.<<table:spike>> (pk, ck, payload, time)
+            values ({pk}, {ck}, {payload}, {time}) USING TIMESTAMP {ts};
+
+  mixed_skew.yaml: |
+    description: |
+      Mixed read/write with variable payload sizes (approximates skew + large payload mix).
+    scenarios:
+      default:
+        schema: run driver=cql tags==block:schema threads==1 cycles==UNDEF
+        rampup: run driver=cql tags==block:rampup cycles===TEMPLATE(rampup-cycles,3000) threads=auto
+        main: run driver=cql tags==block:"main-.*" cycles===TEMPLATE(main-cycles,2000000) threads=auto
+    bindings:
+      pk: Hash(); Mod(500); ToString();
+      ck: Hash(); Mod(100000); ToString();
+      payload: NumberNameToString();
+      time: ElapsedNanoTime(); Mul(1000); ToJavaInstant();
+      ts: ElapsedNanoTime(); Mul(1000);
+    blocks:
+      schema:
+        params:
+          prepared: false
+        ops:
+          ks: |
+            create keyspace if not exists <<keyspace:starter>>
+            WITH replication = {'class': 'SimpleStrategy', 'replication_factor': '<<rf:3>>'};
+          tb: |
+            create table if not exists <<keyspace:starter>>.<<table:skew>> (
+              pk text,
+              ck text,
+              payload text,
+              time timestamp,
+              primary key (pk, ck)
+            ) WITH CLUSTERING ORDER BY (ck ASC);
+      rampup:
+        params:
+          cl: LOCAL_ONE
+          idempotent: true
+        ops:
+          ins: |
+            insert into <<keyspace:starter>>.<<table:skew>> (pk, ck, payload, time)
+            values ({pk}, {ck}, {payload}, {time}) USING TIMESTAMP {ts};
+      main-read:
+        params:
+          ratio: 3
+          cl: LOCAL_ONE
+        ops:
+          sel: |
+            select * from <<keyspace:starter>>.<<table:skew>> where pk={pk} limit 50;
+      main-write:
+        params:
+          ratio: 7
+          cl: LOCAL_ONE
+          idempotent: true
+        ops:
+          ins: |
+            insert into <<keyspace:starter>>.<<table:skew>> (pk, ck, payload, time)
+            values ({pk}, {ck}, {payload}, {time}) USING TIMESTAMP {ts};
+
+  ttl_write.yaml: |
+    description: TTL write phase (uses TTL template param ttlsec).
+    scenarios:
+      default:
+        schema: run driver=cql tags==block:schema threads==1 cycles==UNDEF
+        rampup: run driver=cql tags==block:rampup cycles===TEMPLATE(rampup-cycles,2000) threads=auto
+        main: run driver=cql tags==block:main-write cycles===TEMPLATE(main-cycles,2000000) threads=auto
+    bindings:
+      pk: Hash(); Mod(2000000); ToString();
+      ck: Hash(); Mod(1000000); ToString();
+      payload: Hash(); ToString();
+      time: ElapsedNanoTime(); Mul(1000); ToJavaInstant();
+      ts: ElapsedNanoTime(); Mul(1000);
+    blocks:
+      schema:
+        params:
+          prepared: false
+        ops:
+          ks: |
+            create keyspace if not exists <<keyspace:starter>>
+            WITH replication = {'class': 'SimpleStrategy', 'replication_factor': '<<rf:3>>'};
+          tb: |
+            create table if not exists <<keyspace:starter>>.<<table:ttl>> (
+              pk text,
+              ck text,
+              payload text,
+              time timestamp,
+              primary key (pk, ck)
+            ) WITH CLUSTERING ORDER BY (ck ASC);
+      rampup:
+        params:
+          cl: LOCAL_ONE
+          idempotent: true
+        ops:
+          ins: |
+            insert into <<keyspace:starter>>.<<table:ttl>> (pk, ck, payload, time)
+            values ({pk}, {ck}, {payload}, {time}) USING TIMESTAMP {ts};
+      main-write:
+        params:
+          cl: LOCAL_ONE
+          idempotent: true
+        ops:
+          ins: |
+            insert into <<keyspace:starter>>.<<table:ttl>> (pk, ck, payload, time)
+            values ({pk}, {ck}, {payload}, {time}) USING TTL <<ttlsec:60>> AND TIMESTAMP {ts};
+
+  ttl_read.yaml: |
+    description: Read phase after TTL expiry window (same table as ttl_write).
+    scenarios:
+      default:
+        main: run driver=cql tags==block:main-read cycles===TEMPLATE(main-cycles,1500000) threads=auto
+    bindings:
+      pk: Hash(); Mod(2000000); ToString();
+      ck: Hash(); Mod(1000000); ToString();
+    blocks:
+      main-read:
+        params:
+          cl: LOCAL_ONE
+        ops:
+          sel: |
+            select * from <<keyspace:starter>>.<<table:ttl>> where pk={pk} limit 20;
+
+  university_heavy.yaml: |
+    description: |
+      Heavy write/read mix with large string payloads (lab substitute for cassandra-stress user profile).
+    scenarios:
+      default:
+        schema: run driver=cql tags==block:schema threads==1 cycles==UNDEF
+        rampup: run driver=cql tags==block:rampup cycles===TEMPLATE(rampup-cycles,8000) threads=auto
+        main: run driver=cql tags==block:"main-.*" cycles===TEMPLATE(main-cycles,1500000) threads=auto
+    bindings:
+      pk: Hash(); Mod(50000); ToString();
+      ck: Hash(); Mod(5000); ToString();
+      payload: NumberNameToString();
+      time: ElapsedNanoTime(); Mul(1000); ToJavaInstant();
+      ts: ElapsedNanoTime(); Mul(1000);
+    blocks:
+      schema:
+        params:
+          prepared: false
+        ops:
+          ks: |
+            create keyspace if not exists <<keyspace:starter>>
+            WITH replication = {'class': 'SimpleStrategy', 'replication_factor': '<<rf:3>>'};
+          tb: |
+            create table if not exists <<keyspace:starter>>.<<table:uni>> (
+              pk text,
+              ck text,
+              payload text,
+              time timestamp,
+              primary key (pk, ck)
+            ) WITH CLUSTERING ORDER BY (ck ASC);
+      rampup:
+        params:
+          cl: LOCAL_ONE
+          idempotent: true
+        ops:
+          ins: |
+            insert into <<keyspace:starter>>.<<table:uni>> (pk, ck, payload, time)
+            values ({pk}, {ck}, {payload}, {time}) USING TIMESTAMP {ts};
+      main-read:
+        params:
+          ratio: 4
+          cl: LOCAL_ONE
+        ops:
+          sel: |
+            select * from <<keyspace:starter>>.<<table:uni>> where pk={pk} limit 40;
+      main-write:
+        params:
+          ratio: 6
+          cl: LOCAL_ONE
+          idempotent: true
+        ops:
+          ins: |
+            insert into <<keyspace:starter>>.<<table:uni>> (pk, ck, payload, time)
+            values ({pk}, {ck}, {payload}, {time}) USING TIMESTAMP {ts};
+
+  memory_pressure.yaml: |
+    description: Memory-biased write workload that grows memtables with lower CPU pressure
+
+    scenarios:
+      default:
+        schema: run driver=cql tags==block:schema threads==1 cycles==UNDEF
+        run: run driver=cql tags==block:main-write cycles===TEMPLATE(main-cycles,500000) threads===TEMPLATE(threads,12)
+
+    bindings:
+      pk: Hash(); Mod(50000000); ToString()
+      ck: Identity()
+      payload: ByteBufferSizedHashed(TEMPLATE(payload_size,262144))
+
+    blocks:
+      schema:
+        ops:
+          create-keyspace:
+            stmt: |
+              CREATE KEYSPACE IF NOT EXISTS TEMPLATE(keyspace,nbtest)
+              WITH replication = {'class':'SimpleStrategy','replication_factor':TEMPLATE(rf,3)};
+          create-table:
+            stmt: |
+              CREATE TABLE IF NOT EXISTS TEMPLATE(keyspace,nbtest).mem_pressure (
+                pk text,
+                ck bigint,
+                payload blob,
+                PRIMARY KEY (pk, ck)
+              );
+
+      main-write:
+        ops:
+          insert:
+            stmt: |
+              INSERT INTO TEMPLATE(keyspace,nbtest).mem_pressure (pk, ck, payload)
+              VALUES ({pk}, {ck}, {payload});

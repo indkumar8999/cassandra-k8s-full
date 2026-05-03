@@ -1,0 +1,55 @@
+{
+  "alarm_count": 0,
+  "avg_score_latency_ms": 0.0,
+  "bmu_coverage_count": 0,
+  "bootstrap_collected_samples": 0,
+  "bootstrap_target_samples": 350,
+  "feature_order": [
+    "tier_a_cpu_usage_cores",
+    "tier_a_memory_working_set_bytes",
+    "tier_a_disk_io_bytes_per_sec"
+  ],
+  "last_error": null,
+  "lead_time_seconds": {
+    "mean": null,
+    "median": null,
+    "samples": 0
+  },
+  "multi_models": {
+    "knn": {
+      "k": 5,
+      "ready": false,
+      "ref_size": 350,
+      "tau": null,
+      "tau_percentile": 95.0
+    },
+    "ubl_5pts": {
+      "smooth_k_score": 5,
+      "smooth_k_train": 5,
+      "threshold": 0.0,
+      "trained": false
+    },
+    "ubl_ns": {
+      "smooth_k_score": 1,
+      "smooth_k_train": 1,
+      "threshold": 0.0,
+      "trained": false
+    }
+  },
+  "phase": "cooldown",
+  "ready": true,
+  "score_stream_count": 194,
+  "scored_by_phase": {
+    "chaos": 111,
+    "cooldown": 55,
+    "load": 0,
+    "normal": 28
+  },
+  "threshold_percentile": 85.0,
+  "threshold_value": 50.817260222824885,
+  "total_samples_dropped_missing_tier_a": 0,
+  "total_samples_scored": 194,
+  "total_samples_seen": 194,
+  "trained": true,
+  "training_duration_sec": 0.0
+}

@@ -1,0 +1,19 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: nosqlbench-histostats
+  namespace: monitoring
+  labels:
+    release: kube-prom-stack
+spec:
+  namespaceSelector:
+    matchNames:
+      - cassandra-lab
+  selector:
+    matchLabels:
+      app: cassandra-nosqlbench
+  podMetricsEndpoints:
+    - port: nb-hdrstats
+      path: /metrics
+      interval: 15s
+

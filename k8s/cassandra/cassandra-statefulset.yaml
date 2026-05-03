@@ -15,6 +15,49 @@ spec:
         app: cassandra
     spec:
       terminationGracePeriodSeconds: 180
+      affinity:
+        # Cassandra on named workers only (excludes cp1). Includes backup-w4 so a 4th replica (cassandra-3) can schedule
+        # there when replicas scale 3→4 with hostname spread + anti-affinity (elastic demo).
+        # Node names must match `kubectl get nodes` (e.g. join agents with INSTALL_K3S_EXEC='--node-name <name>').
+        # If a pod is Pending: PVC may be bound to cp1 from before this affinity — delete that ordinal's PVC (see README).
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - worker-1
+                      - worker-2
+          # With replicas=3, avoid landing on backup-w4 while all three primaries are Ready (spread is not enough to express that).
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              preference:
+                matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - worker-1
+                      - worker-2
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchLabels:
+                  app: cassandra
+              topologyKey: kubernetes.io/hostname
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: DoNotSchedule
+          labelSelector:
+            matchLabels:
+              app: cassandra
+        - maxSkew: 1
+          topologyKey: topology.kubernetes.io/zone
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels:
+              app: cassandra
       containers:
         - name: cassandra
           image: cassandra:4.1
@@ -90,7 +133,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - "nodetool status | grep UN"
+                - "env -u JVM_OPTS nodetool status | grep UN"
             initialDelaySeconds: 120
             periodSeconds: 30
             timeoutSeconds: 10
@@ -98,13 +141,15 @@ spec:
           volumeMounts:
             - name: cassandra-data
               mountPath: /var/lib/cassandra
+          # Raised vs legacy 500m/1Gi so Tier-A dashboards show noticeable reservation on 2 vCPU / ~4GiB workers.
+          # One Cassandra pod per worker (anti-affinity); keep limits within a single Multipass VM (~4Gi allocatable).
           resources:
             requests:
-              cpu: "500m"
-              memory: "1Gi"
+              cpu: "900m"
+              memory: "1536Mi"
             limits:
-              cpu: "1"
-              memory: "2Gi"
+              cpu: "1500m"
+              memory: "2560Mi"
   volumeClaimTemplates:
     - metadata:
         name: cassandra-data

@@ -1,0 +1,6 @@
+{"ts_utc":"2026-04-19T00:47:50Z","event":"cycle_started","detail":"mode=chaos_alarm max=4 baseline=3"}
+{"ts_utc":"2026-04-19T00:47:50Z","event":"scale_out_skipped","detail":"replicas=4"}
+{"ts_utc":"2026-04-19T00:49:52Z","event":"slo_stable","detail":"value=0.0"}
+{"ts_utc":"2026-04-19T00:49:52Z","event":"scale_down","detail":"to=3"}
+{"ts_utc":"2026-04-19T00:49:52Z","event":"rollout_down_complete","detail":"replicas=3"}
+{"ts_utc":"2026-04-19T00:49:53Z","event":"cycle_complete","detail":"success=true"}

@@ -1,0 +1,319 @@
+{
+  "events": [
+    {
+      "ts": 1777240275.9342394,
+      "ts_iso": "2026-04-26T21:51:15Z",
+      "event": "run_start",
+      "payload": {
+        "run_id": "scenario-nb-1777240275",
+        "chaos_api": "nosqlbench",
+        "load_profile": "high",
+        "fault_profile": "anomaly-concurrency-spike",
+        "bootstrap_fault_profile": "baseline-normal",
+        "start_fault_profile": ""
+      }
+    },
+    {
+      "ts": 1777240277.4722302,
+      "ts_iso": "2026-04-26T21:51:17Z",
+      "event": "health_check",
+      "payload": {
+        "simulator": {
+          "profile": "medium",
+          "running": true,
+          "status": "up"
+        },
+        "learner": {
+          "status": "up"
+        },
+        "chaos": {
+          "active_fault_count": 0,
+          "active_nosqlbench_fault_count": 0,
+          "status": "up"
+        }
+      }
+    },
+    {
+      "ts": 1777240277.5999267,
+      "ts_iso": "2026-04-26T21:51:17Z",
+      "event": "baseline_nosqlbench_fault_start",
+      "payload": {
+        "fault": {
+          "command_start_ts": 1777240277.5970578,
+          "command_stop_ts": null,
+          "extra": null,
+          "params": {
+            "engine": "nosqlbench",
+            "hosts": "cassandra-client.cassandra-lab.svc.cluster.local",
+            "image": "nosqlbench/nosqlbench:5.17.9",
+            "job_name": "nb-1777240277-efe1af-0",
+            "job_names": [
+              "nb-1777240277-efe1af-0"
+            ],
+            "local_dc": "DC1",
+            "parallel_jobs": 1,
+            "prompush_url_configured": true,
+            "request": {
+              "cpu_workers": 2,
+              "duration_sec": 15,
+              "mem_mb": 1024,
+              "parallel_jobs": 1,
+              "profile": "baseline-normal",
+              "replicas": 2
+            }
+          },
+          "profile": "baseline-normal",
+          "started_at": 1777240277.5970452,
+          "status": "running",
+          "target": "cassandra-client.cassandra-lab.svc.cluster.local",
+          "verified_start_ts": 1777240277.597058,
+          "verified_stop_ts": null
+        },
+        "message": "nosqlbench fault started"
+      }
+    },
+    {
+      "ts": 1777240277.6001813,
+      "ts_iso": "2026-04-26T21:51:17Z",
+      "event": "bootstrap_wait_start",
+      "payload": {
+        "timeout_sec": 1800,
+        "bootstrap_fault_profile": "baseline-normal",
+        "bootstrap_fault_duration_sec": 15,
+        "simulator_profile_during_bootstrap": "low",
+        "learner_phase": "normal"
+      }
+    },
+    {
+      "ts": 1777240277.6081278,
+      "ts_iso": "2026-04-26T21:51:17Z",
+      "event": "learner_ready",
+      "payload": {
+        "bootstrap_collected_samples": 0,
+        "bootstrap_target_samples": 350,
+        "bootstrap_valid_samples": 0,
+        "last_error": null,
+        "last_missing_required": [],
+        "last_missing_required_count": 0,
+        "last_tier_a_coverage": {
+          "tier_a_cpu_usage_cores": 1.0,
+          "tier_a_disk_io_bytes_per_sec": 1.0,
+          "tier_a_memory_working_set_bytes": 1.0
+        },
+        "phase": "normal",
+        "ready": true,
+        "snapshot_loaded_from": "/models/som_trained_snapshot_SOM_SIGMA_4.json",
+        "threshold": 29.80908675487358,
+        "threshold_percentile": 85.0,
+        "tier_a_min_coverage": 0.67,
+        "total_samples_dropped_missing_tier_a": 0,
+        "total_samples_dropped_missing_tier_b": 0,
+        "trained": true,
+        "training_duration_sec": 0.0
+      }
+    },
+    {
+      "ts": 1777240277.6082363,
+      "ts_iso": "2026-04-26T21:51:17Z",
+      "event": "bootstrap_wait_end",
+      "payload": {}
+    },
+    {
+      "ts": 1777240277.6082852,
+      "ts_iso": "2026-04-26T21:51:17Z",
+      "event": "phase_start",
+      "payload": {
+        "phase": "baseline_hold",
+        "duration_sec": 15
+      }
+    },
+    {
+      "ts": 1777240292.6085997,
+      "ts_iso": "2026-04-26T21:51:32Z",
+      "event": "phase_end",
+      "payload": {
+        "phase": "baseline_hold"
+      }
+    },
+    {
+      "ts": 1777240292.6247954,
+      "ts_iso": "2026-04-26T21:51:32Z",
+      "event": "baseline_nosqlbench_fault_stop",
+      "payload": {
+        "fault": {
+          "command_start_ts": 1777240277.5970578,
+          "command_stop_ts": 1777240292.6229174,
+          "extra": null,
+          "params": {
+            "engine": "nosqlbench",
+            "hosts": "cassandra-client.cassandra-lab.svc.cluster.local",
+            "image": "nosqlbench/nosqlbench:5.17.9",
+            "job_name": "nb-1777240277-efe1af-0",
+            "job_names": [
+              "nb-1777240277-efe1af-0"
+            ],
+            "local_dc": "DC1",
+            "parallel_jobs": 1,
+            "prompush_url_configured": true,
+            "request": {
+              "cpu_workers": 2,
+              "duration_sec": 15,
+              "mem_mb": 1024,
+              "parallel_jobs": 1,
+              "profile": "baseline-normal",
+              "replicas": 2
+            }
+          },
+          "profile": "baseline-normal",
+          "started_at": 1777240277.5970452,
+          "status": "stopped",
+          "target": "cassandra-client.cassandra-lab.svc.cluster.local",
+          "verified_start_ts": 1777240277.597058,
+          "verified_stop_ts": 1777240292.6229186
+        },
+        "message": "nosqlbench fault stopped"
+      }
+    },
+    {
+      "ts": 1777240292.761225,
+      "ts_iso": "2026-04-26T21:51:32Z",
+      "event": "fault_nosqlbench_start",
+      "payload": {
+        "fault": {
+          "command_start_ts": 1777240292.7589877,
+          "command_stop_ts": null,
+          "extra": null,
+          "params": {
+            "engine": "nosqlbench",
+            "hosts": "cassandra-client.cassandra-lab.svc.cluster.local",
+            "image": "nosqlbench/nosqlbench:5.17.9",
+            "job_name": "nb-1777240292-644b2b-0",
+            "job_names": [
+              "nb-1777240292-644b2b-0",
+              "nb-1777240292-644b2b-1",
+              "nb-1777240292-644b2b-2",
+              "nb-1777240292-644b2b-3",
+              "nb-1777240292-644b2b-4",
+              "nb-1777240292-644b2b-5"
+            ],
+            "local_dc": "DC1",
+            "parallel_jobs": 6,
+            "prompush_url_configured": true,
+            "request": {
+              "cpu_workers": 2,
+              "duration_sec": 60,
+              "mem_mb": 1024,
+              "parallel_jobs": 6,
+              "profile": "anomaly-concurrency-spike",
+              "replicas": 2,
+              "threads": 64
+            }
+          },
+          "profile": "anomaly-concurrency-spike",
+          "started_at": 1777240292.7589793,
+          "status": "running",
+          "target": "cassandra-client.cassandra-lab.svc.cluster.local",
+          "verified_start_ts": 1777240292.7589877,
+          "verified_stop_ts": null
+        },
+        "message": "nosqlbench fault started"
+      }
+    },
+    {
+      "ts": 1777240292.7614205,
+      "ts_iso": "2026-04-26T21:51:32Z",
+      "event": "phase_start",
+      "payload": {
+        "phase": "chaos",
+        "duration_sec": 60
+      }
+    },
+    {
+      "ts": 1777240352.8196194,
+      "ts_iso": "2026-04-26T21:52:32Z",
+      "event": "phase_end",
+      "payload": {
+        "phase": "chaos"
+      }
+    },
+    {
+      "ts": 1777240352.9181614,
+      "ts_iso": "2026-04-26T21:52:32Z",
+      "event": "fault_nosqlbench_stop",
+      "payload": {
+        "fault": {
+          "command_start_ts": 1777240292.7589877,
+          "command_stop_ts": 1777240352.9157887,
+          "extra": null,
+          "params": {
+            "engine": "nosqlbench",
+            "hosts": "cassandra-client.cassandra-lab.svc.cluster.local",
+            "image": "nosqlbench/nosqlbench:5.17.9",
+            "job_name": "nb-1777240292-644b2b-0",
+            "job_names": [
+              "nb-1777240292-644b2b-0",
+              "nb-1777240292-644b2b-1",
+              "nb-1777240292-644b2b-2",
+              "nb-1777240292-644b2b-3",
+              "nb-1777240292-644b2b-4",
+              "nb-1777240292-644b2b-5"
+            ],
+            "local_dc": "DC1",
+            "parallel_jobs": 6,
+            "prompush_url_configured": true,
+            "request": {
+              "cpu_workers": 2,
+              "duration_sec": 60,
+              "mem_mb": 1024,
+              "parallel_jobs": 6,
+              "profile": "anomaly-concurrency-spike",
+              "replicas": 2,
+              "threads": 64
+            }
+          },
+          "profile": "anomaly-concurrency-spike",
+          "started_at": 1777240292.7589793,
+          "status": "stopped",
+          "target": "cassandra-client.cassandra-lab.svc.cluster.local",
+          "verified_start_ts": 1777240292.7589877,
+          "verified_stop_ts": 1777240352.9157906
+        },
+        "message": "nosqlbench fault stopped"
+      }
+    },
+    {
+      "ts": 1777240352.9335263,
+      "ts_iso": "2026-04-26T21:52:32Z",
+      "event": "phase_start",
+      "payload": {
+        "phase": "cooldown",
+        "duration_sec": 30
+      }
+    },
+    {
+      "ts": 1777240382.9636352,
+      "ts_iso": "2026-04-26T21:53:02Z",
+      "event": "phase_end",
+      "payload": {
+        "phase": "cooldown"
+      }
+    },
+    {
+      "ts": 1777240383.1474,
+      "ts_iso": "2026-04-26T21:53:03Z",
+      "event": "report_generated",
+      "payload": {
+        "run_dir": "artifacts/scenario-nb-1777240275"
+      }
+    },
+    {
+      "ts": 1777240383.1474783,
+      "ts_iso": "2026-04-26T21:53:03Z",
+      "event": "run_complete",
+      "payload": {
+        "run_dir": "artifacts/scenario-nb-1777240275",
+        "alarm_count": 47
+      }
+    }
+  ]
+}

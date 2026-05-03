@@ -1,0 +1,7 @@
+{"ts_utc":"2026-04-17T19:33:27Z","event":"watch_started","detail":"from_replicas=4 baseline=3 promql_len=9"}
+{"ts_utc":"2026-04-17T19:34:13Z","event":"slo_stable","detail":"value=0.0 stable_for_sec=15"}
+{"ts_utc":"2026-04-17T19:34:13Z","event":"scale_in_started","detail":"from=4 to=3"}
+{"ts_utc":"2026-04-17T19:34:13Z","event":"scale_in_submitted","detail":"replicas=3"}
+{"ts_utc":"2026-04-17T19:34:13Z","event":"rollout_wait_started","detail":"timeout=15m"}
+{"ts_utc":"2026-04-17T19:34:14Z","event":"rollout_complete","detail":"statefulset=cassandra"}
+{"ts_utc":"2026-04-17T19:34:17Z","event":"script_complete","detail":"success=true baseline_replicas=3"}

@@ -1,0 +1,747 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboard-cassandra-lab-demo
+  namespace: monitoring
+  labels:
+    grafana_dashboard: "1"
+data:
+  cassandra-lab-demo.json: |
+    {
+      "annotations": {
+        "list": [
+          {
+            "builtIn": 1,
+            "datasource": {
+              "type": "grafana",
+              "uid": "-- Grafana --"
+            },
+            "enable": true,
+            "hide": true,
+            "iconColor": "rgba(0, 211, 255, 1)",
+            "name": "Annotations & Alerts",
+            "type": "dashboard"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "${DS_PROMETHEUS}"
+            },
+            "enable": true,
+            "expr": "changes(simulator_profile_state{namespace=\"$namespace\",profile=~\"$scenario\"}[1m]) > 0",
+            "hide": false,
+            "iconColor": "rgba(255, 167, 0, 1)",
+            "name": "Scenario switch",
+            "showIn": 0,
+            "step": "15s",
+            "tagKeys": "profile",
+            "textFormat": "Scenario change",
+            "titleFormat": "{{profile}}",
+            "type": "tags"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "${DS_PROMETHEUS}"
+            },
+            "enable": true,
+            "expr": "increase(ubl_demo_event_total{namespace=\"$namespace\"}[30s]) > 0",
+            "hide": false,
+            "iconColor": "rgba(31, 120, 193, 1)",
+            "name": "Demo automation events",
+            "showIn": 0,
+            "step": "15s",
+            "tagKeys": "event,source",
+            "textFormat": "demo event",
+            "titleFormat": "{{event}}",
+            "type": "tags"
+          }
+        ]
+      },
+      "description": "Demo dashboard: Cassandra lab load profiles (scenarios) + Tier A/B style metrics in real time.",
+      "editable": true,
+      "fiscalYearStartMonth": 0,
+      "graphTooltip": 1,
+      "id": null,
+      "links": [],
+      "liveNow": true,
+      "panels": [
+        {
+          "collapsed": false,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 8
+          },
+          "id": 10,
+          "panels": [],
+          "title": "Resource load profiles",
+          "type": "row"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "custom": {
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "lineWidth": 2,
+                "showPoints": "never",
+                "spanNulls": true
+              },
+              "unit": "cores"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 9
+          },
+          "id": 11,
+          "options": {
+            "legend": {
+              "calcs": [
+                "lastNotNull",
+                "max"
+              ],
+              "displayMode": "table",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "editorMode": "code",
+              "expr": "sum by (pod) (rate(container_cpu_usage_seconds_total{namespace=\"$namespace\",pod=~\"$pod\",container!=\"\",container!=\"POD\"}[1m]))",
+              "legendFormat": "{{pod}}",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "CPU usage (cores) by pod",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "custom": {
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "lineWidth": 2,
+                "showPoints": "never",
+                "spanNulls": true
+              },
+              "unit": "bytes"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 9
+          },
+          "id": 12,
+          "options": {
+            "legend": {
+              "calcs": [
+                "lastNotNull",
+                "max"
+              ],
+              "displayMode": "table",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "editorMode": "code",
+              "expr": "sum by (pod) (container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$pod\",container!=\"\",container!=\"POD\"})",
+              "legendFormat": "{{pod}}",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Memory working set (bytes) by pod",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "custom": {
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "lineWidth": 2,
+                "showPoints": "never",
+                "spanNulls": true
+              },
+              "unit": "Bps"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 17
+          },
+          "id": 13,
+          "options": {
+            "legend": {
+              "calcs": [
+                "lastNotNull",
+                "max"
+              ],
+              "displayMode": "table",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "editorMode": "code",
+              "expr": "sum by (pod) (rate(container_network_receive_bytes_total{namespace=\"$namespace\",pod=~\"$pod\"}[5m]))",
+              "legendFormat": "{{pod}} rx",
+              "range": true,
+              "refId": "A"
+            },
+            {
+              "editorMode": "code",
+              "expr": "sum by (pod) (rate(container_network_transmit_bytes_total{namespace=\"$namespace\",pod=~\"$pod\"}[5m]))",
+              "legendFormat": "{{pod}} tx",
+              "range": true,
+              "refId": "B"
+            }
+          ],
+          "title": "Network (rx/tx bytes/sec) by pod",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "custom": {
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "lineWidth": 2,
+                "showPoints": "never",
+                "spanNulls": true
+              },
+              "unit": "Bps"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 17
+          },
+          "id": 14,
+          "options": {
+            "legend": {
+              "calcs": [
+                "lastNotNull",
+                "max"
+              ],
+              "displayMode": "table",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "editorMode": "code",
+              "expr": "sum by (pod) (rate(container_fs_reads_bytes_total{namespace=\"$namespace\",pod=~\"$pod\",container!=\"\",container!=\"POD\"}[5m]))",
+              "legendFormat": "{{pod}} read",
+              "range": true,
+              "refId": "A"
+            },
+            {
+              "editorMode": "code",
+              "expr": "sum by (pod) (rate(container_fs_writes_bytes_total{namespace=\"$namespace\",pod=~\"$pod\",container!=\"\",container!=\"POD\"}[5m]))",
+              "legendFormat": "{{pod}} write",
+              "range": true,
+              "refId": "B"
+            }
+          ],
+          "title": "Disk I/O (read/write bytes/sec) by pod",
+          "type": "timeseries"
+        },
+        {
+          "collapsed": false,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 25
+          },
+          "id": 20,
+          "panels": [],
+          "title": "SLO metrics and Alarms",
+          "type": "row"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "custom": {
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "lineWidth": 2,
+                "showPoints": "always",
+                "spanNulls": true
+              },
+              "unit": "short"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 42
+          },
+          "id": 31,
+          "options": {
+            "legend": {
+              "calcs": [
+                "lastNotNull",
+                "max"
+              ],
+              "displayMode": "table",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "editorMode": "code",
+              "expr": "sum by (event) (increase(ubl_demo_event_total{namespace=\"$namespace\"}[1m]))",
+              "legendFormat": "{{event}}",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Demo events per minute",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "orange",
+                    "value": 4
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 42
+          },
+          "id": 32,
+          "options": {
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showPercentChange": false,
+            "textMode": "value"
+          },
+          "pluginVersion": "10.4.0",
+          "targets": [
+            {
+              "editorMode": "code",
+              "expr": "max(kube_statefulset_replicas{namespace=\"$namespace\",statefulset=\"cassandra\"})",
+              "refId": "A"
+            }
+          ],
+          "title": "Cassandra desired replicas",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "custom": {
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "lineWidth": 2,
+                "showPoints": "never",
+                "spanNulls": true
+              },
+              "unit": "ms"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 24,
+            "x": 0,
+            "y": 50
+          },
+          "id": 33,
+          "options": {
+            "legend": {
+              "calcs": [
+                "lastNotNull",
+                "max"
+              ],
+              "displayMode": "table",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "editorMode": "code",
+              "expr": "max by (profile, job_name) (cassandra_stress_p95_ms)",
+              "legendFormat": "{{profile}}/{{job_name}} p95_ms",
+              "range": true,
+              "refId": "A"
+            },
+            {
+              "editorMode": "code",
+              "expr": "max by (profile, job_name) (cassandra_stress_p99_ms)",
+              "legendFormat": "{{profile}}/{{job_name}} p99_ms",
+              "range": true,
+              "refId": "B"
+            },
+            {
+              "editorMode": "code",
+              "expr": "max by (nb_job, tag) (nosqlbench_histostat_p95_ms{tag=\"execute\"})",
+              "legendFormat": "nosqlbench {{nb_job}} {{tag}} p95_ms",
+              "range": true,
+              "refId": "C"
+            },
+            {
+              "editorMode": "code",
+              "expr": "max by (nb_job, tag) (nosqlbench_histostat_p99_ms{tag=\"execute\"})",
+              "legendFormat": "nosqlbench {{nb_job}} {{tag}} p99_ms",
+              "range": true,
+              "refId": "D"
+            }
+          ],
+          "title": "Client latency (p95/p99): cassandra-stress + nosqlbench",
+          "type": "timeseries"
+        }
+      ],
+      "refresh": "5s",
+      "schemaVersion": 39,
+      "style": "dark",
+      "tags": [
+        "cassandra",
+        "demo",
+        "ubl",
+        "som",
+        "simulator"
+      ],
+      "templating": {
+        "list": [
+          {
+            "current": {
+              "selected": false,
+              "text": "Prometheus",
+              "value": "Prometheus"
+            },
+            "hide": 0,
+            "includeAll": false,
+            "label": "Datasource",
+            "multi": false,
+            "name": "DS_PROMETHEUS",
+            "options": [],
+            "query": "prometheus",
+            "refresh": 1,
+            "regex": "",
+            "skipUrlSync": false,
+            "type": "datasource"
+          },
+          {
+            "current": {
+              "selected": false,
+              "text": "cassandra-lab",
+              "value": "cassandra-lab"
+            },
+            "hide": 0,
+            "label": "Namespace",
+            "name": "namespace",
+            "options": [
+              {
+                "selected": true,
+                "text": "cassandra-lab",
+                "value": "cassandra-lab"
+              }
+            ],
+            "query": "cassandra-lab",
+            "skipUrlSync": false,
+            "type": "custom"
+          },
+          {
+            "allValue": ".*",
+            "current": {
+              "selected": true,
+              "text": "All",
+              "value": "$__all"
+            },
+            "datasource": {
+              "type": "prometheus",
+              "uid": "${DS_PROMETHEUS}"
+            },
+            "definition": "label_values(kube_pod_info{namespace=\"$namespace\"}, pod)",
+            "hide": 0,
+            "includeAll": true,
+            "label": "Pod",
+            "multi": true,
+            "name": "pod",
+            "options": [],
+            "query": {
+              "query": "label_values(kube_pod_info{namespace=\"$namespace\"}, pod)",
+              "refId": "StandardVariableQuery"
+            },
+            "refresh": 2,
+            "regex": "/cassandra|simulator/",
+            "skipUrlSync": false,
+            "sort": 1,
+            "type": "query"
+          },
+          {
+            "allValue": ".*",
+            "current": {
+              "selected": true,
+              "text": "All",
+              "value": "$__all"
+            },
+            "datasource": {
+              "type": "prometheus",
+              "uid": "${DS_PROMETHEUS}"
+            },
+            "definition": "label_values(simulator_profile_state{namespace=\"$namespace\"}, profile)",
+            "hide": 0,
+            "includeAll": true,
+            "label": "Scenario",
+            "multi": true,
+            "name": "scenario",
+            "options": [],
+            "query": {
+              "query": "label_values(simulator_profile_state{namespace=\"$namespace\"}, profile)",
+              "refId": "StandardVariableQuery"
+            },
+            "refresh": 2,
+            "regex": "",
+            "skipUrlSync": false,
+            "sort": 1,
+            "type": "query"
+          }
+        ]
+      },
+      "time": {
+        "from": "now-30m",
+        "to": "now"
+      },
+      "timepicker": {
+        "refresh_intervals": [
+          "5s",
+          "10s",
+          "15s",
+          "30s",
+          "1m",
+          "5m"
+        ]
+      },
+      "timezone": "",
+      "title": "Cassandra Lab Demo (Scenarios + Load Profiles)",
+      "uid": "cassandra-lab-demo",
+      "version": 1,
+      "weekStart": ""
+    }
+
+# Commented-out panels (kept for easy re-add)
+#
+# - Scenario (load profile) + cluster overview (row)
+#   {
+#     "collapsed": false,
+#     "datasource": {
+#       "type": "prometheus",
+#       "uid": "${DS_PROMETHEUS}"
+#     },
+#     "gridPos": {
+#       "h": 1,
+#       "w": 24,
+#       "x": 0,
+#       "y": 0
+#     },
+#     "id": 1,
+#     "panels": [],
+#     "title": "Scenario (load profile) + cluster overview",
+#     "type": "row"
+#   }
+#
+# - Cluster map (pod → node) (table)
+#   {
+#     "datasource": {
+#       "type": "prometheus",
+#       "uid": "${DS_PROMETHEUS}"
+#     },
+#     "fieldConfig": {
+#       "defaults": {
+#         "custom": {
+#           "align": "auto",
+#           "cellOptions": {
+#             "type": "auto"
+#           },
+#           "filterable": true,
+#           "inspect": false
+#         },
+#         "mappings": [],
+#         "thresholds": {
+#           "mode": "absolute",
+#           "steps": [
+#             {
+#               "color": "green",
+#               "value": null
+#             }
+#           ]
+#         }
+#       },
+#       "overrides": []
+#     },
+#     "gridPos": {
+#       "h": 7,
+#       "w": 8,
+#       "x": 16,
+#       "y": 1
+#     },
+#     "id": 3,
+#     "options": {
+#       "cellHeight": "sm",
+#       "footer": {
+#         "countRows": false,
+#         "fields": "",
+#         "reducer": [
+#           "sum"
+#         ],
+#         "show": false
+#       },
+#       "showHeader": true,
+#       "sortBy": [
+#         {
+#           "desc": false,
+#           "displayName": "pod"
+#         }
+#       ]
+#     },
+#     "pluginVersion": "10.4.0",
+#     "targets": [
+#       {
+#         "editorMode": "code",
+#         "expr": "kube_pod_info{namespace=\"$namespace\",pod=~\"$pod\"}",
+#         "format": "table",
+#         "instant": true,
+#         "refId": "A"
+#       }
+#     ],
+#     "title": "Cluster map (pod → node)",
+#     "transformations": [
+#       {
+#         "id": "organize",
+#         "options": {
+#           "excludeByName": {
+#             "Time": true,
+#             "__name__": true,
+#             "container": true,
+#             "endpoint": true,
+#             "instance": true,
+#             "job": true,
+#             "namespace": true,
+#             "pod_ip": true,
+#             "service": true,
+#             "uid": true
+#           },
+#           "indexByName": {},
+#           "renameByName": {
+#             "node": "node",
+#             "pod": "pod",
+#             "host_ip": "host_ip"
+#           }
+#         }
+#       }
+#     ],
+#     "type": "table"
+#   }

@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ubl-learner
+  namespace: cassandra-lab
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ubl-learner
+  template:
+    metadata:
+      labels:
+        app: ubl-learner
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - control-node
+      containers:
+        - name: learner
+          image: docker.io/indkumar8999/cassandra-ubl-learner:0.1.1
+          ports:
+            - containerPort: 8100
+              name: http
+          envFrom:
+            - configMapRef:
+                name: ubl-learner-config
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "256Mi"
+            limits:
+              cpu: "1"
+              memory: "1Gi"

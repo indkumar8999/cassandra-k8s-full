@@ -1,0 +1,18 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: ubl-learner
+  namespace: monitoring
+  labels:
+    release: kube-prom-stack
+spec:
+  namespaceSelector:
+    matchNames:
+      - cassandra-lab
+  selector:
+    matchLabels:
+      app: ubl-learner
+  podMetricsEndpoints:
+    - port: http
+      path: /metrics
+      interval: 15s

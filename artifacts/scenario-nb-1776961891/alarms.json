@@ -1,0 +1,79 @@
+{
+  "count": 5,
+  "items": [
+    {
+      "bmu": [
+        4,
+        31
+      ],
+      "causes": [
+        "tier_a_memory_working_set_bytes",
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "cooldown",
+      "score_area": 36.480233872030226,
+      "streak": 3,
+      "threshold": 24.105166442794292,
+      "ts": 1776961949.2541625
+    },
+    {
+      "bmu": [
+        4,
+        29
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores",
+        "tier_a_disk_io_bytes_per_sec"
+      ],
+      "phase": "cooldown",
+      "score_area": 154.07271948431972,
+      "streak": 4,
+      "threshold": 24.105166442794292,
+      "ts": 1776961949.807255
+    },
+    {
+      "bmu": [
+        4,
+        29
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores",
+        "tier_a_disk_io_bytes_per_sec",
+        "tier_a_memory_working_set_bytes"
+      ],
+      "phase": "cooldown",
+      "score_area": 49.576726963679825,
+      "streak": 5,
+      "threshold": 24.105166442794292,
+      "ts": 1776961950.3743417
+    },
+    {
+      "bmu": [
+        2,
+        28
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "cooldown",
+      "score_area": 24.456570269148457,
+      "streak": 3,
+      "threshold": 24.105166442794292,
+      "ts": 1776961962.6596076
+    },
+    {
+      "bmu": [
+        6,
+        22
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "cooldown",
+      "score_area": 55.09682553541117,
+      "streak": 3,
+      "threshold": 24.105166442794292,
+      "ts": 1776961966.6149194
+    }
+  ]
+}

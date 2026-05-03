@@ -13,9 +13,18 @@ spec:
       labels:
         app: cassandra-simulator
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - control-node
       containers:
         - name: simulator
-          image: cassandra-simulator:latest
+          image: docker.io/indkumar8999/cassandra-simulator:0.1.1
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080

@@ -1,0 +1,35 @@
+{
+  "count": 2,
+  "items": [
+    {
+      "bmu": [
+        6,
+        24
+      ],
+      "causes": [
+        "tier_a_disk_read_bytes_per_sec",
+        "tier_a_memory_working_set_bytes"
+      ],
+      "phase": "chaos",
+      "score_area": 452.27001663596286,
+      "streak": 3,
+      "threshold": 441.6688281982578,
+      "ts": 1776739062.9618793
+    },
+    {
+      "bmu": [
+        6,
+        24
+      ],
+      "causes": [
+        "tier_a_disk_read_bytes_per_sec",
+        "tier_a_memory_working_set_bytes"
+      ],
+      "phase": "chaos",
+      "score_area": 452.27001663596286,
+      "streak": 3,
+      "threshold": 441.6688281982578,
+      "ts": 1776739115.7876105
+    }
+  ]
+}

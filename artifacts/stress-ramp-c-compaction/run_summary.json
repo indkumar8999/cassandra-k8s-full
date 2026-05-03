@@ -1,0 +1,112 @@
+{
+  "run_id": "stress-ramp-c-compaction",
+  "started_at": 1776458272.928889,
+  "finished_at": 1776458796.579822,
+  "duration_sec": 523.65,
+  "fault_profile": "anomaly-compaction-pressure",
+  "load_profile": "high",
+  "bootstrap_fault_profile": "baseline-normal",
+  "phase_durations": {
+    "chaos_sec": 180,
+    "cooldown_sec": 60,
+    "load_sec_deprecated": 0,
+    "normal_sec_deprecated": 0
+  },
+  "injection_profile": {
+    "bootstrap_fault_profile": "baseline-normal",
+    "fault_profile": "anomaly-compaction-pressure",
+    "target_namespace": "cassandra-lab",
+    "cpu_workers": 2,
+    "mem_mb": 1024,
+    "bottleneck_replicas": 2,
+    "bootstrap_threads": null,
+    "bootstrap_pop_end": null,
+    "bootstrap_replication_factor": null,
+    "fault_threads": 320,
+    "fault_pop_end": 7000000,
+    "fault_replication_factor": null,
+    "fault_write_threads": null,
+    "fault_read_threads": null,
+    "fault_ttl_sec": null,
+    "fault_ttl_delay_sec": null
+  },
+  "learner_status": {
+    "bootstrap_collected_samples": 535,
+    "bootstrap_target_samples": 350,
+    "bootstrap_valid_samples": 535,
+    "last_error": "Cannot have number of splits n_splits=3 greater than the number of samples: n_samples=2.",
+    "phase": "cooldown",
+    "ready": true,
+    "threshold": 494.0262169309188,
+    "threshold_percentile": 85.0,
+    "total_samples_dropped_missing_tier_a": 0,
+    "total_samples_dropped_missing_tier_b": 0,
+    "trained": true,
+    "training_duration_sec": 0.021
+  },
+  "learner_report": {
+    "alarm_count": 0,
+    "avg_score_latency_ms": 0.216,
+    "bmu_coverage_count": 14,
+    "bootstrap_collected_samples": 535,
+    "bootstrap_target_samples": 350,
+    "feature_order": [
+      "tier_a_cpu_usage_cores",
+      "tier_a_memory_working_set_bytes",
+      "tier_a_disk_read_bytes_per_sec"
+    ],
+    "kfold_metrics": [
+      {
+        "fold": 1,
+        "max_area": 0.0906030992588569,
+        "mean_area": 0.0906030992588569,
+        "min_area": 0.0906030992588569,
+        "std_area": 0.0,
+        "sum_area": 0.0906030992588569
+      },
+      {
+        "fold": 2,
+        "max_area": 0.6309383298436728,
+        "mean_area": 0.6309383298436728,
+        "min_area": 0.6309383298436728,
+        "std_area": 0.0,
+        "sum_area": 0.6309383298436728
+      },
+      {
+        "fold": 3,
+        "max_area": 366.48202037704306,
+        "mean_area": 366.48202037704306,
+        "min_area": 366.48202037704306,
+        "std_area": 0.0,
+        "sum_area": 366.48202037704306
+      }
+    ],
+    "last_error": "Cannot have number of splits n_splits=3 greater than the number of samples: n_samples=2.",
+    "lead_time_seconds": {
+      "mean": null,
+      "median": null,
+      "samples": 0
+    },
+    "phase": "cooldown",
+    "ready": true,
+    "score_stream_count": 222,
+    "scored_by_phase": {
+      "chaos": 220,
+      "cooldown": 0,
+      "load": 0,
+      "normal": 2
+    },
+    "threshold_percentile": 85.0,
+    "threshold_value": 494.0262169309188,
+    "total_samples_dropped_missing_tier_a": 0,
+    "total_samples_scored": 222,
+    "total_samples_seen": 992,
+    "trained": true,
+    "training_duration_sec": 0.021
+  },
+  "simulator_metrics": {
+    "status": "telemetry-disabled",
+    "note": "Simulator metrics not required for stress-only mode."
+  },
+  "alarm_count": 0
+}

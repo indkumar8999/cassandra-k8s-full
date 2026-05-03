@@ -1,0 +1,593 @@
+{
+  "count": 41,
+  "items": [
+    {
+      "bmu": [
+        13,
+        2
+      ],
+      "causes": [
+        "tier_a_disk_read_bytes_per_sec"
+      ],
+      "phase": "chaos",
+      "score_area": 551.9590607060027,
+      "streak": 3,
+      "threshold": 334.6066846902401,
+      "ts": 1776558933.0227697
+    },
+    {
+      "bmu": [
+        13,
+        2
+      ],
+      "causes": [
+        "tier_a_disk_read_bytes_per_sec"
+      ],
+      "phase": "chaos",
+      "score_area": 551.9590607060027,
+      "streak": 4,
+      "threshold": 334.6066846902401,
+      "ts": 1776558933.5667827
+    },
+    {
+      "bmu": [
+        13,
+        2
+      ],
+      "causes": [
+        "tier_a_disk_read_bytes_per_sec"
+      ],
+      "phase": "chaos",
+      "score_area": 551.9590607060027,
+      "streak": 5,
+      "threshold": 334.6066846902401,
+      "ts": 1776558934.1107128
+    },
+    {
+      "bmu": [
+        13,
+        2
+      ],
+      "causes": [
+        "tier_a_disk_read_bytes_per_sec"
+      ],
+      "phase": "chaos",
+      "score_area": 551.9590607060027,
+      "streak": 6,
+      "threshold": 334.6066846902401,
+      "ts": 1776558934.6859674
+    },
+    {
+      "bmu": [
+        13,
+        2
+      ],
+      "causes": [
+        "tier_a_disk_read_bytes_per_sec"
+      ],
+      "phase": "chaos",
+      "score_area": 551.9590607060027,
+      "streak": 7,
+      "threshold": 334.6066846902401,
+      "ts": 1776558935.2426891
+    },
+    {
+      "bmu": [
+        18,
+        11
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 411.3353256782225,
+      "streak": 3,
+      "threshold": 334.6066846902401,
+      "ts": 1776558957.6244478
+    },
+    {
+      "bmu": [
+        18,
+        11
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 411.3353256782225,
+      "streak": 4,
+      "threshold": 334.6066846902401,
+      "ts": 1776558958.2749798
+    },
+    {
+      "bmu": [
+        28,
+        23
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores",
+        "tier_a_memory_working_set_bytes"
+      ],
+      "phase": "chaos",
+      "score_area": 444.3436010190347,
+      "streak": 3,
+      "threshold": 334.6066846902401,
+      "ts": 1776558972.906023
+    },
+    {
+      "bmu": [
+        28,
+        23
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores",
+        "tier_a_memory_working_set_bytes"
+      ],
+      "phase": "chaos",
+      "score_area": 444.3436010190347,
+      "streak": 4,
+      "threshold": 334.6066846902401,
+      "ts": 1776558973.442508
+    },
+    {
+      "bmu": [
+        28,
+        23
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores",
+        "tier_a_memory_working_set_bytes"
+      ],
+      "phase": "chaos",
+      "score_area": 444.3436010190347,
+      "streak": 5,
+      "threshold": 334.6066846902401,
+      "ts": 1776558973.9608316
+    },
+    {
+      "bmu": [
+        28,
+        23
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores",
+        "tier_a_memory_working_set_bytes"
+      ],
+      "phase": "chaos",
+      "score_area": 444.3436010190347,
+      "streak": 6,
+      "threshold": 334.6066846902401,
+      "ts": 1776558974.533921
+    },
+    {
+      "bmu": [
+        28,
+        23
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores",
+        "tier_a_memory_working_set_bytes"
+      ],
+      "phase": "chaos",
+      "score_area": 444.3436010190347,
+      "streak": 7,
+      "threshold": 334.6066846902401,
+      "ts": 1776558975.0635357
+    },
+    {
+      "bmu": [
+        28,
+        23
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores",
+        "tier_a_memory_working_set_bytes"
+      ],
+      "phase": "chaos",
+      "score_area": 444.3436010190347,
+      "streak": 8,
+      "threshold": 334.6066846902401,
+      "ts": 1776558975.5920796
+    },
+    {
+      "bmu": [
+        28,
+        23
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores",
+        "tier_a_memory_working_set_bytes"
+      ],
+      "phase": "chaos",
+      "score_area": 444.3436010190347,
+      "streak": 9,
+      "threshold": 334.6066846902401,
+      "ts": 1776558976.112264
+    },
+    {
+      "bmu": [
+        28,
+        23
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores",
+        "tier_a_memory_working_set_bytes"
+      ],
+      "phase": "chaos",
+      "score_area": 444.3436010190347,
+      "streak": 10,
+      "threshold": 334.6066846902401,
+      "ts": 1776558976.6282766
+    },
+    {
+      "bmu": [
+        28,
+        23
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores",
+        "tier_a_memory_working_set_bytes"
+      ],
+      "phase": "chaos",
+      "score_area": 444.3436010190347,
+      "streak": 11,
+      "threshold": 334.6066846902401,
+      "ts": 1776558977.2171562
+    },
+    {
+      "bmu": [
+        28,
+        23
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores",
+        "tier_a_memory_working_set_bytes"
+      ],
+      "phase": "chaos",
+      "score_area": 444.3436010190347,
+      "streak": 12,
+      "threshold": 334.6066846902401,
+      "ts": 1776558977.7380984
+    },
+    {
+      "bmu": [
+        28,
+        23
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores",
+        "tier_a_memory_working_set_bytes"
+      ],
+      "phase": "chaos",
+      "score_area": 444.3436010190347,
+      "streak": 13,
+      "threshold": 334.6066846902401,
+      "ts": 1776558978.2644022
+    },
+    {
+      "bmu": [
+        28,
+        23
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores",
+        "tier_a_memory_working_set_bytes"
+      ],
+      "phase": "chaos",
+      "score_area": 444.3436010190347,
+      "streak": 14,
+      "threshold": 334.6066846902401,
+      "ts": 1776558978.7895832
+    },
+    {
+      "bmu": [
+        28,
+        23
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores",
+        "tier_a_memory_working_set_bytes"
+      ],
+      "phase": "chaos",
+      "score_area": 444.3436010190347,
+      "streak": 15,
+      "threshold": 334.6066846902401,
+      "ts": 1776558979.3192146
+    },
+    {
+      "bmu": [
+        28,
+        23
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores",
+        "tier_a_memory_working_set_bytes"
+      ],
+      "phase": "chaos",
+      "score_area": 444.3436010190347,
+      "streak": 16,
+      "threshold": 334.6066846902401,
+      "ts": 1776558979.8471692
+    },
+    {
+      "bmu": [
+        18,
+        7
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 525.812070994649,
+      "streak": 17,
+      "threshold": 334.6066846902401,
+      "ts": 1776558980.3826537
+    },
+    {
+      "bmu": [
+        18,
+        7
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 525.812070994649,
+      "streak": 18,
+      "threshold": 334.6066846902401,
+      "ts": 1776558980.9047496
+    },
+    {
+      "bmu": [
+        18,
+        7
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 525.812070994649,
+      "streak": 19,
+      "threshold": 334.6066846902401,
+      "ts": 1776558981.418311
+    },
+    {
+      "bmu": [
+        18,
+        7
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 525.812070994649,
+      "streak": 20,
+      "threshold": 334.6066846902401,
+      "ts": 1776558981.9388237
+    },
+    {
+      "bmu": [
+        18,
+        7
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 525.812070994649,
+      "streak": 21,
+      "threshold": 334.6066846902401,
+      "ts": 1776558982.4537947
+    },
+    {
+      "bmu": [
+        18,
+        7
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 525.812070994649,
+      "streak": 22,
+      "threshold": 334.6066846902401,
+      "ts": 1776558982.9747953
+    },
+    {
+      "bmu": [
+        18,
+        7
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 525.812070994649,
+      "streak": 23,
+      "threshold": 334.6066846902401,
+      "ts": 1776558983.5044222
+    },
+    {
+      "bmu": [
+        18,
+        7
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 525.812070994649,
+      "streak": 24,
+      "threshold": 334.6066846902401,
+      "ts": 1776558984.030853
+    },
+    {
+      "bmu": [
+        18,
+        7
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 525.812070994649,
+      "streak": 3,
+      "threshold": 334.6066846902401,
+      "ts": 1776558990.359564
+    },
+    {
+      "bmu": [
+        18,
+        7
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 525.812070994649,
+      "streak": 4,
+      "threshold": 334.6066846902401,
+      "ts": 1776558990.8810837
+    },
+    {
+      "bmu": [
+        18,
+        7
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 525.812070994649,
+      "streak": 5,
+      "threshold": 334.6066846902401,
+      "ts": 1776558991.4056342
+    },
+    {
+      "bmu": [
+        18,
+        7
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 525.812070994649,
+      "streak": 6,
+      "threshold": 334.6066846902401,
+      "ts": 1776558991.9261956
+    },
+    {
+      "bmu": [
+        18,
+        7
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 525.812070994649,
+      "streak": 7,
+      "threshold": 334.6066846902401,
+      "ts": 1776558992.4410367
+    },
+    {
+      "bmu": [
+        18,
+        7
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 525.812070994649,
+      "streak": 8,
+      "threshold": 334.6066846902401,
+      "ts": 1776558992.9533222
+    },
+    {
+      "bmu": [
+        18,
+        7
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 525.812070994649,
+      "streak": 9,
+      "threshold": 334.6066846902401,
+      "ts": 1776558993.4676518
+    },
+    {
+      "bmu": [
+        18,
+        7
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 525.812070994649,
+      "streak": 10,
+      "threshold": 334.6066846902401,
+      "ts": 1776558993.9824736
+    },
+    {
+      "bmu": [
+        18,
+        7
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 525.812070994649,
+      "streak": 11,
+      "threshold": 334.6066846902401,
+      "ts": 1776558994.506217
+    },
+    {
+      "bmu": [
+        18,
+        7
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 525.812070994649,
+      "streak": 12,
+      "threshold": 334.6066846902401,
+      "ts": 1776558995.0358307
+    },
+    {
+      "bmu": [
+        18,
+        7
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 525.812070994649,
+      "streak": 13,
+      "threshold": 334.6066846902401,
+      "ts": 1776558995.5829291
+    },
+    {
+      "bmu": [
+        18,
+        7
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "chaos",
+      "score_area": 525.812070994649,
+      "streak": 14,
+      "threshold": 334.6066846902401,
+      "ts": 1776558996.1017196
+    }
+  ]
+}

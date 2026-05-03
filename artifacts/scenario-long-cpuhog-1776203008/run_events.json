@@ -1,0 +1,191 @@
+{
+  "events": [
+    {
+      "ts": 1776203008.410804,
+      "ts_iso": "2026-04-14T21:43:28Z",
+      "event": "run_start",
+      "payload": {
+        "run_id": "scenario-long-cpuhog-1776203008",
+        "profile": "high",
+        "fault_profile": "cpuhog-like"
+      }
+    },
+    {
+      "ts": 1776203008.4329128,
+      "ts_iso": "2026-04-14T21:43:28Z",
+      "event": "health_check",
+      "payload": {
+        "simulator": {
+          "profile": "medium",
+          "running": true,
+          "status": "up"
+        },
+        "learner": {
+          "status": "up"
+        },
+        "chaos": {
+          "active_fault_count": 0,
+          "status": "up"
+        }
+      }
+    },
+    {
+      "ts": 1776203008.473081,
+      "ts_iso": "2026-04-14T21:43:28Z",
+      "event": "bootstrap_wait_start",
+      "payload": {
+        "timeout_sec": 900
+      }
+    },
+    {
+      "ts": 1776203249.973251,
+      "ts_iso": "2026-04-14T21:47:29Z",
+      "event": "learner_ready",
+      "payload": {
+        "bootstrap_collected_samples": 120,
+        "bootstrap_target_samples": 120,
+        "bootstrap_valid_samples": 120,
+        "last_error": null,
+        "phase": "normal",
+        "ready": true,
+        "threshold": 61.47051184059186,
+        "threshold_percentile": 85.0,
+        "trained": true,
+        "training_duration_sec": 0.07
+      }
+    },
+    {
+      "ts": 1776203249.9732878,
+      "ts_iso": "2026-04-14T21:47:29Z",
+      "event": "bootstrap_wait_end",
+      "payload": {}
+    },
+    {
+      "ts": 1776203249.9733,
+      "ts_iso": "2026-04-14T21:47:29Z",
+      "event": "phase_start",
+      "payload": {
+        "phase": "normal",
+        "duration_sec": 60
+      }
+    },
+    {
+      "ts": 1776203309.975162,
+      "ts_iso": "2026-04-14T21:48:29Z",
+      "event": "phase_end",
+      "payload": {
+        "phase": "normal"
+      }
+    },
+    {
+      "ts": 1776203309.998548,
+      "ts_iso": "2026-04-14T21:48:29Z",
+      "event": "phase_start",
+      "payload": {
+        "phase": "load",
+        "duration_sec": 60
+      }
+    },
+    {
+      "ts": 1776203370.000572,
+      "ts_iso": "2026-04-14T21:49:30Z",
+      "event": "phase_end",
+      "payload": {
+        "phase": "load"
+      }
+    },
+    {
+      "ts": 1776203370.030485,
+      "ts_iso": "2026-04-14T21:49:30Z",
+      "event": "fault_start",
+      "payload": {
+        "fault": {
+          "command_start_ts": 1776203370.029329,
+          "command_stop_ts": null,
+          "extra": null,
+          "params": {
+            "cpu_workers": 4,
+            "duration_sec": 240,
+            "job_name": "chaos-cpuhog-like-1776203370",
+            "node_name": "docker-desktop"
+          },
+          "profile": "cpuhog-like",
+          "started_at": 1776203370.0293274,
+          "status": "running",
+          "target": "cassandra-0",
+          "verified_start_ts": 1776203370.0293293,
+          "verified_stop_ts": null
+        },
+        "message": "fault started"
+      }
+    },
+    {
+      "ts": 1776203370.030509,
+      "ts_iso": "2026-04-14T21:49:30Z",
+      "event": "phase_start",
+      "payload": {
+        "phase": "chaos",
+        "duration_sec": 240
+      }
+    },
+    {
+      "ts": 1776203610.0334861,
+      "ts_iso": "2026-04-14T21:53:30Z",
+      "event": "phase_end",
+      "payload": {
+        "phase": "chaos"
+      }
+    },
+    {
+      "ts": 1776203610.0486221,
+      "ts_iso": "2026-04-14T21:53:30Z",
+      "event": "fault_stop",
+      "payload": {
+        "fault": {
+          "command_start_ts": 1776203370.029329,
+          "command_stop_ts": 1776203610.0473077,
+          "extra": null,
+          "params": {
+            "cpu_workers": 4,
+            "duration_sec": 240,
+            "job_name": "chaos-cpuhog-like-1776203370",
+            "node_name": "docker-desktop"
+          },
+          "profile": "cpuhog-like",
+          "started_at": 1776203370.0293274,
+          "status": "stopped",
+          "target": "cassandra-0",
+          "verified_start_ts": 1776203370.0293293,
+          "verified_stop_ts": 1776203610.0473084
+        },
+        "message": "fault stopped"
+      }
+    },
+    {
+      "ts": 1776203610.062911,
+      "ts_iso": "2026-04-14T21:53:30Z",
+      "event": "phase_start",
+      "payload": {
+        "phase": "cooldown",
+        "duration_sec": 90
+      }
+    },
+    {
+      "ts": 1776203700.065137,
+      "ts_iso": "2026-04-14T21:55:00Z",
+      "event": "phase_end",
+      "payload": {
+        "phase": "cooldown"
+      }
+    },
+    {
+      "ts": 1776203700.2010791,
+      "ts_iso": "2026-04-14T21:55:00Z",
+      "event": "run_complete",
+      "payload": {
+        "run_dir": "artifacts/scenario-long-cpuhog-1776203008",
+        "alarm_count": 1
+      }
+    }
+  ]
+}

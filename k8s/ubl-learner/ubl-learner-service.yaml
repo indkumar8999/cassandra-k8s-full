@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ubl-learner
+  namespace: cassandra-lab
+spec:
+  selector:
+    app: ubl-learner
+  ports:
+    - name: http
+      port: 8100
+      targetPort: 8100

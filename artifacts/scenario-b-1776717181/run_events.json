@@ -1,0 +1,810 @@
+{
+  "events": [
+    {
+      "ts": 1776717181.790504,
+      "ts_iso": "2026-04-20T20:33:01Z",
+      "event": "run_start",
+      "payload": {
+        "run_id": "scenario-b-1776717181",
+        "version": "B",
+        "tests": [
+          "anomaly-hot-partition",
+          "anomaly-compaction-pressure"
+        ]
+      }
+    },
+    {
+      "ts": 1776717181.812426,
+      "ts_iso": "2026-04-20T20:33:01Z",
+      "event": "health_check",
+      "payload": {
+        "simulator": {
+          "profile": "medium",
+          "running": true,
+          "status": "up"
+        },
+        "learner": {
+          "status": "up"
+        },
+        "chaos": {
+          "active_fault_count": 0,
+          "status": "up"
+        }
+      }
+    },
+    {
+      "ts": 1776717181.910357,
+      "ts_iso": "2026-04-20T20:33:01Z",
+      "event": "bootstrap_fault_start",
+      "payload": {
+        "fault": {
+          "command_start_ts": 1776717181.9446084,
+          "command_stop_ts": null,
+          "extra": null,
+          "params": {
+            "command": [
+              "/opt/cassandra/tools/bin/cassandra-stress",
+              "mixed",
+              "ratio(write=5,read=5)",
+              "duration=180s",
+              "cl=LOCAL_ONE",
+              "-node",
+              "cassandra-client.cassandra-lab.svc.cluster.local",
+              "-port",
+              "native=9042",
+              "-rate",
+              "threads=130",
+              "-pop",
+              "seq=1..5000000",
+              "-schema",
+              "replication(strategy=SimpleStrategy,factor=3)",
+              "-col",
+              "n=FIXED(1)",
+              "size=FIXED(512)",
+              "-mode",
+              "cql3",
+              "native",
+              "-log",
+              "interval=5s"
+            ],
+            "contact_point": "cassandra-client.cassandra-lab.svc.cluster.local",
+            "image": "cassandra:4.1",
+            "job_name": "chaos-1776717181-b9df2e-0",
+            "job_names": [
+              "chaos-1776717181-b9df2e-0"
+            ],
+            "parallel_jobs": 1,
+            "port": 9042,
+            "request": {
+              "duration_sec": 180,
+              "profile": "baseline-normal"
+            }
+          },
+          "profile": "baseline-normal",
+          "started_at": 1776717181.9446075,
+          "status": "running",
+          "target": "cassandra-client.cassandra-lab.svc.cluster.local",
+          "verified_start_ts": 1776717181.9446087,
+          "verified_stop_ts": null
+        },
+        "message": "fault started"
+      }
+    },
+    {
+      "ts": 1776717181.9104772,
+      "ts_iso": "2026-04-20T20:33:01Z",
+      "event": "phase_start",
+      "payload": {
+        "phase": "bootstrap",
+        "duration_sec": 180
+      }
+    },
+    {
+      "ts": 1776717361.918305,
+      "ts_iso": "2026-04-20T20:36:01Z",
+      "event": "phase_end",
+      "payload": {
+        "phase": "bootstrap"
+      }
+    },
+    {
+      "ts": 1776717361.932169,
+      "ts_iso": "2026-04-20T20:36:01Z",
+      "event": "bootstrap_fault_stop",
+      "payload": {
+        "fault": {
+          "command_start_ts": 1776717181.9446084,
+          "command_stop_ts": 1776717361.9673328,
+          "extra": null,
+          "params": {
+            "command": [
+              "/opt/cassandra/tools/bin/cassandra-stress",
+              "mixed",
+              "ratio(write=5,read=5)",
+              "duration=180s",
+              "cl=LOCAL_ONE",
+              "-node",
+              "cassandra-client.cassandra-lab.svc.cluster.local",
+              "-port",
+              "native=9042",
+              "-rate",
+              "threads=130",
+              "-pop",
+              "seq=1..5000000",
+              "-schema",
+              "replication(strategy=SimpleStrategy,factor=3)",
+              "-col",
+              "n=FIXED(1)",
+              "size=FIXED(512)",
+              "-mode",
+              "cql3",
+              "native",
+              "-log",
+              "interval=5s"
+            ],
+            "contact_point": "cassandra-client.cassandra-lab.svc.cluster.local",
+            "image": "cassandra:4.1",
+            "job_name": "chaos-1776717181-b9df2e-0",
+            "job_names": [
+              "chaos-1776717181-b9df2e-0"
+            ],
+            "parallel_jobs": 1,
+            "port": 9042,
+            "request": {
+              "duration_sec": 180,
+              "profile": "baseline-normal"
+            }
+          },
+          "profile": "baseline-normal",
+          "started_at": 1776717181.9446075,
+          "status": "stopped",
+          "target": "cassandra-client.cassandra-lab.svc.cluster.local",
+          "verified_start_ts": 1776717181.9446087,
+          "verified_stop_ts": 1776717361.9673333
+        },
+        "message": "fault stopped"
+      }
+    },
+    {
+      "ts": 1776717361.9987772,
+      "ts_iso": "2026-04-20T20:36:01Z",
+      "event": "test1_start",
+      "payload": {
+        "profile": "anomaly-hot-partition",
+        "start": {
+          "fault": {
+            "command_start_ts": 1776717362.0273378,
+            "command_stop_ts": null,
+            "extra": null,
+            "params": {
+              "command": [
+                "/opt/cassandra/tools/bin/cassandra-stress",
+                "write",
+                "duration=150s",
+                "cl=LOCAL_ONE",
+                "-node",
+                "cassandra-client.cassandra-lab.svc.cluster.local",
+                "-port",
+                "native=9042",
+                "-rate",
+                "threads=220",
+                "-pop",
+                "seq=1..100",
+                "-schema",
+                "replication(strategy=SimpleStrategy,factor=3)",
+                "-col",
+                "n=FIXED(1)",
+                "size=FIXED(512)",
+                "-mode",
+                "cql3",
+                "native",
+                "-log",
+                "interval=5s"
+              ],
+              "contact_point": "cassandra-client.cassandra-lab.svc.cluster.local",
+              "image": "cassandra:4.1",
+              "job_name": "chaos-1776717361-3c64de-0",
+              "job_names": [
+                "chaos-1776717361-3c64de-0",
+                "chaos-1776717361-3c64de-1",
+                "chaos-1776717361-3c64de-2",
+                "chaos-1776717361-3c64de-3",
+                "chaos-1776717361-3c64de-4",
+                "chaos-1776717361-3c64de-5",
+                "chaos-1776717361-3c64de-6",
+                "chaos-1776717361-3c64de-7"
+              ],
+              "parallel_jobs": 8,
+              "port": 9042,
+              "request": {
+                "cpu_workers": 2,
+                "duration_sec": 150,
+                "mem_mb": 1024,
+                "parallel_jobs": 8,
+                "profile": "anomaly-hot-partition",
+                "replicas": 2
+              }
+            },
+            "profile": "anomaly-hot-partition",
+            "started_at": 1776717362.0273366,
+            "status": "running",
+            "target": "cassandra-client.cassandra-lab.svc.cluster.local",
+            "verified_start_ts": 1776717362.027338,
+            "verified_stop_ts": null
+          },
+          "message": "fault started"
+        }
+      }
+    },
+    {
+      "ts": 1776717361.99889,
+      "ts_iso": "2026-04-20T20:36:01Z",
+      "event": "fault_start",
+      "payload": {
+        "fault": {
+          "command_start_ts": 1776717362.0273378,
+          "command_stop_ts": null,
+          "extra": null,
+          "params": {
+            "command": [
+              "/opt/cassandra/tools/bin/cassandra-stress",
+              "write",
+              "duration=150s",
+              "cl=LOCAL_ONE",
+              "-node",
+              "cassandra-client.cassandra-lab.svc.cluster.local",
+              "-port",
+              "native=9042",
+              "-rate",
+              "threads=220",
+              "-pop",
+              "seq=1..100",
+              "-schema",
+              "replication(strategy=SimpleStrategy,factor=3)",
+              "-col",
+              "n=FIXED(1)",
+              "size=FIXED(512)",
+              "-mode",
+              "cql3",
+              "native",
+              "-log",
+              "interval=5s"
+            ],
+            "contact_point": "cassandra-client.cassandra-lab.svc.cluster.local",
+            "image": "cassandra:4.1",
+            "job_name": "chaos-1776717361-3c64de-0",
+            "job_names": [
+              "chaos-1776717361-3c64de-0",
+              "chaos-1776717361-3c64de-1",
+              "chaos-1776717361-3c64de-2",
+              "chaos-1776717361-3c64de-3",
+              "chaos-1776717361-3c64de-4",
+              "chaos-1776717361-3c64de-5",
+              "chaos-1776717361-3c64de-6",
+              "chaos-1776717361-3c64de-7"
+            ],
+            "parallel_jobs": 8,
+            "port": 9042,
+            "request": {
+              "cpu_workers": 2,
+              "duration_sec": 150,
+              "mem_mb": 1024,
+              "parallel_jobs": 8,
+              "profile": "anomaly-hot-partition",
+              "replicas": 2
+            }
+          },
+          "profile": "anomaly-hot-partition",
+          "started_at": 1776717362.0273366,
+          "status": "running",
+          "target": "cassandra-client.cassandra-lab.svc.cluster.local",
+          "verified_start_ts": 1776717362.027338,
+          "verified_stop_ts": null
+        },
+        "message": "fault started"
+      }
+    },
+    {
+      "ts": 1776717361.9989738,
+      "ts_iso": "2026-04-20T20:36:01Z",
+      "event": "phase_start",
+      "payload": {
+        "phase": "test1_anomaly_hot_partition",
+        "duration_sec": 150
+      }
+    },
+    {
+      "ts": 1776717512.00433,
+      "ts_iso": "2026-04-20T20:38:32Z",
+      "event": "phase_end",
+      "payload": {
+        "phase": "test1_anomaly_hot_partition"
+      }
+    },
+    {
+      "ts": 1776717512.116996,
+      "ts_iso": "2026-04-20T20:38:32Z",
+      "event": "test1_stop",
+      "payload": {
+        "profile": "anomaly-hot-partition",
+        "stop": {
+          "fault": {
+            "command_start_ts": 1776717362.0273378,
+            "command_stop_ts": 1776717512.141509,
+            "extra": null,
+            "params": {
+              "command": [
+                "/opt/cassandra/tools/bin/cassandra-stress",
+                "write",
+                "duration=150s",
+                "cl=LOCAL_ONE",
+                "-node",
+                "cassandra-client.cassandra-lab.svc.cluster.local",
+                "-port",
+                "native=9042",
+                "-rate",
+                "threads=220",
+                "-pop",
+                "seq=1..100",
+                "-schema",
+                "replication(strategy=SimpleStrategy,factor=3)",
+                "-col",
+                "n=FIXED(1)",
+                "size=FIXED(512)",
+                "-mode",
+                "cql3",
+                "native",
+                "-log",
+                "interval=5s"
+              ],
+              "contact_point": "cassandra-client.cassandra-lab.svc.cluster.local",
+              "image": "cassandra:4.1",
+              "job_name": "chaos-1776717361-3c64de-0",
+              "job_names": [
+                "chaos-1776717361-3c64de-0",
+                "chaos-1776717361-3c64de-1",
+                "chaos-1776717361-3c64de-2",
+                "chaos-1776717361-3c64de-3",
+                "chaos-1776717361-3c64de-4",
+                "chaos-1776717361-3c64de-5",
+                "chaos-1776717361-3c64de-6",
+                "chaos-1776717361-3c64de-7"
+              ],
+              "parallel_jobs": 8,
+              "port": 9042,
+              "request": {
+                "cpu_workers": 2,
+                "duration_sec": 150,
+                "mem_mb": 1024,
+                "parallel_jobs": 8,
+                "profile": "anomaly-hot-partition",
+                "replicas": 2
+              }
+            },
+            "profile": "anomaly-hot-partition",
+            "started_at": 1776717362.0273366,
+            "status": "stopped",
+            "target": "cassandra-client.cassandra-lab.svc.cluster.local",
+            "verified_start_ts": 1776717362.027338,
+            "verified_stop_ts": 1776717512.1415095
+          },
+          "message": "fault stopped"
+        }
+      }
+    },
+    {
+      "ts": 1776717512.117126,
+      "ts_iso": "2026-04-20T20:38:32Z",
+      "event": "fault_stop",
+      "payload": {
+        "fault": {
+          "command_start_ts": 1776717362.0273378,
+          "command_stop_ts": 1776717512.141509,
+          "extra": null,
+          "params": {
+            "command": [
+              "/opt/cassandra/tools/bin/cassandra-stress",
+              "write",
+              "duration=150s",
+              "cl=LOCAL_ONE",
+              "-node",
+              "cassandra-client.cassandra-lab.svc.cluster.local",
+              "-port",
+              "native=9042",
+              "-rate",
+              "threads=220",
+              "-pop",
+              "seq=1..100",
+              "-schema",
+              "replication(strategy=SimpleStrategy,factor=3)",
+              "-col",
+              "n=FIXED(1)",
+              "size=FIXED(512)",
+              "-mode",
+              "cql3",
+              "native",
+              "-log",
+              "interval=5s"
+            ],
+            "contact_point": "cassandra-client.cassandra-lab.svc.cluster.local",
+            "image": "cassandra:4.1",
+            "job_name": "chaos-1776717361-3c64de-0",
+            "job_names": [
+              "chaos-1776717361-3c64de-0",
+              "chaos-1776717361-3c64de-1",
+              "chaos-1776717361-3c64de-2",
+              "chaos-1776717361-3c64de-3",
+              "chaos-1776717361-3c64de-4",
+              "chaos-1776717361-3c64de-5",
+              "chaos-1776717361-3c64de-6",
+              "chaos-1776717361-3c64de-7"
+            ],
+            "parallel_jobs": 8,
+            "port": 9042,
+            "request": {
+              "cpu_workers": 2,
+              "duration_sec": 150,
+              "mem_mb": 1024,
+              "parallel_jobs": 8,
+              "profile": "anomaly-hot-partition",
+              "replicas": 2
+            }
+          },
+          "profile": "anomaly-hot-partition",
+          "started_at": 1776717362.0273366,
+          "status": "stopped",
+          "target": "cassandra-client.cassandra-lab.svc.cluster.local",
+          "verified_start_ts": 1776717362.027338,
+          "verified_stop_ts": 1776717512.1415095
+        },
+        "message": "fault stopped"
+      }
+    },
+    {
+      "ts": 1776717512.131308,
+      "ts_iso": "2026-04-20T20:38:32Z",
+      "event": "phase_start",
+      "payload": {
+        "phase": "cooldown_after_test1",
+        "duration_sec": 90
+      }
+    },
+    {
+      "ts": 1776717602.13778,
+      "ts_iso": "2026-04-20T20:40:02Z",
+      "event": "phase_end",
+      "payload": {
+        "phase": "cooldown_after_test1"
+      }
+    },
+    {
+      "ts": 1776717602.171904,
+      "ts_iso": "2026-04-20T20:40:02Z",
+      "event": "test2_start",
+      "payload": {
+        "profile": "anomaly-compaction-pressure",
+        "start": {
+          "fault": {
+            "command_start_ts": 1776717602.2078583,
+            "command_stop_ts": null,
+            "extra": null,
+            "params": {
+              "command": [
+                "/opt/cassandra/tools/bin/cassandra-stress",
+                "write",
+                "duration=180s",
+                "cl=LOCAL_ONE",
+                "-node",
+                "cassandra-client.cassandra-lab.svc.cluster.local",
+                "-port",
+                "native=9042",
+                "-rate",
+                "threads=280",
+                "-pop",
+                "seq=1..5000000",
+                "-schema",
+                "replication(strategy=SimpleStrategy,factor=3)",
+                "-col",
+                "n=FIXED(8)",
+                "size=FIXED(2048)",
+                "-mode",
+                "cql3",
+                "native",
+                "-log",
+                "interval=5s"
+              ],
+              "contact_point": "cassandra-client.cassandra-lab.svc.cluster.local",
+              "image": "cassandra:4.1",
+              "job_name": "chaos-1776717602-644ca5-0",
+              "job_names": [
+                "chaos-1776717602-644ca5-0",
+                "chaos-1776717602-644ca5-1",
+                "chaos-1776717602-644ca5-2",
+                "chaos-1776717602-644ca5-3",
+                "chaos-1776717602-644ca5-4",
+                "chaos-1776717602-644ca5-5",
+                "chaos-1776717602-644ca5-6",
+                "chaos-1776717602-644ca5-7"
+              ],
+              "parallel_jobs": 8,
+              "port": 9042,
+              "request": {
+                "cpu_workers": 2,
+                "duration_sec": 180,
+                "mem_mb": 1024,
+                "parallel_jobs": 8,
+                "profile": "anomaly-compaction-pressure",
+                "replicas": 2
+              }
+            },
+            "profile": "anomaly-compaction-pressure",
+            "started_at": 1776717602.2078576,
+            "status": "running",
+            "target": "cassandra-client.cassandra-lab.svc.cluster.local",
+            "verified_start_ts": 1776717602.2078583,
+            "verified_stop_ts": null
+          },
+          "message": "fault started"
+        }
+      }
+    },
+    {
+      "ts": 1776717602.172012,
+      "ts_iso": "2026-04-20T20:40:02Z",
+      "event": "fault_start",
+      "payload": {
+        "fault": {
+          "command_start_ts": 1776717602.2078583,
+          "command_stop_ts": null,
+          "extra": null,
+          "params": {
+            "command": [
+              "/opt/cassandra/tools/bin/cassandra-stress",
+              "write",
+              "duration=180s",
+              "cl=LOCAL_ONE",
+              "-node",
+              "cassandra-client.cassandra-lab.svc.cluster.local",
+              "-port",
+              "native=9042",
+              "-rate",
+              "threads=280",
+              "-pop",
+              "seq=1..5000000",
+              "-schema",
+              "replication(strategy=SimpleStrategy,factor=3)",
+              "-col",
+              "n=FIXED(8)",
+              "size=FIXED(2048)",
+              "-mode",
+              "cql3",
+              "native",
+              "-log",
+              "interval=5s"
+            ],
+            "contact_point": "cassandra-client.cassandra-lab.svc.cluster.local",
+            "image": "cassandra:4.1",
+            "job_name": "chaos-1776717602-644ca5-0",
+            "job_names": [
+              "chaos-1776717602-644ca5-0",
+              "chaos-1776717602-644ca5-1",
+              "chaos-1776717602-644ca5-2",
+              "chaos-1776717602-644ca5-3",
+              "chaos-1776717602-644ca5-4",
+              "chaos-1776717602-644ca5-5",
+              "chaos-1776717602-644ca5-6",
+              "chaos-1776717602-644ca5-7"
+            ],
+            "parallel_jobs": 8,
+            "port": 9042,
+            "request": {
+              "cpu_workers": 2,
+              "duration_sec": 180,
+              "mem_mb": 1024,
+              "parallel_jobs": 8,
+              "profile": "anomaly-compaction-pressure",
+              "replicas": 2
+            }
+          },
+          "profile": "anomaly-compaction-pressure",
+          "started_at": 1776717602.2078576,
+          "status": "running",
+          "target": "cassandra-client.cassandra-lab.svc.cluster.local",
+          "verified_start_ts": 1776717602.2078583,
+          "verified_stop_ts": null
+        },
+        "message": "fault started"
+      }
+    },
+    {
+      "ts": 1776717602.172102,
+      "ts_iso": "2026-04-20T20:40:02Z",
+      "event": "phase_start",
+      "payload": {
+        "phase": "test2_anomaly_compaction_pressure",
+        "duration_sec": 180
+      }
+    },
+    {
+      "ts": 1776717782.138797,
+      "ts_iso": "2026-04-20T20:43:02Z",
+      "event": "phase_end",
+      "payload": {
+        "phase": "test2_anomaly_compaction_pressure"
+      }
+    },
+    {
+      "ts": 1776717782.209345,
+      "ts_iso": "2026-04-20T20:43:02Z",
+      "event": "test2_stop",
+      "payload": {
+        "profile": "anomaly-compaction-pressure",
+        "stop": {
+          "fault": {
+            "command_start_ts": 1776717602.2078583,
+            "command_stop_ts": 1776717782.2752495,
+            "extra": null,
+            "params": {
+              "command": [
+                "/opt/cassandra/tools/bin/cassandra-stress",
+                "write",
+                "duration=180s",
+                "cl=LOCAL_ONE",
+                "-node",
+                "cassandra-client.cassandra-lab.svc.cluster.local",
+                "-port",
+                "native=9042",
+                "-rate",
+                "threads=280",
+                "-pop",
+                "seq=1..5000000",
+                "-schema",
+                "replication(strategy=SimpleStrategy,factor=3)",
+                "-col",
+                "n=FIXED(8)",
+                "size=FIXED(2048)",
+                "-mode",
+                "cql3",
+                "native",
+                "-log",
+                "interval=5s"
+              ],
+              "contact_point": "cassandra-client.cassandra-lab.svc.cluster.local",
+              "image": "cassandra:4.1",
+              "job_name": "chaos-1776717602-644ca5-0",
+              "job_names": [
+                "chaos-1776717602-644ca5-0",
+                "chaos-1776717602-644ca5-1",
+                "chaos-1776717602-644ca5-2",
+                "chaos-1776717602-644ca5-3",
+                "chaos-1776717602-644ca5-4",
+                "chaos-1776717602-644ca5-5",
+                "chaos-1776717602-644ca5-6",
+                "chaos-1776717602-644ca5-7"
+              ],
+              "parallel_jobs": 8,
+              "port": 9042,
+              "request": {
+                "cpu_workers": 2,
+                "duration_sec": 180,
+                "mem_mb": 1024,
+                "parallel_jobs": 8,
+                "profile": "anomaly-compaction-pressure",
+                "replicas": 2
+              }
+            },
+            "profile": "anomaly-compaction-pressure",
+            "started_at": 1776717602.2078576,
+            "status": "stopped",
+            "target": "cassandra-client.cassandra-lab.svc.cluster.local",
+            "verified_start_ts": 1776717602.2078583,
+            "verified_stop_ts": 1776717782.2752502
+          },
+          "message": "fault stopped"
+        }
+      }
+    },
+    {
+      "ts": 1776717782.20945,
+      "ts_iso": "2026-04-20T20:43:02Z",
+      "event": "fault_stop",
+      "payload": {
+        "fault": {
+          "command_start_ts": 1776717602.2078583,
+          "command_stop_ts": 1776717782.2752495,
+          "extra": null,
+          "params": {
+            "command": [
+              "/opt/cassandra/tools/bin/cassandra-stress",
+              "write",
+              "duration=180s",
+              "cl=LOCAL_ONE",
+              "-node",
+              "cassandra-client.cassandra-lab.svc.cluster.local",
+              "-port",
+              "native=9042",
+              "-rate",
+              "threads=280",
+              "-pop",
+              "seq=1..5000000",
+              "-schema",
+              "replication(strategy=SimpleStrategy,factor=3)",
+              "-col",
+              "n=FIXED(8)",
+              "size=FIXED(2048)",
+              "-mode",
+              "cql3",
+              "native",
+              "-log",
+              "interval=5s"
+            ],
+            "contact_point": "cassandra-client.cassandra-lab.svc.cluster.local",
+            "image": "cassandra:4.1",
+            "job_name": "chaos-1776717602-644ca5-0",
+            "job_names": [
+              "chaos-1776717602-644ca5-0",
+              "chaos-1776717602-644ca5-1",
+              "chaos-1776717602-644ca5-2",
+              "chaos-1776717602-644ca5-3",
+              "chaos-1776717602-644ca5-4",
+              "chaos-1776717602-644ca5-5",
+              "chaos-1776717602-644ca5-6",
+              "chaos-1776717602-644ca5-7"
+            ],
+            "parallel_jobs": 8,
+            "port": 9042,
+            "request": {
+              "cpu_workers": 2,
+              "duration_sec": 180,
+              "mem_mb": 1024,
+              "parallel_jobs": 8,
+              "profile": "anomaly-compaction-pressure",
+              "replicas": 2
+            }
+          },
+          "profile": "anomaly-compaction-pressure",
+          "started_at": 1776717602.2078576,
+          "status": "stopped",
+          "target": "cassandra-client.cassandra-lab.svc.cluster.local",
+          "verified_start_ts": 1776717602.2078583,
+          "verified_stop_ts": 1776717782.2752502
+        },
+        "message": "fault stopped"
+      }
+    },
+    {
+      "ts": 1776717782.222452,
+      "ts_iso": "2026-04-20T20:43:02Z",
+      "event": "phase_start",
+      "payload": {
+        "phase": "cooldown_after_test2",
+        "duration_sec": 120
+      }
+    },
+    {
+      "ts": 1776717902.227526,
+      "ts_iso": "2026-04-20T20:45:02Z",
+      "event": "phase_end",
+      "payload": {
+        "phase": "cooldown_after_test2"
+      }
+    },
+    {
+      "ts": 1776717902.405303,
+      "ts_iso": "2026-04-20T20:45:02Z",
+      "event": "report_generated",
+      "payload": {
+        "run_dir": "artifacts/scenario-b-1776717181"
+      }
+    },
+    {
+      "ts": 1776717902.40541,
+      "ts_iso": "2026-04-20T20:45:02Z",
+      "event": "run_complete",
+      "payload": {
+        "run_dir": "artifacts/scenario-b-1776717181",
+        "alarm_count": 44
+      }
+    }
+  ]
+}

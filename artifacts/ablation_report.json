@@ -1,0 +1,96 @@
+{
+  "runs_root": "artifacts",
+  "group_count": 3,
+  "groups": [
+    {
+      "group": {
+        "fault_profile": "bottleneck-like",
+        "load_profile": "high",
+        "cpu_workers": 2,
+        "mem_mb": 1024,
+        "bottleneck_replicas": 2
+      },
+      "run_count": 4,
+      "run_ids": [
+        "scenario-1776206425",
+        "scenario-ubl-a-1776208744",
+        "scenario-ubl-b-1776209929",
+        "scenario-ubl-c-1776210608"
+      ],
+      "median_metrics": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "first_detection_delay_sec": null,
+        "training_duration_sec": 0.099,
+        "avg_score_latency_ms": 5.173,
+        "bmu_coverage_count": 12.5,
+        "chaos_scored_samples": 5.5
+      },
+      "run_level_outcomes": {
+        "runs_with_tp": 0,
+        "runs_with_fp": 1,
+        "runs_passing_quality_gate": 0,
+        "runs_passing_acceptance": 0
+      }
+    },
+    {
+      "group": {
+        "fault_profile": "cpuhog-like",
+        "load_profile": "high",
+        "cpu_workers": 2,
+        "mem_mb": 1024,
+        "bottleneck_replicas": 2
+      },
+      "run_count": 1,
+      "run_ids": [
+        "scenario-1776202265"
+      ],
+      "median_metrics": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "first_detection_delay_sec": null,
+        "training_duration_sec": 0.071,
+        "avg_score_latency_ms": 3.066,
+        "bmu_coverage_count": 1.0,
+        "chaos_scored_samples": 45.0
+      },
+      "run_level_outcomes": {
+        "runs_with_tp": 0,
+        "runs_with_fp": 0,
+        "runs_passing_quality_gate": 0,
+        "runs_passing_acceptance": 0
+      }
+    },
+    {
+      "group": {
+        "fault_profile": "cpuhog-like",
+        "load_profile": "high",
+        "cpu_workers": 4,
+        "mem_mb": 1024,
+        "bottleneck_replicas": 2
+      },
+      "run_count": 1,
+      "run_ids": [
+        "scenario-long-cpuhog-1776203008"
+      ],
+      "median_metrics": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "first_detection_delay_sec": null,
+        "training_duration_sec": 0.07,
+        "avg_score_latency_ms": 2.419,
+        "bmu_coverage_count": 12.0,
+        "chaos_scored_samples": 118.0
+      },
+      "run_level_outcomes": {
+        "runs_with_tp": 0,
+        "runs_with_fp": 1,
+        "runs_passing_quality_gate": 1,
+        "runs_passing_acceptance": 0
+      }
+    }
+  ]
+}

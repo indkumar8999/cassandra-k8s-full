@@ -1,0 +1,33 @@
+{
+  "count": 2,
+  "items": [
+    {
+      "bmu": [
+        18,
+        31
+      ],
+      "causes": [
+        "tier_a_disk_io_bytes_per_sec"
+      ],
+      "phase": "normal",
+      "score_area": 92.03145356698931,
+      "streak": 3,
+      "threshold": 24.105166442794292,
+      "ts": 1776942552.4202602
+    },
+    {
+      "bmu": [
+        29,
+        11
+      ],
+      "causes": [
+        "tier_a_cpu_usage_cores"
+      ],
+      "phase": "cooldown",
+      "score_area": 66.35557096984034,
+      "streak": 3,
+      "threshold": 24.105166442794292,
+      "ts": 1776942623.7355456
+    }
+  ]
+}

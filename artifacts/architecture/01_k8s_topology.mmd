@@ -1,0 +1,75 @@
+%% Cassandra lab — Kubernetes topology (fine-grained)
+flowchart TB
+  subgraph cluster["Kubernetes cluster"]
+    subgraph ns["Namespace: cassandra-lab"]
+
+      subgraph cassandra_tier["Cassandra data plane"]
+        STS["StatefulSet: cassandra"]
+        PVC["PVC per replica: cassandra-data-cassandra-*"]
+        CM_C["ConfigMap: cassandra config"]
+        SVC_H["Headless SVC: cassandra DNS + CQL per pod"]
+        SVC_CLI["SVC: cassandra-client :9042"]
+        STS --> PVC
+        STS --> CM_C
+        STS --> SVC_H
+        SVC_CLI -.-> STS
+      end
+
+      subgraph simulator_tier["Load generator"]
+        DEP_SIM["Deployment: cassandra-simulator"]
+        CM_SIM["ConfigMap: simulator-config"]
+        SVC_SIM["SVC: cassandra-simulator :8080 NodePort 30080"]
+        DEP_SIM --> CM_SIM
+        DEP_SIM --> SVC_SIM
+      end
+
+      subgraph learner_tier["UBL learner"]
+        DEP_LEARN["Deployment: ubl-learner"]
+        CM_LEARN["ConfigMap: ubl-learner-config"]
+        SVC_LEARN["SVC: ubl-learner :8100"]
+        DEP_LEARN --> CM_LEARN
+        DEP_LEARN --> SVC_LEARN
+      end
+
+      subgraph chaos_tier["Fault injector"]
+        DEP_CHAOS["Deployment: chaos-injector"]
+        SA["ServiceAccount: chaos-injector"]
+        RBAC["RoleBinding: pods jobs netpol statefulsets"]
+        CM_UNI["ConfigMap: chaos-university-stress-profile"]
+        SVC_CHAOS["SVC: chaos-injector :8200"]
+        DEP_CHAOS --> SA
+        SA --> RBAC
+        DEP_CHAOS --> SVC_CHAOS
+        CM_UNI -.-> DEP_CHAOS
+      end
+
+      subgraph orch_tier["Scenario Job optional"]
+        JOB["Job: scenario-orchestrator"]
+        CM_ORCH["ConfigMap: scenario-orchestrator-config"]
+        VOL["Volume emptyDir /artifacts"]
+        JOB --> CM_ORCH
+        JOB --> VOL
+      end
+    end
+
+    subgraph mon["Namespace: monitoring"]
+      PROM["Prometheus operated :9090"]
+      PM_C["PodMonitor: Cassandra JMX"]
+      PM_S["PodMonitor: simulator"]
+      PM_U["PodMonitor: ubl-learner"]
+      JMX_CM["ConfigMap: JMX exporter"]
+      STS_PATCH["STS patch: JMX sidecar"]
+      PROM --> PM_C
+      PROM --> PM_S
+      PROM --> PM_U
+      JMX_CM --> STS_PATCH
+      STS_PATCH -.-> STS
+    end
+  end
+
+  DEP_SIM ==>|CQL 9042| SVC_H
+  DEP_CHAOS ==>|Jobs stress patch netpol exec| ns
+  DEP_LEARN ==>|PromQL HTTPS| PROM
+  JOB ==>|HTTP| SVC_SIM
+  JOB ==>|HTTP| SVC_LEARN
+  JOB ==>|HTTP| SVC_CHAOS

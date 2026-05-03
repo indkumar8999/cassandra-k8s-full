@@ -1,0 +1,3357 @@
+{
+  "count": 239,
+  "items": [
+    {
+      "bmu": [
+        9,
+        15
+      ],
+      "causes": [
+        "tier_a_network_rx_bytes_per_sec__cassandra-1",
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 192.69039724869248,
+      "streak": 3,
+      "threshold": 169.00976429940778,
+      "ts": 1776364431.2610931
+    },
+    {
+      "bmu": [
+        9,
+        15
+      ],
+      "causes": [
+        "tier_a_network_rx_bytes_per_sec__cassandra-1",
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 192.69039724869248,
+      "streak": 4,
+      "threshold": 169.00976429940778,
+      "ts": 1776364432.2923627
+    },
+    {
+      "bmu": [
+        8,
+        16
+      ],
+      "causes": [
+        "tier_a_network_rx_bytes_per_sec__cassandra-1",
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 221.57438983013003,
+      "streak": 5,
+      "threshold": 169.00976429940778,
+      "ts": 1776364433.1558697
+    },
+    {
+      "bmu": [
+        8,
+        16
+      ],
+      "causes": [
+        "tier_a_network_rx_bytes_per_sec__cassandra-1",
+        "tier_a_disk_write_bytes_per_sec__cassandra-0"
+      ],
+      "phase": "chaos",
+      "score_area": 221.57438983013003,
+      "streak": 6,
+      "threshold": 169.00976429940778,
+      "ts": 1776364433.7870553
+    },
+    {
+      "bmu": [
+        3,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 192.61158947390373,
+      "streak": 7,
+      "threshold": 169.00976429940778,
+      "ts": 1776364434.4366746
+    },
+    {
+      "bmu": [
+        3,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 192.61158947390373,
+      "streak": 8,
+      "threshold": 169.00976429940778,
+      "ts": 1776364435.0694299
+    },
+    {
+      "bmu": [
+        3,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 192.61158947390373,
+      "streak": 9,
+      "threshold": 169.00976429940778,
+      "ts": 1776364435.6733465
+    },
+    {
+      "bmu": [
+        3,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 192.61158947390373,
+      "streak": 10,
+      "threshold": 169.00976429940778,
+      "ts": 1776364436.304684
+    },
+    {
+      "bmu": [
+        3,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 192.61158947390373,
+      "streak": 11,
+      "threshold": 169.00976429940778,
+      "ts": 1776364437.0479958
+    },
+    {
+      "bmu": [
+        3,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 192.61158947390373,
+      "streak": 12,
+      "threshold": 169.00976429940778,
+      "ts": 1776364437.6684394
+    },
+    {
+      "bmu": [
+        3,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 192.61158947390373,
+      "streak": 13,
+      "threshold": 169.00976429940778,
+      "ts": 1776364438.2875237
+    },
+    {
+      "bmu": [
+        3,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 192.61158947390373,
+      "streak": 14,
+      "threshold": 169.00976429940778,
+      "ts": 1776364439.0073216
+    },
+    {
+      "bmu": [
+        2,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total",
+        "tier_a_disk_write_bytes_per_sec__cassandra-1"
+      ],
+      "phase": "chaos",
+      "score_area": 229.38508106230682,
+      "streak": 15,
+      "threshold": 169.00976429940778,
+      "ts": 1776364439.6216877
+    },
+    {
+      "bmu": [
+        2,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total",
+        "tier_a_disk_write_bytes_per_sec__cassandra-1"
+      ],
+      "phase": "chaos",
+      "score_area": 229.38508106230682,
+      "streak": 16,
+      "threshold": 169.00976429940778,
+      "ts": 1776364440.2822526
+    },
+    {
+      "bmu": [
+        1,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 255.87332197114586,
+      "streak": 17,
+      "threshold": 169.00976429940778,
+      "ts": 1776364441.1044273
+    },
+    {
+      "bmu": [
+        1,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 255.87332197114586,
+      "streak": 18,
+      "threshold": 169.00976429940778,
+      "ts": 1776364441.7361872
+    },
+    {
+      "bmu": [
+        1,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 255.87332197114586,
+      "streak": 19,
+      "threshold": 169.00976429940778,
+      "ts": 1776364442.363252
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 20,
+      "threshold": 169.00976429940778,
+      "ts": 1776364443.1654093
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 21,
+      "threshold": 169.00976429940778,
+      "ts": 1776364443.7919056
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 22,
+      "threshold": 169.00976429940778,
+      "ts": 1776364444.4608684
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 23,
+      "threshold": 169.00976429940778,
+      "ts": 1776364445.2150912
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 24,
+      "threshold": 169.00976429940778,
+      "ts": 1776364446.2291918
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 25,
+      "threshold": 169.00976429940778,
+      "ts": 1776364447.11657
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 26,
+      "threshold": 169.00976429940778,
+      "ts": 1776364448.1311312
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 27,
+      "threshold": 169.00976429940778,
+      "ts": 1776364448.7383866
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 28,
+      "threshold": 169.00976429940778,
+      "ts": 1776364449.4018726
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 29,
+      "threshold": 169.00976429940778,
+      "ts": 1776364450.1057367
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 30,
+      "threshold": 169.00976429940778,
+      "ts": 1776364450.7080224
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 31,
+      "threshold": 169.00976429940778,
+      "ts": 1776364451.3234773
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 32,
+      "threshold": 169.00976429940778,
+      "ts": 1776364452.0725236
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 33,
+      "threshold": 169.00976429940778,
+      "ts": 1776364452.680423
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 34,
+      "threshold": 169.00976429940778,
+      "ts": 1776364453.3446925
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 35,
+      "threshold": 169.00976429940778,
+      "ts": 1776364454.109964
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 36,
+      "threshold": 169.00976429940778,
+      "ts": 1776364454.7179477
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 37,
+      "threshold": 169.00976429940778,
+      "ts": 1776364455.3548613
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 38,
+      "threshold": 169.00976429940778,
+      "ts": 1776364456.181938
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 39,
+      "threshold": 169.00976429940778,
+      "ts": 1776364456.8821409
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 40,
+      "threshold": 169.00976429940778,
+      "ts": 1776364457.680672
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 41,
+      "threshold": 169.00976429940778,
+      "ts": 1776364458.4544723
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 42,
+      "threshold": 169.00976429940778,
+      "ts": 1776364459.1215694
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 43,
+      "threshold": 169.00976429940778,
+      "ts": 1776364459.7650685
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 44,
+      "threshold": 169.00976429940778,
+      "ts": 1776364460.3950505
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 45,
+      "threshold": 169.00976429940778,
+      "ts": 1776364461.0720012
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 46,
+      "threshold": 169.00976429940778,
+      "ts": 1776364461.6747165
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 47,
+      "threshold": 169.00976429940778,
+      "ts": 1776364462.2902763
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 48,
+      "threshold": 169.00976429940778,
+      "ts": 1776364462.9454784
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 49,
+      "threshold": 169.00976429940778,
+      "ts": 1776364463.5607834
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 50,
+      "threshold": 169.00976429940778,
+      "ts": 1776364464.3848128
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 51,
+      "threshold": 169.00976429940778,
+      "ts": 1776364464.9798324
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 52,
+      "threshold": 169.00976429940778,
+      "ts": 1776364465.6561315
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 53,
+      "threshold": 169.00976429940778,
+      "ts": 1776364466.2738688
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 54,
+      "threshold": 169.00976429940778,
+      "ts": 1776364466.8967845
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 55,
+      "threshold": 169.00976429940778,
+      "ts": 1776364467.5273051
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 56,
+      "threshold": 169.00976429940778,
+      "ts": 1776364468.2138567
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 57,
+      "threshold": 169.00976429940778,
+      "ts": 1776364468.8307347
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 58,
+      "threshold": 169.00976429940778,
+      "ts": 1776364469.4343233
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 59,
+      "threshold": 169.00976429940778,
+      "ts": 1776364470.210495
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 60,
+      "threshold": 169.00976429940778,
+      "ts": 1776364470.9766226
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 61,
+      "threshold": 169.00976429940778,
+      "ts": 1776364471.6321757
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 62,
+      "threshold": 169.00976429940778,
+      "ts": 1776364472.5594718
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 63,
+      "threshold": 169.00976429940778,
+      "ts": 1776364473.2574103
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 64,
+      "threshold": 169.00976429940778,
+      "ts": 1776364473.8602898
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 65,
+      "threshold": 169.00976429940778,
+      "ts": 1776364474.4811587
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 66,
+      "threshold": 169.00976429940778,
+      "ts": 1776364475.1159315
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 67,
+      "threshold": 169.00976429940778,
+      "ts": 1776364475.8414526
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 68,
+      "threshold": 169.00976429940778,
+      "ts": 1776364476.6404812
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 69,
+      "threshold": 169.00976429940778,
+      "ts": 1776364477.4041464
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 70,
+      "threshold": 169.00976429940778,
+      "ts": 1776364478.189032
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 71,
+      "threshold": 169.00976429940778,
+      "ts": 1776364478.8152251
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 72,
+      "threshold": 169.00976429940778,
+      "ts": 1776364479.458939
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 73,
+      "threshold": 169.00976429940778,
+      "ts": 1776364480.1032233
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 74,
+      "threshold": 169.00976429940778,
+      "ts": 1776364480.7354882
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 75,
+      "threshold": 169.00976429940778,
+      "ts": 1776364481.415275
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 76,
+      "threshold": 169.00976429940778,
+      "ts": 1776364482.029089
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 77,
+      "threshold": 169.00976429940778,
+      "ts": 1776364482.638188
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 78,
+      "threshold": 169.00976429940778,
+      "ts": 1776364483.3387063
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 79,
+      "threshold": 169.00976429940778,
+      "ts": 1776364484.0367057
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 80,
+      "threshold": 169.00976429940778,
+      "ts": 1776364484.670977
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 81,
+      "threshold": 169.00976429940778,
+      "ts": 1776364485.3886683
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 82,
+      "threshold": 169.00976429940778,
+      "ts": 1776364486.2018125
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 83,
+      "threshold": 169.00976429940778,
+      "ts": 1776364486.9174886
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 84,
+      "threshold": 169.00976429940778,
+      "ts": 1776364487.643994
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 85,
+      "threshold": 169.00976429940778,
+      "ts": 1776364488.3941498
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 86,
+      "threshold": 169.00976429940778,
+      "ts": 1776364489.013045
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 87,
+      "threshold": 169.00976429940778,
+      "ts": 1776364489.6307597
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 88,
+      "threshold": 169.00976429940778,
+      "ts": 1776364490.3271852
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 89,
+      "threshold": 169.00976429940778,
+      "ts": 1776364490.9738011
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 90,
+      "threshold": 169.00976429940778,
+      "ts": 1776364491.600192
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 91,
+      "threshold": 169.00976429940778,
+      "ts": 1776364492.3132114
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 92,
+      "threshold": 169.00976429940778,
+      "ts": 1776364492.9504502
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 93,
+      "threshold": 169.00976429940778,
+      "ts": 1776364493.5638402
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 94,
+      "threshold": 169.00976429940778,
+      "ts": 1776364494.354517
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 95,
+      "threshold": 169.00976429940778,
+      "ts": 1776364494.9671042
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 96,
+      "threshold": 169.00976429940778,
+      "ts": 1776364495.6150305
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 97,
+      "threshold": 169.00976429940778,
+      "ts": 1776364496.259303
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 98,
+      "threshold": 169.00976429940778,
+      "ts": 1776364496.8640866
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 99,
+      "threshold": 169.00976429940778,
+      "ts": 1776364497.4762275
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 100,
+      "threshold": 169.00976429940778,
+      "ts": 1776364498.101542
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 101,
+      "threshold": 169.00976429940778,
+      "ts": 1776364498.72749
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 102,
+      "threshold": 169.00976429940778,
+      "ts": 1776364499.415298
+    },
+    {
+      "bmu": [
+        0,
+        21
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 236.88468888100584,
+      "streak": 103,
+      "threshold": 169.00976429940778,
+      "ts": 1776364500.1164453
+    },
+    {
+      "bmu": [
+        0,
+        22
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 303.1495544346319,
+      "streak": 104,
+      "threshold": 169.00976429940778,
+      "ts": 1776364500.8271666
+    },
+    {
+      "bmu": [
+        0,
+        22
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 303.1495544346319,
+      "streak": 105,
+      "threshold": 169.00976429940778,
+      "ts": 1776364501.541057
+    },
+    {
+      "bmu": [
+        0,
+        22
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 303.1495544346319,
+      "streak": 106,
+      "threshold": 169.00976429940778,
+      "ts": 1776364502.164691
+    },
+    {
+      "bmu": [
+        0,
+        22
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 303.1495544346319,
+      "streak": 107,
+      "threshold": 169.00976429940778,
+      "ts": 1776364502.8271163
+    },
+    {
+      "bmu": [
+        0,
+        22
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 303.1495544346319,
+      "streak": 108,
+      "threshold": 169.00976429940778,
+      "ts": 1776364503.4691343
+    },
+    {
+      "bmu": [
+        0,
+        22
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 303.1495544346319,
+      "streak": 109,
+      "threshold": 169.00976429940778,
+      "ts": 1776364504.1523643
+    },
+    {
+      "bmu": [
+        0,
+        22
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 303.1495544346319,
+      "streak": 110,
+      "threshold": 169.00976429940778,
+      "ts": 1776364504.8397079
+    },
+    {
+      "bmu": [
+        0,
+        22
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 303.1495544346319,
+      "streak": 111,
+      "threshold": 169.00976429940778,
+      "ts": 1776364505.540231
+    },
+    {
+      "bmu": [
+        0,
+        22
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 303.1495544346319,
+      "streak": 112,
+      "threshold": 169.00976429940778,
+      "ts": 1776364506.243096
+    },
+    {
+      "bmu": [
+        0,
+        22
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 303.1495544346319,
+      "streak": 113,
+      "threshold": 169.00976429940778,
+      "ts": 1776364506.8899107
+    },
+    {
+      "bmu": [
+        0,
+        22
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 303.1495544346319,
+      "streak": 114,
+      "threshold": 169.00976429940778,
+      "ts": 1776364507.5419443
+    },
+    {
+      "bmu": [
+        0,
+        22
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 303.1495544346319,
+      "streak": 115,
+      "threshold": 169.00976429940778,
+      "ts": 1776364508.191247
+    },
+    {
+      "bmu": [
+        0,
+        22
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 303.1495544346319,
+      "streak": 116,
+      "threshold": 169.00976429940778,
+      "ts": 1776364508.8082247
+    },
+    {
+      "bmu": [
+        0,
+        22
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 303.1495544346319,
+      "streak": 117,
+      "threshold": 169.00976429940778,
+      "ts": 1776364509.5117893
+    },
+    {
+      "bmu": [
+        0,
+        22
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 303.1495544346319,
+      "streak": 118,
+      "threshold": 169.00976429940778,
+      "ts": 1776364510.1608658
+    },
+    {
+      "bmu": [
+        0,
+        22
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 303.1495544346319,
+      "streak": 119,
+      "threshold": 169.00976429940778,
+      "ts": 1776364510.7653222
+    },
+    {
+      "bmu": [
+        0,
+        22
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 303.1495544346319,
+      "streak": 120,
+      "threshold": 169.00976429940778,
+      "ts": 1776364511.4372742
+    },
+    {
+      "bmu": [
+        0,
+        22
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 303.1495544346319,
+      "streak": 121,
+      "threshold": 169.00976429940778,
+      "ts": 1776364512.0960383
+    },
+    {
+      "bmu": [
+        0,
+        22
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 303.1495544346319,
+      "streak": 122,
+      "threshold": 169.00976429940778,
+      "ts": 1776364512.6935704
+    },
+    {
+      "bmu": [
+        0,
+        22
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 303.1495544346319,
+      "streak": 123,
+      "threshold": 169.00976429940778,
+      "ts": 1776364513.3033042
+    },
+    {
+      "bmu": [
+        0,
+        22
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 303.1495544346319,
+      "streak": 124,
+      "threshold": 169.00976429940778,
+      "ts": 1776364513.9046164
+    },
+    {
+      "bmu": [
+        0,
+        22
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 303.1495544346319,
+      "streak": 125,
+      "threshold": 169.00976429940778,
+      "ts": 1776364514.561457
+    },
+    {
+      "bmu": [
+        0,
+        22
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 303.1495544346319,
+      "streak": 126,
+      "threshold": 169.00976429940778,
+      "ts": 1776364515.2504268
+    },
+    {
+      "bmu": [
+        0,
+        22
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 303.1495544346319,
+      "streak": 127,
+      "threshold": 169.00976429940778,
+      "ts": 1776364515.9277716
+    },
+    {
+      "bmu": [
+        0,
+        22
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 303.1495544346319,
+      "streak": 128,
+      "threshold": 169.00976429940778,
+      "ts": 1776364516.6381547
+    },
+    {
+      "bmu": [
+        0,
+        22
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 303.1495544346319,
+      "streak": 129,
+      "threshold": 169.00976429940778,
+      "ts": 1776364517.2995365
+    },
+    {
+      "bmu": [
+        0,
+        22
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 303.1495544346319,
+      "streak": 130,
+      "threshold": 169.00976429940778,
+      "ts": 1776364517.9574928
+    },
+    {
+      "bmu": [
+        0,
+        22
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 303.1495544346319,
+      "streak": 131,
+      "threshold": 169.00976429940778,
+      "ts": 1776364518.70802
+    },
+    {
+      "bmu": [
+        0,
+        22
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 303.1495544346319,
+      "streak": 132,
+      "threshold": 169.00976429940778,
+      "ts": 1776364519.3445196
+    },
+    {
+      "bmu": [
+        0,
+        22
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 303.1495544346319,
+      "streak": 133,
+      "threshold": 169.00976429940778,
+      "ts": 1776364519.9678712
+    },
+    {
+      "bmu": [
+        0,
+        22
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 303.1495544346319,
+      "streak": 134,
+      "threshold": 169.00976429940778,
+      "ts": 1776364520.7071218
+    },
+    {
+      "bmu": [
+        0,
+        22
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 303.1495544346319,
+      "streak": 135,
+      "threshold": 169.00976429940778,
+      "ts": 1776364521.4282577
+    },
+    {
+      "bmu": [
+        0,
+        22
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 303.1495544346319,
+      "streak": 136,
+      "threshold": 169.00976429940778,
+      "ts": 1776364522.110384
+    },
+    {
+      "bmu": [
+        0,
+        22
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 303.1495544346319,
+      "streak": 137,
+      "threshold": 169.00976429940778,
+      "ts": 1776364522.7481585
+    },
+    {
+      "bmu": [
+        0,
+        22
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 303.1495544346319,
+      "streak": 138,
+      "threshold": 169.00976429940778,
+      "ts": 1776364523.3857553
+    },
+    {
+      "bmu": [
+        0,
+        22
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 303.1495544346319,
+      "streak": 139,
+      "threshold": 169.00976429940778,
+      "ts": 1776364524.0837917
+    },
+    {
+      "bmu": [
+        0,
+        22
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 303.1495544346319,
+      "streak": 140,
+      "threshold": 169.00976429940778,
+      "ts": 1776364524.824333
+    },
+    {
+      "bmu": [
+        0,
+        22
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 303.1495544346319,
+      "streak": 141,
+      "threshold": 169.00976429940778,
+      "ts": 1776364525.666574
+    },
+    {
+      "bmu": [
+        0,
+        22
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 303.1495544346319,
+      "streak": 142,
+      "threshold": 169.00976429940778,
+      "ts": 1776364526.2877548
+    },
+    {
+      "bmu": [
+        0,
+        22
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 303.1495544346319,
+      "streak": 143,
+      "threshold": 169.00976429940778,
+      "ts": 1776364526.8954291
+    },
+    {
+      "bmu": [
+        0,
+        22
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 303.1495544346319,
+      "streak": 144,
+      "threshold": 169.00976429940778,
+      "ts": 1776364527.526882
+    },
+    {
+      "bmu": [
+        0,
+        22
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 303.1495544346319,
+      "streak": 145,
+      "threshold": 169.00976429940778,
+      "ts": 1776364528.197406
+    },
+    {
+      "bmu": [
+        0,
+        22
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 303.1495544346319,
+      "streak": 146,
+      "threshold": 169.00976429940778,
+      "ts": 1776364528.827874
+    },
+    {
+      "bmu": [
+        0,
+        22
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 303.1495544346319,
+      "streak": 147,
+      "threshold": 169.00976429940778,
+      "ts": 1776364529.4640481
+    },
+    {
+      "bmu": [
+        0,
+        22
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 303.1495544346319,
+      "streak": 148,
+      "threshold": 169.00976429940778,
+      "ts": 1776364530.1956544
+    },
+    {
+      "bmu": [
+        0,
+        22
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 303.1495544346319,
+      "streak": 149,
+      "threshold": 169.00976429940778,
+      "ts": 1776364530.8778613
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 3,
+      "threshold": 169.00976429940778,
+      "ts": 1776364663.0692732
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 4,
+      "threshold": 169.00976429940778,
+      "ts": 1776364663.676075
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 5,
+      "threshold": 169.00976429940778,
+      "ts": 1776364664.3246787
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 6,
+      "threshold": 169.00976429940778,
+      "ts": 1776364665.0321877
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 7,
+      "threshold": 169.00976429940778,
+      "ts": 1776364665.689689
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 8,
+      "threshold": 169.00976429940778,
+      "ts": 1776364666.3399024
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 9,
+      "threshold": 169.00976429940778,
+      "ts": 1776364667.0548997
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 10,
+      "threshold": 169.00976429940778,
+      "ts": 1776364667.678143
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 11,
+      "threshold": 169.00976429940778,
+      "ts": 1776364668.3403635
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 12,
+      "threshold": 169.00976429940778,
+      "ts": 1776364669.074833
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 13,
+      "threshold": 169.00976429940778,
+      "ts": 1776364669.7004526
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 14,
+      "threshold": 169.00976429940778,
+      "ts": 1776364670.3823142
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 15,
+      "threshold": 169.00976429940778,
+      "ts": 1776364671.1542926
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 16,
+      "threshold": 169.00976429940778,
+      "ts": 1776364671.7661958
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 17,
+      "threshold": 169.00976429940778,
+      "ts": 1776364672.3757212
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 18,
+      "threshold": 169.00976429940778,
+      "ts": 1776364673.0708032
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 19,
+      "threshold": 169.00976429940778,
+      "ts": 1776364673.687236
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 20,
+      "threshold": 169.00976429940778,
+      "ts": 1776364674.3682184
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 21,
+      "threshold": 169.00976429940778,
+      "ts": 1776364675.0089395
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 22,
+      "threshold": 169.00976429940778,
+      "ts": 1776364675.6711257
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 23,
+      "threshold": 169.00976429940778,
+      "ts": 1776364676.2979324
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 24,
+      "threshold": 169.00976429940778,
+      "ts": 1776364676.9215567
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 25,
+      "threshold": 169.00976429940778,
+      "ts": 1776364677.5220237
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 26,
+      "threshold": 169.00976429940778,
+      "ts": 1776364678.2330003
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 27,
+      "threshold": 169.00976429940778,
+      "ts": 1776364678.8732758
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 28,
+      "threshold": 169.00976429940778,
+      "ts": 1776364679.4783561
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 29,
+      "threshold": 169.00976429940778,
+      "ts": 1776364680.252078
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 30,
+      "threshold": 169.00976429940778,
+      "ts": 1776364680.985429
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 31,
+      "threshold": 169.00976429940778,
+      "ts": 1776364681.622845
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 32,
+      "threshold": 169.00976429940778,
+      "ts": 1776364682.3321822
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 33,
+      "threshold": 169.00976429940778,
+      "ts": 1776364682.9537747
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 34,
+      "threshold": 169.00976429940778,
+      "ts": 1776364683.5541196
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 35,
+      "threshold": 169.00976429940778,
+      "ts": 1776364684.3223846
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 36,
+      "threshold": 169.00976429940778,
+      "ts": 1776364684.9324226
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 37,
+      "threshold": 169.00976429940778,
+      "ts": 1776364685.5743248
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 38,
+      "threshold": 169.00976429940778,
+      "ts": 1776364686.4204166
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 39,
+      "threshold": 169.00976429940778,
+      "ts": 1776364687.122009
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 40,
+      "threshold": 169.00976429940778,
+      "ts": 1776364687.7605238
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 41,
+      "threshold": 169.00976429940778,
+      "ts": 1776364688.4872546
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 42,
+      "threshold": 169.00976429940778,
+      "ts": 1776364689.09812
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 43,
+      "threshold": 169.00976429940778,
+      "ts": 1776364689.694716
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 44,
+      "threshold": 169.00976429940778,
+      "ts": 1776364690.428478
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 45,
+      "threshold": 169.00976429940778,
+      "ts": 1776364691.0328412
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 46,
+      "threshold": 169.00976429940778,
+      "ts": 1776364691.6581237
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 47,
+      "threshold": 169.00976429940778,
+      "ts": 1776364692.3648114
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 48,
+      "threshold": 169.00976429940778,
+      "ts": 1776364692.972896
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 49,
+      "threshold": 169.00976429940778,
+      "ts": 1776364693.6173084
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 50,
+      "threshold": 169.00976429940778,
+      "ts": 1776364694.378933
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 51,
+      "threshold": 169.00976429940778,
+      "ts": 1776364694.9896364
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 52,
+      "threshold": 169.00976429940778,
+      "ts": 1776364695.698973
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 53,
+      "threshold": 169.00976429940778,
+      "ts": 1776364696.4029098
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 54,
+      "threshold": 169.00976429940778,
+      "ts": 1776364697.1015377
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 55,
+      "threshold": 169.00976429940778,
+      "ts": 1776364697.815235
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 56,
+      "threshold": 169.00976429940778,
+      "ts": 1776364698.5500858
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 57,
+      "threshold": 169.00976429940778,
+      "ts": 1776364699.1636891
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 58,
+      "threshold": 169.00976429940778,
+      "ts": 1776364699.7953465
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 59,
+      "threshold": 169.00976429940778,
+      "ts": 1776364700.606795
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 60,
+      "threshold": 169.00976429940778,
+      "ts": 1776364701.3189476
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 61,
+      "threshold": 169.00976429940778,
+      "ts": 1776364701.9289663
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 62,
+      "threshold": 169.00976429940778,
+      "ts": 1776364702.6325002
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 63,
+      "threshold": 169.00976429940778,
+      "ts": 1776364703.2288625
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 64,
+      "threshold": 169.00976429940778,
+      "ts": 1776364703.8794363
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 65,
+      "threshold": 169.00976429940778,
+      "ts": 1776364704.7617893
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 66,
+      "threshold": 169.00976429940778,
+      "ts": 1776364705.3874166
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 67,
+      "threshold": 169.00976429940778,
+      "ts": 1776364706.03576
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 68,
+      "threshold": 169.00976429940778,
+      "ts": 1776364706.721872
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 69,
+      "threshold": 169.00976429940778,
+      "ts": 1776364707.3710203
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 70,
+      "threshold": 169.00976429940778,
+      "ts": 1776364708.0016687
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 71,
+      "threshold": 169.00976429940778,
+      "ts": 1776364708.7494142
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 72,
+      "threshold": 169.00976429940778,
+      "ts": 1776364709.351463
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 73,
+      "threshold": 169.00976429940778,
+      "ts": 1776364710.022463
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 74,
+      "threshold": 169.00976429940778,
+      "ts": 1776364710.7417984
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 75,
+      "threshold": 169.00976429940778,
+      "ts": 1776364711.3971684
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 76,
+      "threshold": 169.00976429940778,
+      "ts": 1776364712.054319
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 77,
+      "threshold": 169.00976429940778,
+      "ts": 1776364712.893116
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 78,
+      "threshold": 169.00976429940778,
+      "ts": 1776364713.5246387
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 79,
+      "threshold": 169.00976429940778,
+      "ts": 1776364714.2106328
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 80,
+      "threshold": 169.00976429940778,
+      "ts": 1776364714.8585858
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 81,
+      "threshold": 169.00976429940778,
+      "ts": 1776364715.8479714
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 82,
+      "threshold": 169.00976429940778,
+      "ts": 1776364716.7262948
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 83,
+      "threshold": 169.00976429940778,
+      "ts": 1776364717.6272976
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 84,
+      "threshold": 169.00976429940778,
+      "ts": 1776364718.403595
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 85,
+      "threshold": 169.00976429940778,
+      "ts": 1776364719.3067932
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 86,
+      "threshold": 169.00976429940778,
+      "ts": 1776364719.948898
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 87,
+      "threshold": 169.00976429940778,
+      "ts": 1776364720.5742292
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 88,
+      "threshold": 169.00976429940778,
+      "ts": 1776364721.1815264
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 89,
+      "threshold": 169.00976429940778,
+      "ts": 1776364721.8288972
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 90,
+      "threshold": 169.00976429940778,
+      "ts": 1776364722.4372113
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 91,
+      "threshold": 169.00976429940778,
+      "ts": 1776364723.0834093
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 92,
+      "threshold": 169.00976429940778,
+      "ts": 1776364723.6844661
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 93,
+      "threshold": 169.00976429940778,
+      "ts": 1776364724.3584714
+    },
+    {
+      "bmu": [
+        0,
+        23
+      ],
+      "causes": [
+        "tier_b_simulator_writes_success_total"
+      ],
+      "phase": "chaos",
+      "score_area": 365.2009441529972,
+      "streak": 94,
+      "threshold": 169.00976429940778,
+      "ts": 1776364724.9825852
+    }
+  ]
+}

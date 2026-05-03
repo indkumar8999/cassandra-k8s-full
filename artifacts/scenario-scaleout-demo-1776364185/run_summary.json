@@ -1,0 +1,107 @@
+{
+  "run_id": "scenario-scaleout-demo-1776364185",
+  "started_at": 1776364185.3063622,
+  "finished_at": 1776364895.195668,
+  "duration_sec": 709.89,
+  "fault_profile": "anomaly-concurrency-spike",
+  "load_profile": "high",
+  "bootstrap_fault_profile": "baseline-normal",
+  "phase_durations": {
+    "bootstrap_sim_profile": "low",
+    "chaos_sec": 420,
+    "cooldown_sec": 60,
+    "load_sec_deprecated": 0,
+    "normal_sec_deprecated": 0
+  },
+  "injection_profile": {
+    "bootstrap_fault_profile": "baseline-normal",
+    "fault_profile": "anomaly-concurrency-spike",
+    "target_namespace": "cassandra-lab",
+    "cpu_workers": 4,
+    "mem_mb": 2048,
+    "bottleneck_replicas": 2
+  },
+  "learner_status": {
+    "bootstrap_collected_samples": 350,
+    "bootstrap_target_samples": 350,
+    "bootstrap_valid_samples": 350,
+    "last_error": null,
+    "phase": "cooldown",
+    "ready": true,
+    "threshold": 169.00976429940778,
+    "threshold_percentile": 85.0,
+    "trained": true,
+    "training_duration_sec": 0.469
+  },
+  "learner_report": {
+    "alarm_count": 239,
+    "avg_score_latency_ms": 0.29,
+    "bmu_coverage_count": 18,
+    "bootstrap_collected_samples": 350,
+    "bootstrap_target_samples": 350,
+    "feature_order": [
+      "tier_a_cpu_usage_cores__cassandra-0",
+      "tier_a_memory_working_set_bytes__cassandra-0",
+      "tier_a_disk_read_bytes_per_sec__cassandra-0",
+      "tier_a_disk_write_bytes_per_sec__cassandra-0",
+      "tier_a_network_rx_bytes_per_sec__cassandra-0",
+      "tier_a_network_tx_bytes_per_sec__cassandra-0",
+      "tier_a_cpu_usage_cores__cassandra-1",
+      "tier_a_memory_working_set_bytes__cassandra-1",
+      "tier_a_disk_read_bytes_per_sec__cassandra-1",
+      "tier_a_disk_write_bytes_per_sec__cassandra-1",
+      "tier_a_network_rx_bytes_per_sec__cassandra-1",
+      "tier_a_network_tx_bytes_per_sec__cassandra-1",
+      "tier_a_cpu_usage_cores__cassandra-2",
+      "tier_a_memory_working_set_bytes__cassandra-2",
+      "tier_a_disk_read_bytes_per_sec__cassandra-2",
+      "tier_a_disk_write_bytes_per_sec__cassandra-2",
+      "tier_a_network_rx_bytes_per_sec__cassandra-2",
+      "tier_a_network_tx_bytes_per_sec__cassandra-2",
+      "tier_b_simulator_write_latency_p95_ms",
+      "tier_b_simulator_read_latency_p95_ms",
+      "tier_b_simulator_writes_success_total",
+      "tier_b_simulator_reads_success_total",
+      "tier_b_jvm_heap_used_bytes"
+    ],
+    "last_error": null,
+    "lead_time_seconds": {
+      "mean": 147.99,
+      "median": 97.389,
+      "samples": 239
+    },
+    "phase": "cooldown",
+    "ready": true,
+    "score_stream_count": 517,
+    "threshold_percentile": 85.0,
+    "threshold_value": 169.00976429940778,
+    "total_samples_scored": 517,
+    "total_samples_seen": 1019,
+    "trained": true,
+    "training_duration_sec": 0.469
+  },
+  "simulator_metrics": {
+    "config": {
+      "ops_per_sec": 200,
+      "workers": 30,
+      "write_ratio": 0.7
+    },
+    "inserted_ids_count": 163765,
+    "profile": "medium",
+    "reads": {
+      "avg_latency_ms": 42.91,
+      "failures": 391,
+      "p95_latency_ms": 73.06,
+      "success": 70319
+    },
+    "running": true,
+    "stop_requested": false,
+    "writes": {
+      "avg_latency_ms": 29.29,
+      "failures": 1322,
+      "p95_latency_ms": 64.79,
+      "success": 163765
+    }
+  },
+  "alarm_count": 239
+}
