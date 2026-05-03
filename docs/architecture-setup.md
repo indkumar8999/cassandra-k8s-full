@@ -358,4 +358,4 @@ The following summarizes **Section: Limitations and Challenges** in `reporting/A
 
 ### Team note (distribution of work, from report)
 
-The report’s **Distribution of Work** section credits: Multipass/Tailscale/networking stress and mitigation (Aum); UBL training/inference and evaluation metrics (Darsh); current VCL k3s, AWS exploration, networking, Prometheus/Grafana (Dilip); integration and documentation (ALL). Use that section if you need formal attribution beyond this doc’s author line.
+The report’s **Distribution of Work** section credits: Multipass/Tailscale/networking stress and mitigation (Aum); UBL training/inference and evaluation metrics (Darsh); current VCL k3s, AWS exploration, networking, Prometheus/Grafana (Dilip); integration and documentation (ALL).
